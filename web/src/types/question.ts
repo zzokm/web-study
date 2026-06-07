@@ -1,39 +1,33 @@
 export type QuestionType = "true_false" | "mcq" | "other";
 
-export type SlideRefKind = "slides" | "all" | "course" | "book";
+export interface QuestionContext {
+  text: string | null;
+  code: string | null;
+  codeLanguage: string | null;
+}
+
+export type QuestionContentSegment = {
+  type: "text" | "code";
+  content: string;
+  codeLanguage?: string | null;
+};
 
 export interface QuestionOption {
   id: string;
+  type: "text" | "code";
   content: string;
-}
-
-export interface SlideRefParsed {
-  lectureId: string;
-  chapterNumber: number;
-  topic: string;
-  lectureFile: string;
-  pdfPath: string;
-  kind: SlideRefKind;
-  /** Printed textbook page numbers (book refs only). */
-  bookPages?: number[];
-  pages: number[];
-  pageCount: number;
-  syntax: string;
+  codeLanguage?: string | null;
 }
 
 export interface Question {
   id: string;
   topic: string;
   questionText: string;
-  context: string | null;
+  context: QuestionContext | null;
+  questionSegments: QuestionContentSegment[];
   options: QuestionOption[];
   correctAnswerId: string;
   explanation: string;
-  reference: string;
-  slideRef: string;
-  slideRefParsed: SlideRefParsed;
-  sourceRefs?: string[];
-  sourceRefsParsed?: SlideRefParsed[];
   questionKey: string;
   origin: string;
   sourceFile: string;
@@ -41,6 +35,9 @@ export interface Question {
   questionType: QuestionType;
   lectureSlug: string;
   examOrder: number;
+  blockId?: string;
+  /** Lecture IDs from topic allocation (e.g. fe-1, be-4). */
+  relatedTopics?: string[];
   instanceCount?: number;
   appearances?: Array<{
     origin: string;
@@ -51,22 +48,37 @@ export interface Question {
   repetitionGroupRank?: number;
 }
 
+export interface TrackMeta {
+  trackId: string;
+  label: string;
+  description: string;
+}
+
+export interface LectureTopicGroup {
+  title: string;
+  summary: string;
+}
+
 export interface LectureMeta {
   lectureId: string;
+  track: string;
   chapterNumber: number;
+  lectureNumber: number;
   topic: string;
   lectureFile: string;
   pdfPath: string;
   pageCount: number;
   publicPdfUrl: string;
+  description?: string;
+  extent?: string;
+  coveredTopics?: LectureTopicGroup[];
 }
 
-export interface BookChapterMeta {
-  chapterId: string;
-  chapterNumber: number;
-  topic: string;
-  sourceFile: string;
-  bookPageRange: number[];
+export interface ExamMeta {
+  year: string;
+  title: string;
+  examFile: string;
+  pdfPath: string;
   pageCount: number;
   publicPdfUrl: string;
 }
@@ -75,25 +87,15 @@ export interface Catalog {
   generatedAt: string;
   stats: {
     totalQuestions: number;
-    /** All exam slots in pools before stem dedupe (sync-time value). */
     totalExamInstances?: number;
     lectures: number;
-    bookChapters: number;
     exams: number;
     repetitive: number;
   };
   examYears: string[];
+  tracks: Record<string, TrackMeta>;
   lectureMeta: Record<string, LectureMeta>;
-  bookTitle: string;
-  bookChapterMeta: Record<string, BookChapterMeta>;
-  poolIndex: {
-    lectureFiles: Array<{
-      file: string;
-      lecture: string;
-      count: number;
-      origins: Record<string, number>;
-    }>;
-  };
+  examMeta: Record<string, ExamMeta>;
   questions: Question[];
   byExamYear: Record<string, string[]>;
   byLectureSlug: Record<string, string[]>;

@@ -1,16 +1,26 @@
 /**
- * Sync exam JSON, pools, analysis, PDFs from parent mgmt/ into web/public and catalog.
+ * Sync exam JSON, lecture PDFs, and exam PDFs from parent data/ into web/public and catalog.
  */
-import { copyFileSync, mkdirSync, readFileSync, readdirSync, writeFileSync } from "fs";
+import {
+  copyFileSync,
+  existsSync,
+  mkdirSync,
+  readFileSync,
+  writeFileSync,
+} from "fs";
 import { dirname, join } from "path";
 import { fileURLToPath } from "url";
 import { z } from "zod";
+import {
+  normalizeOption,
+  parseBlockContext,
+  parseQuestionText,
+} from "./parse-question-content.mjs";
 
 const WEB_ROOT = join(dirname(fileURLToPath(import.meta.url)), "..");
-const MGMT_ROOT = join(WEB_ROOT, "..");
+const REPO_ROOT = join(WEB_ROOT, "..");
 
 const EXAM_MAP = {
-  "data/exams/2019.json": "2019",
   "data/exams/2021.json": "2021",
   "data/exams/2024.json": "2024",
   "data/exams/2025.json": "2025",
@@ -18,35 +28,43 @@ const EXAM_MAP = {
 
 const OptionSchema = z.object({
   id: z.string(),
+  type: z.enum(["text", "code"]),
   content: z.string(),
+  codeLanguage: z.string().nullable().optional(),
 });
 
-const SlideRefParsedSchema = z.object({
-  lectureId: z.string(),
-  chapterNumber: z.number(),
-  topic: z.string(),
-  lectureFile: z.string(),
-  pdfPath: z.string(),
-  kind: z.enum(["slides", "all", "course", "book"]),
-  bookPages: z.array(z.number()).optional(),
-  pages: z.array(z.number()),
-  pageCount: z.number(),
-  syntax: z.string(),
+const ContextSchema = z
+  .object({
+    text: z.string().nullable(),
+    code: z.string().nullable(),
+    codeLanguage: z.string().nullable(),
+  })
+  .nullable();
+
+const SegmentSchema = z.object({
+  type: z.enum(["text", "code"]),
+  content: z.string(),
+  codeLanguage: z.string().nullable().optional(),
 });
 
 const QuestionSchema = z.object({
   id: z.string(),
   topic: z.string(),
   questionText: z.string(),
-  context: z.string().nullable().optional(),
+  context: ContextSchema,
+  questionSegments: z.array(SegmentSchema),
   options: z.array(OptionSchema),
   correctAnswerId: z.string(),
   explanation: z.string(),
-  reference: z.string(),
-  slideRef: z.string(),
-  slideRefParsed: SlideRefParsedSchema,
-  sourceRefs: z.array(z.string()).optional(),
-  sourceRefsParsed: z.array(SlideRefParsedSchema).optional(),
+  questionKey: z.string(),
+  origin: z.string(),
+  sourceFile: z.string(),
+  sourceQuestionId: z.string(),
+  questionType: z.enum(["true_false", "mcq", "other"]),
+  lectureSlug: z.string(),
+  examOrder: z.number(),
+  blockId: z.string().optional(),
+  relatedTopics: z.array(z.string()).optional(),
 });
 
 function ensureDir(p) {
@@ -59,15 +77,12 @@ function copy(src, dest) {
 }
 
 function slugFromTopic(topic) {
-  const m = topic.match(/Chapter\s+(\d+):\s*(.+)/i);
-  if (!m) return "unknown";
-  const num = m[1];
-  const name = m[2]
+  return topic
     .toLowerCase()
     .replace(/[^\w\s-]/g, "")
     .trim()
-    .replace(/\s+/g, "-");
-  return `chapter-${num}-${name}`;
+    .replace(/\s+/g, "-")
+    .slice(0, 80);
 }
 
 function classifyQuestionType(q) {
@@ -82,142 +97,130 @@ function classifyQuestionType(q) {
   return "other";
 }
 
+function flattenExamBlocks(raw, year, sourceFile) {
+  const questions = [];
+  let order = 0;
+
+  for (const block of raw) {
+    const topic = block.topic ?? "General";
+    const slug = slugFromTopic(topic);
+    const blockContext = parseBlockContext(block.context);
+
+    for (const q of block.questions ?? []) {
+      order += 1;
+      const sourceQuestionId = `${block.id}:${q.id}`;
+      const entry = {
+        id: sourceQuestionId,
+        topic,
+        questionText: q.questionText,
+        context: blockContext,
+        questionSegments: parseQuestionText(q.questionText),
+        options: (q.options ?? []).map((o) => normalizeOption(o)),
+        correctAnswerId: q.correctAnswerId ?? "",
+        explanation: q.explanation ?? "",
+        questionKey: `${year}:${sourceQuestionId}`,
+        origin: year,
+        sourceFile,
+        sourceQuestionId,
+        questionType: classifyQuestionType(q),
+        lectureSlug: slug,
+        examOrder: order,
+        blockId: block.id,
+        relatedTopics: q.relatedTopics ?? [],
+      };
+      QuestionSchema.parse(entry);
+      questions.push(entry);
+    }
+  }
+
+  return questions;
+}
+
 function main() {
   const publicData = join(WEB_ROOT, "public", "data");
-  const publicPools = join(publicData, "pools");
   const publicLectures = join(WEB_ROOT, "public", "lectures");
-  const publicBook = join(WEB_ROOT, "public", "book");
+  const publicExams = join(WEB_ROOT, "public", "exams");
   const generatedDir = join(WEB_ROOT, "src", "data", "generated");
 
   ensureDir(publicData);
-  ensureDir(publicPools);
   ensureDir(publicLectures);
-  ensureDir(publicBook);
+  ensureDir(publicExams);
   ensureDir(generatedDir);
 
-  // Manifest + lecture PDFs
-  const manifestPath = join(MGMT_ROOT, "data", "manifests", "lectures.json");
+  const manifestPath = join(REPO_ROOT, "data", "manifests", "lectures.json");
   const manifest = JSON.parse(readFileSync(manifestPath, "utf8"));
   copy(manifestPath, join(publicData, "lectures_manifest.json"));
 
   const lectureMeta = {};
   for (const [lid, lec] of Object.entries(manifest.lectures)) {
-    const srcPdf = join(MGMT_ROOT, "assets", "lectures", lec.lectureFile);
+    const srcPdf = join(REPO_ROOT, lec.pdfPath);
     const destPdf = join(publicLectures, `${lid}.pdf`);
     copy(srcPdf, destPdf);
     lectureMeta[lid] = {
       ...lec,
+      chapterNumber: lec.lectureNumber,
       publicPdfUrl: `/lectures/${lid}.pdf`,
     };
   }
 
-  // Textbook chapter PDFs (split chapters only — not the full book)
-  const bookManifestPath = join(MGMT_ROOT, "data", "manifests", "book.json");
-  const bookManifest = JSON.parse(readFileSync(bookManifestPath, "utf8"));
-  copy(bookManifestPath, join(publicData, "book_manifest.json"));
+  const examsManifestPath = join(REPO_ROOT, "data", "manifests", "exams.json");
+  const examsManifest = JSON.parse(readFileSync(examsManifestPath, "utf8"));
+  copy(examsManifestPath, join(publicData, "exams_manifest.json"));
 
-  const bookChapterMeta = {};
-  for (const [cid, ch] of Object.entries(bookManifest.chapters)) {
-    const srcPdf = join(MGMT_ROOT, "assets", "book", ch.sourceFile);
-    const destPdf = join(publicBook, `${cid}.pdf`);
+  const examMeta = {};
+  for (const [year, exam] of Object.entries(examsManifest.exams)) {
+    const srcPdf = join(REPO_ROOT, exam.pdfPath);
+    const destPdf = join(publicExams, `${year}.pdf`);
     copy(srcPdf, destPdf);
-    bookChapterMeta[cid] = {
-      chapterId: cid,
-      chapterNumber: ch.chapterNumber,
-      topic: ch.topic,
-      sourceFile: ch.sourceFile,
-      bookPageRange: ch.bookPageRange,
-      pageCount: ch.pageCount,
-      publicPdfUrl: `/book/${cid}.pdf`,
+    examMeta[year] = {
+      ...exam,
+      publicPdfUrl: `/exams/${year}.pdf`,
     };
   }
 
-  // Pools
-  const poolIndexSrc = join(MGMT_ROOT, "data", "pools", "_index.json");
-  copy(poolIndexSrc, join(publicPools, "_index.json"));
-  const poolIndex = JSON.parse(readFileSync(poolIndexSrc, "utf8"));
-
-  const byLectureSlug = {};
-  for (const entry of poolIndex.lectureFiles) {
-    const src = join(MGMT_ROOT, "data", "pools", entry.file);
-    copy(src, join(publicPools, entry.file));
-    const pool = JSON.parse(readFileSync(src, "utf8"));
-    byLectureSlug[pool.slug] = pool.questions.map((q) => {
-      const year = q.origin;
-      const key = `${year}:${q.sourceQuestionId || q.id}`;
-      return key;
-    });
-  }
-
-  // Repetitive + analysis
-  copy(
-    join(MGMT_ROOT, "data", "repetitive-questions.json"),
-    join(publicData, "repetitive-questions.json")
-  );
-  const repetitive = JSON.parse(
-    readFileSync(join(publicData, "repetitive-questions.json"), "utf8")
-  );
-  copy(
-    join(MGMT_ROOT, "data", "analysis", "exam-question-analysis.md"),
-    join(publicData, "analysis.md")
-  );
-
-  // Exams -> catalog questions
   const questions = [];
-  const byExamYear = { 2019: [], 2021: [], 2024: [], 2025: [] };
+  const byExamYear = { 2021: [], 2024: [], 2025: [] };
+  const byLectureSlug = Object.fromEntries(
+    Object.keys(lectureMeta).map((lectureId) => [lectureId, []])
+  );
   const questionByKey = {};
 
   for (const [file, year] of Object.entries(EXAM_MAP)) {
-    const src = join(MGMT_ROOT, file);
+    const src = join(REPO_ROOT, file);
     const dest = join(publicData, "exams", `${year}.json`);
     const raw = JSON.parse(readFileSync(src, "utf8"));
+    const flattened = flattenExamBlocks(raw, year, file);
 
-    const enriched = raw.map((q, index) => {
-      const questionKey = `${year}:${q.id}`;
-      const entry = {
-        ...q,
-        questionKey,
-        origin: year,
-        sourceFile: file,
-        sourceQuestionId: q.id,
-        questionType: classifyQuestionType(q),
-        lectureSlug: slugFromTopic(q.topic),
-        examOrder: index + 1,
-      };
-      QuestionSchema.parse(entry);
+    for (const entry of flattened) {
       questions.push(entry);
-      byExamYear[year].push(questionKey);
-      questionByKey[questionKey] = entry;
-      return entry;
-    });
+      byExamYear[year].push(entry.questionKey);
+      questionByKey[entry.questionKey] = entry;
 
-    ensureDir(dirname(dest));
-    writeFileSync(dest, JSON.stringify(enriched, null, 2), "utf8");
-  }
-
-  const repetitiveKeys = repetitive.questions.map((q) => {
-    const year = q.origin;
-    return `${year}:${q.sourceQuestionId || q.id}`;
-  });
-
-  for (const rq of repetitive.questions) {
-    const meta = {
-      appearances: rq.appearances,
-      instanceCount: rq.instanceCount,
-      origins: rq.origins,
-      repetitionGroupRank: rq.repetitionGroupRank,
-    };
-    const keys = new Set([
-      `${rq.origin}:${rq.sourceQuestionId || rq.id}`,
-      ...(rq.appearances ?? []).map(
-        (a) => `${a.origin}:${a.sourceQuestionId}`
-      ),
-    ]);
-    for (const key of keys) {
-      if (questionByKey[key]) {
-        questionByKey[key] = { ...questionByKey[key], ...meta };
+      for (const lectureId of entry.relatedTopics ?? []) {
+        if (!byLectureSlug[lectureId]) {
+          byLectureSlug[lectureId] = [];
+        }
+        byLectureSlug[lectureId].push(entry.questionKey);
       }
     }
+
+    ensureDir(dirname(dest));
+    writeFileSync(dest, JSON.stringify(flattened, null, 2), "utf8");
+  }
+
+  const repetitive = {
+    questions: [],
+    uniqueRepeatedStems: 0,
+  };
+  writeFileSync(
+    join(publicData, "repetitive-questions.json"),
+    JSON.stringify(repetitive, null, 2),
+    "utf8"
+  );
+
+  const analysisSrc = join(REPO_ROOT, "data", "analysis", "exam-question-analysis.md");
+  if (existsSync(analysisSrc)) {
+    copy(analysisSrc, join(publicData, "analysis.md"));
   }
 
   const catalog = {
@@ -225,27 +228,33 @@ function main() {
     stats: {
       totalQuestions: questions.length,
       lectures: Object.keys(lectureMeta).length,
-      bookChapters: Object.keys(bookChapterMeta).length,
-      exams: Object.keys(byExamYear).length,
-      repetitive: repetitive.uniqueRepeatedStems,
+      exams: Object.keys(examMeta).length,
+      repetitive: 0,
     },
-    examYears: ["2019", "2021", "2024", "2025"],
+    examYears: ["2021", "2024", "2025"],
+    tracks: manifest.tracks,
     lectureMeta,
-    bookChapterMeta,
-    bookTitle: bookManifest.bookTitle,
-    poolIndex,
+    examMeta,
     questions,
     byExamYear,
     byLectureSlug,
-    repetitiveKeys,
+    repetitiveKeys: [],
     questionByKey,
   };
 
-  writeFileSync(join(generatedDir, "catalog.json"), JSON.stringify(catalog, null, 2), "utf8");
-  writeFileSync(join(publicData, "catalog.json"), JSON.stringify(catalog, null, 2), "utf8");
+  writeFileSync(
+    join(generatedDir, "catalog.json"),
+    JSON.stringify(catalog, null, 2),
+    "utf8"
+  );
+  writeFileSync(
+    join(publicData, "catalog.json"),
+    JSON.stringify(catalog, null, 2),
+    "utf8"
+  );
 
   console.log(
-    `Synced ${questions.length} questions, ${Object.keys(lectureMeta).length} lectures, ${Object.keys(bookChapterMeta).length} book chapters.`
+    `Synced ${questions.length} questions, ${Object.keys(lectureMeta).length} lectures, ${Object.keys(examMeta).length} exam PDFs.`
   );
 }
 
