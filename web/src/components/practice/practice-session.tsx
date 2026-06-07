@@ -471,7 +471,21 @@ function PracticeSessionInner({
     setProgress({});
     setIndex(0);
     viewedQuestionsRef.current = new Set();
-  }, [sessionKey, pathname, title, progress]);
+
+    const startedAt = Date.now();
+    sessionStartedAtRef.current = new Date(startedAt).toISOString();
+    pauseStartedAtRef.current = null;
+    prevPausedRef.current = false;
+
+    if (showTimer) {
+      setPracticeHeader({
+        mode: "elapsed",
+        startedAt,
+        paused: false,
+        totalPausedMs: 0,
+      });
+    }
+  }, [sessionKey, pathname, title, progress, showTimer, setPracticeHeader]);
 
   const savedCount = practiceProgressCount(progress);
 
