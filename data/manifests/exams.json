@@ -1,0 +1,25 @@
+{
+  "exams": {
+    "2021": {
+      "year": "2021",
+      "title": "Final Exam 2021",
+      "examFile": "2021.pdf",
+      "pdfPath": "data/exams/originals/2021.pdf",
+      "pageCount": 13
+    },
+    "2024": {
+      "year": "2024",
+      "title": "Final Exam 2024",
+      "examFile": "2024.pdf",
+      "pdfPath": "data/exams/originals/2024.pdf",
+      "pageCount": 10
+    },
+    "2025": {
+      "year": "2025",
+      "title": "Final Exam 2025",
+      "examFile": "2025.pdf",
+      "pdfPath": "data/exams/originals/2025.pdf",
+      "pageCount": 9
+    }
+  }
+}

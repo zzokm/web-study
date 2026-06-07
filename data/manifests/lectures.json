@@ -1,86 +1,591 @@
 {
-  "syntax": "ch{N}:s{pages}|all|course â€” see slide_ref.py docstring",
-  "slideEqualsPdfPage": true,
+  "tracks": {
+    "frontend": {
+      "trackId": "frontend",
+      "label": "Frontend",
+      "description": "HTML, CSS, JavaScript, and client-side web technologies"
+    },
+    "backend": {
+      "trackId": "backend",
+      "label": "Backend",
+      "description": "Python, Django, HTTP, and server-side web development"
+    }
+  },
   "lectures": {
-    "ch1": {
-      "lectureId": "ch1",
-      "chapterNumber": 1,
-      "topic": "Chapter 1: Introduction",
-      "lectureFile": "Chapter 1 - Introduction.pdf",
-      "pdfPath": "assets/lectures/Chapter 1 - Introduction.pdf",
-      "pageCount": 30
+    "fe-0": {
+      "lectureId": "fe-0",
+      "track": "frontend",
+      "lectureNumber": 0,
+      "topic": "Course Overview",
+      "lectureFile": "lec-0-course-overview.pdf",
+      "pdfPath": "data/lectures/frontend/lec-0-course-overview.pdf",
+      "pageCount": 23,
+      "description": "Course logistics, web terminology, and how the syllabus progresses from protocols to frontend languages and Django.",
+      "coveredTopics": [
+        {
+          "title": "Course logistics",
+          "summary": "Grading, lecture norms, expectations, and reference materials."
+        },
+        {
+          "title": "Web origins",
+          "summary": "Tim Berners-Lee's proposal at CERN and the birth of the World Wide Web."
+        },
+        {
+          "title": "Web definitions",
+          "summary": "Static pages, websites, and interactive web applications."
+        },
+        {
+          "title": "Dynamic websites",
+          "summary": "E-commerce, blogs, informational sites, and online communities."
+        },
+        {
+          "title": "Course outline",
+          "summary": "Roadmap from protocols to HTML, CSS, JavaScript, Python, and Django."
+        }
+      ],
+      "extent": "High-level introductory overview with foundational definitions and a course roadmap."
     },
-    "ch2": {
-      "lectureId": "ch2",
-      "chapterNumber": 2,
-      "topic": "Chapter 2: History and Current Thinking",
-      "lectureFile": "Chapter 2  - History and Current Thinking.pdf",
-      "pdfPath": "assets/lectures/Chapter 2  - History and Current Thinking.pdf",
-      "pageCount": 49
+    "fe-1": {
+      "lectureId": "fe-1",
+      "track": "frontend",
+      "lectureNumber": 1,
+      "topic": "Internet Protocols",
+      "lectureFile": "lec-1-internet-protocols.pdf",
+      "pdfPath": "data/lectures/frontend/lec-1-internet-protocols.pdf",
+      "pageCount": 52,
+      "description": "Internet protocol layers with a deep dive into HTTP mechanics, caching, cookies, and web security.",
+      "coveredTopics": [
+        {
+          "title": "TCP/IP layers",
+          "summary": "Application, transport, internet, and network interface layers."
+        },
+        {
+          "title": "Core protocols",
+          "summary": "TCP, IP, HTTP, and SMTP definitions and roles."
+        },
+        {
+          "title": "HTTP fundamentals",
+          "summary": "URLs, media types, connections, caching, and cookies."
+        },
+        {
+          "title": "HTTP requests",
+          "summary": "GET, POST, PUT, DELETE methods and common request headers."
+        },
+        {
+          "title": "HTTP responses",
+          "summary": "Status code categories (1xx–5xx) and response headers."
+        },
+        {
+          "title": "Caching & cookies",
+          "summary": "Time-based vs content-based caching, limits, and security risks."
+        },
+        {
+          "title": "Security",
+          "summary": "Authentication methods, authorization (403), and HTTPS."
+        }
+      ],
+      "extent": "Comprehensive breakdown of HTTP request/response structures and authentication methods."
     },
-    "ch3": {
-      "lectureId": "ch3",
-      "chapterNumber": 3,
-      "topic": "Chapter 3: Business Ethics",
-      "lectureFile": "Chapter 3 - Busniess Ethics.pdf",
-      "pdfPath": "assets/lectures/Chapter 3 - Busniess Ethics.pdf",
-      "pageCount": 19
+    "fe-2": {
+      "lectureId": "fe-2",
+      "track": "frontend",
+      "lectureNumber": 2,
+      "topic": "Architecture and HTML",
+      "lectureFile": "lec-2-architecture-and-html.pdf",
+      "pdfPath": "data/lectures/frontend/lec-2-architecture-and-html.pdf",
+      "pageCount": 45,
+      "description": "Web architecture fundamentals and standard HTML/HTML5—from document structure to modern browser storage.",
+      "coveredTopics": [
+        {
+          "title": "Web architecture",
+          "summary": "Client–browser–server model and ports 80 (HTTP) and 443 (HTTPS)."
+        },
+        {
+          "title": "HTML basics",
+          "summary": "W3C standards, document structure, and metadata headers."
+        },
+        {
+          "title": "HTML elements",
+          "summary": "Headings, paragraphs, lists, tables, links, and images."
+        },
+        {
+          "title": "Text formatting",
+          "summary": "Bold, italic, subscript, superscript, deleted, and inserted text."
+        },
+        {
+          "title": "Special characters",
+          "summary": "HTML entity encoding for ampersands, arrows, and symbols."
+        },
+        {
+          "title": "HTML5 features",
+          "summary": "New input types, offline caching, localStorage, and sessionStorage."
+        }
+      ],
+      "extent": "Practical guide to HTML tags, document structure, and modern browser storage."
     },
-    "ch7": {
-      "lectureId": "ch7",
-      "chapterNumber": 7,
-      "topic": "Chapter 7: Principles of Planning",
-      "lectureFile": "Chapter 7 - Principles of Planning.pdf",
-      "pdfPath": "assets/lectures/Chapter 7 - Principles of Planning.pdf",
-      "pageCount": 27
+    "fe-3": {
+      "lectureId": "fe-3",
+      "track": "frontend",
+      "lectureNumber": 3,
+      "topic": "HTML Document Object Model",
+      "lectureFile": "lec-3-html-dom.pdf",
+      "pdfPath": "data/lectures/frontend/lec-3-html-dom.pdf",
+      "pageCount": 36,
+      "description": "How JavaScript navigates, modifies, and manages HTML elements through the DOM.",
+      "coveredTopics": [
+        {
+          "title": "The DOM tree",
+          "summary": "Hierarchical nodes and parent, child, and sibling relationships."
+        },
+        {
+          "title": "Node navigation",
+          "summary": "parentNode, childNodes, firstChild, nextSibling, and related properties."
+        },
+        {
+          "title": "Finding elements",
+          "summary": "getElementById, querySelector, and getElementsByClassName."
+        },
+        {
+          "title": "Modifying elements",
+          "summary": "innerText vs innerHTML, XSS risks, and updating styles."
+        },
+        {
+          "title": "Adding & deleting nodes",
+          "summary": "createElement, appendChild, removeChild, and replaceChild."
+        },
+        {
+          "title": "Modern DOM APIs",
+          "summary": "classList, dataset, and addEventListener."
+        },
+        {
+          "title": "Performance",
+          "summary": "Minimizing reflows with DocumentFragment and related techniques."
+        }
+      ],
+      "extent": "Detailed exploration of DOM traversal, manipulation, modern APIs, and performance."
     },
-    "ch8": {
-      "lectureId": "ch8",
-      "chapterNumber": 8,
-      "topic": "Chapter 8: Making Decisions",
-      "lectureFile": "Chapter 8 - Making Decisions.pdf",
-      "pdfPath": "assets/lectures/Chapter 8 - Making Decisions.pdf",
-      "pageCount": 33
+    "fe-4": {
+      "lectureId": "fe-4",
+      "track": "frontend",
+      "lectureNumber": 4,
+      "topic": "CSS",
+      "lectureFile": "lec-4-css.pdf",
+      "pdfPath": "data/lectures/frontend/lec-4-css.pdf",
+      "pageCount": 71,
+      "description": "CSS syntax, selectors, layout, responsive design, and modern styling from the box model to Grid and Flexbox.",
+      "coveredTopics": [
+        {
+          "title": "CSS integration",
+          "summary": "Inline, internal, and external stylesheets plus cascade priority."
+        },
+        {
+          "title": "Selectors",
+          "summary": "Simple selectors, combinators, pseudo-classes, pseudo-elements, and attributes."
+        },
+        {
+          "title": "Styling properties",
+          "summary": "Backgrounds, text colors (Hex, RGB, HSL), and borders."
+        },
+        {
+          "title": "The box model",
+          "summary": "Margin and padding control on each side of an element."
+        },
+        {
+          "title": "Layouts & responsive design",
+          "summary": "Media queries, CSS Grid, and mobile-first layouts."
+        },
+        {
+          "title": "Modern CSS",
+          "summary": "Custom properties, Flexbox, transitions, and specificity."
+        },
+        {
+          "title": "Ecosystem",
+          "summary": "Bootstrap vs Tailwind and tooling for CSS generation and testing."
+        }
+      ],
+      "extent": "In-depth guide from basic formatting through CSS Grid, Flexbox, and responsive design."
     },
-    "ch11": {
-      "lectureId": "ch11",
-      "chapterNumber": 11,
-      "topic": "Chapter 11: Fundamentals of Organizing",
-      "lectureFile": "Chapter 11 - Fundamentals of Organizing.pdf",
-      "pdfPath": "assets/lectures/Chapter 11 - Fundamentals of Organizing.pdf",
-      "pageCount": 38
+    "fe-5": {
+      "lectureId": "fe-5",
+      "track": "frontend",
+      "lectureNumber": 5,
+      "topic": "JavaScript 1",
+      "lectureFile": "lec-5-javascript-1.pdf",
+      "pdfPath": "data/lectures/frontend/lec-5-javascript-1.pdf",
+      "pageCount": 66,
+      "description": "Core JavaScript syntax, types, operators, functions, built-in objects, basic DOM/events, and OOP fundamentals.",
+      "coveredTopics": [
+        {
+          "title": "JavaScript basics",
+          "summary": "History, use cases, script tags, and fundamental syntax."
+        },
+        {
+          "title": "Data types & variables",
+          "summary": "Numbers, booleans, strings, null, undefined, scoping, and coercion."
+        },
+        {
+          "title": "Operators",
+          "summary": "Arithmetic, logical, delete, in, typeof, and void."
+        },
+        {
+          "title": "Functions & exceptions",
+          "summary": "Function syntax, arguments, try/catch, and eval risks."
+        },
+        {
+          "title": "Built-in objects & arrays",
+          "summary": "Array and object literals, String, Date, and Math methods."
+        },
+        {
+          "title": "Basic DOM & events",
+          "summary": "onload, onclick, alert/confirm/prompt, and form elements."
+        },
+        {
+          "title": "OOP fundamentals",
+          "summary": "Constructors, new, instanceof, and prototypes."
+        }
+      ],
+      "extent": "Broad overview of core JavaScript constructs, objects, DOM/events, and OOP basics."
     },
-    "ch13": {
-      "lectureId": "ch13",
-      "chapterNumber": 13,
-      "topic": "Chapter 13: Human Resource Management",
-      "lectureFile": "Chapter 13 - Human Resource Management.pdf",
-      "pdfPath": "assets/lectures/Chapter 13 - Human Resource Management.pdf",
-      "pageCount": 46
+    "fe-6": {
+      "lectureId": "fe-6",
+      "track": "frontend",
+      "lectureNumber": 6,
+      "topic": "JavaScript 2 & AJAX",
+      "lectureFile": "lec-6-javascript-2-ajax.pdf",
+      "pdfPath": "data/lectures/frontend/lec-6-javascript-2-ajax.pdf",
+      "pageCount": 76,
+      "description": "Modern JavaScript from ES5 through ES11—array methods, classes, async/await—and an introduction to AJAX.",
+      "coveredTopics": [
+        {
+          "title": "ES5 features",
+          "summary": "Strict mode, string/array methods, JSON, Date formatting, getters/setters."
+        },
+        {
+          "title": "Array methods",
+          "summary": "forEach, map, filter, reduce, every, some, indexOf, lastIndexOf, and find."
+        },
+        {
+          "title": "ES6 features",
+          "summary": "let, const, arrow functions, classes, promises, defaults, and rest parameters."
+        },
+        {
+          "title": "ES7–ES9",
+          "summary": "includes, exponentiation, padStart/padEnd, async/await, object spread, and Promise.finally."
+        },
+        {
+          "title": "ES10 & ES11",
+          "summary": "flat, flatMap, and private class fields."
+        },
+        {
+          "title": "AJAX",
+          "summary": "XMLHttpRequest, asynchronous requests, and the client–server cycle."
+        }
+      ],
+      "extent": "Detailed ES5–ES11 features and array methods, plus a brief AJAX introduction."
     },
-    "ch15": {
-      "lectureId": "ch15",
-      "chapterNumber": 15,
-      "topic": "Chapter 15: Influencing and Communication",
-      "lectureFile": "Chapter 15 - Influencing and Communication.pdf",
-      "pdfPath": "assets/lectures/Chapter 15 - Influencing and Communication.pdf",
-      "pageCount": 25
+    "be-1": {
+      "lectureId": "be-1",
+      "track": "backend",
+      "lectureNumber": 1,
+      "topic": "Intro",
+      "lectureFile": "lec-1-intro.pdf",
+      "pdfPath": "data/lectures/backend/lec-1-intro.pdf",
+      "pageCount": 84,
+      "description": "Backend vs frontend, how the web works, HTTP basics, and your first steps with Python and VS Code.",
+      "coveredTopics": [
+        {
+          "title": "Web architecture",
+          "summary": "Browser, server, database, and the three-tier view."
+        },
+        {
+          "title": "Static vs dynamic",
+          "summary": "Static HTML pages versus backend-generated content."
+        },
+        {
+          "title": "HTTP basics",
+          "summary": "Request–response cycle, GET vs POST, URLs, and status codes."
+        },
+        {
+          "title": "Python & Django intro",
+          "summary": "Why Python for backends, what a framework is, and Django's role."
+        },
+        {
+          "title": "Environment setup",
+          "summary": "Installing Python, VS Code, the Python extension, and terminal navigation."
+        },
+        {
+          "title": "Python basics preview",
+          "summary": "print, input, casting, if/else, loops, lists, and functions."
+        }
+      ],
+      "extent": "Conceptual web architecture overview plus hands-on Python and environment setup."
     },
-    "ch18": {
-      "lectureId": "ch18",
-      "chapterNumber": 18,
-      "topic": "Chapter 18: Groups and Teams",
-      "lectureFile": "Chapter 18 - Groups and Teams.pdf",
-      "pdfPath": "assets/lectures/Chapter 18 - Groups and Teams.pdf",
-      "pageCount": 24
+    "be-2": {
+      "lectureId": "be-2",
+      "track": "backend",
+      "lectureNumber": 2,
+      "topic": "Python Essentials",
+      "lectureFile": "lec-2-python-essentials.pdf",
+      "pdfPath": "data/lectures/backend/lec-2-python-essentials.pdf",
+      "pageCount": 78,
+      "description": "Core Python syntax, data structures, control flow, functions, and file handling before Django.",
+      "coveredTopics": [
+        {
+          "title": "Tools & environment",
+          "summary": "Verifying installs, project folders, and the integrated terminal."
+        },
+        {
+          "title": "Variables & data types",
+          "summary": "Naming rules, strings, f-strings, numbers, booleans, and type()."
+        },
+        {
+          "title": "Input & conversion",
+          "summary": "input() and converting text with int() and float()."
+        },
+        {
+          "title": "Operators & conditions",
+          "summary": "Arithmetic, comparisons, logical operators, and if-elif-else."
+        },
+        {
+          "title": "Loops",
+          "summary": "while, for with range(), break, continue, and pass."
+        },
+        {
+          "title": "Data structures",
+          "summary": "Lists, tuples, sets, and dictionaries."
+        },
+        {
+          "title": "Functions & modules",
+          "summary": "def, parameters, return vs print, scope, and imports."
+        },
+        {
+          "title": "File handling & errors",
+          "summary": "open/read/write, file modes, and try/except."
+        }
+      ],
+      "extent": "Example-driven coverage of Python syntax, data structures, functions, and files."
     },
-    "ch21": {
-      "lectureId": "ch21",
-      "chapterNumber": 21,
-      "topic": "Chapter 21: Controlling Fundamentals",
-      "lectureFile": "Chapter 21  - Controlling Fundamentals.pdf",
-      "pdfPath": "assets/lectures/Chapter 21  - Controlling Fundamentals.pdf",
-      "pageCount": 19
+    "be-3": {
+      "lectureId": "be-3",
+      "track": "backend",
+      "lectureNumber": 3,
+      "topic": "OOP and File Handling",
+      "lectureFile": "lec-3-oop-and-file-handling.pdf",
+      "pdfPath": "data/lectures/backend/lec-3-oop-and-file-handling.pdf",
+      "pageCount": 80,
+      "description": "Classes, inheritance, file I/O, and JSON serialization to prepare for database modeling in Django.",
+      "coveredTopics": [
+        {
+          "title": "OOP fundamentals",
+          "summary": "Classes vs objects, attributes, and methods."
+        },
+        {
+          "title": "Constructors & self",
+          "summary": "__init__, default values, and the self reference."
+        },
+        {
+          "title": "Inheritance & design",
+          "summary": "Parent/child classes, super(), overriding, and composition."
+        },
+        {
+          "title": "File handling",
+          "summary": "Read, write, append, and file modes (r, w, a, x)."
+        },
+        {
+          "title": "Safe file practices",
+          "summary": "with open(...) and relative paths with os."
+        },
+        {
+          "title": "JSON & serialization",
+          "summary": "to_dict(), json.dump(), and json.load()."
+        }
+      ],
+      "extent": "Classes, inheritance, file I/O, and JSON serialization before database modeling."
+    },
+    "be-4": {
+      "lectureId": "be-4",
+      "track": "backend",
+      "lectureNumber": 4,
+      "topic": "Web Basics, HTTP, URLs, and Status Codes",
+      "lectureFile": "lec-4-web-basics-http.pdf",
+      "pdfPath": "data/lectures/backend/lec-4-web-basics-http.pdf",
+      "pageCount": 65,
+      "description": "Client–server architecture, URL anatomy, HTTP methods, status codes, and how APIs return JSON.",
+      "coveredTopics": [
+        {
+          "title": "Web architecture",
+          "summary": "Client, server, database, and frontend vs backend validation."
+        },
+        {
+          "title": "URL anatomy",
+          "summary": "Protocol, domain, port, path, and query string."
+        },
+        {
+          "title": "HTTP requests & responses",
+          "summary": "Methods, headers, body, status codes, and response body."
+        },
+        {
+          "title": "HTTP methods",
+          "summary": "GET, POST, PUT/PATCH, and DELETE."
+        },
+        {
+          "title": "Status codes",
+          "summary": "1xx through 5xx categories with common examples."
+        },
+        {
+          "title": "Data formats & APIs",
+          "summary": "HTML pages vs JSON APIs, cookies, and sessions."
+        }
+      ],
+      "extent": "Client–server interactions, URL anatomy, HTTP methods, and status codes."
+    },
+    "be-5": {
+      "lectureId": "be-5",
+      "track": "backend",
+      "lectureNumber": 5,
+      "topic": "Django I",
+      "lectureFile": "lec-5-django-1.pdf",
+      "pdfPath": "data/lectures/backend/lec-5-django-1.pdf",
+      "pageCount": 80,
+      "description": "Django MVT architecture, virtual environments, project scaffolding, and running the dev server.",
+      "coveredTopics": [
+        {
+          "title": "Framework concepts",
+          "summary": "Why frameworks help, Django benefits, and MVT architecture."
+        },
+        {
+          "title": "Virtual environments",
+          "summary": "python -m venv and activating isolated dependencies."
+        },
+        {
+          "title": "Django setup",
+          "summary": "pip install, startproject, manage.py, settings.py, and urls.py."
+        },
+        {
+          "title": "Running the server",
+          "summary": "runserver, custom ports, startup messages, and Ctrl+C."
+        },
+        {
+          "title": "Apps & migrations preview",
+          "summary": "Projects vs apps, startapp, makemigrations, migrate, and createsuperuser."
+        }
+      ],
+      "extent": "Step-by-step Django install, project scaffolding, and running the dev server."
+    },
+    "be-6": {
+      "lectureId": "be-6",
+      "track": "backend",
+      "lectureNumber": 6,
+      "topic": "Django II",
+      "lectureFile": "lec-6-django-2.pdf",
+      "pdfPath": "data/lectures/backend/lec-6-django-2.pdf",
+      "pageCount": 67,
+      "description": "Django apps, URL routing, function-based views, and returning HTTP or JSON responses.",
+      "coveredTopics": [
+        {
+          "title": "Django apps",
+          "summary": "startapp, views.py, models.py, and INSTALLED_APPS."
+        },
+        {
+          "title": "URL dispatching",
+          "summary": "Project and app urls.py, include(), and path()."
+        },
+        {
+          "title": "Dynamic URLs",
+          "summary": "Path converters and named URLs."
+        },
+        {
+          "title": "Views",
+          "summary": "Function-based views, the request object, HttpResponse, and JsonResponse."
+        },
+        {
+          "title": "Rendering preview",
+          "summary": "Using render() to return HTML templates."
+        },
+        {
+          "title": "Debugging",
+          "summary": "404s, import errors, trailing slashes, and URL order."
+        }
+      ],
+      "extent": "URL routing pipeline, function-based views, and HTTP/JSON responses."
+    },
+    "be-7": {
+      "lectureId": "be-7",
+      "track": "backend",
+      "lectureNumber": 7,
+      "topic": "Django III",
+      "lectureFile": "lec-7-django-3.pdf",
+      "pdfPath": "data/lectures/backend/lec-7-django-3.pdf",
+      "pageCount": 75,
+      "description": "Django templates—context variables, tags, inheritance, static files, and built-in filters.",
+      "coveredTopics": [
+        {
+          "title": "Template basics",
+          "summary": "Template folders, render(), and separating HTML from view logic."
+        },
+        {
+          "title": "Context variables",
+          "summary": "Passing data from views and displaying with {{ variable }}."
+        },
+        {
+          "title": "Template tags",
+          "summary": "for, empty, if, elif, else, and endif."
+        },
+        {
+          "title": "Template inheritance",
+          "summary": "base.html, extends, and block overrides."
+        },
+        {
+          "title": "Reusable components",
+          "summary": "include for partials such as navbars."
+        },
+        {
+          "title": "Static files & URLs",
+          "summary": "load static, static tag, and url tag."
+        },
+        {
+          "title": "Template filters",
+          "summary": "upper, title, truncatewords, date, length, default, yesno, and safe."
+        }
+      ],
+      "extent": "Template syntax, context variables, inheritance, static files, and filters."
+    },
+    "be-8": {
+      "lectureId": "be-8",
+      "track": "backend",
+      "lectureNumber": 8,
+      "topic": "Django IV",
+      "lectureFile": "lec-8-django-4.pdf",
+      "pdfPath": "data/lectures/backend/lec-8-django-4.pdf",
+      "pageCount": 56,
+      "description": "Django models, migrations, ORM queries, relationships, and the admin interface.",
+      "coveredTopics": [
+        {
+          "title": "Django models",
+          "summary": "models.Model, database tables, and __str__."
+        },
+        {
+          "title": "Field types & options",
+          "summary": "CharField, IntegerField, TextField, DateTimeField, null, blank, and choices."
+        },
+        {
+          "title": "Migrations workflow",
+          "summary": "makemigrations, migrate, showmigrations, and sqlmigrate."
+        },
+        {
+          "title": "Database relationships",
+          "summary": "ForeignKey, OneToOneField, and ManyToManyField."
+        },
+        {
+          "title": "Django ORM",
+          "summary": "create, save, all, filter, get, update, and delete."
+        },
+        {
+          "title": "Django admin",
+          "summary": "admin.py registration, createsuperuser, list_display, search_fields, and list_filter."
+        }
+      ],
+      "extent": "Models, field types, migrations, ORM queries, relationships, and Django admin."
     }
   }
 }
