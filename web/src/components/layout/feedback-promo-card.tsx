@@ -7,18 +7,16 @@ export function FeedbackPromoCard() {
   return (
     <Card className="border-primary/25 bg-muted/40">
       <CardHeader className="pb-2">
-        <CardTitle className="text-lg">
-          Good luck on your exam <span aria-hidden="true">❤️</span>
-        </CardTitle>
+        <CardTitle className="text-lg font-bold">Is this website useful to you?</CardTitle>
         <CardDescription>
-          Thank you for using this site. Your feedback helps improve resources for similar
-          future projects.
+          Please consider leaving feedback — it helps me understand what students need and
+          what to improve next.
         </CardDescription>
       </CardHeader>
       <CardContent className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
         <p className="text-sm text-muted-foreground">
-          If you have a minute, please share how the platform worked for you — ratings, what
-          helped most, and any suggestions.
+          A short note on what worked, what felt missing, or what would make studying here
+          easier goes a long way toward shaping future updates.
         </p>
         <a
           href={FEEDBACK_FORM_URL}

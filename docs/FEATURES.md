@@ -29,7 +29,7 @@ Technical overview of every user-facing capability in the app.
 | Practice CTA | Jump to `/practice/`. |
 | Saved CTA | Jump to `/saved/`. |
 | Browse shortcuts | Quick links to by-lecture, each exam year, exam PDFs, lecture tracks, and analysis. |
-| Feedback promo | Card encouraging post-use feedback via Google Form. |
+| Feedback promo | Card on the home page encouraging feedback via Google Form so needs and improvements can be prioritized. |
 
 ---
 

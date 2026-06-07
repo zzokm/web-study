@@ -9,5 +9,5 @@ services:
     image: web-study:latest
     container_name: web-study
     ports:
-      - "7821:3000"
+      - "3585:3000"
     restart: unless-stopped
