@@ -60,7 +60,16 @@ export function SaveButton({ question, corner = false }: SaveButtonProps) {
         aria-pressed={saved}
         aria-label={saved ? "Saved for later" : "Save for later"}
       >
-        <span className="text-xs font-medium">{saved ? "Saved" : "Save for later"}</span>
+        <span className="text-xs font-medium">
+          {saved ? (
+            "Saved"
+          ) : (
+            <>
+              <span className="md:hidden">Save</span>
+              <span className="hidden md:inline">Save for later</span>
+            </>
+          )}
+        </span>
         <BookmarkIcon className={bookmarkClass} />
       </Button>
     );
