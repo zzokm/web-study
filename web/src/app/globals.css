@@ -155,20 +155,93 @@
   }
 }
 
-.code-ide-highlight pre {
-  margin: 0;
-  padding: 0;
-  background: transparent !important;
+.code-ide {
+  --code-font-size: 13px;
+  --code-line-height: 20px;
+  --code-pad-y: 0.5rem;
+  --code-pad-x: 0.75rem;
+  --code-src-pad-x: 0.5rem;
+  --code-ln-width: 2.25rem;
+  --code-ln-gap: 0.5rem;
 }
 
-.code-ide-highlight code,
+.code-ide[data-compact="true"] {
+  --code-font-size: 11px;
+  --code-line-height: 18px;
+  --code-pad-y: 0.375rem;
+  --code-pad-x: 0.625rem;
+  --code-src-pad-x: 0.375rem;
+  --code-ln-width: 2rem;
+  --code-ln-gap: 0.375rem;
+}
+
+.code-ide-scroll {
+  padding: var(--code-pad-y) var(--code-pad-x);
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono",
+    "Courier New", monospace;
+  font-variant-ligatures: none;
+  font-feature-settings: "tnum" 1;
+  font-size: var(--code-font-size);
+  line-height: var(--code-line-height);
+  color: #d4d4d4;
+}
+
+.code-ide-row {
+  display: flex;
+  align-items: center;
+  height: var(--code-line-height);
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+}
+
+.code-ide-ln {
+  box-sizing: border-box;
+  flex: 0 0 var(--code-ln-width);
+  width: var(--code-ln-width);
+  height: var(--code-line-height);
+  padding-right: var(--code-ln-gap);
+  border-right: 1px solid #2d2d2d;
+  margin-right: var(--code-ln-gap);
+  color: #858585;
+  font-family: inherit;
+  font-size: var(--code-font-size);
+  line-height: var(--code-line-height);
+  text-align: right;
+  user-select: none;
+}
+
+.code-ide-src {
+  display: block;
+  flex: 1 1 auto;
+  min-width: 0;
+  height: var(--code-line-height);
+  margin: 0;
+  padding: 0 0 0 var(--code-src-pad-x);
+  border: 0;
+  background: transparent;
+  color: inherit;
+  font: inherit;
+  line-height: var(--code-line-height);
+  white-space: pre;
+  tab-size: 4;
+  -moz-tab-size: 4;
+}
+
+.code-ide-src span {
+  font: inherit;
+  line-height: inherit;
+}
+
+.code-ide-empty-line {
+  display: inline-block;
+  width: 0;
+}
+
+.code-ide-src,
 .inline-code {
   font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono",
     "Courier New", monospace;
   font-variant-ligatures: none;
-  tab-size: 2;
-}
-
-.code-ide-highlight .line {
-  display: block;
+  font-feature-settings: "tnum" 1;
 }

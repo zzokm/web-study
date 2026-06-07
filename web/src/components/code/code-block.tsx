@@ -1,10 +1,17 @@
 "use client";
 
 import { useEffect, useMemo, useState } from "react";
+import type { ThemedToken } from "shiki";
 import {
+  normalizeCodeIndentation,
   resolveHighlightLanguage,
   type SupportedCodeLanguage,
 } from "@/lib/parse-question-content";
+
+type DisplayToken = {
+  content: string;
+  color?: string;
+};
 import { cn } from "@/lib/utils";
 
 type CodeBlockProps = {
@@ -16,10 +23,10 @@ type CodeBlockProps = {
 };
 
 type HighlighterBundle = {
-  codeToHtml: (
+  codeToTokens: (
     code: string,
     options: { lang: string; theme: string }
-  ) => Promise<string>;
+  ) => ThemedToken[][];
 };
 
 let highlighterPromise: Promise<HighlighterBundle> | null = null;
@@ -33,13 +40,13 @@ function loadHighlighter(): Promise<HighlighterBundle> {
       });
 
       return {
-        codeToHtml: (code, { lang, theme }) =>
-          Promise.resolve(
-            highlighter.codeToHtml(code, {
-              lang,
+        codeToTokens: (source, { lang, theme }) =>
+          highlighter
+            .codeToTokens(source, {
+              lang: lang as "javascript" | "html" | "css" | "python" | "json",
               theme,
             })
-          ),
+            .tokens,
       };
     });
   }
@@ -54,6 +61,22 @@ const LANGUAGE_LABELS: Record<SupportedCodeLanguage, string> = {
   json: "JSON",
 };
 
+function TokenLine({ tokens }: { tokens: DisplayToken[] }) {
+  if (tokens.length === 0) {
+    return <span className="code-ide-empty-line">&nbsp;</span>;
+  }
+
+  return (
+    <>
+      {tokens.map((token, index) => (
+        <span key={index} style={{ color: token.color }}>
+          {token.content}
+        </span>
+      ))}
+    </>
+  );
+}
+
 export function CodeBlock({
   code,
   language,
@@ -61,13 +84,17 @@ export function CodeBlock({
   showLanguage = true,
   className,
 }: CodeBlockProps) {
-  const lines = useMemo(() => code.replace(/\n$/, "").split("\n"), [code]);
+  const normalizedCode = useMemo(
+    () => normalizeCodeIndentation(code.replace(/\n$/, "")),
+    [code]
+  );
+  const lines = useMemo(() => normalizedCode.split("\n"), [normalizedCode]);
   const resolvedLanguage = resolveHighlightLanguage(language, code);
-  const highlightKey = `${resolvedLanguage}:${code}`;
+  const highlightKey = `${resolvedLanguage}:${normalizedCode}`;
   const [highlightState, setHighlightState] = useState<{
     key: string;
-    html: string | null;
-  }>({ key: "", html: null });
+    tokens: ThemedToken[][] | null;
+  }>({ key: "", tokens: null });
 
   useEffect(() => {
     let cancelled = false;
@@ -75,16 +102,16 @@ export function CodeBlock({
     async function highlight() {
       try {
         const highlighter = await loadHighlighter();
-        const highlighted = await highlighter.codeToHtml(code, {
+        const tokens = highlighter.codeToTokens(normalizedCode, {
           lang: resolvedLanguage,
           theme: "dark-plus",
         });
         if (!cancelled) {
-          setHighlightState({ key: highlightKey, html: highlighted });
+          setHighlightState({ key: highlightKey, tokens });
         }
       } catch {
         if (!cancelled) {
-          setHighlightState({ key: highlightKey, html: null });
+          setHighlightState({ key: highlightKey, tokens: null });
         }
       }
     }
@@ -94,13 +121,14 @@ export function CodeBlock({
     return () => {
       cancelled = true;
     };
-  }, [code, resolvedLanguage, highlightKey]);
+  }, [normalizedCode, resolvedLanguage, highlightKey]);
 
-  const html =
-    highlightState.key === highlightKey ? highlightState.html : null;
+  const tokenLines =
+    highlightState.key === highlightKey ? highlightState.tokens : null;
 
   return (
     <div
+      data-compact={compact ? "true" : "false"}
       className={cn(
         "code-ide overflow-hidden rounded-lg border border-[#2d2d2d] bg-[#1e1e1e] shadow-sm",
         className
@@ -117,34 +145,19 @@ export function CodeBlock({
         </div>
       ) : null}
 
-      <div className="flex min-w-0">
-        <div
-          className={cn(
-            "select-none shrink-0 border-r border-[#2d2d2d] bg-[#1e1e1e] text-right text-[#858585]",
-            compact ? "px-2 py-2 text-[11px] leading-5" : "px-3 py-3 text-xs leading-6"
-          )}
-          aria-hidden
-        >
-          {lines.map((_, index) => (
-            <div key={index}>{index + 1}</div>
+      <div className="code-ide-scroll overflow-x-auto">
+        {(tokenLines ??
+          lines.map((line) => [{ content: line, color: "#d4d4d4" }]))
+          .map((rowTokens, index) => (
+            <div className="code-ide-row" key={index}>
+              <span className="code-ide-ln" aria-hidden>
+                {index + 1}
+              </span>
+              <code className="code-ide-src">
+                <TokenLine tokens={rowTokens} />
+              </code>
+            </div>
           ))}
-        </div>
-
-        <div
-          className={cn(
-            "min-w-0 flex-1 overflow-x-auto",
-            compact ? "py-2 pr-3 text-[11px] leading-5" : "py-3 pr-4 text-[13px] leading-6"
-          )}
-        >
-          {html ? (
-            <div
-              className="code-ide-highlight"
-              dangerouslySetInnerHTML={{ __html: html }}
-            />
-          ) : (
-            <pre className="m-0 whitespace-pre font-mono text-[#d4d4d4]">{code}</pre>
-          )}
-        </div>
       </div>
     </div>
   );
