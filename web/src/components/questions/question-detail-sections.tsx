@@ -2,7 +2,7 @@
 
 import type { Question } from "@/types/question";
 import { OptionContent } from "@/components/code/question-content";
-import { getCorrectAnswerDisplay } from "@/lib/questions";
+import { getCorrectAnswerDisplay, isAnswerCorrect } from "@/lib/questions";
 import {
   Card,
   CardContent,
@@ -11,6 +11,7 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
+import { ExplanationText } from "@/components/questions/explanation-text";
 import { cn } from "@/lib/utils";
 
 interface QuestionDetailSectionsProps {
@@ -19,35 +20,84 @@ interface QuestionDetailSectionsProps {
   variant?: "default" | "browse";
 }
 
+function browseRevealOptionClass(
+  optionId: string,
+  correctAnswerId: string
+): string {
+  if (isAnswerCorrect(optionId, correctAnswerId)) {
+    return cn(
+      "border-green-600 bg-green-500/15 ring-2 ring-green-600/80",
+      "text-green-900 dark:text-green-100"
+    );
+  }
+  return "border-border/70 bg-background text-muted-foreground";
+}
+
+function BrowseAnswerOptions({ question }: { question: Question }) {
+  const isTf = question.questionType === "true_false";
+
+  if (isTf) {
+    return (
+      <div className="flex flex-col gap-2 sm:flex-row sm:gap-3">
+        {question.options.map((opt) => (
+          <div
+            key={opt.id}
+            className={cn(
+              "flex flex-1 items-center justify-center rounded-lg border px-4 py-3 text-sm font-medium",
+              browseRevealOptionClass(opt.id, question.correctAnswerId)
+            )}
+          >
+            {opt.content}
+          </div>
+        ))}
+      </div>
+    );
+  }
+
+  return (
+    <div className="flex flex-col gap-2">
+      {question.options.map((opt) => (
+        <div
+          key={opt.id}
+          className={cn(
+            "flex items-center gap-3 rounded-lg border p-3",
+            browseRevealOptionClass(opt.id, question.correctAnswerId)
+          )}
+        >
+          <span className="shrink-0 text-sm font-medium uppercase tabular-nums">
+            {opt.id}.
+          </span>
+          <div className="min-w-0 flex-1 text-sm leading-snug">
+            <OptionContent option={opt} compact={opt.type === "code"} />
+          </div>
+        </div>
+      ))}
+    </div>
+  );
+}
+
 export function QuestionDetailSections({
   question,
   className,
   variant = "default",
 }: QuestionDetailSectionsProps) {
+  const isBrowse = variant === "browse";
   const answer = getCorrectAnswerDisplay(question);
   const correctOption = question.options.find(
     (o) => o.id.toLowerCase() === question.correctAnswerId.toLowerCase()
   );
-  const isBrowse = variant === "browse";
 
   return (
     <div className={cn("flex flex-col gap-4", className)}>
-      <Card
-        size="sm"
-        className={cn(isBrowse && "gap-0 py-0 ring-foreground/8")}
-      >
-        <CardHeader
-          className={cn(
-            isBrowse && "gap-0 border-b border-border/60 px-4 py-3"
-          )}
-        >
+      <Card size="sm">
+        <CardHeader>
           <CardTitle>Answer</CardTitle>
-          {!isBrowse ? (
-            <CardDescription>Correct response</CardDescription>
-          ) : null}
+          <CardDescription>Correct response</CardDescription>
         </CardHeader>
-        <CardContent className={cn(isBrowse && "px-4 py-3")}>
-          {correctOption?.type === "code" ? (
+        <CardContent>
+          {isBrowse ? (
+            <BrowseAnswerOptions question={question} />
+          ) : correctOption?.type === "code" ? (
             <OptionContent option={correctOption} compact />
           ) : (
             <div className="flex flex-wrap items-center gap-2">
@@ -61,24 +111,13 @@ export function QuestionDetailSections({
       </Card>
 
       {question.explanation ? (
-        <Card
-          size="sm"
-          className={cn(isBrowse && "mb-0 gap-0 py-0 ring-foreground/8")}
-        >
-          <CardHeader
-            className={cn(
-              isBrowse && "gap-0 border-b border-border/60 px-4 py-3"
-            )}
-          >
+        <Card size="sm">
+          <CardHeader>
             <CardTitle>Explanation</CardTitle>
-            {!isBrowse ? (
-              <CardDescription>Why this is the correct answer</CardDescription>
-            ) : null}
+            <CardDescription>Why this is the correct answer</CardDescription>
           </CardHeader>
-          <CardContent className={cn(isBrowse && "px-4 py-3")}>
-            <p className="leading-relaxed text-foreground">
-              {question.explanation}
-            </p>
+          <CardContent>
+            <ExplanationText text={question.explanation} />
           </CardContent>
         </Card>
       ) : null}
