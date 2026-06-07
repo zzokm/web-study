@@ -25,10 +25,13 @@ export function QuestionExamAppearances({
   if (variant === "detailed") {
     return (
       <div className={cn("text-sm", className)}>
-        <p className="font-medium text-foreground">Final exam appearances</p>
-        <ul className="mt-1.5 list-inside list-disc space-y-0.5 text-muted-foreground">
+        <p className="font-medium text-foreground">Appeared in</p>
+        <ul className="mt-1.5 flex flex-col gap-1">
           {appearances.map((a) => (
-            <li key={`${a.origin}:${a.sourceQuestionId}`}>
+            <li
+              key={`${a.origin}:${a.sourceQuestionId}`}
+              className="text-muted-foreground"
+            >
               {formatExamAppearanceLabel(a)}
             </li>
           ))}
@@ -40,7 +43,7 @@ export function QuestionExamAppearances({
   return (
     <div className={cn("flex flex-col gap-1.5", className)}>
       <span className="text-xs font-medium text-muted-foreground">
-        Appeared on finals
+        Appeared in
       </span>
       <div className="flex flex-wrap gap-1.5">
         {appearances.map((a) => (

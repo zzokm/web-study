@@ -17,8 +17,16 @@ export function sortExamAppearances(
   );
 }
 
+export function examQuestionNumberFromId(sourceQuestionId: string): string {
+  const match =
+    sourceQuestionId.match(/:q(\d+)$/i) ??
+    sourceQuestionId.match(/(?:^|:)q(\d+)$/i);
+  return match?.[1] ?? sourceQuestionId;
+}
+
 export function formatExamAppearanceLabel(appearance: ExamAppearance): string {
-  return `${appearance.origin} Final — ${appearance.sourceQuestionId}`;
+  const number = examQuestionNumberFromId(appearance.sourceQuestionId);
+  return `${appearance.origin} Final Q${number}`;
 }
 
 export function hasMultipleExamAppearances(question: Question): boolean {
