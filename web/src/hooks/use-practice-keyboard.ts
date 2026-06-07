@@ -31,28 +31,33 @@ export function usePracticeKeyboard({
   onSave,
 }: UsePracticeKeyboardOptions) {
   const disabledRef = useRef(disabled);
-  disabledRef.current = disabled;
-
   const revealedRef = useRef(revealed);
-  revealedRef.current = revealed;
-
   const selectedIdRef = useRef(selectedId);
-  selectedIdRef.current = selectedId;
-
   const onSelectRef = useRef(onSelect);
-  onSelectRef.current = onSelect;
-
   const onCheckRef = useRef(onCheck);
-  onCheckRef.current = onCheck;
-
   const onPreviousRef = useRef(onPrevious);
-  onPreviousRef.current = onPrevious;
-
   const onNextRef = useRef(onNext);
-  onNextRef.current = onNext;
-
   const onSaveRef = useRef(onSave);
-  onSaveRef.current = onSave;
+
+  useEffect(() => {
+    disabledRef.current = disabled;
+    revealedRef.current = revealed;
+    selectedIdRef.current = selectedId;
+    onSelectRef.current = onSelect;
+    onCheckRef.current = onCheck;
+    onPreviousRef.current = onPrevious;
+    onNextRef.current = onNext;
+    onSaveRef.current = onSave;
+  }, [
+    disabled,
+    revealed,
+    selectedId,
+    onSelect,
+    onCheck,
+    onPrevious,
+    onNext,
+    onSave,
+  ]);
 
   useEffect(() => {
     if (!question) return;

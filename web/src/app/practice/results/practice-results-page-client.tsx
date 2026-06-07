@@ -3,7 +3,7 @@
 import { useEffect, useMemo, useRef, useState } from "react";
 import { useSearchParams } from "next/navigation";
 import { AnalyticsEvents } from "@/lib/analytics-events";
-import { trackEvent } from "@/lib/analytics";
+import { trackAnalyticsEvent } from "@/lib/analytics";
 import { getQuestionByKey } from "@/lib/questions";
 import { computePracticeScore } from "@/lib/practice-progress";
 import { loadPracticeResult } from "@/lib/practice-results";
@@ -72,7 +72,7 @@ export function PracticeResultsPageClient() {
   useEffect(() => {
     if (!stored || viewedRef.current) return;
     viewedRef.current = true;
-    trackEvent(AnalyticsEvents.practiceResultsView, {
+    trackAnalyticsEvent(AnalyticsEvents.practiceResultsView, {
       session_title: stored.title,
       score_percent: score.percent,
       correct: score.correct,
@@ -82,6 +82,11 @@ export function PracticeResultsPageClient() {
       total_thinking_ms:
         timing.recordedCount > 0 ? timing.totalThinkingMs : undefined,
       session_wall_ms: timing.sessionWallMs ?? undefined,
+      average_thinking_ms:
+        timing.recordedCount > 0 ? timing.averageMs : undefined,
+      median_thinking_ms:
+        timing.recordedCount > 0 ? timing.medianMs : undefined,
+      review_gap_ms: timing.reviewGapMs ?? undefined,
     });
   }, [stored, score, questions.length, timing]);
 
@@ -125,10 +130,13 @@ export function PracticeResultsPageClient() {
         <Button
           type="button"
           variant={mistakesOnly ? "default" : "outline"}
+          data-analytics-zone="results"
+          data-analytics-id="mistakes_filter"
+          data-analytics-skip
           onClick={() => {
             setMistakesOnly((v) => {
               const next = !v;
-              trackEvent(AnalyticsEvents.practiceResultsFilter, {
+              trackAnalyticsEvent(AnalyticsEvents.practiceResultsFilter, {
                 mistakes_only: next,
               });
               return next;

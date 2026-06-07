@@ -3,6 +3,8 @@
 import Link from "next/link";
 import { CheckIcon, ChevronDownIcon } from "lucide-react";
 import type { BreadcrumbSwitcherOption } from "@/lib/breadcrumb-items";
+import { AnalyticsEvents } from "@/lib/analytics-events";
+import { trackAnalyticsEvent } from "@/lib/analytics";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -14,6 +16,7 @@ import { cn } from "@/lib/utils";
 interface BreadcrumbSwitcherProps {
   label: string;
   value: string;
+  switcherType: "exam" | "lecture";
   options: BreadcrumbSwitcherOption[];
   className?: string;
 }
@@ -21,6 +24,7 @@ interface BreadcrumbSwitcherProps {
 export function BreadcrumbSwitcher({
   label,
   value,
+  switcherType,
   options,
   className,
 }: BreadcrumbSwitcherProps) {
@@ -35,6 +39,9 @@ export function BreadcrumbSwitcher({
               className
             )}
             aria-label={`${label}, change selection`}
+            data-analytics-zone="header"
+            data-analytics-id={`breadcrumb_${switcherType}`}
+            data-analytics-skip
           />
         }
       >
@@ -45,7 +52,20 @@ export function BreadcrumbSwitcher({
         {options.map((option) => (
           <DropdownMenuItem
             key={option.value}
-            render={<Link href={option.href} />}
+            render={
+              <Link
+                href={option.href}
+                onClick={() => {
+                  if (option.value !== value) {
+                    trackAnalyticsEvent(AnalyticsEvents.breadcrumbSwitch, {
+                      switcher_type: switcherType,
+                      from_value: value,
+                      to_value: option.value,
+                    });
+                  }
+                }}
+              />
+            }
             className="flex items-center justify-between gap-3"
           >
             <span className="truncate">{option.label}</span>

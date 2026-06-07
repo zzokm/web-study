@@ -30,7 +30,15 @@ export default function LecturesPage() {
             </div>
             <div className="grid gap-4 sm:grid-cols-2">
               {lectures.map((lec) => (
-                <LectureListCard key={lec.lectureId} lecture={lec} />
+                <LectureListCard
+                  key={lec.lectureId}
+                  lecture={lec}
+                  hubType={
+                    track.trackId === "frontend"
+                      ? "lectures_frontend"
+                      : "lectures_backend"
+                  }
+                />
               ))}
             </div>
             <Link

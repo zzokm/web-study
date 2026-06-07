@@ -6,6 +6,8 @@ import { useRender } from "@base-ui/react/use-render"
 import { cva, type VariantProps } from "class-variance-authority"
 
 import { useIsMobile } from "@/hooks/use-mobile"
+import { AnalyticsEvents } from "@/lib/analytics-events"
+import { trackAnalyticsEvent } from "@/lib/analytics"
 import { cn } from "@/lib/utils"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
@@ -268,18 +270,25 @@ function SidebarTrigger({
   onClick,
   ...props
 }: React.ComponentProps<typeof Button>) {
-  const { toggleSidebar } = useSidebar()
+  const { toggleSidebar, open, openMobile, isMobile } = useSidebar()
 
   return (
     <Button
       data-sidebar="trigger"
       data-slot="sidebar-trigger"
+      data-analytics-zone="header"
+      data-analytics-id="sidebar_toggle"
+      data-analytics-skip
       variant="ghost"
       size="icon-sm"
       className={cn(className)}
       onClick={(event) => {
         onClick?.(event)
+        const willBeOpen = isMobile ? !openMobile : !open
         toggleSidebar()
+        trackAnalyticsEvent(AnalyticsEvents.sidebarToggle, {
+          sidebar_state: willBeOpen ? "open" : "closed",
+        })
       }}
       {...props}
     >

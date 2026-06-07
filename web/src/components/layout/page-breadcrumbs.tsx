@@ -38,6 +38,7 @@ export function PageBreadcrumbs({ className }: { className?: string }) {
                   <BreadcrumbSwitcher
                     label={item.label}
                     value={item.switcher.value}
+                    switcherType={item.switcher.type}
                     options={item.switcher.options}
                   />
                 ) : isLast || !item.href ? (

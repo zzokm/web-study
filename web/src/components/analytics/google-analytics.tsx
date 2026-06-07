@@ -4,7 +4,12 @@ import Script from "next/script";
 import { usePathname, useSearchParams } from "next/navigation";
 import { useEffect, useMemo } from "react";
 import { getPageTitle } from "@/lib/analytics-page-titles";
-import { GA_MEASUREMENT_ID, isAnalyticsEnabled, trackPageView } from "@/lib/analytics";
+import {
+  GA_MEASUREMENT_ID,
+  getGaInitConfig,
+  isAnalyticsEnabled,
+  trackPageView,
+} from "@/lib/analytics";
 import { loadPracticeResult } from "@/lib/practice-results";
 
 export function GoogleAnalytics() {
@@ -21,7 +26,7 @@ export function GoogleAnalytics() {
           window.dataLayer = window.dataLayer || [];
           function gtag(){dataLayer.push(arguments);}
           gtag('js', new Date());
-          gtag('config', '${GA_MEASUREMENT_ID}', { send_page_view: false });
+          gtag('config', '${GA_MEASUREMENT_ID}', ${JSON.stringify(getGaInitConfig())});
         `}
       </Script>
       <GoogleAnalyticsPageViews />

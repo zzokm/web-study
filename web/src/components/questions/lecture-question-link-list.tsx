@@ -1,14 +1,17 @@
-import Link from "next/link";
+import type { HubType } from "@/lib/analytics-event-schemas";
+import { HubTrackedLink } from "@/components/analytics/hub-tracked-link";
 import { getLectureSlugs } from "@/lib/questions";
 import { Card, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 
 type LectureQuestionLinkListProps = {
   hrefPrefix: "/practice/lecture/" | "/by-lecture/";
+  hubType: HubType;
   compact?: boolean;
 };
 
 export function LectureQuestionLinkList({
   hrefPrefix,
+  hubType,
   compact = false,
 }: LectureQuestionLinkListProps) {
   const lectures = getLectureSlugs();
@@ -27,7 +30,12 @@ export function LectureQuestionLinkList({
             </h2>
             <div className={compact ? "flex flex-col gap-2" : "flex flex-col gap-3"}>
               {trackLectures.map((lec) => (
-                <Link key={lec.slug} href={`${hrefPrefix}${lec.slug}/`}>
+                <HubTrackedLink
+                  key={lec.slug}
+                  href={`${hrefPrefix}${lec.slug}/`}
+                  hubType={hubType}
+                  label={lec.lecture}
+                >
                   <Card className="transition-colors hover:bg-muted/50">
                     <CardHeader className={compact ? "py-4" : undefined}>
                       <CardTitle className={compact ? "text-sm font-medium" : "text-base"}>
@@ -38,7 +46,7 @@ export function LectureQuestionLinkList({
                       </CardDescription>
                     </CardHeader>
                   </Card>
-                </Link>
+                </HubTrackedLink>
               ))}
             </div>
           </div>

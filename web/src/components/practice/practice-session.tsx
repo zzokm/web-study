@@ -9,10 +9,13 @@ import {
   lectureSlugFromPathname,
   practiceModeFromPathname,
 } from "@/lib/analytics-practice";
+import type { InteractionSource } from "@/lib/analytics-event-schemas";
 import {
+  interactionSource,
+  practiceContextFromPath,
   questionAnalyticsParams,
   setUserProperties,
-  trackEvent,
+  trackAnalyticsEvent,
 } from "@/lib/analytics";
 import { isAnswerCorrect } from "@/lib/questions";
 import {
@@ -46,6 +49,7 @@ import {
 } from "@/components/practice/practice-session-footer";
 import { PracticePauseOverlay } from "@/components/practice/practice-pause-overlay";
 import {
+  getPracticeElapsedMs,
   usePracticeHeader,
   usePracticeHeaderState,
 } from "@/components/practice/practice-header-context";
@@ -84,6 +88,8 @@ function PracticeSessionInner({
   const startedRef = useRef(false);
   const sessionStartedAtRef = useRef<string | null>(null);
   const pauseStartedAtRef = useRef<number | null>(null);
+  const prevPausedRef = useRef<boolean | null>(null);
+  const viewedQuestionsRef = useRef(new Set<string>());
   const [index, setIndex] = useState(0);
   const [progress, setProgress] = useState<PracticeProgress>(() =>
     loadPracticeProgress(sessionKey)
@@ -134,7 +140,11 @@ function PracticeSessionInner({
 
   useEffect(() => {
     if (!question) return;
-    patchProgress((prev) => patchQuestionShown(prev, question.questionKey));
+    const questionKey = question.questionKey;
+    // Record when each question becomes visible for thinking-time measurement.
+    // eslint-disable-next-line react-hooks/set-state-in-effect -- sync progress with visible question
+    patchProgress((prev) => patchQuestionShown(prev, questionKey));
+    // eslint-disable-next-line react-hooks/exhaustive-deps -- keyed on questionKey only
   }, [question?.questionKey, patchProgress]);
 
   useEffect(() => {
@@ -174,103 +184,157 @@ function PracticeSessionInner({
     practiceHeaderState,
   ]);
 
+  const practiceBase = useCallback(
+    (source?: InteractionSource) => ({
+      ...practiceContextFromPath(pathname, title),
+      question_index: index + 1,
+      ...(source ? interactionSource(source) : {}),
+    }),
+    [pathname, title, index]
+  );
+
   useEffect(() => {
     if (startedRef.current || questions.length === 0) return;
     startedRef.current = true;
-    trackEvent(AnalyticsEvents.practiceStart, {
-      practice_mode: practiceMode,
+    trackAnalyticsEvent(AnalyticsEvents.practiceStart, {
+      ...practiceContextFromPath(pathname, title),
       question_count: questions.length,
-      exam_year: examYear,
-      lecture_slug: lectureSlug,
-      session_title: title,
     });
     setUserProperties({
       last_practice_mode: practiceMode,
       last_exam_year: examYear,
       last_lecture_slug: lectureSlug,
     });
-  }, [questions.length, practiceMode, examYear, lectureSlug, title]);
+  }, [questions.length, practiceMode, examYear, lectureSlug, title, pathname]);
+
+  useEffect(() => {
+    if (!question || !practiceMode) return;
+    if (viewedQuestionsRef.current.has(question.questionKey)) return;
+    viewedQuestionsRef.current.add(question.questionKey);
+    trackAnalyticsEvent(AnalyticsEvents.practiceQuestionView, {
+      ...practiceContextFromPath(pathname, title),
+      question_index: index + 1,
+      ...questionAnalyticsParams(question),
+    });
+  }, [question, practiceMode, pathname, title, index]);
+
+  useEffect(() => {
+    if (!practiceHeaderState || !practiceMode) return;
+    const wasPaused = prevPausedRef.current;
+    const isPaused = practiceHeaderState.paused;
+    if (wasPaused === isPaused) return;
+    prevPausedRef.current = isPaused;
+
+    const elapsed = getPracticeElapsedMs(practiceHeaderState);
+    const base = practiceContextFromPath(pathname, title);
+
+    if (isPaused) {
+      trackAnalyticsEvent(AnalyticsEvents.practicePause, {
+        ...base,
+        question_index: index + 1,
+        elapsed_ms: elapsed,
+      });
+    } else if (wasPaused === true && pauseStartedAtRef.current != null) {
+      trackAnalyticsEvent(AnalyticsEvents.practiceResume, {
+        ...base,
+        question_index: index + 1,
+        elapsed_ms: elapsed,
+        pause_duration_ms: Date.now() - pauseStartedAtRef.current,
+      });
+    }
+  }, [practiceHeaderState, practiceMode, pathname, title, index]);
 
   const handleSelect = useCallback(
-    (id: string) => {
+    (id: string, source: InteractionSource = "click") => {
       if (!question) return;
       updateCurrentAttempt({ selectedId: id });
-      trackEvent(AnalyticsEvents.practiceSelectAnswer, {
+      trackAnalyticsEvent(AnalyticsEvents.practiceSelectAnswer, {
+        ...practiceBase(source),
         ...questionAnalyticsParams(question),
-        practice_mode: practiceMode,
-        question_index: index + 1,
         selected_option_id: id,
       });
     },
-    [question, updateCurrentAttempt, practiceMode, index]
+    [question, updateCurrentAttempt, practiceBase]
   );
 
-  const handleCheck = useCallback(() => {
-    if (!selectedId || !question || revealed) return;
-    const isCorrect = isAnswerCorrect(selectedId, question.correctAnswerId);
-    patchProgress((prev) => patchQuestionChecked(prev, question.questionKey));
-    trackEvent(AnalyticsEvents.practiceCheckAnswer, {
-      ...questionAnalyticsParams(question),
-      practice_mode: practiceMode,
-      question_index: index + 1,
-      selected_option_id: selectedId,
-      correct: isCorrect,
-    });
-  }, [
-    selectedId,
-    question,
-    revealed,
-    patchProgress,
-    practiceMode,
-    index,
-  ]);
-
-  const handleNext = useCallback(() => {
-    if (index < questions.length - 1 && revealed && question) {
-      trackEvent(AnalyticsEvents.practiceNext, {
-        ...questionAnalyticsParams(question),
-        practice_mode: practiceMode,
-        question_index: index + 1,
+  const handleCheck = useCallback(
+    (source: InteractionSource = "click") => {
+      if (!selectedId || !question || revealed) return;
+      const isCorrect = isAnswerCorrect(selectedId, question.correctAnswerId);
+      const now = Date.now();
+      patchProgress((prev) => {
+        const next = patchQuestionChecked(prev, question.questionKey, now);
+        const attempt = getAttempt(next, question.questionKey);
+        trackAnalyticsEvent(AnalyticsEvents.practiceCheckAnswer, {
+          ...practiceBase(source),
+          ...questionAnalyticsParams(question),
+          selected_option_id: selectedId,
+          correct: isCorrect,
+          thinking_ms: attempt.thinkingMs,
+        });
+        return next;
       });
-      setIndex((i) => i + 1);
-    }
-  }, [index, questions.length, revealed, question, practiceMode]);
+    },
+    [selectedId, question, revealed, patchProgress, practiceBase]
+  );
 
-  const handlePrevious = useCallback(() => {
-    if (index > 0 && question) {
-      if (!revealed) {
-        patchProgress((prev) =>
-          patchQuestionShownCleared(prev, question.questionKey)
-        );
+  const handleNext = useCallback(
+    (source: InteractionSource = "click") => {
+      if (index < questions.length - 1 && revealed && question) {
+        trackAnalyticsEvent(AnalyticsEvents.practiceNext, {
+          ...practiceBase(source),
+          ...questionAnalyticsParams(question),
+        });
+        setIndex((i) => i + 1);
       }
-      trackEvent(AnalyticsEvents.practicePrevious, {
-        ...questionAnalyticsParams(question),
-        practice_mode: practiceMode,
-        question_index: index + 1,
-      });
-      setIndex((i) => i - 1);
-    }
-  }, [index, question, revealed, patchProgress, practiceMode]);
+    },
+    [index, questions.length, revealed, question, practiceBase]
+  );
 
-  const handleSave = useCallback(() => {
-    if (!question) return;
-    const saved = toggleSavedQuestion(question);
-    trackEvent(
-      saved ? AnalyticsEvents.questionSave : AnalyticsEvents.questionUnsave,
-      questionAnalyticsParams(question)
-    );
-  }, [question]);
+  const handlePrevious = useCallback(
+    (source: InteractionSource = "click") => {
+      if (index > 0 && question) {
+        if (!revealed) {
+          patchProgress((prev) =>
+            patchQuestionShownCleared(prev, question.questionKey)
+          );
+        }
+        trackAnalyticsEvent(AnalyticsEvents.practicePrevious, {
+          ...practiceBase(source),
+          ...questionAnalyticsParams(question),
+        });
+        setIndex((i) => i - 1);
+      }
+    },
+    [index, question, revealed, patchProgress, practiceBase]
+  );
+
+  const handleSave = useCallback(
+    (source: InteractionSource = "click") => {
+      if (!question) return;
+      const saved = toggleSavedQuestion(question);
+      trackAnalyticsEvent(
+        saved ? AnalyticsEvents.questionSave : AnalyticsEvents.questionUnsave,
+        {
+          ...practiceBase(source),
+          ...questionAnalyticsParams(question),
+        }
+      );
+      setUserProperties({ has_saved_questions: saved });
+    },
+    [question, practiceBase]
+  );
 
   usePracticeKeyboard({
     question,
     revealed,
     selectedId,
     disabled: paused,
-    onSelect: handleSelect,
-    onCheck: handleCheck,
-    onPrevious: handlePrevious,
-    onNext: handleNext,
-    onSave: handleSave,
+    onSelect: (id) => handleSelect(id, "keyboard"),
+    onCheck: () => handleCheck("keyboard"),
+    onPrevious: () => handlePrevious("keyboard"),
+    onNext: () => handleNext("keyboard"),
+    onSave: () => handleSave("keyboard"),
   });
 
   const handleFinish = useCallback(() => {
@@ -280,12 +344,9 @@ function PracticeSessionInner({
       sessionStartedAt: sessionStartedAtRef.current ?? undefined,
       finishedAt,
     });
-    trackEvent(AnalyticsEvents.practiceFinish, {
-      practice_mode: practiceMode,
+    trackAnalyticsEvent(AnalyticsEvents.practiceFinish, {
+      ...practiceContextFromPath(pathname, title),
       question_count: questions.length,
-      exam_year: examYear,
-      lecture_slug: lectureSlug,
-      session_title: title,
       score_percent: score.percent,
       correct: score.correct,
       incorrect: score.incorrect,
@@ -293,6 +354,10 @@ function PracticeSessionInner({
       total_thinking_ms:
         timing.recordedCount > 0 ? timing.totalThinkingMs : undefined,
       session_wall_ms: timing.sessionWallMs ?? undefined,
+    });
+    setUserProperties({
+      last_score_percent: score.percent,
+      last_finish_at: finishedAt,
     });
     const id = savePracticeResult({
       sessionKey,
@@ -303,26 +368,23 @@ function PracticeSessionInner({
       progress,
     });
     router.push(`/practice/results/?id=${id}`);
-  }, [
-    sessionKey,
-    title,
-    questions,
-    progress,
-    router,
-    practiceMode,
-    examYear,
-    lectureSlug,
-  ]);
+  }, [sessionKey, title, questions, progress, router, pathname]);
 
   const handleResetProgress = useCallback(() => {
-    trackEvent(AnalyticsEvents.practiceReset, {
-      practice_mode: practiceMode,
-      saved_answers_count: practiceProgressCount(progress),
+    const savedCount = practiceProgressCount(progress);
+    trackAnalyticsEvent(AnalyticsEvents.practiceResetConfirm, {
+      ...practiceContextFromPath(pathname, title),
+      saved_answers_count: savedCount,
+    });
+    trackAnalyticsEvent(AnalyticsEvents.practiceReset, {
+      ...practiceContextFromPath(pathname, title),
+      saved_answers_count: savedCount,
     });
     clearPracticeProgress(sessionKey);
     setProgress({});
     setIndex(0);
-  }, [sessionKey, practiceMode, progress]);
+    viewedQuestionsRef.current = new Set();
+  }, [sessionKey, pathname, title, progress]);
 
   const savedCount = practiceProgressCount(progress);
 
@@ -395,9 +457,9 @@ function PracticeSessionInner({
         correct={correct}
         selectedId={selectedId}
         paused={paused}
-        onPrevious={handlePrevious}
-        onNext={handleNext}
-        onCheck={handleCheck}
+        onPrevious={() => handlePrevious("click")}
+        onNext={() => handleNext("click")}
+        onCheck={() => handleCheck("click")}
         onFinish={handleFinish}
       />
     </>

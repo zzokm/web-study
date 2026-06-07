@@ -20,7 +20,11 @@ export default function BackendLecturesPage() {
       </div>
       <div className="grid gap-4 sm:grid-cols-2">
         {lectures.map((lec) => (
-          <LectureListCard key={lec.lectureId} lecture={lec} />
+          <LectureListCard
+            key={lec.lectureId}
+            lecture={lec}
+            hubType="lectures_backend"
+          />
         ))}
       </div>
     </div>

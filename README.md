@@ -2,7 +2,7 @@
 
 Practice web app for **Modern Management** course exams (2019-2025), with explanations and links to lecture slides and textbook chapters.
 
-**Live site:** [https://mgmt.yehia.dev](https://mgmt.yehia.dev)
+**Live site:** [https://webtech.yehia.dev](https://webtech.yehia.dev)
 
 ## Features
 

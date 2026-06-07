@@ -54,6 +54,8 @@ export function PracticeSessionFooter({
 
   return (
     <footer
+      data-analytics-zone="practice_footer"
+      data-analytics-skip
       className={cn(
         "fixed bottom-0 z-50 bg-background/95 shadow-[0_-4px_24px_-4px_rgba(0,0,0,0.12)] backdrop-blur supports-[backdrop-filter]:bg-background/85",
         "left-0 right-0 max-w-[100vw] overflow-hidden transition-[left] duration-200 ease-linear md:left-[var(--sidebar-inset-left)]",

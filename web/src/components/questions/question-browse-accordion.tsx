@@ -5,7 +5,7 @@ import { useCallback, useMemo, useRef } from "react";
 import type { Question } from "@/types/question";
 import type { BrowseContext } from "@/lib/analytics-events";
 import { AnalyticsEvents } from "@/lib/analytics-events";
-import { questionAnalyticsParams, trackEvent } from "@/lib/analytics";
+import { questionAnalyticsParams, trackAnalyticsEvent } from "@/lib/analytics";
 import { cn } from "@/lib/utils";
 import {
   Accordion,
@@ -58,7 +58,7 @@ export function QuestionBrowseAccordion({
         if (!prev.includes(key)) {
           const q = questionsByKey.get(key);
           if (q) {
-            trackEvent(AnalyticsEvents.questionExpand, {
+            trackAnalyticsEvent(AnalyticsEvents.questionExpand, {
               ...questionAnalyticsParams(q),
               browse_context: browseContext,
             });
@@ -69,7 +69,7 @@ export function QuestionBrowseAccordion({
         if (!next.includes(key)) {
           const q = questionsByKey.get(key);
           if (q) {
-            trackEvent(AnalyticsEvents.questionCollapse, {
+            trackAnalyticsEvent(AnalyticsEvents.questionCollapse, {
               ...questionAnalyticsParams(q),
               browse_context: browseContext,
             });

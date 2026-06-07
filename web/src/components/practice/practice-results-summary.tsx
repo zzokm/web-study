@@ -15,6 +15,8 @@ import {
   CollapsibleTrigger,
 } from "@/components/ui/collapsible";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { AnalyticsEvents } from "@/lib/analytics-events";
+import { trackAnalyticsEvent } from "@/lib/analytics";
 import { cn } from "@/lib/utils";
 
 interface PracticeScore {
@@ -258,9 +260,21 @@ export function PracticeResultsSummary({
             </>
           )}
 
-          <Collapsible open={methodologyOpen} onOpenChange={setMethodologyOpen}>
+          <Collapsible
+            open={methodologyOpen}
+            onOpenChange={(open) => {
+              setMethodologyOpen(open);
+              trackAnalyticsEvent(
+                AnalyticsEvents.practiceResultsMethodologyToggle,
+                { open }
+              );
+            }}
+          >
             <div className="overflow-hidden rounded-lg border">
               <CollapsibleTrigger
+                data-analytics-zone="results"
+                data-analytics-id="methodology_toggle"
+                data-analytics-skip
                 className={cn(
                   "flex w-full items-center justify-between gap-3 px-4 py-3 text-left",
                   "cursor-pointer transition-colors hover:bg-muted/30"

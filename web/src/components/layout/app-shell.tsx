@@ -46,6 +46,8 @@ import {
   SidebarProvider,
   SidebarTrigger,
 } from "@/components/ui/sidebar";
+import { NavTrackedLink } from "@/components/analytics/nav-tracked-link";
+import { OutboundTrackedLink } from "@/components/analytics/outbound-tracked-link";
 import { GitHubIcon } from "@/components/icons/github-icon";
 import {
   Tooltip,
@@ -121,7 +123,13 @@ function AppShellInner({ children }: { children: React.ReactNode }) {
                   {section.items.map((item) => (
                     <SidebarMenuItem key={item.href}>
                       <SidebarMenuButton
-                        render={<Link href={item.href} />}
+                        render={
+                          <NavTrackedLink
+                            href={item.href}
+                            navSection={section.label}
+                            navLabel={item.label}
+                          />
+                        }
                         isActive={isNavActive(pathname, item.href)}
                       >
                         <item.icon />
@@ -143,8 +151,9 @@ function AppShellInner({ children }: { children: React.ReactNode }) {
                       render={
                         <SidebarMenuButton
                           render={
-                            <a
+                            <OutboundTrackedLink
                               href={FEEDBACK_FORM_URL}
+                              outboundLabel="Feedback"
                               target="_blank"
                               rel="noopener noreferrer"
                             />
@@ -165,8 +174,9 @@ function AppShellInner({ children }: { children: React.ReactNode }) {
                 <SidebarMenuItem>
                   <SidebarMenuButton
                     render={
-                      <a
+                      <OutboundTrackedLink
                         href={GITHUB_REPO_URL}
+                        outboundLabel="GitHub repository"
                         target="_blank"
                         rel="noopener noreferrer"
                       />
@@ -181,15 +191,16 @@ function AppShellInner({ children }: { children: React.ReactNode }) {
           </SidebarGroup>
         </SidebarContent>
         <SidebarFooter className="mt-auto border-t border-sidebar-border px-4 py-3">
-          <a
+          <OutboundTrackedLink
             href={GITHUB_PROFILE_URL}
+            outboundLabel="Made By Yehia"
             target="_blank"
             rel="noopener noreferrer"
             className="flex w-full items-center justify-center gap-2 text-xs text-muted-foreground/80 transition-colors hover:text-muted-foreground"
           >
             <GitHubIcon />
             <span>Made By Yehia</span>
-          </a>
+          </OutboundTrackedLink>
         </SidebarFooter>
       </Sidebar>
       <SidebarInset>

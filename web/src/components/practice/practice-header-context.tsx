@@ -81,3 +81,12 @@ export function usePracticeHeader() {
 export function usePracticeHeaderState() {
   return useContext(PracticeHeaderContext)?.state ?? null;
 }
+
+export function getPracticeElapsedMs(
+  state: PracticeHeaderState,
+  now = Date.now()
+): number {
+  const effectiveNow =
+    state.paused && state.pausedAt != null ? state.pausedAt : now;
+  return Math.max(0, effectiveNow - state.startedAt - state.totalPausedMs);
+}

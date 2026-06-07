@@ -44,17 +44,18 @@ function getElapsedMs(
 function PracticeTimer({ className }: { className?: string }) {
   const state = usePracticeHeaderState();
   const { togglePracticePause } = usePracticeHeader();
-  const [, setTick] = useState(0);
+  const [now, setNow] = useState(() => Date.now());
+  const paused = state?.paused ?? false;
 
   useEffect(() => {
-    if (!state || state.paused) return;
-    const interval = window.setInterval(() => setTick((tick) => tick + 1), 1000);
+    if (!state || paused) return;
+    const interval = window.setInterval(() => setNow(Date.now()), 1000);
     return () => window.clearInterval(interval);
-  }, [state?.paused, state != null]);
+  }, [state, paused]);
 
   if (!state) return null;
 
-  const elapsed = getElapsedMs(state, Date.now());
+  const elapsed = getElapsedMs(state, now);
   const timeLabel = formatTimer(elapsed, elapsed >= 3600000);
 
   return (
@@ -88,6 +89,9 @@ function PracticeTimer({ className }: { className?: string }) {
       <button
         type="button"
         onClick={togglePracticePause}
+        data-analytics-zone="header"
+        data-analytics-id="practice_timer_pause"
+        data-analytics-skip
         className="flex size-10 shrink-0 items-center justify-center text-muted-foreground transition-colors hover:text-foreground"
         aria-label={state.paused ? "Resume timer" : "Pause timer"}
       >

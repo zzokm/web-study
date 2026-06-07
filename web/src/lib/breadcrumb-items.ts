@@ -17,6 +17,7 @@ export type BreadcrumbItem = {
   label: string;
   href?: string;
   switcher?: {
+    type: "exam" | "lecture";
     value: string;
     options: BreadcrumbSwitcherOption[];
   };
@@ -87,6 +88,7 @@ export function getBreadcrumbItems(
       items.push({
         label: lectureTitle(segments[1]) ?? "Lecture",
         switcher: {
+          type: "lecture",
           value: segments[1],
           options: lectureSwitcherOptions("/by-lecture"),
         },
@@ -101,6 +103,7 @@ export function getBreadcrumbItems(
       items.push({
         label: examBreadcrumbLabel(segments[1]),
         switcher: {
+          type: "exam",
           value: segments[1],
           options: examSwitcherOptions("/by-exam"),
         },
@@ -130,6 +133,7 @@ export function getBreadcrumbItems(
       items.push({
         label: lectureTitle(segments[2]) ?? "Lecture",
         switcher: {
+          type: "lecture",
           value: segments[2],
           options: lectureSwitcherOptions("/practice/lecture"),
         },
@@ -140,6 +144,7 @@ export function getBreadcrumbItems(
       items.push({
         label: examBreadcrumbLabel(segments[2]),
         switcher: {
+          type: "exam",
           value: segments[2],
           options: examSwitcherOptions("/practice/exam"),
         },
@@ -177,6 +182,7 @@ export function getBreadcrumbItems(
       items.push({
         label: page ? `${label} (slide ${page})` : label,
         switcher: {
+          type: "lecture",
           value: segments[1],
           options: lectureSwitcherOptions("/lectures"),
         },
@@ -193,6 +199,7 @@ export function getBreadcrumbItems(
       items.push({
         label: page ? `${label} (page ${page})` : label,
         switcher: {
+          type: "exam",
           value: segments[1],
           options: examSwitcherOptions("/exams"),
         },

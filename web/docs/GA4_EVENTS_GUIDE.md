@@ -1,189 +1,362 @@
-# GA4 events reference — Management Study
+# GA4 events reference — Web Study
 
-Use this guide when reading **Reports → Realtime**, **DebugView**, or **Explore**. Every custom event also includes `page_path` and `page_title` automatically (see [Common parameters](#common-parameters-on-every-custom-event)).
+Authoritative guide for every custom event sent by the app. Use when reading **Reports → Realtime**, **DebugView**, or **Explore**.
 
-Setup (env, Docker rebuild, GA4 Admin custom dimensions): [GA4_SETUP.md](./GA4_SETUP.md).
+**Setup (env, Docker rebuild, GA4 Admin dimensions):** [GA4_SETUP.md](./GA4_SETUP.md)
+
+**Source of truth in code:** `web/src/lib/analytics-event-schemas.ts`
 
 ---
 
-## Quick lookup: Realtime cards
+## Overview
 
-| What you see in Realtime | What to look at |
-|--------------------------|-----------------|
-| **Views by Page title** | Descriptive titles like `Practice · Chapter 1: Introduction · Management Study` — not a single “Management Study” for everything |
-| **Event count by Event name** | Mix of `page_view`, `practice_*`, `question_*`, `scroll_depth`, `ui_click`, etc. |
-| **Active users by User property** | `last_practice_mode`, `last_lecture_slug`, `last_exam_year` (after you register them in GA4 Admin) |
-| **First user source** | Only fills when traffic has a referrer or UTM (e.g. `?utm_source=whatsapp`). Direct visits often show “No data” |
-| **Key events** | Empty until you mark events as conversions in Admin (e.g. `practice_finish`) |
+- **Transport:** GA4 via direct `gtag.js` (`web/src/components/analytics/google-analytics.tsx`).
+- **Gating:** Events fire only when `NEXT_PUBLIC_GOOGLE_TAG_ID` is set.
+- **SPA navigation:** `page_view` is sent manually on route changes (GA4 `send_page_view: false` on init).
+- **DebugView:** Set `NEXT_PUBLIC_GA_DEBUG=true` locally to enable `debug_mode` in gtag config.
+- **Typed API:** `trackAnalyticsEvent(name, params)` in `web/src/lib/analytics.ts` — compile-time param checking via `AnalyticsEventMap`.
+- **Auto-attached params:** Every custom event includes `page_path` and `page_title` from the current URL.
+
+### Structured click tracking
+
+High-value UI uses explicit events and `data-analytics-*` attributes instead of generic `ui_click`:
+
+| Attribute | Purpose |
+|-----------|---------|
+| `data-analytics-skip` | Element tracked explicitly — excluded from `ui_click` fallback |
+| `data-analytics-zone` | Zone label (`sidebar`, `header`, `practice_footer`, `hub`, `results`, …) |
+| `data-analytics-id` | Stable control id (e.g. `nav_Practice_Practice`, `breakdown_sort`) |
+
+---
+
+## Key events (recommended conversions)
+
+Mark these in **Admin → Data display → Events → Mark as key event**:
+
+| Event | Why |
+|-------|-----|
+| `practice_finish` | Primary conversion — completed practice session |
+| `practice_start` | Session intent |
+| `practice_check_answer` | Engagement depth per question |
+| `question_save` | Retention signal |
+| `pdf_page_view` | Materials usage (lectures & exams) |
+| `practice_results_view` | Post-session review |
 
 ---
 
 ## GA4 automatic events (not from our code)
 
-These come from GA4 itself or Enhanced measurement. You may already see them:
+| Event | Meaning |
+|-------|---------|
+| `page_view` | Also sent by our SPA tracker with rich `page_title` |
+| `scroll` | GA4 Enhanced measurement (~90% scroll) |
+| `session_start` | New session |
+| `first_visit` | First visit to property |
+| `user_engagement` | GA4 engagement timer |
 
-| Event name | Meaning |
-|------------|---------|
-| `page_view` | Page load or SPA navigation (we send this manually with a rich `page_title`) |
-| `scroll` | GA4 Enhanced measurement — user scrolled ~90% down the page |
-| `session_start` | New session began |
-| `first_visit` | User’s first visit to the property |
-| `user_engagement` | GA4 engagement timer fired |
-
-Our code adds **`scroll_depth`** (finer milestones) in addition to GA4’s `scroll`.
+Our code adds **`scroll_depth`** at finer milestones (25/50/75/90/100%).
 
 ---
 
-## Navigation & engagement
+## Event catalog
+
+### Navigation & page
+
+| Event | When |
+|-------|------|
+| `page_view` | Route change (SPA) |
+| `scroll_depth` | Scroll milestone reached |
+| `nav_click` | Sidebar nav link clicked |
+| `breadcrumb_switch` | Exam/lecture breadcrumb dropdown selection |
+| `sidebar_toggle` | Sidebar collapse/expand |
+| `ui_click` | Fallback for uninstrumented link/button clicks |
+
+### Practice session
+
+| Event | When |
+|-------|------|
+| `practice_start` | Practice session loads (once) |
+| `practice_question_view` | Question first shown in session |
+| `practice_select_answer` | Answer option selected |
+| `practice_check_answer` | Check answer clicked |
+| `practice_next` / `practice_previous` | Navigate between questions |
+| `practice_pause` / `practice_resume` | Timer paused/resumed |
+| `practice_finish` | Session completed |
+| `practice_reset_confirm` | Reset dialog confirmed |
+| `practice_reset` | Progress cleared |
+
+### Practice results
+
+| Event | When |
+|-------|------|
+| `practice_results_view` | Results page loads with valid result |
+| `practice_results_filter` | Mistakes-only toggle |
+| `practice_results_breakdown_sort` | Slowest-first toggle on breakdown table |
+| `practice_results_methodology_toggle` | “How timing is measured” open/close |
+| `practice_results_timing_view` | Expand review row with timing badge |
+
+### Browse & questions
+
+| Event | When |
+|-------|------|
+| `question_expand` / `question_collapse` | Accordion open/close |
+| `question_save` / `question_unsave` | Bookmark toggle |
+
+### PDF / materials
+
+| Event | When |
+|-------|------|
+| `pdf_page_view` | PDF page visible (URL or in-viewer scroll) |
+| `pdf_document_switch` | Switch to another PDF tab in viewer |
+
+### Hub & outbound
+
+| Event | When |
+|-------|------|
+| `hub_card_click` | Hub index card (practice, exams, lectures) |
+| `outbound_click` | External link (GitHub, feedback form) |
+
+### Analysis
+
+| Event | When |
+|-------|------|
+| `analysis_filter_change` | Analysis dashboard filter/tab change |
+
+---
+
+## Per-event reference
 
 ### `page_view`
 
-**When:** User opens a route or navigates client-side to a new path.
+**When:** User opens a route or navigates client-side.
 
-**What it tells you:** Which screens are visited. Check **page_title** and **page_path**.
+**Example `page_title` values:**
 
-**Example page titles:**
-
-| Path | Example `page_title` |
-|------|----------------------|
-| `/` | `Home · Management Study` |
-| `/by-lecture/chapter-1-introduction/` | `Browse · Chapter 1: Introduction · Management Study` |
-| `/by-exam/2024/` | `Browse · 2024 Final · Management Study` |
-| `/practice/lecture/chapter-11-fundamentals-of-organizing/` | `Practice · Chapter 11: Fundamentals of Organizing · Management Study` |
-| `/practice/results/?id=…` | `Practice results · 2024 Final — Practice · Management Study` (if result title known) |
-| `/lectures/ch11/?page=8` | `Lecture · Chapter 11: … (slide 8) · Management Study` |
+| Path | Example title |
+|------|----------------|
+| `/` | `Home · Web Study` |
+| `/practice/exam/2024/` | `Practice · 2024 Final · Web Study` |
+| `/practice/results/?id=…` | `Practice results · 2024 Final — Practice · Web Study` |
+| `/lectures/ch11/?page=8` | `Lecture · Chapter 11: … (slide 8) · Web Study` |
 
 ---
 
 ### `scroll_depth`
 
-**When:** User scrolls to 25%, 50%, 75%, 90%, or 100% of the page (once per milestone per page).
+| Parameter | Type | Meaning |
+|-----------|------|---------|
+| `scroll_percent` | number | `25`, `50`, `75`, `90`, or `100` |
 
-| Parameter | Meaning |
-|-----------|---------|
-| `scroll_percent` | `25`, `50`, `75`, `90`, or `100` |
-
-**What it tells you:** How far users read on long pages (browse lists, results, analysis).
+Fires once per milestone per page load.
 
 ---
 
 ### `ui_click`
 
-**When:** User clicks a link, button, or `[role="button"]`. Accordion expand/collapse triggers are **excluded** (those use `question_expand` / `question_collapse`).
+**When:** Click on `a`, `button`, or `[role="button"]` not covered by explicit tracking. Accordion triggers and `data-analytics-skip` elements are excluded.
 
-| Parameter | Meaning |
-|-----------|---------|
-| `element_tag` | `a`, `button`, etc. |
-| `link_text` | Visible label or aria-label (truncated) |
-| `link_url` | Href for links (truncated) |
-
-**What it tells you:** Which UI elements get clicks (Practice buttons, sidebar links, “Open slide N”, etc.).
+| Parameter | Type | Meaning |
+|-----------|------|---------|
+| `element_tag` | string | `a`, `button`, etc. |
+| `link_text` | string | Visible label or aria-label (truncated) |
+| `link_url` | string? | Href for links |
+| `click_zone` | string? | From `data-analytics-zone` on element or ancestor |
+| `analytics_id` | string? | From `data-analytics-id` |
 
 ---
 
-## Practice mode
+### `nav_click`
 
-All practice events include **`practice_mode`** when applicable:
+**When:** Sidebar navigation link clicked.
 
-| Value | Route |
-|-------|--------|
+| Parameter | Type | Meaning |
+|-----------|------|---------|
+| `nav_section` | string | Sidebar group, e.g. `Practice`, `Materials` |
+| `nav_label` | string | Link label, e.g. `By exam` |
+| `nav_href` | string | Destination path |
+
+---
+
+### `breadcrumb_switch`
+
+**When:** User selects a different exam or lecture from the breadcrumb dropdown.
+
+| Parameter | Type | Meaning |
+|-----------|------|---------|
+| `switcher_type` | `exam` \| `lecture` | Which switcher |
+| `from_value` | string | Current year or slug |
+| `to_value` | string | Selected year or slug |
+
+---
+
+### `sidebar_toggle`
+
+**When:** Sidebar trigger clicked.
+
+| Parameter | Type | Meaning |
+|-----------|------|---------|
+| `sidebar_state` | `open` \| `closed` | State after toggle |
+
+---
+
+### `hub_card_click`
+
+**When:** User clicks a card on a hub/index page.
+
+| Parameter | Type | Meaning |
+|-----------|------|---------|
+| `hub_type` | string | `practice`, `exams`, `lectures`, `lectures_frontend`, `lectures_backend` |
+| `target_href` | string | Card destination |
+| `target_label` | string | Card title |
+
+---
+
+### `outbound_click`
+
+**When:** External link clicked (feedback form, GitHub).
+
+| Parameter | Type | Meaning |
+|-----------|------|---------|
+| `outbound_url` | string | Full URL |
+| `outbound_label` | string | Link label |
+
+---
+
+### `analysis_filter_change`
+
+**When:** User changes a filter on the exam analysis dashboard.
+
+| Parameter | Type | Meaning |
+|-----------|------|---------|
+| `filter_type` | string | `answer_year`, `lecture_yield_mode` |
+| `filter_value` | string | Selected value, e.g. `2024`, `unique` |
+
+---
+
+## Practice session events
+
+All practice events include **`practice_mode`** when on a practice route:
+
+| `practice_mode` | Route |
+|-----------------|-------|
 | `lecture` | `/practice/lecture/{slug}/` |
 | `exam` | `/practice/exam/{year}/` |
 | `repetitive` | `/practice/repetitive/` |
 | `saved` | `/practice/saved/` |
 
-### `practice_start`
-
-**When:** A practice session page loads (once per session).
+Shared practice parameters:
 
 | Parameter | Meaning |
 |-----------|---------|
-| `practice_mode` | `lecture`, `exam`, `repetitive`, or `saved` |
-| `question_count` | Number of questions in the set |
-| `exam_year` | e.g. `2024` (exam mode only) |
-| `lecture_slug` | e.g. `chapter-1-introduction` (lecture mode only) |
-| `session_title` | Display title, e.g. `2024 Final — Practice` |
+| `practice_mode` | See table above |
+| `exam_year` | e.g. `2024` (exam mode) |
+| `lecture_slug` | e.g. `chapter-1-introduction` (lecture mode) |
+| `session_title` | Display title |
+| `question_index` | 1-based position in session |
+| `interaction_source` | `keyboard` or `click` (navigation & answer actions) |
 
-**Also sets user properties:** `last_practice_mode`, `last_exam_year`, `last_lecture_slug`.
+### `practice_start`
 
----
+| Parameter | Meaning |
+|-----------|---------|
+| `question_count` | Questions in the set |
+
+**Sets user properties:** `last_practice_mode`, `last_exam_year`, `last_lecture_slug`.
+
+### `practice_question_view`
+
+**When:** Question first shown in the session (including revisits after reset).
 
 ### `practice_select_answer`
 
-**When:** User taps/clicks an answer option (before Check).
-
 | Parameter | Meaning |
 |-----------|---------|
-| `selected_option_id` | Option id, e.g. `a`, `b`, `2` |
-| `question_index` | 1-based position in the session |
-| + [question parameters](#question-parameters) | |
-
----
+| `selected_option_id` | Option id, e.g. `a`, `b` |
 
 ### `practice_check_answer`
 
-**When:** User clicks **Check** after selecting an answer.
-
 | Parameter | Meaning |
 |-----------|---------|
+| `selected_option_id` | Chosen option |
 | `correct` | `true` or `false` |
-| `selected_option_id` | What they chose |
-| `question_index` | 1-based position |
-| + question parameters | |
+| `thinking_ms` | Ms from question shown → check answer |
 
-**What it tells you:** Accuracy per question; filter `correct == false` for hard questions.
-
----
-
-### `practice_next` / `practice_previous`
-
-**When:** User moves to next/previous question (after answer revealed for next).
+### `practice_pause` / `practice_resume`
 
 | Parameter | Meaning |
 |-----------|---------|
-| `question_index` | Question they were on when they navigated |
-| + question parameters | |
-
----
+| `elapsed_ms` | Session elapsed time at pause/resume |
+| `pause_duration_ms` | Ms paused (resume only) |
 
 ### `practice_finish`
 
-**When:** User completes the session (Finish on last question).
-
 | Parameter | Meaning |
 |-----------|---------|
-| `score_percent` | Score as % of total questions |
-| `correct` | Number correct |
-| `incorrect` | Number wrong (among answered) |
-| `skipped` | Unanswered count |
+| `score_percent` | Score as % of total |
+| `correct`, `incorrect`, `skipped` | Counts |
 | `question_count` | Total in session |
-| `session_title`, `practice_mode`, `exam_year`, `lecture_slug` | Context |
+| `total_thinking_ms` | Sum of per-question thinking (if recorded) |
+| `session_wall_ms` | Wall-clock session duration |
 
-**Good candidate for a Key event (conversion)** in GA4 Admin.
+**Sets user properties:** `last_score_percent`, `last_finish_at` (ISO date).
 
----
-
-### `practice_reset`
-
-**When:** User confirms **Reset progress** on a practice session.
+### `practice_reset_confirm` / `practice_reset`
 
 | Parameter | Meaning |
 |-----------|---------|
-| `saved_answers_count` | How many saved answers were cleared |
-| `practice_mode` | Current practice type |
+| `saved_answers_count` | Answers cleared |
 
 ---
 
-## Browse & question review (accordion)
+## Practice results events
+
+### `practice_results_view`
+
+| Parameter | Meaning |
+|-----------|---------|
+| `session_title` | Session display title |
+| `score_percent`, `correct`, `incorrect`, `skipped` | Score breakdown |
+| `question_count` | Questions in session |
+| `total_thinking_ms` | Sum thinking time |
+| `session_wall_ms` | Wall-clock duration |
+| `average_thinking_ms` | Mean per-question thinking |
+| `median_thinking_ms` | Median per-question thinking |
+| `review_gap_ms` | Session wall minus active thinking |
+
+### `practice_results_filter`
+
+| Parameter | Meaning |
+|-----------|---------|
+| `mistakes_only` | `true` when showing mistakes only |
+
+### `practice_results_breakdown_sort`
+
+| Parameter | Meaning |
+|-----------|---------|
+| `sort_mode` | `order` or `slowest_first` |
+
+### `practice_results_methodology_toggle`
+
+| Parameter | Meaning |
+|-----------|---------|
+| `open` | `true` when section expanded |
+
+### `practice_results_timing_view`
+
+| Parameter | Meaning |
+|-----------|---------|
+| `thinking_ms` | Per-question thinking time |
+| + question parameters | |
+
+---
+
+## Browse & question events
 
 ### `question_expand` / `question_collapse`
 
-**When:** User opens or closes a question row on browse or results pages.
-
 | Parameter | Meaning |
 |-----------|---------|
-| `browse_context` | Where they are (see below) |
-| + question parameters | |
+| `browse_context` | Where the accordion lives |
 
 **`browse_context` values:**
 
@@ -195,135 +368,126 @@ All practice events include **`practice_mode`** when applicable:
 | `saved` | `/saved/` |
 | `practice_results` | `/practice/results/` review accordion |
 
-**What it tells you:** Which questions people open to read answers/explanations (use `question_key`, `topic`).
-
----
-
 ### `question_save` / `question_unsave`
 
-**When:** User bookmarks or removes a bookmark (practice or saved browse).
-
-| Parameter | Meaning |
-|-----------|---------|
-| + question parameters | Identifies the question |
+**Sets user property:** `has_saved_questions` (`true`/`false`).
 
 ---
 
-### `slide_link_click`
+## PDF events
 
-**When:** User clicks **Open slide N** or **Open full lecture** in the Reference section.
+### `pdf_page_view`
 
-| Parameter | Meaning |
-|-----------|---------|
-| `lecture_id` | e.g. `ch11` |
-| `slide_page` | Slide number (slide links only) |
-| `link_type` | `slide` or `full_lecture` |
-| + question parameters | |
-
----
-
-### `slide_preview_open` / `slide_preview_close`
-
-**When:** User toggles **Show referenced slides** (inline PDF) on a question.
+**When:** PDF page becomes visible — from URL `?page=` or in-viewer scroll (debounced 300ms).
 
 | Parameter | Meaning |
 |-----------|---------|
-| `lecture_id` | From `slideRef` |
-| + question parameters | |
+| `viewer_type` | `lecture` or `exam` |
+| `document_id` | Lecture/exam document id |
+| `page_number` | 1-based page |
+| `page_count` | Total pages |
+| `topic` | Document topic |
+| `source` | `url` or `viewer_scroll` |
 
----
+### `pdf_document_switch`
 
-## Results & lectures
-
-### `practice_results_view`
-
-**When:** Practice results page loads with a valid saved result.
-
-| Parameter | Meaning |
-|-----------|---------|
-| `session_title` | e.g. `2024 Final — Practice` |
-| `score_percent`, `correct`, `incorrect`, `skipped` | Final score breakdown |
-| `question_count` | Questions in that session |
-
----
-
-### `practice_results_filter`
-
-**When:** User toggles **Show mistakes only** / **Show all questions**.
+**When:** User switches PDF tab in the embedded viewer.
 
 | Parameter | Meaning |
 |-----------|---------|
-| `mistakes_only` | `true` when showing mistakes only |
-
----
-
-### `lecture_slide_view`
-
-**When:** Lecture PDF viewer loads or URL `?page=` changes.
-
-| Parameter | Meaning |
-|-----------|---------|
-| `lecture_id` | e.g. `ch1` |
-| `slide_page` | Slide number |
-| `page_count` | Total slides in deck |
-| `topic` | Chapter topic string |
+| `viewer_type` | `lecture` or `exam` |
+| `from_document_id` | Previous document |
+| `to_document_id` | New document |
 
 ---
 
 ## Question parameters
 
-Included on any event tied to a specific question (`question_expand`, `practice_check_answer`, etc.):
+Included on question-tied events:
 
 | Parameter | Example | Meaning |
 |-----------|---------|---------|
 | `question_key` | `2024:Q19` | Unique id across exams |
-| `question_type` | `mcq`, `true_false` | Question format |
-| `topic` | `Chapter 21: Controlling Fundamentals` | Lecture/topic label |
-| `lecture_slug` | `chapter-21-controlling-fundamentals` | Pool slug |
+| `question_type` | `mcq`, `true_false` | Format |
+| `topic` | Chapter label | Lecture/topic |
+| `lecture_slug` | `chapter-21-…` | Pool slug |
 | `origin` | `2024` | Source exam year |
-| `source_question_id` | `Q19` | Id within that exam |
+| `source_question_id` | `Q19` | Id within exam |
 
-We do **not** send question text (privacy + size).
+Question text is **not** sent.
 
 ---
 
-## Common parameters on every custom event
+## User properties
 
-| Parameter | Meaning |
+| Property | When set | Meaning |
+|----------|----------|---------|
+| `last_practice_mode` | `practice_start` | Last practice type |
+| `last_exam_year` | `practice_start` | Last exam year practiced |
+| `last_lecture_slug` | `practice_start` | Last lecture slug practiced |
+| `last_score_percent` | `practice_finish` | Most recent score % |
+| `last_finish_at` | `practice_finish` | ISO timestamp of last finish |
+| `has_saved_questions` | `question_save` / `question_unsave` | Whether user has bookmarks |
+
+Register all in GA4 Admin — see [GA4_SETUP.md](./GA4_SETUP.md).
+
+---
+
+## Parameter dictionary (appendix)
+
+| Parameter | Used on |
 |-----------|---------|
-| `page_path` | URL path, e.g. `/practice/exam/2024/` |
-| `page_title` | Human-readable title sent to GA4 |
+| `page_path`, `page_title` | All custom events |
+| `scroll_percent` | `scroll_depth` |
+| `element_tag`, `link_text`, `link_url`, `click_zone`, `analytics_id` | `ui_click` |
+| `nav_section`, `nav_label`, `nav_href` | `nav_click` |
+| `switcher_type`, `from_value`, `to_value` | `breadcrumb_switch` |
+| `sidebar_state` | `sidebar_toggle` |
+| `hub_type`, `target_href`, `target_label` | `hub_card_click` |
+| `outbound_url`, `outbound_label` | `outbound_click` |
+| `filter_type`, `filter_value` | `analysis_filter_change` |
+| `practice_mode`, `exam_year`, `lecture_slug`, `session_title`, `question_index`, `interaction_source` | Practice events |
+| `question_count`, `score_percent`, `correct`, `incorrect`, `skipped` | Start/finish/results |
+| `selected_option_id`, `correct`, `thinking_ms` | Answer events |
+| `elapsed_ms`, `pause_duration_ms` | Pause/resume |
+| `total_thinking_ms`, `session_wall_ms`, `average_thinking_ms`, `median_thinking_ms`, `review_gap_ms` | Finish/results |
+| `saved_answers_count` | Reset events |
+| `browse_context` | Question expand/collapse |
+| `mistakes_only` | Results filter |
+| `sort_mode` | Breakdown sort |
+| `open` | Methodology toggle |
+| `viewer_type`, `document_id`, `page_number`, `page_count`, `topic`, `source` | PDF page view |
+| `from_document_id`, `to_document_id` | PDF document switch |
 
 ---
 
-## User properties (not events)
+## Funnels to build in Explore
 
-Set on **`practice_start`**; visible under **Realtime → Active users by User property** after Admin registration:
-
-| Property | Example | Meaning |
-|----------|---------|---------|
-| `last_practice_mode` | `exam` | Last practice type used |
-| `last_exam_year` | `2024` | Last exam practice year |
-| `last_lecture_slug` | `chapter-1-introduction` | Last lecture practice slug |
+1. **Practice completion:** `practice_start` → `practice_check_answer` → `practice_finish` → `practice_results_view`
+2. **Materials → practice:** `hub_card_click` (hub_type=`practice`) → `practice_start` → `practice_finish`
+3. **PDF engagement:** `pdf_page_view` (source=`viewer_scroll`) → `pdf_document_switch`
+4. **Results review depth:** `practice_results_view` → `practice_results_breakdown_sort` → `practice_results_timing_view`
+5. **Keyboard power users:** Filter `practice_check_answer` where `interaction_source` = `keyboard`
 
 ---
 
-## Suggested GA4 reports
+## Removed / deferred events
 
-1. **Realtime** — confirm titles and events while testing.
-2. **Explore → Free form** — Rows: `question_key`, Values: Event count, Filter: `practice_check_answer`, Breakdown: `correct`.
-3. **Explore** — Rows: `page_title`, Values: Views, during launch week.
-4. **Explore** — Rows: `browse_context`, Values: `question_expand` count — which browse modes drive deep reads.
+These appeared in older docs but are **not implemented**:
+
+- `slide_link_click`
+- `slide_preview_open` / `slide_preview_close`
+
+`lecture_slide_view` is deprecated — use `pdf_page_view` instead.
 
 ---
 
-## Nothing else required in code
+## Verification checklist
 
-Implementation is complete when:
+- [ ] `NEXT_PUBLIC_GOOGLE_TAG_ID` set; Docker image rebuilt for production
+- [ ] Custom dimensions registered ([GA4_SETUP.md](./GA4_SETUP.md))
+- [ ] Key events marked in GA4 Admin
+- [ ] DebugView pass with `NEXT_PUBLIC_GA_DEBUG=true` on major flows: practice, results, PDF scroll, sidebar nav, hub cards
+- [ ] Optional: campaign links with `?utm_source=…` for acquisition reporting
 
-- [x] `GOOGLE_TAG_ID` set and Docker image rebuilt for production
-- [ ] Custom dimensions registered in GA4 Admin ([GA4_SETUP.md](./GA4_SETUP.md))
-- [ ] Optional: mark `practice_finish` / `practice_check_answer` as Key events
-- [ ] Optional: share links with `?utm_source=…` so **First user source** populates
-
-After Admin registration, allow up to 24–48 hours for all dimensions to appear in standard reports.
+Allow 24–48 hours after Admin registration for dimensions to appear in standard reports.

@@ -8,6 +8,9 @@ import {
   type PluginRegistry,
 } from "@embedpdf/react-pdf-viewer";
 import type { LectureMeta } from "@/types/question";
+import type { PdfViewerType } from "@/lib/analytics-event-schemas";
+import { AnalyticsEvents } from "@/lib/analytics-events";
+import { trackAnalyticsEvent } from "@/lib/analytics";
 import { formatLectureHeading } from "@/lib/lecture-label";
 import { pdfDocumentUrl, pdfiumWasmUrl } from "@/lib/pdf-assets";
 import {
@@ -16,6 +19,7 @@ import {
 } from "./lecture-pdf-config";
 
 const LECTURE_VIEWER_HEIGHT = "min(80vh, 900px)";
+const PAGE_TRACK_DEBOUNCE_MS = 300;
 
 type ScrollCapability = {
   onLayoutReady: (
@@ -42,9 +46,7 @@ type DocumentManagerCapability = {
   }>;
 };
 
-type EventHook<T> = {
-  (handler: (event: T) => void): void;
-};
+type EventHook<T> = (handler: (event: T) => void) => void;
 
 function getScroll(registry: PluginRegistry): ScrollCapability | null {
   const scrollPlugin = registry.getPlugin("scroll") as {
@@ -105,7 +107,50 @@ export function LectureViewerFull({
   const viewerRef = useRef<PDFViewerRef>(null);
   const registryRef = useRef<PluginRegistry | null>(null);
   const syncingFromViewerRef = useRef(false);
+  const lastTrackedPageRef = useRef<string | null>(null);
+  const pageDebounceRef = useRef<ReturnType<typeof setTimeout> | null>(null);
   const pageNumber = pageIndex + 1;
+
+  const viewerType: PdfViewerType = routeBase === "/exams" ? "exam" : "lecture";
+  const lectureById = useMemo(
+    () => new Map(lectures.map((lec) => [lec.lectureId, lec])),
+    [lectures]
+  );
+
+  const trackPdfPage = useCallback(
+    (
+      documentId: string,
+      page: number,
+      source: "url" | "viewer_scroll",
+      totalPages?: number
+    ) => {
+      const meta = lectureById.get(documentId);
+      if (!meta) return;
+      const trackKey = `${documentId}:${page}:${source}`;
+      if (lastTrackedPageRef.current === trackKey) return;
+      lastTrackedPageRef.current = trackKey;
+
+      trackAnalyticsEvent(AnalyticsEvents.pdfPageView, {
+        viewer_type: viewerType,
+        document_id: documentId,
+        page_number: page,
+        page_count: totalPages ?? meta.pageCount,
+        topic: meta.topic,
+        source,
+      });
+    },
+    [lectureById, viewerType]
+  );
+
+  const scheduleViewerPageTrack = useCallback(
+    (documentId: string, page: number, totalPages: number) => {
+      if (pageDebounceRef.current) clearTimeout(pageDebounceRef.current);
+      pageDebounceRef.current = setTimeout(() => {
+        trackPdfPage(documentId, page, "viewer_scroll", totalPages);
+      }, PAGE_TRACK_DEBOUNCE_MS);
+    },
+    [trackPdfPage]
+  );
 
   const initialDocuments = useMemo(
     () =>
@@ -153,6 +198,16 @@ export function LectureViewerFull({
         scrollActiveDocToPage(registry, activeLectureId, pageNumber);
       });
 
+      const scroll = getScroll(registry);
+      scroll?.onLayoutReady((event) => {
+        if (!event.documentId) return;
+        scheduleViewerPageTrack(
+          event.documentId,
+          event.pageNumber,
+          event.totalPages
+        );
+      });
+
       if (syncUrl) {
         const dm = getDocumentManager(registry);
         dm?.onActiveDocumentChanged((event) => {
@@ -160,13 +215,31 @@ export function LectureViewerFull({
             syncingFromViewerRef.current = false;
             return;
           }
+          if (
+            event.previousDocumentId &&
+            event.currentDocumentId &&
+            event.previousDocumentId !== event.currentDocumentId
+          ) {
+            trackAnalyticsEvent(AnalyticsEvents.pdfDocumentSwitch, {
+              viewer_type: viewerType,
+              from_document_id: event.previousDocumentId,
+              to_document_id: event.currentDocumentId,
+            });
+          }
           if (event.currentDocumentId) {
             syncRouteToDocument(event.currentDocumentId);
           }
         });
       }
     },
-    [activeLectureId, pageNumber, syncRouteToDocument, syncUrl]
+    [
+      activeLectureId,
+      pageNumber,
+      scheduleViewerPageTrack,
+      syncRouteToDocument,
+      syncUrl,
+      viewerType,
+    ]
   );
 
   useEffect(() => {
@@ -175,6 +248,12 @@ export function LectureViewerFull({
     activateDocument(registry, activeLectureId);
     scrollActiveDocToPage(registry, activeLectureId, pageNumber);
   }, [activeLectureId, pageNumber]);
+
+  useEffect(() => {
+    return () => {
+      if (pageDebounceRef.current) clearTimeout(pageDebounceRef.current);
+    };
+  }, []);
 
   return (
     <PDFViewer

@@ -9,6 +9,8 @@ import {
   type PracticeProgress,
 } from "@/lib/practice-progress";
 import { formatThinkingDuration, hasTimingData } from "@/lib/practice-timing";
+import { AnalyticsEvents } from "@/lib/analytics-events";
+import { trackAnalyticsEvent } from "@/lib/analytics";
 import { Button } from "@/components/ui/button";
 import {
   Table,
@@ -83,7 +85,18 @@ export function PracticeResultsBreakdown({
           type="button"
           variant="outline"
           size="sm"
-          onClick={() => setSlowestFirst((v) => !v)}
+          data-analytics-zone="results"
+          data-analytics-id="breakdown_sort"
+          data-analytics-skip
+          onClick={() => {
+            setSlowestFirst((v) => {
+              const next = !v;
+              trackAnalyticsEvent(AnalyticsEvents.practiceResultsBreakdownSort, {
+                sort_mode: next ? "slowest_first" : "order",
+              });
+              return next;
+            });
+          }}
         >
           {slowestFirst ? "Question order" : "Slowest first"}
         </Button>

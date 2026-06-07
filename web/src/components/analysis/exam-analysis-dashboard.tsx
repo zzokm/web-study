@@ -18,6 +18,8 @@ import {
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Bar, BarChart, CartesianGrid, Tooltip, XAxis, YAxis } from "recharts";
 import Link from "next/link";
+import { AnalyticsEvents } from "@/lib/analytics-events";
+import { trackAnalyticsEvent } from "@/lib/analytics";
 import { AnalysisChart } from "./analysis-chart";
 
 function formatGeneratedAt(iso: string) {
@@ -166,7 +168,16 @@ export function ExamAnalysisDashboard({ data }: { data: ExamAnalysisData }) {
           title="Correct answer distribution"
           description={`How often each option is the keyed correct answer for ${answerYearLabel}.`}
         />
-        <Tabs value={answerYear} onValueChange={setAnswerYear}>
+        <Tabs
+          value={answerYear}
+          onValueChange={(year) => {
+            setAnswerYear(year);
+            trackAnalyticsEvent(AnalyticsEvents.analysisFilterChange, {
+              filter_type: "answer_year",
+              filter_value: year,
+            });
+          }}
+        >
           <TabsList className="flex h-auto flex-wrap gap-1">
             {CORRECT_ANSWER_YEAR_TABS.map((year) => (
               <TabsTrigger key={year} value={year}>
@@ -234,9 +245,14 @@ export function ExamAnalysisDashboard({ data }: { data: ExamAnalysisData }) {
           />
           <Tabs
             value={yieldMode}
-            onValueChange={(value) =>
-              setYieldMode(value as LectureYieldMode)
-            }
+            onValueChange={(value) => {
+              const mode = value as LectureYieldMode;
+              setYieldMode(mode);
+              trackAnalyticsEvent(AnalyticsEvents.analysisFilterChange, {
+                filter_type: "lecture_yield_mode",
+                filter_value: mode,
+              });
+            }}
           >
             <TabsList className="flex h-auto flex-wrap gap-1">
               <TabsTrigger value="unique">

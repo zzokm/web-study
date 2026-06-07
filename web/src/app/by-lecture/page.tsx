@@ -15,7 +15,10 @@ export default function ByLecturePage() {
           All exam questions grouped by the lecture they were allocated to.
         </p>
       </div>
-      <LectureQuestionLinkList hrefPrefix="/by-lecture/" />
+      <LectureQuestionLinkList
+        hrefPrefix="/by-lecture/"
+        hubType="lectures"
+      />
     </div>
   );
 }

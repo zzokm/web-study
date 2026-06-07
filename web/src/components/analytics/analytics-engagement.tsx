@@ -3,7 +3,11 @@
 import { usePathname } from "next/navigation";
 import { useEffect, useRef } from "react";
 import { AnalyticsEvents } from "@/lib/analytics-events";
-import { isAnalyticsEnabled, trackEvent, truncateText } from "@/lib/analytics";
+import {
+  isAnalyticsEnabled,
+  trackAnalyticsEvent,
+  truncateText,
+} from "@/lib/analytics";
 
 const SCROLL_MILESTONES = [25, 50, 75, 90, 100] as const;
 
@@ -29,7 +33,7 @@ export function AnalyticsEngagement() {
       for (const milestone of SCROLL_MILESTONES) {
         if (percent >= milestone && !firedScroll.current.has(milestone)) {
           firedScroll.current.add(milestone);
-          trackEvent(AnalyticsEvents.scrollDepth, {
+          trackAnalyticsEvent(AnalyticsEvents.scrollDepth, {
             scroll_percent: milestone,
           });
         }
@@ -51,6 +55,7 @@ export function AnalyticsEngagement() {
       const interactive = target.closest("a, button, [role='button']");
       if (!interactive || !(interactive instanceof HTMLElement)) return;
 
+      if (interactive.closest("[data-analytics-skip]")) return;
       if (interactive.closest("[data-slot='accordion-trigger']")) return;
 
       const now = Date.now();
@@ -68,10 +73,23 @@ export function AnalyticsEngagement() {
           ? interactive.href
           : undefined;
 
-      trackEvent(AnalyticsEvents.uiClick, {
+      const clickZone =
+        interactive
+          .closest("[data-analytics-zone]")
+          ?.getAttribute("data-analytics-zone") ?? undefined;
+      const analyticsId =
+        interactive.getAttribute("data-analytics-id") ??
+        interactive
+          .closest("[data-analytics-id]")
+          ?.getAttribute("data-analytics-id") ??
+        undefined;
+
+      trackAnalyticsEvent(AnalyticsEvents.uiClick, {
         element_tag: tag,
         link_text: linkText,
         link_url: linkUrl ? truncateText(linkUrl, 200) : undefined,
+        click_zone: clickZone,
+        analytics_id: analyticsId,
       });
     }
 

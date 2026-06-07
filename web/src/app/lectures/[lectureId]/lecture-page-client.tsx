@@ -4,7 +4,7 @@ import { useEffect, useMemo, useRef } from "react";
 import { useSearchParams } from "next/navigation";
 import type { LectureMeta } from "@/types/question";
 import { AnalyticsEvents } from "@/lib/analytics-events";
-import { trackEvent } from "@/lib/analytics";
+import { trackAnalyticsEvent } from "@/lib/analytics";
 import { getLectureMeta } from "@/lib/questions";
 import { LectureViewerDynamic as LectureViewer } from "@/components/pdf/lecture-viewer-dynamic";
 
@@ -17,11 +17,13 @@ export function LecturePageClient({ lecture }: { lecture: LectureMeta }) {
   useEffect(() => {
     if (lastTrackedPage.current === initialPage) return;
     lastTrackedPage.current = initialPage;
-    trackEvent(AnalyticsEvents.lectureSlideView, {
-      lecture_id: lecture.lectureId,
-      slide_page: initialPage,
+    trackAnalyticsEvent(AnalyticsEvents.pdfPageView, {
+      viewer_type: "lecture",
+      document_id: lecture.lectureId,
+      page_number: initialPage,
       page_count: lecture.pageCount,
       topic: lecture.topic,
+      source: "url",
     });
   }, [initialPage, lecture.lectureId, lecture.pageCount, lecture.topic]);
 

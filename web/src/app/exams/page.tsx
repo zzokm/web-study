@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import Link from "next/link";
+import { HubTrackedLink } from "@/components/analytics/hub-tracked-link";
 import { metadataTitle } from "@/lib/analytics-page-titles";
 import { getExamMeta, getExamYears } from "@/lib/questions";
 import { Card, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
@@ -25,14 +25,19 @@ export default function ExamsPage() {
           const exam = examMeta[year];
           if (!exam) return null;
           return (
-            <Link key={year} href={`/exams/${year}/`}>
+            <HubTrackedLink
+              key={year}
+              href={`/exams/${year}/`}
+              hubType="exams"
+              label={exam.title}
+            >
               <Card className="h-full transition-colors hover:bg-muted/50">
                 <CardHeader>
                   <CardTitle className="text-base">{exam.title}</CardTitle>
                   <CardDescription>{exam.pageCount} pages</CardDescription>
                 </CardHeader>
               </Card>
-            </Link>
+            </HubTrackedLink>
           );
         })}
       </div>

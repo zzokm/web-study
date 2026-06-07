@@ -3,7 +3,7 @@
 import { useCallback, useMemo, useRef } from "react";
 import type { Question } from "@/types/question";
 import { AnalyticsEvents } from "@/lib/analytics-events";
-import { questionAnalyticsParams, trackEvent } from "@/lib/analytics";
+import { questionAnalyticsParams, trackAnalyticsEvent } from "@/lib/analytics";
 import {
   getAttempt,
   getQuestionThinkingMs,
@@ -70,10 +70,18 @@ export function PracticeResultsAccordion({
       if (!prev.includes(key)) {
         const q = questionsByKey.get(key);
         if (q) {
-          trackEvent(AnalyticsEvents.questionExpand, {
+          trackAnalyticsEvent(AnalyticsEvents.questionExpand, {
             ...questionAnalyticsParams(q),
             browse_context: "practice_results",
           });
+          const attempt = getAttempt(progress, q.questionKey);
+          const thinkingMs = getQuestionThinkingMs(attempt);
+          if (thinkingMs != null) {
+            trackAnalyticsEvent(AnalyticsEvents.practiceResultsTimingView, {
+              ...questionAnalyticsParams(q),
+              thinking_ms: thinkingMs,
+            });
+          }
         }
       }
     }
@@ -81,7 +89,7 @@ export function PracticeResultsAccordion({
       if (!next.includes(key)) {
         const q = questionsByKey.get(key);
         if (q) {
-          trackEvent(AnalyticsEvents.questionCollapse, {
+          trackAnalyticsEvent(AnalyticsEvents.questionCollapse, {
             ...questionAnalyticsParams(q),
             browse_context: "practice_results",
           });
@@ -89,7 +97,7 @@ export function PracticeResultsAccordion({
       }
     }
     prevOpenRef.current = next;
-  }, [questionsByKey]);
+  }, [questionsByKey, progress]);
 
   if (visible.length === 0) {
     return (
