@@ -5,6 +5,50 @@ Technical overview of every user-facing capability in the app.
 
 ---
 
+## Recent updates (changelog)
+
+Summary of what shipped recently — useful for feedback forms, release notes, and maintainers.
+
+### Code examples (Google Drive demos)
+
+| Update | Detail |
+|--------|--------|
+| **New section** | Runnable HTML/JS demos for **fe-5** (12 examples) and **fe-6** (15 examples), migrated from course Google Drive JS1/JS2 folders into `data/code-examples/`. |
+| **Routes** | `/code-examples/fe-5/`, `/code-examples/fe-6/`; `/code-examples/` redirects to `/lectures/frontend/`. |
+| **Frontend lectures layout** | fe-0–fe-4 in one grid; **fe-5** and **fe-6** each pair a lecture PDF card with a code-examples entry card. |
+| **Entry cards** | FileCode2 icon, example count badge, Google Drive attribution in description. |
+| **Per-example cards** | Title + original filename (`5.html`, `200.html`, …); **Code** tab default; **Preview** tab with **Run** (top right). |
+| **Run on demand** | Sandboxed iframe (`allow-scripts`, `allow-modals`); nothing executes until **Run**. **Run again** reloads preview. |
+| **Preview placeholder** | Styled empty state with icon before first run: “Click **Run** first to load the live preview.” |
+| **Preview unavailable** | Console-only or dialog-only demos show “Preview unavailable for this code example.” **Run** hidden. Auto-detected at sync; override via `previewAvailable` in manifest. |
+| **Larger previews** | Minimum preview height 256px (`min-h-64`). |
+| **Explanations** | Expandable **Explanation** panel below the code block (Code tab), full-width bordered container; copy in `data/manifests/code-example-explanations.json`; supports `` `inline code` `` like question explanations. |
+| **Code display** | Same Shiki `CodeBlock` as exam questions; horizontal scroll for long lines; dark-theme horizontal scrollbar on `.code-ide-scroll`. |
+| **Sync pipeline** | `sync-content.mjs` copies HTML/assets to `public/code-examples/`, wraps bare `<script>` files in HTML, embeds source + metadata into `catalog.json`. |
+| **Nav** | Breadcrumbs and page titles for code-example routes; no separate sidebar item (entry from frontend lectures). |
+
+### Mock exam
+
+| Update | Detail |
+|--------|--------|
+| **Generator** | Seeded mock exams from historical lecture allocation weights (`relatedTopics` + allocation maps). |
+| **Setup** | Question count (default 84), FE/BE slider (default 70/30), shuffle, exam simulation, timer, regenerate, resume/start fresh. |
+| **Routes** | `/practice/mock-exam/`; entry cards on Practice hub and By exam hub. |
+| **Persistence** | Spec in `webstudy:mock-exam-active-v1`; reproducible per seed + settings. |
+| **Session** | Full exam-simulation flow; results page includes mock spec context. |
+| **Analytics** | `mock_exam_generate`, `mock_exam_regenerate`, and related practice events documented in GA4 guide. |
+
+### Practice & code (earlier in same release window)
+
+| Update | Detail |
+|--------|--------|
+| **Practice setup** | Pre-session screen for all practice modes (shuffle, MCQ shuffle, timer, exam simulation, resume). |
+| **Seeded shuffle** | Reproducible question/option order via session seed. |
+| **Timer reset** | Clearing practice progress resets the session timer. |
+| **Explanation parsing** | Backticks and quoted strings in explanations render as monospace in browse and practice. |
+
+---
+
 ## App shell
 
 | Feature | Route / location | What it does |
@@ -25,7 +69,7 @@ Technical overview of every user-facing capability in the app.
 
 | Feature | What it does |
 |---------|--------------|
-| Stats cards | Total questions, lectures, exams, and topic count from synced catalog data. |
+| Stats cards | Total questions, lectures, exams, topics, and code-example count from synced catalog data. |
 | Practice CTA | Jump to `/practice/`. |
 | Saved CTA | Jump to `/saved/`. |
 | Browse shortcuts | Quick links to by-lecture, each exam year, exam PDFs, lecture tracks, and analysis. |
@@ -51,9 +95,43 @@ Technical overview of every user-facing capability in the app.
 |---------|--------------|
 | Track index | Frontend (HTML/CSS/JS) and backend (Python/Django/HTTP) lecture lists. |
 | Lecture cards | Title, blurb, and slide count per deck. |
+| Frontend layout | Lectures 0–4 in one grid; fe-5 and fe-6 each sit beside their code-examples card. |
 | PDF viewer | Tabbed EmbedPDF viewer for lecture PDFs. |
 | URL page sync | `?page=N` deep-links to a slide; scroll position tracked in analytics. |
 | Breadcrumb switcher | Jump between lecture decks from the header. |
+
+### Code examples (`/code-examples/[lectureId]/`, entry from `/lectures/frontend/`)
+
+Runnable HTML/JS demos sourced from **the course Google Drive** (originally JS1 and JS2 folders). **27 examples** today: 12 for JavaScript 1 (fe-5), 15 for JavaScript 2 (fe-6).
+
+| Feature | What it does |
+|---------|--------------|
+| Index redirect | `/code-examples/` → `/lectures/frontend/`. |
+| Entry cards | fe-5 / fe-6 cards on the frontend lectures grid (FileCode2 icon, count badge, Google Drive description). |
+| Per-lecture pages | `/code-examples/fe-5/` and `/code-examples/fe-6/` list examples in pedagogical manifest order. |
+| Example header | Human title + monospace original filename (e.g. `200.html`). |
+| Code tab (default) | Shiki-highlighted source; horizontal scroll; dark IDE scrollbar. |
+| Explanation accordion | Full-width bordered block under the code; expandable; teaching notes per example. |
+| Preview tab | **Run** loads sandboxed iframe on demand; 256px min height. |
+| Preview placeholder | Before first run: icon + “Click **Run** first…” call-to-action. |
+| Preview unavailable | Dialog-only or console-only-without-page demos: message shown, **Run** hidden. |
+| Bare scripts | Sync wraps orphan `<script>` files (e.g. `201.html`) in a minimal HTML document for iframe preview. |
+| Static assets | Images and `.js` helpers (e.g. `myjs.js`, bulb GIFs) copied with HTML. |
+| Breadcrumbs | Frontend lectures → “{lecture} code examples”. |
+| Maintainer data | `data/manifests/code-examples.json`, `data/manifests/code-example-explanations.json`, `data/code-examples/{lectureId}/`. |
+
+---
+
+## Code blocks (shared)
+
+Used in exam questions, practice, browse, and code examples.
+
+| Feature | What it does |
+|---------|--------------|
+| Shiki highlighting | VS Code–style tokens via shared `CodeBlock` component. |
+| Horizontal scroll | Long lines scroll laterally; rows use `max-content` width. |
+| Dark scrollbar | `.code-ide-scroll` uses `#2d2d2d` track and `#5a5a5a` thumb (Firefox + WebKit). |
+| Line numbers | Optional gutter; exam/code-example blocks use IDE chrome. |
 
 ---
 
@@ -209,10 +287,19 @@ Full catalog: [`web/docs/GA4_EVENTS_GUIDE.md`](../web/docs/GA4_EVENTS_GUIDE.md).
 
 | Step | Command / path | What it does |
 |------|----------------|--------------|
-| Source data | `data/exams/`, `data/manifests/`, `data/lectures/` | Exam JSON, lecture manifest, PDF assets. |
+| Source data | `data/exams/`, `data/manifests/`, `data/lectures/`, `data/code-examples/` | Exam JSON, lecture manifest, PDF assets, runnable HTML demos. |
+| Code example manifest | `data/manifests/code-examples.json` | Example list, order, files, assets; optional `previewAvailable` override. |
+| Code example explanations | `data/manifests/code-example-explanations.json` | Teaching copy keyed by example `id`. |
 | Topic allocation | `python scripts/apply_topic_allocations.py` | Tags questions with `fe-*` / `be-*` lecture IDs from allocation maps. |
-| Sync to app | `cd web && npm run sync` | Copies data into `web/public/` and regenerates `catalog.json`. |
+| Sync to app | `cd web && npm run sync` | Copies data into `web/public/` (including `code-examples/`), regenerates `catalog.json` with `codeExamples` catalog. |
 | Build | `cd web && npm run build` | Static export to `web/out/` for deploy. |
+
+### Add a code example (checklist)
+
+1. Drop HTML (+ assets) under `data/code-examples/{fe-5|fe-6}/`.
+2. Add row to `data/manifests/code-examples.json`.
+3. Add explanation to `data/manifests/code-example-explanations.json`.
+4. Run `cd web && npm run sync && npm run build`.
 
 ---
 

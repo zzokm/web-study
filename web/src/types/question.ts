@@ -74,6 +74,32 @@ export interface LectureMeta {
   coveredTopics?: LectureTopicGroup[];
 }
 
+export interface CodeExample {
+  id: string;
+  lectureId: string;
+  order: number;
+  title: string;
+  file: string;
+  language: string;
+  explanation: string;
+  source: string;
+  previewUrl: string;
+  previewAvailable: boolean;
+}
+
+export interface CodeExamplesLectureGroup {
+  id: string;
+  label: string;
+  lectureIds: string[];
+}
+
+export interface CodeExamplesCatalog {
+  version: number;
+  lectureGroups: CodeExamplesLectureGroup[];
+  lecturesWithExamples: string[];
+  examplesByLecture: Record<string, CodeExample[]>;
+}
+
 export interface ExamMeta {
   year: string;
   title: string;
@@ -91,11 +117,13 @@ export interface Catalog {
     lectures: number;
     exams: number;
     repetitive: number;
+    codeExamples?: number;
   };
   examYears: string[];
   tracks: Record<string, TrackMeta>;
   lectureMeta: Record<string, LectureMeta>;
   examMeta: Record<string, ExamMeta>;
+  codeExamples?: CodeExamplesCatalog;
   questions: Question[];
   byExamYear: Record<string, string[]>;
   byLectureSlug: Record<string, string[]>;

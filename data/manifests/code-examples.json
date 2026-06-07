@@ -1,0 +1,234 @@
+{
+  "version": 1,
+  "sourceDescription": "Code examples from the course Google Drive (JS1 for fe-5, JS2 for fe-6).",
+  "lecturesWithExamples": ["fe-5", "fe-6"],
+  "lectureGroups": [
+    {
+      "id": "frontend-early",
+      "label": "Earlier frontend lectures",
+      "lectureIds": ["fe-0", "fe-1", "fe-2", "fe-3", "fe-4"]
+    }
+  ],
+  "examples": [
+    {
+      "id": "fe-5-document-write",
+      "lectureId": "fe-5",
+      "order": 1,
+      "title": "My First Web Page — document.write",
+      "file": "5.html",
+      "language": "html"
+    },
+    {
+      "id": "fe-5-window-alert",
+      "lectureId": "fe-5",
+      "order": 2,
+      "title": "My First Web Page — window.alert",
+      "file": "7.html",
+      "language": "html"
+    },
+    {
+      "id": "fe-5-external-script",
+      "lectureId": "fe-5",
+      "order": 3,
+      "title": "External JavaScript file",
+      "file": "00.html",
+      "language": "html"
+    },
+    {
+      "id": "fe-5-date-on-click",
+      "lectureId": "fe-5",
+      "order": 4,
+      "title": "My First JavaScript — display date on click",
+      "file": "1.html",
+      "language": "html"
+    },
+    {
+      "id": "fe-5-change-image",
+      "lectureId": "fe-5",
+      "order": 5,
+      "title": "What Can JavaScript Do? — change image src",
+      "file": "2.html",
+      "language": "html"
+    },
+    {
+      "id": "fe-5-change-style",
+      "lectureId": "fe-5",
+      "order": 6,
+      "title": "What Can JavaScript Do? — change element style",
+      "file": "3.html",
+      "language": "html"
+    },
+    {
+      "id": "fe-5-hide-element",
+      "lectureId": "fe-5",
+      "order": 7,
+      "title": "What Can JavaScript Do? — hide HTML elements",
+      "file": "4.html",
+      "language": "html"
+    },
+    {
+      "id": "fe-5-show-element",
+      "lectureId": "fe-5",
+      "order": 8,
+      "title": "What Can JavaScript Do? — show hidden elements",
+      "file": "6.html",
+      "language": "html"
+    },
+    {
+      "id": "fe-5-global-variable",
+      "lectureId": "fe-5",
+      "order": 9,
+      "title": "Global variable",
+      "file": "8.html",
+      "language": "html"
+    },
+    {
+      "id": "fe-5-objects",
+      "lectureId": "fe-5",
+      "order": 10,
+      "title": "Objects",
+      "file": "9.html",
+      "language": "html"
+    },
+    {
+      "id": "fe-5-variable-scope",
+      "lectureId": "fe-5",
+      "order": 11,
+      "title": "Variable scope",
+      "file": "000.html",
+      "language": "html"
+    },
+    {
+      "id": "fe-5-dialogs",
+      "lectureId": "fe-5",
+      "order": 12,
+      "title": "My First JavaScript — alert, confirm, and prompt",
+      "file": "0.html",
+      "language": "html"
+    },
+    {
+      "id": "fe-6-string-trim",
+      "lectureId": "fe-6",
+      "order": 1,
+      "title": "ES5 and ES6 Demo — string trim",
+      "file": "11.html",
+      "language": "html"
+    },
+    {
+      "id": "fe-6-array-isarray",
+      "lectureId": "fe-6",
+      "order": 2,
+      "title": "ES5 and ES6 Demo — Array.isArray",
+      "file": "12.html",
+      "language": "html"
+    },
+    {
+      "id": "fe-6-foreach",
+      "lectureId": "fe-6",
+      "order": 3,
+      "title": "ES5 and ES6 Demo — forEach",
+      "file": "13.html",
+      "language": "html"
+    },
+    {
+      "id": "fe-6-map",
+      "lectureId": "fe-6",
+      "order": 4,
+      "title": "ES5 and ES6 Demo — map",
+      "file": "14.html",
+      "language": "html"
+    },
+    {
+      "id": "fe-6-filter",
+      "lectureId": "fe-6",
+      "order": 5,
+      "title": "ES5 and ES6 Demo — filter",
+      "file": "15.html",
+      "language": "html"
+    },
+    {
+      "id": "fe-6-reduceright",
+      "lectureId": "fe-6",
+      "order": 6,
+      "title": "ES5 and ES6 Demo — reduceRight",
+      "file": "16.html",
+      "language": "html"
+    },
+    {
+      "id": "fe-6-every-some",
+      "lectureId": "fe-6",
+      "order": 7,
+      "title": "ES5 and ES6 Demo — every and some",
+      "file": "17.html",
+      "language": "html"
+    },
+    {
+      "id": "fe-6-find",
+      "lectureId": "fe-6",
+      "order": 8,
+      "title": "ES5 and ES6 Demo — find",
+      "file": "18.html",
+      "language": "html"
+    },
+    {
+      "id": "fe-6-json-stringify",
+      "lectureId": "fe-6",
+      "order": 9,
+      "title": "ES5 and ES6 Demo — JSON.stringify",
+      "file": "19.html",
+      "language": "html"
+    },
+    {
+      "id": "fe-6-filter-arrow",
+      "lectureId": "fe-6",
+      "order": 10,
+      "title": "ES5 and ES6 Demo — filter with arrow functions",
+      "file": "20.html",
+      "language": "html"
+    },
+    {
+      "id": "fe-6-flatmap",
+      "lectureId": "fe-6",
+      "order": 11,
+      "title": "ES5 and ES6 Demo — flatMap",
+      "file": "22.html",
+      "language": "html"
+    },
+    {
+      "id": "fe-6-padstart",
+      "lectureId": "fe-6",
+      "order": 12,
+      "title": "ES5 and ES6 Demo — String.padStart",
+      "file": "23.html",
+      "language": "html"
+    },
+    {
+      "id": "fe-6-promise-basic",
+      "lectureId": "fe-6",
+      "order": 13,
+      "title": "Promise pizza example — basic Promise",
+      "file": "200.html",
+      "language": "html"
+    },
+    {
+      "id": "fe-6-promise-then",
+      "lectureId": "fe-6",
+      "order": 14,
+      "title": "ES5 and ES6 Demo — Promise producer and consumer",
+      "file": "21.html",
+      "language": "html"
+    },
+    {
+      "id": "fe-6-async-await",
+      "lectureId": "fe-6",
+      "order": 15,
+      "title": "Async/await pizza example",
+      "file": "201.html",
+      "language": "html"
+    }
+  ],
+  "assets": {
+    "fe-5": ["myjs.js", "pic_bulboff.gif", "pic_bulbon.gif"],
+    "fe-6": []
+  }
+}

@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <script>
+        
+        let myPromise = new Promise(function(myResolve, myReject) {
+            
+            //producing code-- main function that is taking time
+            setTimeout(function() 
+            { 
+                myResolve("I love You !!"); 
+            },3000);});
+            
+            //consuming code-- function that will run after the main function
+            myPromise.then(function(value) {
+                document.getElementById("demo").innerHTML= value;
+            });
+
+        
+
+    </script>
+</head>
+<body>
+
+<h2>ES5 and ES6 Demo</h2>
+<div id="demo"></div>
+
+
+
+
+</body>
+</html> 

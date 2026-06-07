@@ -99,6 +99,143 @@ function classifyQuestionType(q) {
   return "other";
 }
 
+function hasRenderableBodyMarkup(source) {
+  const body = source.match(/<body[^>]*>([\s\S]*?)<\/body>/i)?.[1] ?? "";
+  const withoutScripts = body.replace(/<script[\s\S]*?<\/script>/gi, "").trim();
+  if (!withoutScripts) {
+    return false;
+  }
+  return (
+    /<(h[1-6]|p|div|button|img|table|ul|ol|input|form|span|section|main)\b/i.test(
+      withoutScripts
+    ) || withoutScripts.replace(/<[^>]+>/g, "").trim().length > 0
+  );
+}
+
+function isPreviewAvailable(source) {
+  const normalized = source.replace(/<!--[\s\S]*?-->/g, "");
+  const hasVisibleOutput =
+    /document\.(write|writeln)|\.innerHTML\s*=|\.textContent\s*=|getElementById\([^)]+\)\.(style|innerHTML|src)|\.style\.(display|color|fontSize)|appendChild/i.test(
+      normalized
+    );
+  const hasInteraction =
+    /<button\b|onclick\s*=|<img\b|onchange\s*=|oninput\s*=|<input\b/i.test(
+      normalized
+    );
+
+  if (hasVisibleOutput || hasInteraction) {
+    return true;
+  }
+
+  const hasPageContent = hasRenderableBodyMarkup(normalized);
+
+  if (/\b(alert|confirm|prompt)\s*\(/i.test(normalized)) {
+    return false;
+  }
+
+  // Console output is not visible inside the iframe — only skip preview when
+  // there is no HTML on the page to show either.
+  if (/console\.(log|warn|error|info|debug)/i.test(normalized)) {
+    return hasPageContent;
+  }
+
+  return true;
+}
+
+function wrapHtmlIfNeeded(source) {
+  const trimmed = source.trim();
+  if (/<!DOCTYPE\s+html/i.test(trimmed) || /<html[\s>]/i.test(trimmed)) {
+    return source;
+  }
+  return `<!DOCTYPE html>
+<html>
+<head><meta charset="utf-8"></head>
+<body>
+${source}
+</body>
+</html>
+`;
+}
+
+function syncCodeExamples(publicCodeExamples) {
+  const manifestPath = join(
+    REPO_ROOT,
+    "data",
+    "manifests",
+    "code-examples.json"
+  );
+  const manifest = JSON.parse(readFileSync(manifestPath, "utf8"));
+  const explanationsPath = join(
+    REPO_ROOT,
+    "data",
+    "manifests",
+    "code-example-explanations.json"
+  );
+  const explanations = existsSync(explanationsPath)
+    ? JSON.parse(readFileSync(explanationsPath, "utf8"))
+    : {};
+  copy(manifestPath, join(WEB_ROOT, "public", "data", "code_examples_manifest.json"));
+
+  const codeExamples = {};
+
+  for (const example of manifest.examples ?? []) {
+    const { lectureId, file, id, title, order, language } = example;
+    const srcPath = join(REPO_ROOT, "data", "code-examples", lectureId, file);
+    if (!existsSync(srcPath)) {
+      throw new Error(`Missing code example file: ${srcPath}`);
+    }
+
+    const rawSource = readFileSync(srcPath, "utf8");
+    const publicDir = join(publicCodeExamples, lectureId);
+    const destPath = join(publicDir, file);
+    ensureDir(publicDir);
+    writeFileSync(destPath, wrapHtmlIfNeeded(rawSource), "utf8");
+
+    const entry = {
+      id,
+      lectureId,
+      order,
+      title,
+      file,
+      language: language ?? "html",
+      explanation:
+        example.explanation ?? explanations[id] ?? "",
+      source: rawSource,
+      previewUrl: `/code-examples/${lectureId}/${file}`,
+      previewAvailable:
+        typeof example.previewAvailable === "boolean"
+          ? example.previewAvailable
+          : isPreviewAvailable(rawSource),
+    };
+
+    if (!codeExamples[lectureId]) {
+      codeExamples[lectureId] = [];
+    }
+    codeExamples[lectureId].push(entry);
+  }
+
+  for (const [lectureId, assets] of Object.entries(manifest.assets ?? {})) {
+    for (const asset of assets) {
+      const srcPath = join(REPO_ROOT, "data", "code-examples", lectureId, asset);
+      if (!existsSync(srcPath)) {
+        throw new Error(`Missing code example asset: ${srcPath}`);
+      }
+      copy(srcPath, join(publicCodeExamples, lectureId, asset));
+    }
+  }
+
+  for (const lectureId of Object.keys(codeExamples)) {
+    codeExamples[lectureId].sort((a, b) => a.order - b.order);
+  }
+
+  return {
+    version: manifest.version ?? 1,
+    lectureGroups: manifest.lectureGroups ?? [],
+    lecturesWithExamples: manifest.lecturesWithExamples ?? [],
+    examplesByLecture: codeExamples,
+  };
+}
+
 function flattenExamBlocks(raw, year, sourceFile) {
   const questions = [];
   let order = 0;
@@ -142,11 +279,13 @@ function main() {
   const publicData = join(WEB_ROOT, "public", "data");
   const publicLectures = join(WEB_ROOT, "public", "lectures");
   const publicExams = join(WEB_ROOT, "public", "exams");
+  const publicCodeExamples = join(WEB_ROOT, "public", "code-examples");
   const generatedDir = join(WEB_ROOT, "src", "data", "generated");
 
   ensureDir(publicData);
   ensureDir(publicLectures);
   ensureDir(publicExams);
+  ensureDir(publicCodeExamples);
   ensureDir(generatedDir);
 
   const manifestPath = join(REPO_ROOT, "data", "manifests", "lectures.json");
@@ -227,6 +366,11 @@ function main() {
     "utf8"
   );
 
+  const codeExamplesCatalog = syncCodeExamples(publicCodeExamples);
+  const codeExampleCount = Object.values(
+    codeExamplesCatalog.examplesByLecture
+  ).reduce((sum, list) => sum + list.length, 0);
+
   const generatedAt = new Date().toISOString();
 
   const catalog = {
@@ -236,11 +380,13 @@ function main() {
       lectures: Object.keys(lectureMeta).length,
       exams: Object.keys(examMeta).length,
       repetitive: repetitive.uniqueRepeatedStems,
+      codeExamples: codeExampleCount,
     },
     examYears: ["2021", "2024", "2025"],
     tracks: manifest.tracks,
     lectureMeta,
     examMeta,
+    codeExamples: codeExamplesCatalog,
     questions,
     byExamYear,
     byLectureSlug,
@@ -269,7 +415,7 @@ function main() {
   });
 
   console.log(
-    `Synced ${questions.length} questions, ${Object.keys(lectureMeta).length} lectures, ${Object.keys(examMeta).length} exam PDFs.`
+    `Synced ${questions.length} questions, ${Object.keys(lectureMeta).length} lectures, ${Object.keys(examMeta).length} exam PDFs, ${codeExampleCount} code examples.`
   );
 }
 

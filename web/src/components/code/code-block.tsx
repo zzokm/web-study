@@ -145,7 +145,7 @@ export function CodeBlock({
         </div>
       ) : null}
 
-      <div className="code-ide-scroll overflow-x-auto">
+      <div className="code-ide-scroll">
         {(tokenLines ??
           lines.map((line) => [{ content: line, color: "#d4d4d4" }]))
           .map((rowTokens, index) => (

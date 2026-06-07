@@ -127,6 +127,19 @@ export function getBreadcrumbItems(
     return items;
   }
 
+  if (segments[0] === "code-examples") {
+    items.push({ label: "Frontend lectures", href: "/lectures/frontend/" });
+    if (segments[1]) {
+      const title = lectureTitleById(segments[1]);
+      items.push({
+        label: title ? `${title} code examples` : "Code examples",
+      });
+    } else {
+      items.push({ label: "Code examples" });
+    }
+    return items;
+  }
+
   if (segments[0] === "practice") {
     items.push({ label: "Practice", href: "/practice/" });
     if (segments[1] === "lecture" && segments[2]) {

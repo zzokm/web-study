@@ -57,6 +57,15 @@ export function getPageTitle(
   if (segments[0] === "repetitive") return `Repetitive questions · ${SITE}`;
   if (segments[0] === "saved") return `Saved questions · ${SITE}`;
   if (segments[0] === "analysis") return `Exam analysis · ${SITE}`;
+  if (segments[0] === "code-examples") {
+    if (segments[1]) {
+      const topic = lectureTitleById(segments[1]);
+      return topic
+        ? `Code examples · ${topic} · ${SITE}`
+        : `Code examples · ${SITE}`;
+    }
+    return `Code examples · ${SITE}`;
+  }
 
   if (segments[0] === "practice") {
     if (segments[1] === "lecture" && segments[2]) {
