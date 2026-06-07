@@ -1,5 +1,14 @@
 import type { Question } from "@/types/question";
 
+export const PRACTICE_KEYBOARD_HINTS = [
+  { keys: "A–D", label: "Select" },
+  { keys: "1–4", label: "Select" },
+  { keys: "T / F", label: "True / False" },
+  { keys: "← →", label: "Prev / Next" },
+  { keys: "Space", label: "Check" },
+  { keys: "S", label: "Save" },
+] as const;
+
 export function isPracticeKeyboardTarget(target: EventTarget | null): boolean {
   if (!(target instanceof HTMLElement)) return false;
   const tag = target.tagName;

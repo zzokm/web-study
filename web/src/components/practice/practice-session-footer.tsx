@@ -30,6 +30,7 @@ interface PracticeSessionFooterProps {
   revealed: boolean;
   correct: boolean;
   selectedId: string | null;
+  paused?: boolean;
   onPrevious: () => void;
   onNext: () => void;
   onCheck: () => void;
@@ -42,6 +43,7 @@ export function PracticeSessionFooter({
   revealed,
   correct,
   selectedId,
+  paused = false,
   onPrevious,
   onNext,
   onCheck,
@@ -54,7 +56,8 @@ export function PracticeSessionFooter({
     <footer
       className={cn(
         "fixed bottom-0 z-50 bg-background/95 shadow-[0_-4px_24px_-4px_rgba(0,0,0,0.12)] backdrop-blur supports-[backdrop-filter]:bg-background/85",
-        "left-0 right-0 max-w-[100vw] overflow-hidden transition-[left] duration-200 ease-linear md:left-[var(--sidebar-inset-left)]"
+        "left-0 right-0 max-w-[100vw] overflow-hidden transition-[left] duration-200 ease-linear md:left-[var(--sidebar-inset-left)]",
+        paused && "pointer-events-none opacity-50"
       )}
       style={{
         paddingBottom: "max(0.5rem, env(safe-area-inset-bottom))",
