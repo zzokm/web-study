@@ -154,3 +154,20 @@
     @apply font-sans;
   }
 }
+
+.code-ide-highlight pre {
+  margin: 0;
+  padding: 0;
+  background: transparent !important;
+}
+
+.code-ide-highlight code {
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono",
+    "Courier New", monospace;
+  font-variant-ligatures: none;
+  tab-size: 2;
+}
+
+.code-ide-highlight .line {
+  display: block;
+}

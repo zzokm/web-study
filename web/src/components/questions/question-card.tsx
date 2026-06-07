@@ -6,6 +6,7 @@ import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { QuestionMeta } from "./question-meta";
+import { OptionContent } from "@/components/code/question-content";
 import { QuestionStem } from "./question-stem";
 
 interface QuestionCardProps {
@@ -138,8 +139,12 @@ export function QuestionCard({
                 className={radioItemClass(opt.id)}
               />
               <div className="pointer-events-none grid min-w-0 flex-1 grid-cols-[auto_1fr] items-start gap-x-2 text-base leading-snug">
-                <span className="font-medium text-muted-foreground">{opt.id}.</span>
-                <span>{opt.content}</span>
+                <span className="pt-0.5 font-medium text-muted-foreground">
+                  {opt.id}.
+                </span>
+                <div className="min-w-0">
+                  <OptionContent option={opt} compact={opt.type === "code"} />
+                </div>
               </div>
             </div>
           );
