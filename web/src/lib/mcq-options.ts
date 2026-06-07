@@ -1,3 +1,5 @@
+import type { SeededRandom } from "@/lib/seeded-random";
+import { seededFisherYates } from "@/lib/seeded-random";
 import type { QuestionOption } from "@/types/question";
 
 /** Strip HTML and normalize whitespace for option text matching. */
@@ -50,7 +52,10 @@ function fisherYates<T>(items: T[]): T[] {
 }
 
 /** Shuffle regular options only; pinned catch-all answers keep their index. */
-export function shuffleMcqOptionOrder(options: QuestionOption[]): QuestionOption[] {
+export function shuffleMcqOptionOrder(
+  options: QuestionOption[],
+  random?: SeededRandom
+): QuestionOption[] {
   const pinnedIndices = new Set<number>();
   const shuffleable: QuestionOption[] = [];
 
@@ -64,7 +69,9 @@ export function shuffleMcqOptionOrder(options: QuestionOption[]): QuestionOption
 
   if (shuffleable.length <= 1) return [...options];
 
-  const shuffled = fisherYates(shuffleable);
+  const shuffled = random
+    ? seededFisherYates(shuffleable, random)
+    : fisherYates(shuffleable);
   const result = [...options];
   let shuffleIndex = 0;
 

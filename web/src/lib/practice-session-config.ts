@@ -1,4 +1,8 @@
 import { shuffleMcqOptionOrder } from "@/lib/mcq-options";
+import {
+  seededFisherYates,
+  type SeededRandom,
+} from "@/lib/seeded-random";
 import type { Question } from "@/types/question";
 
 export type PracticeSessionConfig = {
@@ -53,27 +57,33 @@ function cloneQuestion(question: Question): Question {
   };
 }
 
-function shuffleMcqOptions(question: Question): Question {
+function shuffleMcqOptions(
+  question: Question,
+  random?: SeededRandom
+): Question {
   if (question.questionType === "true_false") return question;
   return {
     ...question,
-    options: shuffleMcqOptionOrder(question.options),
+    options: shuffleMcqOptionOrder(question.options, random),
   };
 }
 
 /** Apply question-order and MCQ option shuffles (clones input). */
 export function preparePracticeQuestions(
   questions: Question[],
-  config: PracticeSessionConfig
+  config: PracticeSessionConfig,
+  random?: SeededRandom
 ): Question[] {
   let prepared = questions.map(cloneQuestion);
 
   if (config.shuffleQuestions) {
-    prepared = fisherYates(prepared);
+    prepared = random
+      ? seededFisherYates(prepared, random)
+      : fisherYates(prepared);
   }
 
   if (config.shuffleMcqOptions) {
-    prepared = prepared.map(shuffleMcqOptions);
+    prepared = prepared.map((q) => shuffleMcqOptions(q, random));
   }
 
   return prepared;
