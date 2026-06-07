@@ -1,11 +1,12 @@
 "use client";
 
 import { useEffect, useMemo, useRef, useState } from "react";
-import { useSearchParams } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import { AnalyticsEvents } from "@/lib/analytics-events";
 import { trackAnalyticsEvent } from "@/lib/analytics";
 import { getQuestionByKey } from "@/lib/questions";
 import { computePracticeScore } from "@/lib/practice-progress";
+import { saveActiveMockExamSpec } from "@/lib/mock-exam-storage";
 import { loadPracticeResult } from "@/lib/practice-results";
 import { computePracticeTimingStats } from "@/lib/practice-timing";
 import { PracticeResultsAccordion } from "@/components/practice/practice-results-accordion";
@@ -17,6 +18,7 @@ import { Empty, EmptyDescription, EmptyHeader, EmptyTitle } from "@/components/u
 import type { Question } from "@/types/question";
 
 export function PracticeResultsPageClient() {
+  const router = useRouter();
   const searchParams = useSearchParams();
   const id = searchParams.get("id") ?? "";
   const [mistakesOnly, setMistakesOnly] = useState(false);
@@ -113,6 +115,12 @@ export function PracticeResultsPageClient() {
       <div>
         <h1 className="text-2xl font-semibold tracking-tight">Practice results</h1>
         <p className="text-muted-foreground">{stored.title}</p>
+        {stored.mockExamSpec ? (
+          <p className="text-xs text-muted-foreground">
+            Mock exam · {stored.mockExamSpec.frontendShare}% frontend · seed{" "}
+            {stored.mockExamSpec.seed}
+          </p>
+        ) : null}
         <p className="text-xs text-muted-foreground">
           Finished {new Date(stored.finishedAt).toLocaleString()}
         </p>
@@ -159,6 +167,17 @@ export function PracticeResultsPageClient() {
       />
 
       <div className="flex flex-wrap gap-3 pb-8">
+        {stored.mockExamSpec ? (
+          <Button
+            type="button"
+            onClick={() => {
+              saveActiveMockExamSpec(stored.mockExamSpec!);
+              router.push("/practice/mock-exam/");
+            }}
+          >
+            Retake same mock exam
+          </Button>
+        ) : null}
         <LinkButton href="/practice/">Practice again</LinkButton>
         <LinkButton href="/" variant="outline">
           Home

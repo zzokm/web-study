@@ -19,10 +19,12 @@ import {
 } from "@/lib/analytics";
 import { isAnswerCorrect } from "@/lib/questions";
 import { cn } from "@/lib/utils";
+import type { MockExamSpec } from "@/lib/mock-exam";
 import {
   practiceConfigAnalyticsParams,
   type PracticeSessionConfig,
 } from "@/lib/practice-session-config";
+import { RegenerateMockExamButton } from "@/components/practice/regenerate-mock-exam-button";
 import {
   allQuestionsAnswered,
   clearPracticeProgress,
@@ -70,6 +72,9 @@ interface PracticeSessionProps {
   sessionKey: string;
   initialIndex?: number;
   startFresh?: boolean;
+  mockExamSpec?: MockExamSpec;
+  onReturnToSetup?: () => void;
+  onRegenerateExam?: () => void;
 }
 
 export function PracticeSession({
@@ -78,6 +83,9 @@ export function PracticeSession({
   config,
   sessionKey,
   initialIndex = 0,
+  mockExamSpec,
+  onReturnToSetup,
+  onRegenerateExam,
 }: PracticeSessionProps) {
   return (
     <PracticeSessionInner
@@ -87,6 +95,9 @@ export function PracticeSession({
       title={title}
       config={config}
       initialIndex={initialIndex}
+      mockExamSpec={mockExamSpec}
+      onReturnToSetup={onReturnToSetup}
+      onRegenerateExam={onRegenerateExam}
     />
   );
 }
@@ -97,6 +108,9 @@ function PracticeSessionInner({
   title,
   config,
   initialIndex = 0,
+  mockExamSpec,
+  onReturnToSetup,
+  onRegenerateExam,
 }: PracticeSessionProps) {
   const router = useRouter();
   const pathname = usePathname();
@@ -112,7 +126,7 @@ function PracticeSessionInner({
   const prevPausedRef = useRef<boolean | null>(null);
   const viewedQuestionsRef = useRef(new Set<string>());
   const examSimulation = config.examSimulation;
-  const showTimer = config.showSessionTimer && !examSimulation;
+  const showTimer = config.showSessionTimer;
   const [index, setIndex] = useState(initialIndex);
   const [progress, setProgress] = useState<PracticeProgress>(() =>
     loadPracticeProgress(sessionKey)
@@ -406,7 +420,7 @@ function PracticeSessionInner({
     (finalProgress: PracticeProgress) => {
       const finishedAt = new Date().toISOString();
       const score = computePracticeScore(questions, finalProgress);
-      const includeWallClock = config.showSessionTimer && !examSimulation;
+      const includeWallClock = config.showSessionTimer;
       const timing = computePracticeTimingStats(questions, finalProgress, {
         sessionStartedAt: includeWallClock
           ? sessionStartedAtRef.current ?? undefined
@@ -439,11 +453,12 @@ function PracticeSessionInner({
         questionKeys: questions.map((q) => q.questionKey),
         progress: finalProgress,
         config,
+        mockExamSpec,
       });
       clearPracticeProgress(sessionKey);
       router.push(`/practice/results/?id=${id}`);
     },
-    [sessionKey, title, questions, router, pathname, config, examSimulation]
+    [sessionKey, title, questions, router, pathname, config, mockExamSpec]
   );
 
   const handleFinish = useCallback(() => {
@@ -522,10 +537,20 @@ function PracticeSessionInner({
         <div className="flex flex-col gap-2">
           <div className="flex flex-wrap items-start justify-between gap-3">
             <h1 className="text-2xl font-semibold tracking-tight">{title}</h1>
-            <ResetPracticeProgressButton
-              savedCount={savedCount}
-              onConfirm={handleResetProgress}
-            />
+            <div className="flex shrink-0 items-center gap-2">
+              {onRegenerateExam ? (
+                <RegenerateMockExamButton
+                  onConfirm={() => {
+                    onRegenerateExam();
+                    onReturnToSetup?.();
+                  }}
+                />
+              ) : null}
+              <ResetPracticeProgressButton
+                savedCount={savedCount}
+                onConfirm={handleResetProgress}
+              />
+            </div>
           </div>
           <p className="text-sm text-muted-foreground">
             Question {index + 1} of {questions.length}

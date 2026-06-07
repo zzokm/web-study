@@ -1,5 +1,6 @@
 "use client";
 
+import type { MockExamSpec } from "@/lib/mock-exam";
 import type { PracticeSessionConfig } from "@/lib/practice-session-config";
 import { DEFAULT_PRACTICE_SESSION_CONFIG } from "@/lib/practice-session-config";
 import type { PracticeProgress } from "@/lib/practice-progress";
@@ -13,6 +14,7 @@ export interface StoredPracticeResult {
   questionKeys: string[];
   progress: PracticeProgress;
   config?: PracticeSessionConfig;
+  mockExamSpec?: MockExamSpec;
 }
 
 const RESULT_PREFIX = "webstudy:practice-result-v1:";

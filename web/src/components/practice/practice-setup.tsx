@@ -135,19 +135,13 @@ export function PracticeSetup({
               description="Floating elapsed timer with pause. Per-question thinking time is always recorded."
               checked={config.showSessionTimer}
               onCheckedChange={(checked) => patch({ showSessionTimer: checked })}
-              disabled={config.examSimulation}
             />
             <SetupOption
               id="exam-simulation"
               label="Exam simulation"
               description="No feedback until you submit. Only the question, answers, and Prev/Next. Results show answers and explanations."
               checked={config.examSimulation}
-              onCheckedChange={(checked) =>
-                patch({
-                  examSimulation: checked,
-                  showSessionTimer: checked ? false : config.showSessionTimer,
-                })
-              }
+              onCheckedChange={(checked) => patch({ examSimulation: checked })}
             />
           </FieldGroup>
         </CardContent>
