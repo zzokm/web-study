@@ -30,17 +30,23 @@ export function repetitionKey(question) {
 function stemSimilarity(a, b) {
   if (a === b) return 1;
   if (!a.length || !b.length) return 0;
+  const maxLen = Math.max(a.length, b.length);
+  const minLen = Math.min(a.length, b.length);
+  if (minLen / maxLen < FUZZY_STEM_RATIO) return 0;
   const longer = a.length >= b.length ? a : b;
   const shorter = a.length < b.length ? a : b;
   if (longer.includes(shorter) && shorter.length / longer.length >= FUZZY_STEM_RATIO) {
     return FUZZY_STEM_RATIO;
   }
   let matches = 0;
-  const limit = Math.min(a.length, b.length);
-  for (let i = 0; i < limit; i++) {
+  for (let i = 0; i < minLen; i++) {
     if (a[i] === b[i]) matches++;
   }
-  return matches / Math.max(a.length, b.length);
+  return matches / maxLen;
+}
+
+function stemsEquivalent(stemA, stemB) {
+  return stemA === stemB || stemSimilarity(stemA, stemB) >= FUZZY_STEM_RATIO;
 }
 
 function splitRepetitionKey(key) {
@@ -49,39 +55,55 @@ function splitRepetitionKey(key) {
   return [key.slice(0, idx), key.slice(idx + 1)];
 }
 
-export function groupByRepetitionKey(questions) {
-  const buckets = new Map();
-  for (const q of questions) {
-    const key = repetitionKey(q);
-    if (!key) continue;
-    const list = buckets.get(key) ?? [];
-    list.push(q);
-    buckets.set(key, list);
-  }
-
-  const keys = [...buckets.keys()];
+function mergeFuzzyStemGroups(buckets, keys) {
   const used = new Set();
   const groups = [];
 
   for (let i = 0; i < keys.length; i++) {
     const keyI = keys[i];
     if (used.has(keyI)) continue;
-    const [stemI, answerI] = splitRepetitionKey(keyI);
+    const [stemI] = splitRepetitionKey(keyI);
     const group = [...(buckets.get(keyI) ?? [])];
     used.add(keyI);
 
     for (let j = i + 1; j < keys.length; j++) {
       const keyJ = keys[j];
       if (used.has(keyJ)) continue;
-      const [stemJ, answerJ] = splitRepetitionKey(keyJ);
-      if (answerI !== answerJ) continue;
-      if (stemI === stemJ || stemSimilarity(stemI, stemJ) >= FUZZY_STEM_RATIO) {
+      const [stemJ] = splitRepetitionKey(keyJ);
+      if (stemsEquivalent(stemI, stemJ)) {
         group.push(...(buckets.get(keyJ) ?? []));
         used.add(keyJ);
       }
     }
 
-    if (group.length >= 2) groups.push(group);
+    groups.push(group);
+  }
+
+  return groups;
+}
+
+export function groupByRepetitionKey(questions) {
+  const buckets = new Map();
+  const keysByAnswer = new Map();
+
+  for (const q of questions) {
+    const key = repetitionKey(q);
+    if (!key) continue;
+    const list = buckets.get(key) ?? [];
+    list.push(q);
+    buckets.set(key, list);
+
+    const [, answer] = splitRepetitionKey(key);
+    const answerKeys = keysByAnswer.get(answer) ?? [];
+    if (!answerKeys.includes(key)) answerKeys.push(key);
+    keysByAnswer.set(answer, answerKeys);
+  }
+
+  const groups = [];
+  for (const answerKeys of keysByAnswer.values()) {
+    for (const group of mergeFuzzyStemGroups(buckets, answerKeys)) {
+      if (group.length >= 2) groups.push(group);
+    }
   }
 
   return groups;
