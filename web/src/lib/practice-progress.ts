@@ -7,6 +7,12 @@ import type { Question } from "@/types/question";
 export interface QuestionAttempt {
   selectedId: string | null;
   revealed: boolean;
+  /** Epoch ms when the current thinking window started. */
+  shownAt?: number;
+  /** Epoch ms when Check answer was clicked. */
+  checkedAt?: number;
+  /** Frozen at check: checkedAt - shownAt. */
+  thinkingMs?: number;
 }
 
 export type PracticeProgress = Record<string, QuestionAttempt>;
@@ -21,6 +27,60 @@ export function getAttempt(
   questionKey: string
 ): QuestionAttempt {
   return progress[questionKey] ?? EMPTY_ATTEMPT;
+}
+
+export function getQuestionThinkingMs(attempt: QuestionAttempt): number | null {
+  return typeof attempt.thinkingMs === "number" ? attempt.thinkingMs : null;
+}
+
+/** Start or refresh the thinking window when an unrevealed question is shown. */
+export function patchQuestionShown(
+  progress: PracticeProgress,
+  questionKey: string,
+  now = Date.now()
+): PracticeProgress {
+  const attempt = getAttempt(progress, questionKey);
+  if (attempt.revealed) return progress;
+  return {
+    ...progress,
+    [questionKey]: {
+      ...attempt,
+      shownAt: now,
+    },
+  };
+}
+
+/** Discard a partial thinking window when leaving an unrevealed question. */
+export function patchQuestionShownCleared(
+  progress: PracticeProgress,
+  questionKey: string
+): PracticeProgress {
+  const attempt = getAttempt(progress, questionKey);
+  if (attempt.revealed || attempt.shownAt == null) return progress;
+  const { shownAt: _removed, ...rest } = attempt;
+  return {
+    ...progress,
+    [questionKey]: rest,
+  };
+}
+
+/** Freeze thinking time when Check answer is clicked. */
+export function patchQuestionChecked(
+  progress: PracticeProgress,
+  questionKey: string,
+  now = Date.now()
+): PracticeProgress {
+  const attempt = getAttempt(progress, questionKey);
+  const shownAt = attempt.shownAt ?? now;
+  return {
+    ...progress,
+    [questionKey]: {
+      ...attempt,
+      revealed: true,
+      checkedAt: now,
+      thinkingMs: Math.max(0, now - shownAt),
+    },
+  };
 }
 
 export function practiceSessionKey(questions: { questionKey: string }[]): string {

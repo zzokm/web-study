@@ -6,6 +6,8 @@ export interface StoredPracticeResult {
   sessionKey: string;
   title: string;
   finishedAt: string;
+  /** ISO timestamp when the practice session started. */
+  sessionStartedAt?: string;
   questionKeys: string[];
   progress: PracticeProgress;
 }

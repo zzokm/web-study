@@ -20,12 +20,16 @@ import {
   computePracticeScore,
   getAttempt,
   loadPracticeProgress,
+  patchQuestionChecked,
+  patchQuestionShown,
+  patchQuestionShownCleared,
   practiceProgressCount,
   practiceSessionKey,
   savePracticeProgress,
   type PracticeProgress,
   type QuestionAttempt,
 } from "@/lib/practice-progress";
+import { computePracticeTimingStats } from "@/lib/practice-timing";
 import { ResetPracticeProgressButton } from "@/components/practice/reset-practice-progress-button";
 import { savePracticeResult } from "@/lib/practice-results";
 import { toggleSavedQuestion } from "@/lib/saved-questions";
@@ -40,6 +44,11 @@ import {
   PRACTICE_FOOTER_HEIGHT,
   PracticeSessionFooter,
 } from "@/components/practice/practice-session-footer";
+import { PracticePauseOverlay } from "@/components/practice/practice-pause-overlay";
+import {
+  usePracticeHeader,
+  usePracticeHeaderState,
+} from "@/components/practice/practice-header-context";
 
 interface PracticeSessionProps {
   questions: Question[];
@@ -69,7 +78,12 @@ function PracticeSessionInner({
   const practiceMode = practiceModeFromPathname(pathname);
   const examYear = examYearFromPathname(pathname);
   const lectureSlug = lectureSlugFromPathname(pathname);
+  const { setPracticeHeader } = usePracticeHeader();
+  const practiceHeaderState = usePracticeHeaderState();
+  const paused = practiceHeaderState?.paused ?? false;
   const startedRef = useRef(false);
+  const sessionStartedAtRef = useRef<string | null>(null);
+  const pauseStartedAtRef = useRef<number | null>(null);
   const [index, setIndex] = useState(0);
   const [progress, setProgress] = useState<PracticeProgress>(() =>
     loadPracticeProgress(sessionKey)
@@ -107,6 +121,60 @@ function PracticeSessionInner({
   );
 
   useEffect(() => {
+    const startedAt = Date.now();
+    sessionStartedAtRef.current = new Date(startedAt).toISOString();
+    setPracticeHeader({
+      mode: "elapsed",
+      startedAt,
+      paused: false,
+      totalPausedMs: 0,
+    });
+    return () => setPracticeHeader(null);
+  }, [practiceMode, setPracticeHeader]);
+
+  useEffect(() => {
+    if (!question) return;
+    patchProgress((prev) => patchQuestionShown(prev, question.questionKey));
+  }, [question?.questionKey, patchProgress]);
+
+  useEffect(() => {
+    if (!practiceHeaderState) return;
+
+    if (practiceHeaderState.paused) {
+      if (pauseStartedAtRef.current == null) {
+        pauseStartedAtRef.current = practiceHeaderState.pausedAt ?? Date.now();
+      }
+      return;
+    }
+
+    if (pauseStartedAtRef.current == null) return;
+
+    const pauseMs = Date.now() - pauseStartedAtRef.current;
+    pauseStartedAtRef.current = null;
+
+    if (!question || revealed || pauseMs <= 0) return;
+
+    patchProgress((prev) => {
+      const attempt = getAttempt(prev, question.questionKey);
+      if (attempt.revealed || attempt.shownAt == null) return prev;
+      return {
+        ...prev,
+        [question.questionKey]: {
+          ...attempt,
+          shownAt: attempt.shownAt + pauseMs,
+        },
+      };
+    });
+  }, [
+    practiceHeaderState?.paused,
+    practiceHeaderState?.pausedAt,
+    question,
+    revealed,
+    patchProgress,
+    practiceHeaderState,
+  ]);
+
+  useEffect(() => {
     if (startedRef.current || questions.length === 0) return;
     startedRef.current = true;
     trackEvent(AnalyticsEvents.practiceStart, {
@@ -140,7 +208,7 @@ function PracticeSessionInner({
   const handleCheck = useCallback(() => {
     if (!selectedId || !question || revealed) return;
     const isCorrect = isAnswerCorrect(selectedId, question.correctAnswerId);
-    updateCurrentAttempt({ revealed: true });
+    patchProgress((prev) => patchQuestionChecked(prev, question.questionKey));
     trackEvent(AnalyticsEvents.practiceCheckAnswer, {
       ...questionAnalyticsParams(question),
       practice_mode: practiceMode,
@@ -152,7 +220,7 @@ function PracticeSessionInner({
     selectedId,
     question,
     revealed,
-    updateCurrentAttempt,
+    patchProgress,
     practiceMode,
     index,
   ]);
@@ -170,6 +238,11 @@ function PracticeSessionInner({
 
   const handlePrevious = useCallback(() => {
     if (index > 0 && question) {
+      if (!revealed) {
+        patchProgress((prev) =>
+          patchQuestionShownCleared(prev, question.questionKey)
+        );
+      }
       trackEvent(AnalyticsEvents.practicePrevious, {
         ...questionAnalyticsParams(question),
         practice_mode: practiceMode,
@@ -177,7 +250,7 @@ function PracticeSessionInner({
       });
       setIndex((i) => i - 1);
     }
-  }, [index, question, practiceMode]);
+  }, [index, question, revealed, patchProgress, practiceMode]);
 
   const handleSave = useCallback(() => {
     if (!question) return;
@@ -192,6 +265,7 @@ function PracticeSessionInner({
     question,
     revealed,
     selectedId,
+    disabled: paused,
     onSelect: handleSelect,
     onCheck: handleCheck,
     onPrevious: handlePrevious,
@@ -200,7 +274,12 @@ function PracticeSessionInner({
   });
 
   const handleFinish = useCallback(() => {
+    const finishedAt = new Date().toISOString();
     const score = computePracticeScore(questions, progress);
+    const timing = computePracticeTimingStats(questions, progress, {
+      sessionStartedAt: sessionStartedAtRef.current ?? undefined,
+      finishedAt,
+    });
     trackEvent(AnalyticsEvents.practiceFinish, {
       practice_mode: practiceMode,
       question_count: questions.length,
@@ -211,11 +290,15 @@ function PracticeSessionInner({
       correct: score.correct,
       incorrect: score.incorrect,
       skipped: score.skipped,
+      total_thinking_ms:
+        timing.recordedCount > 0 ? timing.totalThinkingMs : undefined,
+      session_wall_ms: timing.sessionWallMs ?? undefined,
     });
     const id = savePracticeResult({
       sessionKey,
       title,
-      finishedAt: new Date().toISOString(),
+      finishedAt,
+      sessionStartedAt: sessionStartedAtRef.current ?? undefined,
       questionKeys: questions.map((q) => q.questionKey),
       progress,
     });
@@ -260,8 +343,10 @@ function PracticeSessionInner({
 
   return (
     <>
+      {paused ? <PracticePauseOverlay /> : null}
       <div
         className="mx-auto flex max-w-3xl flex-col gap-6"
+        aria-hidden={paused}
         style={{
           paddingBottom: `calc(${PRACTICE_FOOTER_HEIGHT} + 1.5rem)`,
         }}
@@ -309,6 +394,7 @@ function PracticeSessionInner({
         revealed={revealed}
         correct={correct}
         selectedId={selectedId}
+        paused={paused}
         onPrevious={handlePrevious}
         onNext={handleNext}
         onCheck={handleCheck}
