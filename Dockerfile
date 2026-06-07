@@ -14,15 +14,13 @@ WORKDIR /app
 
 # Course data consumed by web/scripts/sync-content.mjs
 COPY data ./data
-COPY assets/lectures ./assets/lectures
-COPY assets/book ./assets/book
 
 COPY --from=deps /app/web/node_modules ./web/node_modules
 COPY web ./web
 
 WORKDIR /app/web
 ARG NEXT_PUBLIC_GOOGLE_TAG_ID
-ARG NEXT_PUBLIC_SITE_URL=https://mgmt.yehia.dev
+ARG NEXT_PUBLIC_SITE_URL=https://web.yehia.dev
 ENV NODE_ENV=production
 ENV NEXT_TELEMETRY_DISABLED=1
 ENV NEXT_PUBLIC_GOOGLE_TAG_ID=$NEXT_PUBLIC_GOOGLE_TAG_ID
