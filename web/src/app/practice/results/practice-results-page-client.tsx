@@ -7,10 +7,12 @@ import { trackEvent } from "@/lib/analytics";
 import { getQuestionByKey } from "@/lib/questions";
 import { computePracticeScore } from "@/lib/practice-progress";
 import { loadPracticeResult } from "@/lib/practice-results";
+import { computePracticeTimingStats } from "@/lib/practice-timing";
 import { PracticeResultsAccordion } from "@/components/practice/practice-results-accordion";
+import { PracticeResultsBreakdown } from "@/components/practice/practice-results-breakdown";
+import { PracticeResultsSummary } from "@/components/practice/practice-results-summary";
 import { LinkButton } from "@/components/ui/link-button";
 import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Empty, EmptyDescription, EmptyHeader, EmptyTitle } from "@/components/ui/empty";
 import type { Question } from "@/types/question";
 
@@ -39,6 +41,32 @@ export function PracticeResultsPageClient() {
     [stored, questions]
   );
 
+  const timing = useMemo(
+    () =>
+      stored
+        ? computePracticeTimingStats(questions, stored.progress, {
+            sessionStartedAt: stored.sessionStartedAt,
+            finishedAt: stored.finishedAt,
+          })
+        : {
+            totalThinkingMs: 0,
+            averageMs: 0,
+            medianMs: 0,
+            recordedCount: 0,
+            total: 0,
+            fastest: null,
+            slowest: null,
+            byOutcome: {
+              correct: { count: 0, averageMs: 0 },
+              incorrect: { count: 0, averageMs: 0 },
+            },
+            byType: {},
+            sessionWallMs: null,
+            reviewGapMs: null,
+          },
+    [stored, questions]
+  );
+
   const viewedRef = useRef(false);
 
   useEffect(() => {
@@ -51,8 +79,11 @@ export function PracticeResultsPageClient() {
       incorrect: score.incorrect,
       skipped: score.skipped,
       question_count: questions.length,
+      total_thinking_ms:
+        timing.recordedCount > 0 ? timing.totalThinkingMs : undefined,
+      session_wall_ms: timing.sessionWallMs ?? undefined,
     });
-  }, [stored, score, questions.length]);
+  }, [stored, score, questions.length, timing]);
 
   if (!id || !stored) {
     return (
@@ -78,23 +109,16 @@ export function PracticeResultsPageClient() {
         </p>
       </div>
 
-      <Card>
-        <CardHeader>
-          <CardTitle className="text-lg">Final score</CardTitle>
-        </CardHeader>
-        <CardContent className="flex flex-col gap-2">
-          <p className="text-4xl font-bold tracking-tight">
-            {score.correct}/{score.total}{" "}
-            <span className="text-2xl font-semibold text-muted-foreground">
-              ({score.percent}%)
-            </span>
-          </p>
-          <p className="text-sm text-muted-foreground">
-            {score.answered} checked · {score.incorrect} incorrect
-            {score.skipped > 0 ? ` · ${score.skipped} not answered` : ""}
-          </p>
-        </CardContent>
-      </Card>
+      <PracticeResultsSummary
+        score={score}
+        timing={timing}
+        progress={stored.progress}
+      />
+
+      <PracticeResultsBreakdown
+        questions={questions}
+        progress={stored.progress}
+      />
 
       <div className="flex flex-wrap items-center justify-between gap-3">
         <h2 className="text-lg font-semibold">Review</h2>

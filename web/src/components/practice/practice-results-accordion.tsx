@@ -6,10 +6,15 @@ import { AnalyticsEvents } from "@/lib/analytics-events";
 import { questionAnalyticsParams, trackEvent } from "@/lib/analytics";
 import {
   getAttempt,
+  getQuestionThinkingMs,
   isAttemptCorrect,
   isAttemptWrong,
   type PracticeProgress,
 } from "@/lib/practice-progress";
+import {
+  formatThinkingDuration,
+  formatThinkingDurationLong,
+} from "@/lib/practice-timing";
 import {
   Accordion,
   AccordionContent,
@@ -21,7 +26,12 @@ import { QuestionAccordionDetails } from "@/components/questions/question-accord
 import { QuestionMeta } from "@/components/questions/question-meta";
 import { QuestionStem } from "@/components/questions/question-stem";
 import { cn } from "@/lib/utils";
-import { CircleCheckIcon, CircleXIcon, MinusCircleIcon } from "lucide-react";
+import {
+  CircleCheckIcon,
+  CircleXIcon,
+  ClockIcon,
+  MinusCircleIcon,
+} from "lucide-react";
 
 interface PracticeResultsAccordionProps {
   questions: Question[];
@@ -110,6 +120,7 @@ export function PracticeResultsAccordion({
           q.options.find((o) => o.id === attempt.selectedId)?.content ??
           attempt.selectedId ??
           "—";
+        const thinkingMs = getQuestionThinkingMs(attempt);
 
         return (
           <AccordionItem key={q.questionKey} value={q.questionKey} className={itemClassName}>
@@ -148,6 +159,12 @@ export function PracticeResultsAccordion({
                         {selectedLabel}
                       </span>
                     </span>
+                    {thinkingMs != null ? (
+                      <Badge variant="outline" className="gap-1 font-mono tabular-nums">
+                        <ClockIcon className="size-3" />
+                        {formatThinkingDuration(thinkingMs)}
+                      </Badge>
+                    ) : null}
                   </div>
                   <QuestionMeta question={q} />
                   <QuestionStem question={q} variant="browse" />
@@ -156,6 +173,14 @@ export function PracticeResultsAccordion({
             </AccordionTrigger>
             <AccordionContent className={contentClassName}>
               <div className="flex flex-col gap-4 p-4">
+                {thinkingMs != null ? (
+                  <p className="text-sm text-muted-foreground">
+                    Thinking time:{" "}
+                    <span className="font-medium text-foreground">
+                      {formatThinkingDurationLong(thinkingMs)}
+                    </span>
+                  </p>
+                ) : null}
                 <QuestionAccordionDetails
                   question={q}
                   showStem={false}
