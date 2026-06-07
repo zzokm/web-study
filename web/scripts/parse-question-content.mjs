@@ -111,6 +111,88 @@ export function inferLanguageFromPrompt(prompt) {
   return null;
 }
 
+const PROMPT_INTRO_RE =
+  /\b(in the following|what will|what is|what are|identify the error|consider the following|the output of the following|which of the following|how many|following python|following javascript|following java\s*script|following function|following statement|following code|following css)\b/i;
+
+const TRAILING_PROSE_RES = [
+  /^The\s+(output will be|removed item|above|following)/i,
+  /^The above (print|statement) will (return|be)/i,
+  /^The ".*" will:/i,
+  /^The '\.\.\.' will:/i,
+  /^The removed item will be\b/i,
+];
+
+function splitQuestionLines(questionText) {
+  return questionText.replace(/\r\n/g, "\n").split("\n").map((line, index) => {
+    if (index === 0) {
+      return line.replace(/^\s*\d+\.\s+/, "");
+    }
+    return line.replace(/^\s*\d+\.\s+/, "");
+  });
+}
+
+function withQuestionPrefix(questionText, content) {
+  if (!content) return content;
+  const prefix = questionText.match(/^(\s*\d+\.\s*)/)?.[1];
+  if (!prefix || /^\d+\./.test(content)) return content;
+  return `${prefix}${content}`;
+}
+
+function isTrailingProseLine(line) {
+  const trimmed = line.trim();
+  if (!trimmed) return false;
+  return TRAILING_PROSE_RES.some((pattern) => pattern.test(trimmed));
+}
+
+function looksLikeCode(line) {
+  const trimmed = line.trim();
+  if (!trimmed) return false;
+  if (/<!DOCTYPE|<html|<head|<body|<script|<style|<\/\w/i.test(trimmed)) {
+    return true;
+  }
+  if (/^\s*[\w#.:\[\]>~+*-]+ *\{/.test(trimmed) && /[:;]/.test(trimmed)) {
+    return true;
+  }
+  if (
+    /^(var|let|const|function|print|Print|def|import|class|if|for|while|try|catch|return|async|await|console\.|document\.|delete|eval|new |typeof|yield|car\s*=|y\s*=|x\s*=)\b/i.test(
+      trimmed
+    )
+  ) {
+    return true;
+  }
+  if (/[;{}]$/.test(trimmed)) return true;
+  if (/=\s*[\[{("'0-9]|=\s*\w+\s*\(/.test(trimmed)) return true;
+  if (/^\s*[}\])],?\s*$/.test(trimmed)) return true;
+  if (
+    /\w\s*\([^)]*\)/.test(trimmed) &&
+    !PROMPT_INTRO_RE.test(trimmed) &&
+    !/\?$/.test(trimmed)
+  ) {
+    return true;
+  }
+  return false;
+}
+
+function isPromptIntroLine(line) {
+  const trimmed = line.trim();
+  if (!trimmed) return false;
+  if (PROMPT_INTRO_RE.test(trimmed)) return true;
+  if (/\?$/.test(trimmed)) return true;
+  if (/:$/.test(trimmed) && !looksLikeCode(trimmed)) return true;
+  if (!looksLikeCode(trimmed) && /^[A-Z]/.test(trimmed) && trimmed.split(/\s+/).length >= 4) {
+    return true;
+  }
+  return false;
+}
+
+function findCodeStart(lines) {
+  for (let index = 0; index < lines.length; index += 1) {
+    if (isPromptIntroLine(lines[index])) continue;
+    if (looksLikeCode(lines[index])) return index;
+  }
+  return -1;
+}
+
 export function parseQuestionText(questionText) {
   if (!questionText) return [];
 
@@ -118,21 +200,56 @@ export function parseQuestionText(questionText) {
     return [{ type: "text", content: questionText }];
   }
 
-  const newlineIndex = questionText.indexOf("\n");
-  const prompt = questionText.slice(0, newlineIndex).trim();
-  const code = cleanExamCode(questionText.slice(newlineIndex + 1));
+  const lines = splitQuestionLines(questionText);
+
+  let end = lines.length;
+  while (end > 0 && isTrailingProseLine(lines[end - 1])) {
+    end -= 1;
+  }
+
+  const trailingLines = lines.slice(end);
+  const bodyLines = lines.slice(0, end);
+
+  if (bodyLines.length === 0) {
+    return [{ type: "text", content: questionText }];
+  }
+
+  const codeStart = findCodeStart(bodyLines);
+  if (codeStart === -1) {
+    return [{ type: "text", content: questionText }];
+  }
+
+  const promptLines = bodyLines.slice(0, codeStart);
+  const code = cleanExamCode(bodyLines.slice(codeStart).join("\n"));
+  const trailing = trailingLines.join("\n").trim();
 
   if (!code) {
     return [{ type: "text", content: questionText }];
   }
 
+  const prompt = promptLines.join("\n").trim();
   const inferred =
-    inferLanguageFromPrompt(prompt) ?? inferLanguageFromCode(code) ?? "javascript";
+    inferLanguageFromPrompt(prompt) ??
+    inferLanguageFromPrompt(trailing) ??
+    inferLanguageFromCode(code) ??
+    "javascript";
 
-  return [
-    { type: "text", content: prompt },
-    { type: "code", content: code, codeLanguage: inferred },
-  ];
+  const segments = [];
+
+  if (prompt) {
+    segments.push({
+      type: "text",
+      content: withQuestionPrefix(questionText, prompt),
+    });
+  }
+
+  segments.push({ type: "code", content: code, codeLanguage: inferred });
+
+  if (trailing) {
+    segments.push({ type: "text", content: trailing });
+  }
+
+  return segments;
 }
 
 export function parseBlockContext(context) {

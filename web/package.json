@@ -11,6 +11,7 @@
     "start": "next start",
     "lint": "eslint src --max-warnings 0",
     "audit:ci": "node scripts/audit-ci.mjs",
+    "validate:segments": "node scripts/validate-question-segments.mjs",
     "copy-pdf-worker": "node scripts/copy-pdf-worker.mjs",
     "write-build-id": "node scripts/write-build-id.mjs",
     "postinstall": "npm run copy-pdf-worker"
