@@ -21,8 +21,8 @@ export default function PracticeSavedPage() {
 
   useEffect(() => {
     const handler = () => setQuestions(resolveSavedQuestions());
-    window.addEventListener("mgmt-saved-changed", handler);
-    return () => window.removeEventListener("mgmt-saved-changed", handler);
+    window.addEventListener("webstudy-saved-changed", handler);
+    return () => window.removeEventListener("webstudy-saved-changed", handler);
   }, []);
 
   if (questions.length === 0) {

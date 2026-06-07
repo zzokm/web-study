@@ -160,9 +160,8 @@ Keyword hits across stems, topics, and explanations (categories may overlap).
 The `/analysis` page was rebuilt for Web Technology:
 
 - Stats: unique stems, exam instances, lectures, repeated stems
-- Exam breakdown for 2021, 2024, and 2025 only (2019 removed)
+- Exam breakdown for 2021, 2024, and 2025
 - Lecture yield tables and charts using frontend/backend lecture tracks
 - Cross-exam repetition table linked to `/repetitive/`
 - Per-year lecture allocation, item patterns, and thematic coverage
 - Study priorities tailored to JavaScript, Python, Django, and HTTP
-- Removed management chapter weighting and psychology-style strategy text

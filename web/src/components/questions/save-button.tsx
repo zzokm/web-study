@@ -27,8 +27,8 @@ export function SaveButton({ question, corner = false }: SaveButtonProps) {
 
   useEffect(() => {
     const handler = () => setSaved(isQuestionSaved(question.questionKey));
-    window.addEventListener("mgmt-saved-changed", handler);
-    return () => window.removeEventListener("mgmt-saved-changed", handler);
+    window.addEventListener("webstudy-saved-changed", handler);
+    return () => window.removeEventListener("webstudy-saved-changed", handler);
   }, [question.questionKey]);
 
   const bookmarkClass = cn(

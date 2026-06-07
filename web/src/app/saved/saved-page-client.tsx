@@ -22,8 +22,8 @@ export function SavedPageClient() {
   }, []);
 
   useEffect(() => {
-    window.addEventListener("mgmt-saved-changed", refresh);
-    return () => window.removeEventListener("mgmt-saved-changed", refresh);
+    window.addEventListener("webstudy-saved-changed", refresh);
+    return () => window.removeEventListener("webstudy-saved-changed", refresh);
   }, [refresh]);
 
   const count = questions.length;

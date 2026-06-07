@@ -12,7 +12,7 @@ export interface StoredPracticeResult {
   progress: PracticeProgress;
 }
 
-const RESULT_PREFIX = "mgmt:practice-result-v1:";
+const RESULT_PREFIX = "webstudy:practice-result-v1:";
 
 export function resultStorageId(sessionKey: string): string {
   let h = 5381;

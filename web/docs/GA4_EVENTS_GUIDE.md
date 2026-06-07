@@ -250,7 +250,7 @@ Shared practice parameters:
 |-----------|---------|
 | `practice_mode` | See table above |
 | `exam_year` | e.g. `2024` (exam mode) |
-| `lecture_slug` | e.g. `chapter-1-introduction` (lecture mode) |
+| `lecture_slug` | e.g. `fe-1`, `be-3` (lecture mode) |
 | `session_title` | Display title |
 | `question_index` | 1-based position in session |
 | `interaction_source` | `keyboard` or `click` (navigation & answer actions) |
@@ -410,7 +410,7 @@ Included on question-tied events:
 | `question_key` | `2024:Q19` | Unique id across exams |
 | `question_type` | `mcq`, `true_false` | Format |
 | `topic` | Chapter label | Lecture/topic |
-| `lecture_slug` | `chapter-21-…` | Pool slug |
+| `lecture_slug` | `fe-1`, `be-3` | Lecture slug |
 | `origin` | `2024` | Source exam year |
 | `source_question_id` | `Q19` | Id within exam |
 

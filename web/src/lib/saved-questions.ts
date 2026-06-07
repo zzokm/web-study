@@ -2,7 +2,7 @@
 
 import type { Question } from "@/types/question";
 
-const STORAGE_KEY = "mgmt:saved-v1";
+const STORAGE_KEY = "webstudy:saved-v1";
 
 export interface SavedQuestionEntry {
   questionKey: string;
@@ -40,7 +40,7 @@ function readStore(): SavedStore {
 
 function writeStore(store: SavedStore) {
   localStorage.setItem(STORAGE_KEY, JSON.stringify(store));
-  window.dispatchEvent(new CustomEvent("mgmt-saved-changed"));
+  window.dispatchEvent(new CustomEvent("webstudy-saved-changed"));
 }
 
 export function getSavedQuestions(): SavedQuestionEntry[] {

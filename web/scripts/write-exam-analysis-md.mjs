@@ -1,6 +1,6 @@
 /**
  * Write data/analysis/exam-question-analysis.md from synced catalog + repetitive data.
- * Exam-only metrics — no psychology or management framing.
+ * Exam-only metrics for the Web Technology analysis page.
  */
 import { existsSync, mkdirSync, writeFileSync } from "fs";
 import { dirname, join } from "path";
@@ -275,12 +275,11 @@ export function buildExamAnalysisMarkdown({
   w("The `/analysis` page was rebuilt for Web Technology:");
   w("");
   w("- Stats: unique stems, exam instances, lectures, repeated stems");
-  w("- Exam breakdown for 2021, 2024, and 2025 only (2019 removed)");
+  w("- Exam breakdown for 2021, 2024, and 2025");
   w("- Lecture yield tables and charts using frontend/backend lecture tracks");
   w("- Cross-exam repetition table linked to `/repetitive/`");
   w("- Per-year lecture allocation, item patterns, and thematic coverage");
   w("- Study priorities tailored to JavaScript, Python, Django, and HTTP");
-  w("- Removed management chapter weighting and psychology-style strategy text");
   w("");
 
   return lines.join("\n");

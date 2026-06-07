@@ -17,8 +17,7 @@ export interface QuestionAttempt {
 
 export type PracticeProgress = Record<string, QuestionAttempt>;
 
-const STORAGE_PREFIX = "mgmt:practice-v1:";
-const LEGACY_SESSION_PREFIX = "mgmt:practice-v1:";
+const STORAGE_PREFIX = "webstudy:practice-v1:";
 
 const EMPTY_ATTEMPT: QuestionAttempt = { selectedId: null, revealed: false };
 
@@ -95,14 +94,7 @@ export function loadPracticeProgress(sessionKey: string): PracticeProgress {
   if (typeof window === "undefined") return {};
   const key = storageKey(sessionKey);
   try {
-    let raw = localStorage.getItem(key);
-    if (!raw) {
-      raw = sessionStorage.getItem(LEGACY_SESSION_PREFIX + sessionKey);
-      if (raw) {
-        localStorage.setItem(key, raw);
-        sessionStorage.removeItem(LEGACY_SESSION_PREFIX + sessionKey);
-      }
-    }
+    const raw = localStorage.getItem(key);
     if (!raw) return {};
     const parsed = JSON.parse(raw) as PracticeProgress;
     if (!parsed || typeof parsed !== "object") return {};
@@ -140,7 +132,6 @@ export function clearPracticeProgress(sessionKey: string): void {
   if (typeof window === "undefined") return;
   try {
     localStorage.removeItem(storageKey(sessionKey));
-    sessionStorage.removeItem(LEGACY_SESSION_PREFIX + sessionKey);
   } catch {
     // ignore
   }

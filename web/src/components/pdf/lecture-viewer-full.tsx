@@ -84,7 +84,7 @@ function activateDocument(registry: PluginRegistry, documentId: string): void {
 }
 
 /**
- * Full PDF viewer (EmbedPDF) with document tabs for lectures and textbook chapters.
+ * Full PDF viewer (EmbedPDF) with document tabs for lecture and exam PDFs.
  */
 export function LectureViewerFull({
   lectures,
@@ -99,7 +99,7 @@ export function LectureViewerFull({
   pageIndex: number;
   /** When false, tab changes do not navigate (e.g. practice fullscreen modal). */
   syncUrl?: boolean;
-  /** Base path for tab navigation, e.g. `/lectures` or `/book`. */
+  /** Base path for tab navigation, e.g. `/lectures` or `/exams`. */
   routeBase?: string;
   height?: string;
 }) {

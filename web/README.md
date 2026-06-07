@@ -1,6 +1,6 @@
-# Management Study Site
+# Web Study
 
-Static Next.js study app for management final exams. Data is synced from the parent `mgmt/` folder (exams, pools, lectures, analysis).
+Static Next.js study app for Web Technology finals. Data is synced from the repo root `data/` folder (exams, lectures, analysis).
 
 ## Requirements
 
@@ -15,7 +15,7 @@ npm install
 npm run sync
 ```
 
-`npm run sync` copies JSON and PDFs from `../` into `public/` and regenerates `src/data/generated/catalog.json`.
+`npm run sync` copies JSON and PDFs from `../data/` into `public/` and regenerates `src/data/generated/catalog.json`.
 
 ## Scripts
 
@@ -23,15 +23,14 @@ npm run sync
 |--------|-------------|
 | `npm run dev` | Sync content, then start dev server |
 | `npm run build` | Audit (0 moderate+), sync, static export to `out/` |
-| `npm run sync` | Refresh data from parent mgmt folder |
+| `npm run sync` | Refresh data from repo `data/` folder |
 | `npm run audit:ci` | Fail if npm audit reports moderate+ vulnerabilities |
 
 ## PDF viewing
 
-- **Lecture pages** (`/lectures/[id]`): `react-pdf` viewer with prev/next, go-to-slide, and zoom.
-- **Practice references** (`SlidePanel`): lightweight per-slide renders via `react-pdf`.
+Lecture and exam pages use the EmbedPDF viewer (`@embedpdf/react-pdf-viewer`) with tabbed documents, in-viewer scroll tracking, and URL `?page=` sync.
 
-Both use `pdfjs-dist@4.10.38` and `public/pdf.worker.min.mjs` (copied on `postinstall`). Worker and API versions must stay aligned.
+PDF assets are copied on `postinstall` (`pdf.worker.min.mjs`, `pdfium.wasm`).
 
 ## Security
 
@@ -39,8 +38,8 @@ Both use `pdfjs-dist@4.10.38` and `public/pdf.worker.min.mjs` (copied on `postin
 
 ## Deploy
 
-After `npm run build`, deploy the `out/` directory to any static host (GitHub Pages, Netlify, etc.).
+After `npm run build`, deploy the `out/` directory to any static host, or use the root `docker-compose.yml`.
 
 ## VS Code
 
-Open the `mgmt` workspace and run tasks **dev** or **build** (they run from `web/` and sync first).
+Open this repo and run tasks **dev** or **build** (they run from `web/` and sync first).
