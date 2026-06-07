@@ -1,4 +1,5 @@
 import type { Catalog, LectureMeta, Question } from "@/types/question";
+import { formatLectureBadgeLabel } from "@/lib/lecture-label";
 import { sortExamAppearances } from "@/lib/question-appearances";
 import { clusterByRepetitionKey, groupByRepetitionKey } from "@/lib/stem-match";
 import catalogJson from "@/data/generated/catalog.json";
@@ -112,7 +113,7 @@ export function getLectureSlugs(): LectureSlugEntry[] {
     })
     .map((lec) => ({
       slug: lec.lectureId,
-      lecture: lec.topic,
+      lecture: formatLectureBadgeLabel(lec),
       count: getQuestionsByLectureSlug(lec.lectureId).length,
       track: lec.track,
       trackLabel: tracks[lec.track]?.label ?? lec.track,

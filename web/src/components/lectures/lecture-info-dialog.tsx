@@ -1,6 +1,7 @@
 "use client";
 
 import type { LectureMeta } from "@/types/question";
+import { formatLectureHeading, formatLectureTag } from "@/lib/lecture-label";
 import { getTracks } from "@/lib/questions";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
@@ -41,7 +42,7 @@ export function LectureInfoDialog({ lecture }: { lecture: LectureMeta }) {
       <DialogContent className="flex max-h-[min(85vh,640px)] flex-col gap-0 overflow-hidden p-0 sm:max-w-md">
         <DialogHeader className="gap-2 border-b px-4 py-4 pr-12">
           <DialogTitle className="text-base leading-snug">
-            Lec {lecture.lectureNumber}: {lecture.topic}
+            {formatLectureHeading(lecture)}
           </DialogTitle>
           {lecture.description ? (
             <DialogDescription className="text-sm leading-relaxed text-foreground/80">
@@ -49,7 +50,10 @@ export function LectureInfoDialog({ lecture }: { lecture: LectureMeta }) {
             </DialogDescription>
           ) : null}
           <div className="flex flex-wrap gap-2 pt-1">
-            <Badge variant="secondary" className="font-normal">
+            <Badge variant="secondary" className="font-normal tabular-nums">
+              {formatLectureTag(lecture)}
+            </Badge>
+            <Badge variant="outline" className="font-normal">
               {trackLabel}
             </Badge>
             <Badge variant="outline" className="font-normal">

@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Suspense } from "react";
 import { notFound } from "next/navigation";
 import { metadataTitle } from "@/lib/analytics-page-titles";
+import { formatLectureHeading, formatLectureTag } from "@/lib/lecture-label";
 import { getLectureIdList, getLectureMeta } from "@/lib/questions";
 import { LectureInfoDialog } from "@/components/lectures/lecture-info-dialog";
 import { Skeleton } from "@/components/ui/skeleton";
@@ -34,9 +35,10 @@ export default async function LectureDetailPage({
       <div className="flex items-start justify-between gap-3">
         <div className="min-w-0">
           <h1 className="text-2xl font-semibold tracking-tight">
-            Lec {meta.lectureNumber}: {meta.topic}
+            {formatLectureHeading(meta)}
           </h1>
           <p className="text-muted-foreground">
+            {formatLectureTag(meta)} ·{" "}
             {meta.track === "frontend" ? "Frontend" : "Backend"} ·{" "}
             {meta.pageCount} slides
           </p>

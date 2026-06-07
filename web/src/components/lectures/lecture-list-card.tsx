@@ -1,6 +1,7 @@
 import Link from "next/link";
 import type { LectureMeta } from "@/types/question";
 import { lectureCardBlurb } from "@/lib/lecture-blurb";
+import { formatLectureHeading } from "@/lib/lecture-label";
 import { Card, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 
@@ -12,7 +13,7 @@ export function LectureListCard({ lecture }: { lecture: LectureMeta }) {
       <Card className="h-full transition-colors hover:bg-muted/50">
         <CardHeader className="gap-1.5 pb-4">
           <CardTitle className="text-base">
-            Lec {lecture.lectureNumber}: {lecture.topic}
+            {formatLectureHeading(lecture)}
           </CardTitle>
           {blurb ? (
             <CardDescription className="line-clamp-1 text-xs leading-snug">

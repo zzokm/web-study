@@ -1,4 +1,5 @@
 import type { Question } from "@/types/question";
+import { formatLectureBadgeLabel } from "@/lib/lecture-label";
 import {
   countUniqueQuestions,
   getAllQuestions,
@@ -240,7 +241,10 @@ function lectureLabelsForQuestion(
   lectureMeta: ReturnType<typeof getLectureMeta>
 ): { ids: string[]; labels: string[] } {
   const ids = [...new Set(question.relatedTopics ?? [])];
-  const labels = ids.map((id) => lectureMeta[id]?.topic ?? id);
+  const labels = ids.map((id) => {
+    const lec = lectureMeta[id];
+    return lec ? formatLectureBadgeLabel(lec) : id;
+  });
   return { ids, labels };
 }
 
@@ -352,7 +356,8 @@ export function buildExamAnalysis(): ExamAnalysisData {
         ? q.relatedTopics
         : ["unmapped"];
       for (const lectureId of lectureIds) {
-        const label = lectureMeta[lectureId]?.topic ?? lectureId;
+        const lec = lectureMeta[lectureId];
+        const label = lec ? formatLectureBadgeLabel(lec) : lectureId;
         const existing = byLecture.get(lectureId) ?? {
           lecture: label,
           slug: lectureId,

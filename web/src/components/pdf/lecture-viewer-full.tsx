@@ -8,6 +8,7 @@ import {
   type PluginRegistry,
 } from "@embedpdf/react-pdf-viewer";
 import type { LectureMeta } from "@/types/question";
+import { formatLectureHeading } from "@/lib/lecture-label";
 import { pdfDocumentUrl, pdfiumWasmUrl } from "@/lib/pdf-assets";
 import {
   customizeLectureViewerUi,
@@ -111,7 +112,7 @@ export function LectureViewerFull({
       lectures.map((lec) => ({
         url: pdfDocumentUrl(lec.publicPdfUrl),
         documentId: lec.lectureId,
-        name: `Ch ${lec.chapterNumber}: ${lec.topic}`,
+        name: formatLectureHeading(lec),
         autoActivate: lec.lectureId === activeLectureId,
       })),
     // PDFViewer reads config only on mount; activation is synced in onReady/useEffect.

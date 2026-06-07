@@ -1,6 +1,7 @@
 "use client";
 
 import type { LectureMeta } from "@/types/question";
+import { formatLectureBadgeLabel } from "@/lib/lecture-label";
 import { LectureViewerFull } from "./lecture-viewer-full";
 
 interface LectureViewerProps {
@@ -39,8 +40,8 @@ export function LectureViewer({
       </div>
 
       <p className="text-center text-xs text-muted-foreground">
-        {lecture.topic} · {pageLabel} {startPage} of {lecture.pageCount} · switch
-        chapter via tabs above · use{" "}
+        {formatLectureBadgeLabel(lecture)} · {pageLabel} {startPage} of{" "}
+        {lecture.pageCount} · switch lecture via tabs above · use{" "}
         <code className="text-[0.7rem]">?page=N</code> to deep-link
       </p>
     </div>

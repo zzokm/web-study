@@ -1,3 +1,4 @@
+import { formatLectureBadgeLabel } from "@/lib/lecture-label";
 import { getExamMeta, getLectureMeta, getLectureSlugs } from "@/lib/questions";
 
 const SITE = "Web Study";
@@ -7,7 +8,8 @@ function lectureTitle(slug: string): string | undefined {
 }
 
 function lectureTitleById(lectureId: string): string | undefined {
-  return getLectureMeta()[lectureId]?.topic;
+  const meta = getLectureMeta()[lectureId];
+  return meta ? formatLectureBadgeLabel(meta) : undefined;
 }
 
 function examTitleByYear(year: string): string | undefined {
