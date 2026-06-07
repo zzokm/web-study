@@ -87,7 +87,7 @@ export function CodeExampleCard({ example }: { example: CodeExample }) {
           ) : null}
         </div>
       </CardHeader>
-      <CardContent className="grid grid-cols-1 px-4 pt-2">
+      <CardContent className="grid grid-cols-1 gap-3 px-4 pt-2">
         <Tabs
           value={activeTab}
           onValueChange={setActiveTab}
