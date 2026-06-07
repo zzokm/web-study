@@ -1,5 +1,6 @@
 import type { Question, QuestionContentSegment, QuestionContext } from "@/types/question";
 import { CodeBlock } from "@/components/code/code-block";
+import { stripLeadingQuestionNumber } from "@/lib/parse-question-content";
 import { cn } from "@/lib/utils";
 
 function ContextBlock({
@@ -62,7 +63,7 @@ function SegmentList({
               textClassName
             )}
           >
-            {segment.content}
+            {stripLeadingQuestionNumber(segment.content)}
           </p>
         )
       )}

@@ -90,6 +90,11 @@ export function normalizeCodeIndentation(
     .join("\n");
 }
 
+/** Strip exam numbering prefix (e.g. `65. `) from displayed question text. */
+export function stripLeadingQuestionNumber(text: string): string {
+  return text.replace(/^\s*\d+\.\s+/, "");
+}
+
 export function cleanExamCode(code: string): string {
   const lines = code.replace(/\r\n/g, "\n").split("\n");
   const stripped = lines.map((line) => line.replace(/^\s*\d+\.\s+/, ""));

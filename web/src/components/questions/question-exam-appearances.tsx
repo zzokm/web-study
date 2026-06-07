@@ -42,19 +42,11 @@ export function QuestionExamAppearances({
 
   return (
     <>
-      <span
-        className={cn(
-          "text-xs font-medium text-muted-foreground",
-          className
-        )}
-      >
-        Appeared in
-      </span>
       {appearances.map((a) => (
         <Badge
           key={`${a.origin}:${a.sourceQuestionId}`}
           variant="secondary"
-          className="font-normal tabular-nums"
+          className={cn("font-normal tabular-nums", className)}
         >
           {formatExamAppearanceLabel(a)}
         </Badge>

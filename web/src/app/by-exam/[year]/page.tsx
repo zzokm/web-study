@@ -41,7 +41,6 @@ export default async function ExamYearPage({
       <QuestionBrowseAccordion
         questions={questions}
         browseContext="by_exam"
-        showQuestionIdBadge
       />
     </div>
   );

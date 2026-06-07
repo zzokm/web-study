@@ -4,7 +4,6 @@ import type { ReactNode } from "react";
 import { useCallback, useMemo, useRef } from "react";
 import type { Question } from "@/types/question";
 import type { BrowseContext } from "@/lib/analytics-events";
-import { examQuestionNumberFromId } from "@/lib/question-appearances";
 import { AnalyticsEvents } from "@/lib/analytics-events";
 import { questionAnalyticsParams, trackEvent } from "@/lib/analytics";
 import { cn } from "@/lib/utils";
@@ -15,7 +14,6 @@ import {
   AccordionTrigger,
 } from "@/components/ui/accordion";
 import { QuestionAccordionDetails } from "./question-accordion-details";
-import { Badge } from "@/components/ui/badge";
 import { QuestionMeta } from "./question-meta";
 import { QuestionStem } from "./question-stem";
 import { SaveButton } from "./save-button";
@@ -27,8 +25,6 @@ interface QuestionBrowseAccordionProps {
   renderTriggerPrefix?: (question: Question) => ReactNode;
   /** Show save control on expanded content (e.g. saved questions page) */
   showSaveButton?: boolean;
-  /** Show exam question id badge (by-exam pages) */
-  showQuestionIdBadge?: boolean;
   /** Controlled open items (questionKey values) */
   openValues?: string[];
   onOpenValuesChange?: (values: string[]) => void;
@@ -41,7 +37,6 @@ export function QuestionBrowseAccordion({
   browseContext,
   renderTriggerPrefix,
   showSaveButton = false,
-  showQuestionIdBadge = false,
   openValues,
   onOpenValuesChange,
   scrollIdPrefix,
@@ -119,11 +114,6 @@ export function QuestionBrowseAccordion({
           <AccordionTrigger className={triggerClassName}>
             <div className="min-w-0 flex-1 text-left">
               <div className="flex flex-col gap-2">
-                {showQuestionIdBadge ? (
-                  <Badge variant="outline" className="w-fit tabular-nums">
-                    Q{examQuestionNumberFromId(q.sourceQuestionId)}
-                  </Badge>
-                ) : null}
                 {renderTriggerPrefix?.(q)}
                 <QuestionMeta question={q} />
                 <QuestionStem question={q} variant="browse" />
