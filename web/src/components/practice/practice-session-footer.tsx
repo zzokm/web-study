@@ -9,11 +9,20 @@ import {
   CircleXIcon,
 } from "lucide-react";
 
-/** Shared practice footer control sizing (allows shrink on narrow screens). */
-export const PRACTICE_FOOTER_BTN_CLASS =
-  "inline-flex h-11 min-h-11 min-w-0 max-w-full items-center justify-center gap-1.5 px-3 text-sm font-semibold sm:gap-2 sm:px-4 sm:text-base";
+/** Control strip height (excludes safe-area inset below). */
+export const PRACTICE_FOOTER_BAR_HEIGHT = "4rem";
 
-export const PRACTICE_FOOTER_HEIGHT = "5.25rem";
+/** Total fixed footer footprint for main content padding. */
+export const PRACTICE_FOOTER_HEIGHT =
+  "calc(4rem + max(0.5rem, env(safe-area-inset-bottom)))";
+
+const FOOTER_CONTROL_H = "h-9";
+
+/** Shared practice footer control sizing. */
+export const PRACTICE_FOOTER_BTN_CLASS = cn(
+  FOOTER_CONTROL_H,
+  "min-w-0 max-w-full shrink-0 gap-1.5 px-3 text-sm font-semibold sm:gap-2 sm:px-4"
+);
 
 interface PracticeSessionFooterProps {
   index: number;
@@ -44,90 +53,104 @@ export function PracticeSessionFooter({
   return (
     <footer
       className={cn(
-        "fixed bottom-0 z-50 border-t bg-background/95 shadow-[0_-4px_24px_-4px_rgba(0,0,0,0.12)] backdrop-blur supports-[backdrop-filter]:bg-background/85",
-        "left-0 right-0 max-w-[100vw] overflow-hidden transition-[left] duration-200 ease-linear md:left-[var(--sidebar-inset-left)]",
-        "pb-[max(0.75rem,env(safe-area-inset-bottom))]",
-        "pl-[max(0.5rem,env(safe-area-inset-left))] pr-[max(0.5rem,env(safe-area-inset-right))]"
+        "fixed bottom-0 z-50 bg-background/95 shadow-[0_-4px_24px_-4px_rgba(0,0,0,0.12)] backdrop-blur supports-[backdrop-filter]:bg-background/85",
+        "left-0 right-0 max-w-[100vw] overflow-hidden transition-[left] duration-200 ease-linear md:left-[var(--sidebar-inset-left)]"
       )}
-      style={{ minHeight: PRACTICE_FOOTER_HEIGHT }}
+      style={{
+        paddingBottom: "max(0.5rem, env(safe-area-inset-bottom))",
+      }}
       aria-label="Practice controls"
     >
       <div
-        className={cn(
-          "mx-auto grid w-full max-w-3xl items-center gap-2 py-3",
-          "grid-cols-[minmax(0,1fr)_minmax(0,1.35fr)_minmax(0,1fr)]",
-          "px-3 sm:gap-3 sm:px-4 md:px-6"
-        )}
+        className="flex w-full items-center border-t bg-background/95"
+        style={{ height: PRACTICE_FOOTER_BAR_HEIGHT }}
       >
-        <Button
-          type="button"
-          variant="outline"
-          onClick={onPrevious}
-          disabled={isFirst}
-          className={cn(PRACTICE_FOOTER_BTN_CLASS, "justify-self-start")}
-          aria-label="Previous question"
+        <div
+          className={cn(
+            "mx-auto flex h-full w-full max-w-3xl items-stretch gap-2",
+            "px-3 sm:gap-3 sm:px-4 md:px-6",
+            "pl-[max(0.75rem,env(safe-area-inset-left))] pr-[max(0.75rem,env(safe-area-inset-right))]"
+          )}
         >
-          <ChevronLeftIcon className="size-4 shrink-0" />
-          <span className="hidden min-[380px]:inline">Prev</span>
-        </Button>
-
-        <div className="flex min-w-0 items-center justify-center justify-self-center">
-          {!revealed ? (
+          <div className="flex min-w-0 flex-1 items-center justify-start">
             <Button
               type="button"
-              onClick={onCheck}
-              disabled={!selectedId}
-              className={cn(PRACTICE_FOOTER_BTN_CLASS, "w-full")}
+              variant="outline"
+              size="lg"
+              onClick={onPrevious}
+              disabled={isFirst}
+              className={PRACTICE_FOOTER_BTN_CLASS}
+              aria-label="Previous question"
             >
-              <span className="truncate sm:hidden">Check</span>
-              <span className="hidden truncate sm:inline">Check answer</span>
+              <ChevronLeftIcon className="size-4 shrink-0" />
+              <span className="hidden min-[380px]:inline">Prev</span>
             </Button>
-          ) : (
-            <span
-              className={cn(
-                PRACTICE_FOOTER_BTN_CLASS,
-                "w-full rounded-lg border bg-muted/30",
-                correct
-                  ? "border-green-600/30 text-green-700 dark:text-green-400"
-                  : "border-red-600/30 text-red-700 dark:text-red-400"
-              )}
-            >
-              {correct ? (
-                <CircleCheckIcon className="size-5 shrink-0" />
-              ) : (
-                <CircleXIcon className="size-5 shrink-0" />
-              )}
-              <span className="truncate">{correct ? "Correct" : "Incorrect"}</span>
-            </span>
-          )}
-        </div>
+          </div>
 
-        {isLast && revealed ? (
-          <Button
-            type="button"
-            onClick={onFinish}
-            className={cn(
-              PRACTICE_FOOTER_BTN_CLASS,
-              "justify-self-end leading-tight"
+          <div className="flex min-w-0 flex-[1.35] items-center justify-center">
+            {!revealed ? (
+              <Button
+                type="button"
+                size="lg"
+                onClick={onCheck}
+                disabled={!selectedId}
+                className={cn(PRACTICE_FOOTER_BTN_CLASS, "w-full")}
+              >
+                <span className="truncate sm:hidden">Check</span>
+                <span className="hidden truncate sm:inline">Check answer</span>
+              </Button>
+            ) : (
+              <span
+                className={cn(
+                  PRACTICE_FOOTER_BTN_CLASS,
+                  "inline-flex w-full items-center justify-center rounded-lg border bg-muted/30",
+                  correct
+                    ? "border-green-600/30 text-green-700 dark:text-green-400"
+                    : "border-red-600/30 text-red-700 dark:text-red-400"
+                )}
+              >
+                {correct ? (
+                  <CircleCheckIcon className="size-4 shrink-0" />
+                ) : (
+                  <CircleXIcon className="size-4 shrink-0" />
+                )}
+                <span className="truncate">
+                  {correct ? "Correct" : "Incorrect"}
+                </span>
+              </span>
             )}
-            aria-label="Finish and view results"
-          >
-            <span className="truncate sm:hidden">Finish</span>
-            <span className="hidden truncate sm:inline">Finish &amp; results</span>
-          </Button>
-        ) : (
-          <Button
-            type="button"
-            variant="outline"
-            onClick={onNext}
-            disabled={!revealed}
-            className={cn(PRACTICE_FOOTER_BTN_CLASS, "justify-self-end")}
-            aria-label="Next question"
-          >
-            <span className="hidden min-[380px]:inline">Next</span>
-            <ChevronRightIcon className="size-4 shrink-0" />
-          </Button>
-        )}
+          </div>
+
+          <div className="flex min-w-0 flex-1 items-center justify-end">
+            {isLast && revealed ? (
+              <Button
+                type="button"
+                size="lg"
+                onClick={onFinish}
+                className={PRACTICE_FOOTER_BTN_CLASS}
+                aria-label="Finish and view results"
+              >
+                <span className="truncate sm:hidden">Finish</span>
+                <span className="hidden truncate sm:inline">
+                  Finish &amp; results
+                </span>
+              </Button>
+            ) : (
+              <Button
+                type="button"
+                variant="outline"
+                size="lg"
+                onClick={onNext}
+                disabled={!revealed}
+                className={PRACTICE_FOOTER_BTN_CLASS}
+                aria-label="Next question"
+              >
+                <span className="hidden min-[380px]:inline">Next</span>
+                <ChevronRightIcon className="size-4 shrink-0" />
+              </Button>
+            )}
+          </div>
+        </div>
       </div>
     </footer>
   );

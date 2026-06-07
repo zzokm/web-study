@@ -28,7 +28,7 @@ export function LinkButton({
       target={target}
       rel={rel}
       onClick={onClick}
-      className={cn(buttonVariants({ variant, size, className }))}
+      className={cn(buttonVariants({ variant, size }), className)}
     >
       {children}
     </Link>

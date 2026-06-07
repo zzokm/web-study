@@ -138,11 +138,11 @@ export function QuestionCard({
                 id={`${question.questionKey}-${opt.id}`}
                 className={radioItemClass(opt.id)}
               />
-              <div className="pointer-events-none grid min-w-0 flex-1 grid-cols-[auto_1fr] items-start gap-x-2 text-base leading-snug">
-                <span className="pt-0.5 font-medium text-muted-foreground">
+              <div className="pointer-events-none grid min-w-0 flex-1 grid-cols-[auto_1fr] items-center gap-x-2 text-base leading-snug">
+                <span className="font-medium uppercase text-muted-foreground">
                   {opt.id}.
                 </span>
-                <div className="min-w-0">
+                <div className="flex min-w-0 items-center">
                   <OptionContent option={opt} compact={opt.type === "code"} />
                 </div>
               </div>

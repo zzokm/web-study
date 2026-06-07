@@ -28,6 +28,8 @@ import {
 } from "@/lib/practice-progress";
 import { ResetPracticeProgressButton } from "@/components/practice/reset-practice-progress-button";
 import { savePracticeResult } from "@/lib/practice-results";
+import { toggleSavedQuestion } from "@/lib/saved-questions";
+import { usePracticeKeyboard } from "@/hooks/use-practice-keyboard";
 import { QuestionCard } from "@/components/questions/question-card";
 import { AnswerReveal } from "@/components/questions/answer-reveal";
 import { SaveButton } from "@/components/questions/save-button";
@@ -135,8 +137,8 @@ function PracticeSessionInner({
     [question, updateCurrentAttempt, practiceMode, index]
   );
 
-  const handleCheck = () => {
-    if (!selectedId || !question) return;
+  const handleCheck = useCallback(() => {
+    if (!selectedId || !question || revealed) return;
     const isCorrect = isAnswerCorrect(selectedId, question.correctAnswerId);
     updateCurrentAttempt({ revealed: true });
     trackEvent(AnalyticsEvents.practiceCheckAnswer, {
@@ -146,9 +148,16 @@ function PracticeSessionInner({
       selected_option_id: selectedId,
       correct: isCorrect,
     });
-  };
+  }, [
+    selectedId,
+    question,
+    revealed,
+    updateCurrentAttempt,
+    practiceMode,
+    index,
+  ]);
 
-  const handleNext = () => {
+  const handleNext = useCallback(() => {
     if (index < questions.length - 1 && revealed && question) {
       trackEvent(AnalyticsEvents.practiceNext, {
         ...questionAnalyticsParams(question),
@@ -157,9 +166,9 @@ function PracticeSessionInner({
       });
       setIndex((i) => i + 1);
     }
-  };
+  }, [index, questions.length, revealed, question, practiceMode]);
 
-  const handlePrevious = () => {
+  const handlePrevious = useCallback(() => {
     if (index > 0 && question) {
       trackEvent(AnalyticsEvents.practicePrevious, {
         ...questionAnalyticsParams(question),
@@ -168,7 +177,27 @@ function PracticeSessionInner({
       });
       setIndex((i) => i - 1);
     }
-  };
+  }, [index, question, practiceMode]);
+
+  const handleSave = useCallback(() => {
+    if (!question) return;
+    const saved = toggleSavedQuestion(question);
+    trackEvent(
+      saved ? AnalyticsEvents.questionSave : AnalyticsEvents.questionUnsave,
+      questionAnalyticsParams(question)
+    );
+  }, [question]);
+
+  usePracticeKeyboard({
+    question,
+    revealed,
+    selectedId,
+    onSelect: handleSelect,
+    onCheck: handleCheck,
+    onPrevious: handlePrevious,
+    onNext: handleNext,
+    onSave: handleSave,
+  });
 
   const handleFinish = useCallback(() => {
     const score = computePracticeScore(questions, progress);
@@ -234,7 +263,7 @@ function PracticeSessionInner({
       <div
         className="mx-auto flex max-w-3xl flex-col gap-6"
         style={{
-          paddingBottom: `calc(${PRACTICE_FOOTER_HEIGHT} + max(0.75rem, env(safe-area-inset-bottom)) + 1.5rem)`,
+          paddingBottom: `calc(${PRACTICE_FOOTER_HEIGHT} + 1.5rem)`,
         }}
       >
         <div className="flex flex-col gap-2">
