@@ -6,7 +6,11 @@
     function myfunction(){
         if(1){var z=3;}
     }
-    console.log(z);
+    try {
+        console.log(z);
+    } catch (error) {
+        document.writeln(error.name + ": " + error.message);
+    }
     </script>
 </head>
 <body>

@@ -1,40 +1,47 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <script>
-        
-        console.log("1. You ordered a pizza.");
-
-        const pizzaOrder = new Promise((resolve, reject) => {
-        // Simulate the pizza shop preparing the order (3 seconds)
-        setTimeout(() => {
-            let pizzaReady = false; // Change to false to simulate rejection
-
-            if (pizzaReady) {
-            resolve("3. Pizza is here! ");
-            } else {
-            reject("3. Sorry, no pizza today. ");
-            }
-        }, 3000); // 3-second delay simulates the "pending" state
-        });
-
-        console.log("2. While waiting, you watch a movie. "); // This runs *before* the pizza is ready
-
-        pizzaOrder
-        .then((message) => {
-            console.log(message); // Runs if promise is fulfilled
-        })
-        .catch((error) => {
-            console.log(error); // Runs if promise is rejected
-        });
-    </script>
-</head>
-<body>
-
-<h2>Promise Pizza Example</h2>
-
-
-
-
-</body>
-</html> 
+<!DOCTYPE html>
+<html>
+<head>
+</head>
+<body>
+
+<h2>Promise Pizza Example</h2>
+<div id="output"></div>
+
+<script>
+        
+        console.log("1. You ordered a pizza.");
+
+        const output = document.getElementById("output");
+        function log(message) {
+            console.log(message);
+            output.innerHTML += message + "<br>";
+        }
+
+        log("1. You ordered a pizza.");
+
+        const pizzaOrder = new Promise((resolve, reject) => {
+        // Simulate the pizza shop preparing the order (3 seconds)
+        setTimeout(() => {
+            let pizzaReady = false; // Change to false to simulate rejection
+
+            if (pizzaReady) {
+            resolve("3. Pizza is here! ");
+            } else {
+            reject("3. Sorry, no pizza today. ");
+            }
+        }, 3000); // 3-second delay simulates the "pending" state
+        });
+
+        log("2. While waiting, you watch a movie. ");
+
+        pizzaOrder
+        .then((message) => {
+            log(message);
+        })
+        .catch((error) => {
+            log(error);
+        });
+</script>
+
+</body>
+</html> 
