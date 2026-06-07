@@ -73,6 +73,7 @@
   --chart-4: oklch(0.371 0 0);
   --chart-5: oklch(0.269 0 0);
   --radius: 0.625rem;
+  --app-shell-header-height: 3.5rem;
   --sidebar: oklch(0.985 0 0);
   --sidebar-foreground: oklch(0.145 0 0);
   --sidebar-primary: oklch(0.205 0 0);
@@ -244,4 +245,31 @@
     "Courier New", monospace;
   font-variant-ligatures: none;
   font-feature-settings: "tnum" 1;
+}
+
+.app-shell-header {
+  box-sizing: border-box;
+  height: var(--app-shell-header-height);
+}
+
+.sidebar-scroll {
+  scrollbar-color: color-mix(in oklch, var(--sidebar-border) 85%, transparent) transparent;
+  scrollbar-width: thin;
+}
+
+.sidebar-scroll::-webkit-scrollbar {
+  width: 6px;
+}
+
+.sidebar-scroll::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.sidebar-scroll::-webkit-scrollbar-thumb {
+  background: color-mix(in oklch, var(--sidebar-border) 90%, var(--sidebar-foreground));
+  border-radius: 9999px;
+}
+
+.sidebar-scroll::-webkit-scrollbar-thumb:hover {
+  background: color-mix(in oklch, var(--sidebar-foreground) 35%, var(--sidebar-border));
 }

@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import { Suspense } from "react";
 import { usePathname } from "next/navigation";
 import type { LucideIcon } from "lucide-react";
 import {
@@ -10,7 +11,6 @@ import {
   FileTextIcon,
   GraduationCapIcon,
   HomeIcon,
-  LayersIcon,
   MonitorIcon,
   PresentationIcon,
   MessageSquareIcon,
@@ -25,6 +25,12 @@ import {
 } from "@/lib/site-links";
 import { ExamCountdown } from "@/components/layout/exam-countdown";
 import { ExamPostCelebration } from "@/components/layout/exam-post-celebration";
+import { PageBreadcrumbs } from "@/components/layout/page-breadcrumbs";
+import {
+  PracticeHeaderShortcuts,
+  PracticeHeaderTimer,
+} from "@/components/layout/practice-header-extras";
+import { PracticeHeaderProvider } from "@/components/practice/practice-header-context";
 import {
   Sidebar,
   SidebarContent,
@@ -41,7 +47,6 @@ import {
   SidebarTrigger,
 } from "@/components/ui/sidebar";
 import { GitHubIcon } from "@/components/icons/github-icon";
-import { Separator } from "@/components/ui/separator";
 import {
   Tooltip,
   TooltipContent,
@@ -86,122 +91,135 @@ function isNavActive(pathname: string, href: string): boolean {
   return pathname === path || pathname.startsWith(`${path}/`);
 }
 
-export function AppShell({ children }: { children: React.ReactNode }) {
+function AppShellInner({ children }: { children: React.ReactNode }) {
   const pathname = usePathname();
 
   return (
-    <TooltipProvider>
-      <SidebarProvider>
-        <Sidebar>
-          <SidebarHeader className="border-b border-sidebar-border px-4 py-4">
-            <Link href="/" className="flex items-center gap-2 font-semibold tracking-tight">
-              <LayersIcon className="size-5" />
-              Web Study
-            </Link>
-            <p className="text-xs text-muted-foreground">Web Technology finals prep</p>
-          </SidebarHeader>
-          <SidebarContent className="pt-0">
-            <div className="flex flex-col justify-end px-2 pt-3 pb-1">
-              <ExamCountdown className="mx-0" />
-            </div>
-            {navSections.map((section, index) => (
-              <SidebarGroup
-                key={section.label}
-                className={index === 0 ? "pt-0" : undefined}
-              >
-                <SidebarGroupLabel>{section.label}</SidebarGroupLabel>
-                <SidebarGroupContent>
-                  <SidebarMenu>
-                    {section.items.map((item) => (
-                      <SidebarMenuItem key={item.href}>
-                        <SidebarMenuButton
-                          render={<Link href={item.href} />}
-                          isActive={isNavActive(pathname, item.href)}
-                        >
-                          <item.icon />
-                          <span>{item.label}</span>
-                        </SidebarMenuButton>
-                      </SidebarMenuItem>
-                    ))}
-                  </SidebarMenu>
-                </SidebarGroupContent>
-              </SidebarGroup>
-            ))}
-            <SidebarGroup>
-              <SidebarGroupLabel>
-                Feedback
-              </SidebarGroupLabel>
+    <SidebarProvider>
+      <Sidebar>
+        <SidebarHeader className="app-shell-header shrink-0 flex-row items-center gap-0 border-b border-sidebar-border p-0 px-4">
+          <Link
+            href="/"
+            className="flex items-center gap-2 font-semibold tracking-tight"
+          >
+            <GraduationCapIcon className="size-5 shrink-0" />
+            <span>Web Study</span>
+          </Link>
+        </SidebarHeader>
+        <SidebarContent className="sidebar-scroll pt-0">
+          <div className="flex flex-col justify-end px-2 pt-3 pb-1">
+            <ExamCountdown className="mx-0" />
+          </div>
+          {navSections.map((section, index) => (
+            <SidebarGroup
+              key={section.label}
+              className={index === 0 ? "pt-0" : undefined}
+            >
+              <SidebarGroupLabel>{section.label}</SidebarGroupLabel>
               <SidebarGroupContent>
                 <SidebarMenu>
-                  <SidebarMenuItem>
-                    <Tooltip>
-                      <TooltipTrigger
-                        render={
-                          <SidebarMenuButton
-                            render={
-                              <a
-                                href={FEEDBACK_FORM_URL}
-                                target="_blank"
-                                rel="noopener noreferrer"
-                              />
-                            }
-                          />
-                        }
+                  {section.items.map((item) => (
+                    <SidebarMenuItem key={item.href}>
+                      <SidebarMenuButton
+                        render={<Link href={item.href} />}
+                        isActive={isNavActive(pathname, item.href)}
                       >
-                        <MessageSquareIcon />
-                        <span>
-                          Feedback <span aria-hidden="true">⭐</span>
-                        </span>
-                      </TooltipTrigger>
-                      <TooltipContent side="right" className="max-w-xs">
-                        {FEEDBACK_FORM_TOOLTIP}
-                      </TooltipContent>
-                    </Tooltip>
-                  </SidebarMenuItem>
-                  <SidebarMenuItem>
-                    <SidebarMenuButton
-                      render={
-                        <a
-                          href={GITHUB_REPO_URL}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                        />
-                      }
-                    >
-                      <GitHubIcon />
-                      <span>GitHub repository</span>
-                    </SidebarMenuButton>
-                  </SidebarMenuItem>
+                        <item.icon />
+                        <span>{item.label}</span>
+                      </SidebarMenuButton>
+                    </SidebarMenuItem>
+                  ))}
                 </SidebarMenu>
               </SidebarGroupContent>
             </SidebarGroup>
-          </SidebarContent>
-          <SidebarFooter className="mt-auto border-t border-sidebar-border px-4 py-3">
-            <a
-              href={GITHUB_PROFILE_URL}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="flex w-full items-center justify-center gap-2 text-xs text-muted-foreground/80 transition-colors hover:text-muted-foreground"
-            >
-              <GitHubIcon />
-              <span>Made By Yehia</span>
-            </a>
-          </SidebarFooter>
-        </Sidebar>
-        <SidebarInset>
-          <header className="flex h-14 shrink-0 items-center gap-2 border-b px-4">
+          ))}
+          <SidebarGroup>
+            <SidebarGroupLabel>Feedback</SidebarGroupLabel>
+            <SidebarGroupContent>
+              <SidebarMenu>
+                <SidebarMenuItem>
+                  <Tooltip>
+                    <TooltipTrigger
+                      render={
+                        <SidebarMenuButton
+                          render={
+                            <a
+                              href={FEEDBACK_FORM_URL}
+                              target="_blank"
+                              rel="noopener noreferrer"
+                            />
+                          }
+                        />
+                      }
+                    >
+                      <MessageSquareIcon />
+                      <span>
+                        Feedback <span aria-hidden="true">⭐</span>
+                      </span>
+                    </TooltipTrigger>
+                    <TooltipContent side="right" className="max-w-xs">
+                      {FEEDBACK_FORM_TOOLTIP}
+                    </TooltipContent>
+                  </Tooltip>
+                </SidebarMenuItem>
+                <SidebarMenuItem>
+                  <SidebarMenuButton
+                    render={
+                      <a
+                        href={GITHUB_REPO_URL}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                      />
+                    }
+                  >
+                    <GitHubIcon />
+                    <span>GitHub repository</span>
+                  </SidebarMenuButton>
+                </SidebarMenuItem>
+              </SidebarMenu>
+            </SidebarGroupContent>
+          </SidebarGroup>
+        </SidebarContent>
+        <SidebarFooter className="mt-auto border-t border-sidebar-border px-4 py-3">
+          <a
+            href={GITHUB_PROFILE_URL}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="flex w-full items-center justify-center gap-2 text-xs text-muted-foreground/80 transition-colors hover:text-muted-foreground"
+          >
+            <GitHubIcon />
+            <span>Made By Yehia</span>
+          </a>
+        </SidebarFooter>
+      </Sidebar>
+      <SidebarInset>
+        <header className="app-shell-header sticky top-0 z-40 grid shrink-0 grid-cols-[1fr_auto_1fr] items-center gap-3 border-b bg-background/95 px-4 backdrop-blur supports-[backdrop-filter]:bg-background/85">
+          <div className="flex min-w-0 items-center gap-3">
             <SidebarTrigger />
-            <Separator orientation="vertical" className="mr-2 h-4" />
-            <span className="text-sm font-medium text-muted-foreground">
-              Web Study Site
-            </span>
-          </header>
-          <main className="flex-1 p-4 md:p-6">
-            <ExamPostCelebration />
-            {children}
-          </main>
-        </SidebarInset>
-      </SidebarProvider>
+            <Suspense fallback={null}>
+              <PageBreadcrumbs className="min-w-0 flex-1" />
+            </Suspense>
+          </div>
+          <PracticeHeaderTimer />
+          <div className="flex items-center justify-end">
+            <PracticeHeaderShortcuts />
+          </div>
+        </header>
+        <main className="flex-1 p-4 md:p-6">
+          <ExamPostCelebration />
+          {children}
+        </main>
+      </SidebarInset>
+    </SidebarProvider>
+  );
+}
+
+export function AppShell({ children }: { children: React.ReactNode }) {
+  return (
+    <TooltipProvider>
+      <PracticeHeaderProvider>
+        <AppShellInner>{children}</AppShellInner>
+      </PracticeHeaderProvider>
     </TooltipProvider>
   );
 }
