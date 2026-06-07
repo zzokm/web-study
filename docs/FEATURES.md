@@ -12,9 +12,10 @@ Technical overview of every user-facing capability in the app.
 | Sidebar navigation | All pages | Persistent nav grouped into Home, Materials, Practice, and Analysis. Highlights the active section. |
 | Exam countdown | Sidebar (top) | Counts down to the final exam window (Cairo time). Switches to “Exam ongoing” during the window, then “Exam finished” after. |
 | Feedback pill | Sidebar (below countdown) | Black pill link to the Google feedback form. |
+| Report issue | Header (top right) | Subtle red pill on every page. Opens a modal to describe bugs, wrong answers, or broken links; submits via a prefilled Google Form with page, question, and device context attached. |
 | GitHub footer | Sidebar (bottom) | Links to the project repo and author profile. |
 | Breadcrumbs | Header | Shows where you are; exam and lecture routes include dropdown switchers to jump between years or lectures without returning to an index. |
-| Practice timer | Header (practice routes) | Centered pill showing elapsed session time with pause/resume. Pausing blurs the question area (sidebar stays visible). |
+| Practice timer | Practice session (floating, top-left) | Pill anchored below the header at the content edge (beside the sidebar). Shows elapsed time with pause/resume. Pausing blurs the question area. |
 | Keyboard hints | Header (practice routes) | Desktop badges and mobile tooltip for practice shortcuts (arrows, Enter, S). |
 | Post-exam banner | Main content (after exam) | Confetti + links to feedback, repo, and GitHub profile when the exam window has ended. |
 
@@ -65,6 +66,7 @@ Technical overview of every user-facing capability in the app.
 | Lecture index | All lectures grouped by track with question counts. |
 | Question accordion | Expand a row to read the stem, options, correct answer, and explanation. |
 | Save button | Bookmark a question from expanded content (where shown). |
+| Report issue | Flag button in expanded content opens the report modal with question context pre-filled. |
 
 ### By exam (`/by-exam/`, `/by-exam/[year]/`)
 
@@ -113,6 +115,7 @@ Technical overview of every user-facing capability in the app.
 | Per-question timing | Records thinking time from “question shown” to “check answer”. |
 | Pause overlay | Blurs question content while paused; timer stops for thinking measurement. |
 | Save for later | Bookmark the current question. |
+| Report issue | Flag button on the question card opens the report modal with the current question attached. |
 | Progress persistence | Answers and progress saved in `localStorage` per session key. |
 | Reset progress | Clears saved answers for the current session (with confirmation). |
 | Keyboard shortcuts | ←/→ navigate, Enter/Space check, S save. |
@@ -126,7 +129,7 @@ Technical overview of every user-facing capability in the app.
 | Timing summary | Session wall time, total thinking time, review gap, per-question stats. |
 | Methodology section | Collapsible explanation of how thinking time is measured. |
 | Question breakdown table | Per-question result, answer, and thinking time; sortable slowest-first. |
-| Review accordion | Expand each question; filter to mistakes only. |
+| Review accordion | Expand each question; filter to mistakes only. Report issue per question from expanded rows. |
 | Timing on expand | Shows thinking duration when opening a timed question in review. |
 
 ---

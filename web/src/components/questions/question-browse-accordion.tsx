@@ -17,6 +17,7 @@ import { QuestionAccordionDetails } from "./question-accordion-details";
 import { QuestionMeta } from "./question-meta";
 import { QuestionStem } from "./question-stem";
 import { SaveButton } from "./save-button";
+import { ReportIssueButton } from "@/components/report/report-issue-button";
 
 interface QuestionBrowseAccordionProps {
   questions: Question[];
@@ -122,11 +123,10 @@ export function QuestionBrowseAccordion({
           </AccordionTrigger>
           <AccordionContent className={contentClassName}>
             <div className="flex flex-col gap-4 p-4">
-              {showSaveButton ? (
-                <div className="flex justify-end">
-                  <SaveButton question={q} />
-                </div>
-              ) : null}
+              <div className="flex justify-end gap-2">
+                <ReportIssueButton question={q} />
+                {showSaveButton ? <SaveButton question={q} /> : null}
+              </div>
               <QuestionAccordionDetails
                 question={q}
                 showStem={false}

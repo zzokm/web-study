@@ -18,16 +18,15 @@ import {
 } from "lucide-react";
 import { ExamCountdown } from "@/components/layout/exam-countdown";
 import { SidebarFeedbackPill } from "@/components/layout/sidebar-feedback-pill";
+import { HeaderReportIssuePill } from "@/components/layout/header-report-issue-pill";
 import { SidebarGithubLinks } from "@/components/layout/sidebar-github-links";
+import { ReportIssueProvider } from "@/components/report/report-issue-context";
 import { OutboundTrackedLink } from "@/components/analytics/outbound-tracked-link";
 import { GitHubIcon } from "@/components/icons/github-icon";
 import { GITHUB_PROFILE_URL } from "@/lib/site-links";
 import { ExamPostCelebration } from "@/components/layout/exam-post-celebration";
 import { PageBreadcrumbs } from "@/components/layout/page-breadcrumbs";
-import {
-  PracticeHeaderShortcuts,
-  PracticeHeaderTimer,
-} from "@/components/layout/practice-header-extras";
+import { PracticeHeaderShortcuts } from "@/components/layout/practice-header-extras";
 import { PracticeHeaderProvider } from "@/components/practice/practice-header-context";
 import {
   Sidebar,
@@ -149,16 +148,16 @@ function AppShellInner({ children }: { children: React.ReactNode }) {
         </SidebarFooter>
       </Sidebar>
       <SidebarInset>
-        <header className="app-shell-header sticky top-0 z-40 grid shrink-0 grid-cols-[1fr_auto_1fr] items-center gap-3 border-b bg-background/95 px-4 backdrop-blur supports-[backdrop-filter]:bg-background/85">
-          <div className="flex min-w-0 items-center gap-3">
+        <header className="app-shell-header sticky top-0 z-40 flex shrink-0 items-center justify-between gap-3 border-b bg-background/95 px-4 backdrop-blur supports-[backdrop-filter]:bg-background/85">
+          <div className="flex min-w-0 flex-1 items-center gap-3">
             <SidebarTrigger />
             <Suspense fallback={null}>
               <PageBreadcrumbs className="min-w-0 flex-1" />
             </Suspense>
           </div>
-          <PracticeHeaderTimer />
-          <div className="flex items-center justify-end">
+          <div className="flex shrink-0 items-center gap-2">
             <PracticeHeaderShortcuts />
+            <HeaderReportIssuePill />
           </div>
         </header>
         <main className="flex-1 p-4 md:p-6">
@@ -173,9 +172,11 @@ function AppShellInner({ children }: { children: React.ReactNode }) {
 export function AppShell({ children }: { children: React.ReactNode }) {
   return (
     <TooltipProvider>
-      <PracticeHeaderProvider>
-        <AppShellInner>{children}</AppShellInner>
-      </PracticeHeaderProvider>
+      <ReportIssueProvider>
+        <PracticeHeaderProvider>
+          <AppShellInner>{children}</AppShellInner>
+        </PracticeHeaderProvider>
+      </ReportIssueProvider>
     </TooltipProvider>
   );
 }

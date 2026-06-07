@@ -61,8 +61,10 @@ function PracticeTimer({ className }: { className?: string }) {
   return (
     <div
       className={cn(
-        "flex h-10 shrink-0 items-center rounded-full border border-border bg-background shadow-sm",
-        state.paused && "border-muted-foreground/30 bg-muted/30",
+        "flex h-10 shrink-0 items-center rounded-full border border-border bg-background shadow-sm transition-all duration-300 ease-out",
+        state.paused
+          ? "scale-[0.98] border-muted-foreground/30 bg-muted/40 shadow-md"
+          : "scale-100",
         className
       )}
     >
@@ -80,7 +82,7 @@ function PracticeTimer({ className }: { className?: string }) {
       </div>
       <span
         className={cn(
-          "flex min-w-[5.75rem] flex-1 items-center justify-center font-mono text-base font-semibold tracking-tight tabular-nums",
+          "flex min-w-[5.75rem] flex-1 items-center justify-center font-mono text-base font-semibold tracking-tight tabular-nums transition-colors duration-300",
           state.paused && "text-muted-foreground"
         )}
       >
@@ -89,17 +91,30 @@ function PracticeTimer({ className }: { className?: string }) {
       <button
         type="button"
         onClick={togglePracticePause}
-        data-analytics-zone="header"
+        data-analytics-zone="practice_timer"
         data-analytics-id="practice_timer_pause"
         data-analytics-skip
-        className="flex size-10 shrink-0 items-center justify-center text-muted-foreground transition-colors hover:text-foreground"
+        className="flex size-10 shrink-0 items-center justify-center text-muted-foreground transition-colors duration-200 hover:text-foreground active:scale-95"
         aria-label={state.paused ? "Resume timer" : "Pause timer"}
       >
-        {state.paused ? (
-          <PlayIcon className="size-4 fill-current stroke-none" />
-        ) : (
-          <PauseIcon className="size-4 fill-current stroke-none" />
-        )}
+        <span className="relative flex size-4 items-center justify-center">
+          <PlayIcon
+            className={cn(
+              "absolute size-4 fill-current stroke-none transition-all duration-200 ease-out",
+              state.paused
+                ? "scale-100 opacity-100"
+                : "scale-75 opacity-0"
+            )}
+          />
+          <PauseIcon
+            className={cn(
+              "absolute size-4 fill-current stroke-none transition-all duration-200 ease-out",
+              state.paused
+                ? "scale-75 opacity-0"
+                : "scale-100 opacity-100"
+            )}
+          />
+        </span>
       </button>
     </div>
   );
@@ -150,11 +165,20 @@ function KeyboardHints() {
   );
 }
 
-export function PracticeHeaderTimer({ className }: { className?: string }) {
+export function PracticeFloatingTimer() {
   const state = usePracticeHeaderState();
   if (!state) return null;
 
-  return <PracticeTimer className={className} />;
+  return (
+    <div
+      className="pointer-events-none fixed z-[50] top-[calc(var(--app-shell-header-height)+0.75rem)] left-3 transition-[left] duration-200 ease-linear md:left-[calc(var(--sidebar-inset-left)+0.75rem)]"
+      aria-hidden={false}
+    >
+      <div className="pointer-events-auto">
+        <PracticeTimer className="shadow-md ring-1 ring-foreground/5" />
+      </div>
+    </div>
+  );
 }
 
 export function PracticeHeaderShortcuts() {

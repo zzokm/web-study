@@ -23,6 +23,7 @@ import {
 } from "@/components/ui/accordion";
 import { Badge } from "@/components/ui/badge";
 import { QuestionAccordionDetails } from "@/components/questions/question-accordion-details";
+import { ReportIssueButton } from "@/components/report/report-issue-button";
 import { QuestionMeta } from "@/components/questions/question-meta";
 import { QuestionStem } from "@/components/questions/question-stem";
 import { cn } from "@/lib/utils";
@@ -181,6 +182,9 @@ export function PracticeResultsAccordion({
             </AccordionTrigger>
             <AccordionContent className={contentClassName}>
               <div className="flex flex-col gap-4 p-4">
+                <div className="flex justify-end">
+                  <ReportIssueButton question={q} />
+                </div>
                 {thinkingMs != null ? (
                   <p className="text-sm text-muted-foreground">
                     Thinking time:{" "}

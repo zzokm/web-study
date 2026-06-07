@@ -185,6 +185,16 @@ export type AnalyticsEventMap = {
     page_count: number;
     topic: string;
   };
+  issue_report_open: PageContextParams & {
+    has_question_key: boolean;
+    report_context: string;
+  };
+  issue_report_submit: PageContextParams & {
+    issue_type: string;
+    issue_scope: "general" | "specific";
+    report_context: string;
+    has_question_key: boolean;
+  };
 };
 
 export type AnalyticsEventName = keyof AnalyticsEventMap;
@@ -221,4 +231,6 @@ export const AnalyticsEventNames = {
   pdfPageView: "pdf_page_view",
   pdfDocumentSwitch: "pdf_document_switch",
   lectureSlideView: "lecture_slide_view",
+  issueReportOpen: "issue_report_open",
+  issueReportSubmit: "issue_report_submit",
 } as const satisfies Record<string, AnalyticsEventName>;

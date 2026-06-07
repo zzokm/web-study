@@ -1,6 +1,10 @@
 /** Google Form — feedback and suggestions for Web Study */
 export const FEEDBACK_FORM_URL = "https://forms.gle/yWE4Ekhs2AaCubGg6";
 
+/** Google Form — report issues (wrong answers, bugs, broken links) */
+export const REPORT_FORM_URL =
+  "https://docs.google.com/forms/d/e/1FAIpQLSc_xJ6zuD2eGeWSraN0TCq4WYBRJAVsaseA9e_DtfQOod8QaA/viewform";
+
 export const FEEDBACK_FORM_TOOLTIP =
   "Help us improve the site — takes less than a minute to complete.";
 

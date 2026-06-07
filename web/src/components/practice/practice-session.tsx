@@ -40,6 +40,7 @@ import { usePracticeKeyboard } from "@/hooks/use-practice-keyboard";
 import { QuestionCard } from "@/components/questions/question-card";
 import { AnswerReveal } from "@/components/questions/answer-reveal";
 import { SaveButton } from "@/components/questions/save-button";
+import { ReportIssueButton } from "@/components/report/report-issue-button";
 import { Progress } from "@/components/ui/progress";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Alert, AlertDescription } from "@/components/ui/alert";
@@ -47,6 +48,7 @@ import {
   PRACTICE_FOOTER_HEIGHT,
   PracticeSessionFooter,
 } from "@/components/practice/practice-session-footer";
+import { PracticeFloatingTimer } from "@/components/layout/practice-header-extras";
 import { PracticePauseOverlay } from "@/components/practice/practice-pause-overlay";
 import {
   getPracticeElapsedMs,
@@ -405,9 +407,10 @@ function PracticeSessionInner({
 
   return (
     <>
-      {paused ? <PracticePauseOverlay /> : null}
+      <PracticePauseOverlay open={paused} />
+      <PracticeFloatingTimer />
       <div
-        className="mx-auto flex max-w-3xl flex-col gap-6"
+        className="mx-auto flex max-w-3xl flex-col gap-6 pt-12 md:pt-14"
         aria-hidden={paused}
         style={{
           paddingBottom: `calc(${PRACTICE_FOOTER_HEIGHT} + 1.5rem)`,
@@ -428,10 +431,11 @@ function PracticeSessionInner({
         </div>
 
         <Card className="relative">
-          <div className="absolute top-3 right-3 z-10">
+          <div className="absolute top-3 right-3 z-10 flex items-center gap-0.5">
+            <ReportIssueButton question={question} corner />
             <SaveButton key={question.questionKey} question={question} corner />
           </div>
-          <CardHeader className="pr-28">
+          <CardHeader className="pr-40">
             <CardTitle className="text-base font-medium text-muted-foreground">
               {revealed ? (correct ? "Correct" : "Incorrect") : "Answer the question"}
             </CardTitle>
