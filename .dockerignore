@@ -1,0 +1,30 @@
+# Git
+.git
+.gitignore
+
+# Python
+__pycache__
+*.pyc
+.venv
+venv
+
+# Editor / OS
+.vscode
+.idea
+.DS_Store
+Thumbs.db
+
+# Backups and local-only
+backup
+
+# Next.js (rebuilt in image)
+web/node_modules
+web/.next
+web/out
+web/.turbo
+
+# Env secrets
+.env
+.env.*
+**/.env
+**/.env.*

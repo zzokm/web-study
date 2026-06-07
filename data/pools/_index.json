@@ -1,0 +1,114 @@
+{
+  "generatedOn": "2026-06-04",
+  "totalQuestions": 192,
+  "examSources": {
+    "data/exams/2019.json": "2019",
+    "data/exams/2021.json": "2021",
+    "data/exams/2024.json": "2024",
+    "data/exams/2025.json": "2025"
+  },
+  "lectureFiles": [
+    {
+      "file": "chapter-1-introduction.json",
+      "lecture": "Chapter 1: Introduction",
+      "count": 16,
+      "origins": {
+        "2021": 7,
+        "2025": 4,
+        "2024": 5
+      }
+    },
+    {
+      "file": "chapter-2-history-and-current-thinking.json",
+      "lecture": "Chapter 2: History and Current Thinking",
+      "count": 1,
+      "origins": {
+        "2025": 1
+      }
+    },
+    {
+      "file": "chapter-3-business-ethics.json",
+      "lecture": "Chapter 3: Business Ethics",
+      "count": 7,
+      "origins": {
+        "2025": 1,
+        "2024": 6
+      }
+    },
+    {
+      "file": "chapter-7-principles-of-planning.json",
+      "lecture": "Chapter 7: Principles of Planning",
+      "count": 30,
+      "origins": {
+        "2019": 4,
+        "2021": 7,
+        "2024": 9,
+        "2025": 10
+      }
+    },
+    {
+      "file": "chapter-8-making-decisions.json",
+      "lecture": "Chapter 8: Making Decisions",
+      "count": 15,
+      "origins": {
+        "2019": 3,
+        "2021": 5,
+        "2024": 6,
+        "2025": 1
+      }
+    },
+    {
+      "file": "chapter-11-fundamentals-of-organizing.json",
+      "lecture": "Chapter 11: Fundamentals of Organizing",
+      "count": 27,
+      "origins": {
+        "2019": 2,
+        "2021": 5,
+        "2024": 8,
+        "2025": 12
+      }
+    },
+    {
+      "file": "chapter-13-human-resource-management.json",
+      "lecture": "Chapter 13: Human Resource Management",
+      "count": 15,
+      "origins": {
+        "2021": 4,
+        "2025": 11
+      }
+    },
+    {
+      "file": "chapter-15-influencing-and-communication.json",
+      "lecture": "Chapter 15: Influencing and Communication",
+      "count": 22,
+      "origins": {
+        "2019": 2,
+        "2021": 5,
+        "2024": 13,
+        "2025": 2
+      }
+    },
+    {
+      "file": "chapter-18-groups-and-teams.json",
+      "lecture": "Chapter 18: Groups and Teams",
+      "count": 28,
+      "origins": {
+        "2019": 3,
+        "2021": 5,
+        "2024": 13,
+        "2025": 7
+      }
+    },
+    {
+      "file": "chapter-21-controlling-fundamentals.json",
+      "lecture": "Chapter 21: Controlling Fundamentals",
+      "count": 31,
+      "origins": {
+        "2019": 4,
+        "2021": 10,
+        "2024": 6,
+        "2025": 11
+      }
+    }
+  ]
+}

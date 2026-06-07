@@ -1,0 +1,251 @@
+{
+  "lecture": "Chapter 3: Business Ethics",
+  "slug": "chapter-3-business-ethics",
+  "totalQuestions": 7,
+  "originsBreakdown": {
+    "2025": 1,
+    "2024": 6
+  },
+  "questions": [
+    {
+      "id": "Q14",
+      "topic": "Chapter 3: Business Ethics",
+      "questionText": "According to the concept of corporate social responsibility, managers should regard societal goals as more important than organizational goals.",
+      "context": null,
+      "options": [
+        {
+          "id": "a",
+          "content": "True"
+        },
+        {
+          "id": "b",
+          "content": "False"
+        }
+      ],
+      "correctAnswerId": "b",
+      "explanation": "Corporate social responsibility (CSR) obligates managers to take actions that protect and improve both the welfare of society and the interests of the organization simultaneously, rather than prioritizing societal goals over organizational goals. The slides emphasize balancing corporate health with stakeholder relations, ensuring an opportunity to make a \"fair profit\" alongside fulfilling societal needs[cite: 9].",
+      "reference": "Answer deduced from the principles of stakeholder relations and fair profit on Slide 9.",
+      "origin": "2025",
+      "sourceFile": "data/exams/2025.json",
+      "sourceQuestionId": "Q14",
+      "questionType": "true_false",
+      "poolIndex": 1
+    },
+    {
+      "id": "Q16",
+      "topic": "Chapter 3: Business Ethics",
+      "questionText": "Which of the following statements is true about corporate social responsibility?",
+      "context": null,
+      "options": [
+        {
+          "id": "a",
+          "content": "It is the managerial obligation to ensure the accountability of certain individuals in an organization through mechanisms that try to reduce or eliminate the principal-agent problem."
+        },
+        {
+          "id": "b",
+          "content": "It is the managerial obligation to cater to the needs of the stockholders, while abiding by the laws of the society."
+        },
+        {
+          "id": "c",
+          "content": "It is the managerial obligation to take action that protects and improves both the welfare of society as a whole and the interests of the organization."
+        },
+        {
+          "id": "d",
+          "content": "It is the managerial obligation to abide to societal laws when pursuing organizational goals."
+        },
+        {
+          "id": "e",
+          "content": "It is the managerial obligation to ensure ethical decision-making in an organization to benefit its customers."
+        }
+      ],
+      "correctAnswerId": "c",
+      "explanation": "Corporate social responsibility involves taking actions that protect and improve both the welfare of society as a whole and the interests of the organization. The slides highlight that ethics and competitiveness are inseparable, and acting ethically toward all stakeholders improves both corporate health and public image[cite: 9].",
+      "reference": "Reflected in the stakeholder relations and corporate health principles on Slide 7 and Slide 9.",
+      "origin": "2024",
+      "sourceFile": "data/exams/2024.json",
+      "sourceQuestionId": "Q16",
+      "questionType": "mcq",
+      "poolIndex": 2
+    },
+    {
+      "id": "Q24",
+      "topic": "Chapter 3: Business Ethics",
+      "questionText": "Which of the following arguments provided by Milton Friedman suggests that corporate social responsibility may be unethical?",
+      "context": null,
+      "options": [
+        {
+          "id": "a",
+          "content": "Corporate social responsibility compels managers to spend money on some individuals that rightfully belongs to other individuals."
+        },
+        {
+          "id": "b",
+          "content": "Corporate social responsibility is not mandated by law, which means that it has to be done by will, not by compulsion."
+        },
+        {
+          "id": "c",
+          "content": "Empirical studies have not yet demonstrated a definitive relationship between corporate social responsibility and profitability."
+        },
+        {
+          "id": "d",
+          "content": "Profitability and growth go hand-in-hand with responsible treatment of employees, customers, and the community."
+        },
+        {
+          "id": "e",
+          "content": "Firms use corporate social responsibility to increase their brand awareness."
+        }
+      ],
+      "correctAnswerId": "a",
+      "explanation": "Milton Friedman famously argued that corporate social responsibility is unethical because it compels managers to spend money on general social causes that rightfully belongs to the shareholders, employees, or customers. While the slides do not mention Friedman by name, they align with this core business tension by emphasizing that a fundamental responsibility to suppliers and distributors is the opportunity to make a \"fair profit\"[cite: 9].",
+      "reference": "Based on external management theory (Friedman's shareholder primacy), aligned with the \"fair profit\" concept on Slide 9.",
+      "origin": "2024",
+      "sourceFile": "data/exams/2024.json",
+      "sourceQuestionId": "Q24",
+      "questionType": "mcq",
+      "poolIndex": 3
+    },
+    {
+      "id": "Q26",
+      "topic": "Chapter 3: Business Ethics",
+      "questionText": "Managers can fulfill their social obligation towards consumers by",
+      "context": null,
+      "options": [
+        {
+          "id": "a",
+          "content": "abiding to the laws"
+        },
+        {
+          "id": "b",
+          "content": "providing safe working environments"
+        },
+        {
+          "id": "c",
+          "content": "repaying debts"
+        },
+        {
+          "id": "d",
+          "content": "increasing the value of the organization"
+        },
+        {
+          "id": "e",
+          "content": "providing safe products"
+        }
+      ],
+      "correctAnswerId": "e",
+      "explanation": "A manager's specific social obligation to consumers is to ensure that the goods or services provided meet high quality and safety standards. The slides explicitly state, using the Johnson & Johnson Credo as an example, that the first responsibility is to the people who use the products and services, and that \"everything we do must be of high quality\"[cite: 9].",
+      "reference": "Answer found directly on Slide 9 (Johnson & Johnson Credo).",
+      "origin": "2024",
+      "sourceFile": "data/exams/2024.json",
+      "sourceQuestionId": "Q26",
+      "questionType": "mcq",
+      "poolIndex": 4
+    },
+    {
+      "id": "Q35",
+      "topic": "Chapter 3: Business Ethics",
+      "questionText": "In business, ethics can be defined as",
+      "context": null,
+      "options": [
+        {
+          "id": "a",
+          "content": "the capacity to reflect on customer preferences in the corporate decision-making process"
+        },
+        {
+          "id": "b",
+          "content": "the capacity to reflect on competitive strategies-in the corporate decision-making process"
+        },
+        {
+          "id": "c",
+          "content": "the capacity to reflect on values in the corporate decision-making process"
+        },
+        {
+          "id": "d",
+          "content": "the capacity to reflect on production bottlenecks in the corporate decision-making process"
+        },
+        {
+          "id": "e",
+          "content": "the capacity to reflect on workforce diversity in the corporate decision-making process"
+        }
+      ],
+      "correctAnswerId": "c",
+      "explanation": "Ethics in business is formally defined as the capacity to reflect on values in the corporate decision-making process, to determine how these values and decisions affect various stakeholder groups, and to establish how managers can use these observations in day-to-day company management[cite: 9].",
+      "reference": "Answer found verbatim on Slide 5 under \"Definitions\".",
+      "origin": "2024",
+      "sourceFile": "data/exams/2024.json",
+      "sourceQuestionId": "Q35",
+      "questionType": "mcq",
+      "poolIndex": 5
+    },
+    {
+      "id": "Q36",
+      "topic": "Chapter 3: Business Ethics",
+      "questionText": "____ is a formal statement that acts as a guide for the ethics of how people within a particular organization should act and make decisions.",
+      "context": null,
+      "options": [
+        {
+          "id": "a",
+          "content": "A social audit"
+        },
+        {
+          "id": "b",
+          "content": "A whistleblower's policy"
+        },
+        {
+          "id": "c",
+          "content": "Corporate governance"
+        },
+        {
+          "id": "d",
+          "content": "A code of ethics"
+        },
+        {
+          "id": "e",
+          "content": "A mission statement"
+        }
+      ],
+      "correctAnswerId": "d",
+      "explanation": "A code of ethics is explicitly defined as a formal statement that acts as a guide for the ethics of how people within a particular organization should act and make decisions[cite: 9].",
+      "reference": "Answer found verbatim on Slide 11 under \"A Code of Ethics\".",
+      "origin": "2024",
+      "sourceFile": "data/exams/2024.json",
+      "sourceQuestionId": "Q36",
+      "questionType": "mcq",
+      "poolIndex": 6
+    },
+    {
+      "id": "Q37",
+      "topic": "Chapter 3: Business Ethics",
+      "questionText": "Which of the following actions suggests that an individual is following the golden rule?",
+      "context": null,
+      "options": [
+        {
+          "id": "a",
+          "content": "Acting in a way you would expect others to act toward you."
+        },
+        {
+          "id": "b",
+          "content": "Taking actions that would be viewed as proper by a disinterested panel of professional peers."
+        },
+        {
+          "id": "c",
+          "content": "Acting in a way that results in the greatest good for the greatest number of people."
+        },
+        {
+          "id": "d",
+          "content": "Taking actions that abide by the laws of the state."
+        },
+        {
+          "id": "e",
+          "content": "Acting in a way that the action taken under the circumstances could be a universal law of behavior."
+        }
+      ],
+      "correctAnswerId": "a",
+      "explanation": "In the context of creating an ethical workplace, the \"golden rule\" standard is explicitly defined as acting in a way you would expect others to act toward you[cite: 9].",
+      "reference": "Answer found verbatim on Slide 15 under \"Creating an Ethical Workplace\".",
+      "origin": "2024",
+      "sourceFile": "data/exams/2024.json",
+      "sourceQuestionId": "Q37",
+      "questionType": "mcq",
+      "poolIndex": 7
+    }
+  ]
+}

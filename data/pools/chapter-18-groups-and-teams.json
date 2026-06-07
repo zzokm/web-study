@@ -1,0 +1,1283 @@
+{
+  "lecture": "Chapter 18: Groups and Teams",
+  "slug": "chapter-18-groups-and-teams",
+  "totalQuestions": 28,
+  "originsBreakdown": {
+    "2019": 3,
+    "2021": 5,
+    "2024": 13,
+    "2025": 7
+  },
+  "questions": [
+    {
+      "id": "Q2.f",
+      "topic": "Chapter 18: Groups and Teams",
+      "questionText": "A task group is a formal group outlined in the chain of command on an organization chart.",
+      "context": null,
+      "options": [
+        {
+          "id": "a",
+          "content": "True"
+        },
+        {
+          "id": "b",
+          "content": "False"
+        }
+      ],
+      "correctAnswerId": "b",
+      "explanation": "A command group is defined as the formal group outlined in the chain of command on an organization chart. A task group is a formal group of organization members who interact with one another to accomplish most of the organization's nonroutine tasks.",
+      "reference": "Chapter 18: Groups and Teams - Found on Slide 9.",
+      "slideRef": "ch18:s9",
+      "slideRefParsed": {
+        "lectureId": "ch18",
+        "chapterNumber": 18,
+        "topic": "Chapter 18: Groups and Teams",
+        "lectureFile": "Chapter 18 - Groups and Teams.pdf",
+        "pdfPath": "Lectures/Chapter 18 - Groups and Teams.pdf",
+        "kind": "slides",
+        "pages": [
+          9
+        ],
+        "pageCount": 24,
+        "syntax": "ch18:s9"
+      },
+      "origin": "2019",
+      "sourceFile": "data/exams/2019.json",
+      "sourceQuestionId": "Q2.f",
+      "questionType": "true_false",
+      "poolIndex": 1
+    },
+    {
+      "id": "Q14",
+      "topic": "Chapter 18: Groups and Teams",
+      "questionText": "Groupthink is a group decision-making process in which negative feedback on any suggested alternative by any group member is forbidden until all members have presented alternatives that they perceive as valuable.",
+      "context": null,
+      "options": [
+        {
+          "id": "a",
+          "content": "True"
+        },
+        {
+          "id": "b",
+          "content": "False"
+        }
+      ],
+      "correctAnswerId": "b",
+      "explanation": "Groupthink is not a structured process where feedback is forbidden; rather, it is a psychological phenomenon where \"the desire for agreement so dominates the group that it overrides the need to realistically appraise alternative problem solutions.\" It results in members censoring their own ideas to conform.",
+      "reference": "Chapter 18: Groups and Teams - Found on Slide 16.",
+      "slideRef": "ch18:s16",
+      "slideRefParsed": {
+        "lectureId": "ch18",
+        "chapterNumber": 18,
+        "topic": "Chapter 18: Groups and Teams",
+        "lectureFile": "Chapter 18 - Groups and Teams.pdf",
+        "pdfPath": "Lectures/Chapter 18 - Groups and Teams.pdf",
+        "kind": "slides",
+        "pages": [
+          16
+        ],
+        "pageCount": 24,
+        "syntax": "ch18:s16"
+      },
+      "origin": "2021",
+      "sourceFile": "data/exams/2021.json",
+      "sourceQuestionId": "Q14",
+      "questionType": "true_false",
+      "poolIndex": 2
+    },
+    {
+      "id": "Q21",
+      "topic": "Chapter 18: Groups and Teams",
+      "questionText": "A task group is a formal group outlined in the chain of command on an organization chart.",
+      "context": null,
+      "options": [
+        {
+          "id": "a",
+          "content": "True"
+        },
+        {
+          "id": "b",
+          "content": "False"
+        }
+      ],
+      "correctAnswerId": "b",
+      "explanation": "The formal group outlined in the chain of command is a 'Command Group'. A 'Task Group' is formed to accomplish nonroutine tasks.",
+      "reference": "Chapter 18: Groups and Teams - Found on Slide 9.",
+      "slideRef": "ch18:s9",
+      "slideRefParsed": {
+        "lectureId": "ch18",
+        "chapterNumber": 18,
+        "topic": "Chapter 18: Groups and Teams",
+        "lectureFile": "Chapter 18 - Groups and Teams.pdf",
+        "pdfPath": "Lectures/Chapter 18 - Groups and Teams.pdf",
+        "kind": "slides",
+        "pages": [
+          9
+        ],
+        "pageCount": 24,
+        "syntax": "ch18:s9"
+      },
+      "origin": "2021",
+      "sourceFile": "data/exams/2021.json",
+      "sourceQuestionId": "Q21",
+      "questionType": "true_false",
+      "poolIndex": 3
+    },
+    {
+      "id": "Q5",
+      "topic": "Chapter 18: Groups and Teams",
+      "questionText": "A task group is a formal group outlined in the chain of command on an organization chart.",
+      "context": null,
+      "options": [
+        {
+          "id": "a",
+          "content": "True"
+        },
+        {
+          "id": "b",
+          "content": "False"
+        }
+      ],
+      "correctAnswerId": "b",
+      "explanation": "This describes a 'Command Group'. A 'Task Group' is defined as a formal group of organization members who interact to accomplish nonroutine tasks.",
+      "reference": "Chapter 18: Groups and Teams - Found on Slide 9.",
+      "slideRef": "ch18:s9",
+      "slideRefParsed": {
+        "lectureId": "ch18",
+        "chapterNumber": 18,
+        "topic": "Chapter 18: Groups and Teams",
+        "lectureFile": "Chapter 18 - Groups and Teams.pdf",
+        "pdfPath": "Lectures/Chapter 18 - Groups and Teams.pdf",
+        "kind": "slides",
+        "pages": [
+          9
+        ],
+        "pageCount": 24,
+        "syntax": "ch18:s9"
+      },
+      "origin": "2024",
+      "sourceFile": "data/exams/2024.json",
+      "sourceQuestionId": "Q5",
+      "questionType": "true_false",
+      "poolIndex": 4
+    },
+    {
+      "id": "Q6",
+      "topic": "Chapter 18: Groups and Teams",
+      "questionText": "Groupthink is a group decision-making process in which negative feedback on any suggested alternative by any group member is forbidden until all members have presented alternatives that they perceive as valuable.",
+      "context": null,
+      "options": [
+        {
+          "id": "a",
+          "content": "True"
+        },
+        {
+          "id": "b",
+          "content": "False"
+        }
+      ],
+      "correctAnswerId": "b",
+      "explanation": "Groupthink is defined as \"the mode of thinking that group members engage in when the desire for agreement so dominates the group that it overrides the need to realistically appraise alternative problem solutions.\" It is not a set of rules forbidding negative feedback.",
+      "reference": "Chapter 18: Groups and Teams - Found on Slide 16.",
+      "slideRef": "ch18:s16",
+      "slideRefParsed": {
+        "lectureId": "ch18",
+        "chapterNumber": 18,
+        "topic": "Chapter 18: Groups and Teams",
+        "lectureFile": "Chapter 18 - Groups and Teams.pdf",
+        "pdfPath": "Lectures/Chapter 18 - Groups and Teams.pdf",
+        "kind": "slides",
+        "pages": [
+          16
+        ],
+        "pageCount": 24,
+        "syntax": "ch18:s16"
+      },
+      "origin": "2024",
+      "sourceFile": "data/exams/2024.json",
+      "sourceQuestionId": "Q6",
+      "questionType": "true_false",
+      "poolIndex": 5
+    },
+    {
+      "id": "Q12",
+      "topic": "Chapter 18: Groups and Teams",
+      "questionText": "The ideal number of committee members for most tasks seems to be from 15 to 20.",
+      "context": null,
+      "options": [
+        {
+          "id": "a",
+          "content": "True"
+        },
+        {
+          "id": "b",
+          "content": "False"
+        }
+      ],
+      "correctAnswerId": "b",
+      "explanation": "While the slides mention that the \"optimum size of the committee should be determined,\" standard management theory (and typically associated text for this course) suggests much smaller numbers (usually 5-7 members) to maintain efficiency and prevent social loafing. 15 to 20 members is generally considered too large for effective decision-making.",
+      "reference": "Chapter 18: Groups and Teams - Inferred from Slide 14 and general management principles regarding committee size.",
+      "slideRef": "ch18:s14",
+      "slideRefParsed": {
+        "lectureId": "ch18",
+        "chapterNumber": 18,
+        "topic": "Chapter 18: Groups and Teams",
+        "lectureFile": "Chapter 18 - Groups and Teams.pdf",
+        "pdfPath": "Lectures/Chapter 18 - Groups and Teams.pdf",
+        "kind": "slides",
+        "pages": [
+          14
+        ],
+        "pageCount": 24,
+        "syntax": "ch18:s14"
+      },
+      "origin": "2024",
+      "sourceFile": "data/exams/2024.json",
+      "sourceQuestionId": "Q12",
+      "questionType": "true_false",
+      "poolIndex": 6
+    },
+    {
+      "id": "Q13",
+      "topic": "Chapter 18: Groups and Teams",
+      "questionText": "An interest group is an informal group that forms in organizations because of the personal affiliation members have with one another.",
+      "context": null,
+      "options": [
+        {
+          "id": "a",
+          "content": "True"
+        },
+        {
+          "id": "b",
+          "content": "False"
+        }
+      ],
+      "correctAnswerId": "b",
+      "explanation": "An informal group that forms because of personal affiliation is defined as a \"Friendship Group.\" An \"Interest Group\" gains membership primarily because of a common concern members have about a specific issue.",
+      "reference": "Chapter 18: Groups and Teams - Found on Slide 21.",
+      "slideRef": "ch18:s21",
+      "slideRefParsed": {
+        "lectureId": "ch18",
+        "chapterNumber": 18,
+        "topic": "Chapter 18: Groups and Teams",
+        "lectureFile": "Chapter 18 - Groups and Teams.pdf",
+        "pdfPath": "Lectures/Chapter 18 - Groups and Teams.pdf",
+        "kind": "slides",
+        "pages": [
+          21
+        ],
+        "pageCount": 24,
+        "syntax": "ch18:s21"
+      },
+      "origin": "2024",
+      "sourceFile": "data/exams/2024.json",
+      "sourceQuestionId": "Q13",
+      "questionType": "true_false",
+      "poolIndex": 7
+    },
+    {
+      "id": "Q9",
+      "topic": "Chapter 18: Groups and Teams",
+      "questionText": "A task group is a formal group outlined in the chain of command on an organization chart.",
+      "context": null,
+      "options": [
+        {
+          "id": "a",
+          "content": "True"
+        },
+        {
+          "id": "b",
+          "content": "False"
+        }
+      ],
+      "correctAnswerId": "b",
+      "explanation": "A group outlined in the chain of command is a 'Command Group', whereas a 'Task Group' is formed for nonroutine tasks.",
+      "reference": "Chapter 18: Groups and Teams - Found on Slide 9.",
+      "slideRef": "ch18:s9",
+      "slideRefParsed": {
+        "lectureId": "ch18",
+        "chapterNumber": 18,
+        "topic": "Chapter 18: Groups and Teams",
+        "lectureFile": "Chapter 18 - Groups and Teams.pdf",
+        "pdfPath": "Lectures/Chapter 18 - Groups and Teams.pdf",
+        "kind": "slides",
+        "pages": [
+          9
+        ],
+        "pageCount": 24,
+        "syntax": "ch18:s9"
+      },
+      "origin": "2025",
+      "sourceFile": "data/exams/2025.json",
+      "sourceQuestionId": "Q9",
+      "questionType": "true_false",
+      "poolIndex": 8
+    },
+    {
+      "id": "Q10",
+      "topic": "Chapter 18: Groups and Teams",
+      "questionText": "The membership of friendship groups in an organization tend to remain static over long periods of time.",
+      "context": null,
+      "options": [
+        {
+          "id": "a",
+          "content": "True"
+        },
+        {
+          "id": "b",
+          "content": "False"
+        }
+      ],
+      "correctAnswerId": "b",
+      "explanation": "Informal groups like friendship groups are not established by management decree and tend to change as personal affiliations, work locations, and employee turnover occur. They are generally dynamic, not static.",
+      "reference": "Chapter 18: Groups and Teams - Inferred from the definition of informal groups on Slide 6 and general management theory.",
+      "slideRef": "ch18:s6",
+      "slideRefParsed": {
+        "lectureId": "ch18",
+        "chapterNumber": 18,
+        "topic": "Chapter 18: Groups and Teams",
+        "lectureFile": "Chapter 18 - Groups and Teams.pdf",
+        "pdfPath": "Lectures/Chapter 18 - Groups and Teams.pdf",
+        "kind": "slides",
+        "pages": [
+          6
+        ],
+        "pageCount": 24,
+        "syntax": "ch18:s6"
+      },
+      "origin": "2025",
+      "sourceFile": "data/exams/2025.json",
+      "sourceQuestionId": "Q10",
+      "questionType": "true_false",
+      "poolIndex": 9
+    },
+    {
+      "id": "Q11",
+      "topic": "Chapter 18: Groups and Teams",
+      "questionText": "A people-related step in building an effective team is setting stable goals and priorities for the team.",
+      "context": null,
+      "options": [
+        {
+          "id": "a",
+          "content": "True"
+        },
+        {
+          "id": "b",
+          "content": "False"
+        }
+      ],
+      "correctAnswerId": "b",
+      "explanation": "Setting goals and priorities is typically considered a procedural or task-oriented step, not a people-oriented guideline. People-oriented guidelines involve rephrasing ideas, ensuring participation, and stimulating thought.",
+      "reference": "Chapter 18: Groups and Teams - Found on Slide 14 (Procedural) vs Slide 15 (People-Oriented).",
+      "slideRef": "ch18:s14-15",
+      "slideRefParsed": {
+        "lectureId": "ch18",
+        "chapterNumber": 18,
+        "topic": "Chapter 18: Groups and Teams",
+        "lectureFile": "Chapter 18 - Groups and Teams.pdf",
+        "pdfPath": "Lectures/Chapter 18 - Groups and Teams.pdf",
+        "kind": "slides",
+        "pages": [
+          14,
+          15
+        ],
+        "pageCount": 24,
+        "syntax": "ch18:s14-15"
+      },
+      "origin": "2025",
+      "sourceFile": "data/exams/2025.json",
+      "sourceQuestionId": "Q11",
+      "questionType": "true_false",
+      "poolIndex": 10
+    },
+    {
+      "id": "Q1.g",
+      "topic": "Chapter 18: Groups and Teams",
+      "questionText": "Formal groups are commonly divided into",
+      "context": null,
+      "options": [
+        {
+          "id": "1",
+          "content": "transitory groups; recurrent groups"
+        },
+        {
+          "id": "2",
+          "content": "in-groups; out-groups"
+        },
+        {
+          "id": "3",
+          "content": "command groups; task groups"
+        },
+        {
+          "id": "4",
+          "content": "interest groups; friendship groups"
+        },
+        {
+          "id": "5",
+          "content": "primary groups; secondary groups"
+        }
+      ],
+      "correctAnswerId": "3",
+      "explanation": "The slides explicitly divide Formal Groups into two kinds: 'Command Group' and 'Task Group'. Interest and friendship groups are types of informal groups.",
+      "reference": "Chapter 18: Groups and Teams - Found on Slide 9.",
+      "slideRef": "ch18:s9",
+      "slideRefParsed": {
+        "lectureId": "ch18",
+        "chapterNumber": 18,
+        "topic": "Chapter 18: Groups and Teams",
+        "lectureFile": "Chapter 18 - Groups and Teams.pdf",
+        "pdfPath": "Lectures/Chapter 18 - Groups and Teams.pdf",
+        "kind": "slides",
+        "pages": [
+          9
+        ],
+        "pageCount": 24,
+        "syntax": "ch18:s9"
+      },
+      "origin": "2019",
+      "sourceFile": "data/exams/2019.json",
+      "sourceQuestionId": "Q1.g",
+      "questionType": "mcq",
+      "poolIndex": 11
+    },
+    {
+      "id": "Q1.h",
+      "topic": "Chapter 18: Groups and Teams",
+      "questionText": "Which of the following is one of the characteristics of a group as used in management-related discussions?",
+      "context": null,
+      "options": [
+        {
+          "id": "1",
+          "content": "A group is simply a gathering of people."
+        },
+        {
+          "id": "2",
+          "content": "Groups always work toward the accomplishment of an organizational goal."
+        },
+        {
+          "id": "3",
+          "content": "A group must consist of 5 or more people."
+        },
+        {
+          "id": "4",
+          "content": "Groups are characterized by occasional communication among members over time."
+        },
+        {
+          "id": "5",
+          "content": "A group consists of members who are psychologically aware of one another."
+        }
+      ],
+      "correctAnswerId": "5",
+      "explanation": "In management context, a group is more than just a gathering of people. It is any number of people who interact, are psychologically aware of one another, and perceive themselves to be a group. Note that informal groups do not always work toward organizational goals.",
+      "reference": "Chapter 18: Groups and Teams - Found on Slide 4.",
+      "slideRef": "ch18:s4",
+      "slideRefParsed": {
+        "lectureId": "ch18",
+        "chapterNumber": 18,
+        "topic": "Chapter 18: Groups and Teams",
+        "lectureFile": "Chapter 18 - Groups and Teams.pdf",
+        "pdfPath": "Lectures/Chapter 18 - Groups and Teams.pdf",
+        "kind": "slides",
+        "pages": [
+          4
+        ],
+        "pageCount": 24,
+        "syntax": "ch18:s4"
+      },
+      "origin": "2019",
+      "sourceFile": "data/exams/2019.json",
+      "sourceQuestionId": "Q1.h",
+      "questionType": "mcq",
+      "poolIndex": 12
+    },
+    {
+      "id": "Q41",
+      "topic": "Chapter 18: Groups and Teams",
+      "questionText": "A formal group is a group that ________",
+      "context": null,
+      "options": [
+        {
+          "id": "a",
+          "content": "is formed by management to perform organizational tasks"
+        },
+        {
+          "id": "b",
+          "content": "is normally defined but unstructured"
+        },
+        {
+          "id": "c",
+          "content": "is formed by the common interests of group members"
+        },
+        {
+          "id": "d",
+          "content": "is formed by the affiliation of the group members"
+        },
+        {
+          "id": "e",
+          "content": "is normally unstructured and undefined"
+        }
+      ],
+      "correctAnswerId": "a",
+      "explanation": "A formal group is defined as a group \"that exists within an organization by virtue of management decree to perform tasks that enhance the attainment of organizational objectives.\"",
+      "reference": "Chapter 18: Groups and Teams - Found on Slide 6.",
+      "slideRef": "ch18:s6",
+      "slideRefParsed": {
+        "lectureId": "ch18",
+        "chapterNumber": 18,
+        "topic": "Chapter 18: Groups and Teams",
+        "lectureFile": "Chapter 18 - Groups and Teams.pdf",
+        "pdfPath": "Lectures/Chapter 18 - Groups and Teams.pdf",
+        "kind": "slides",
+        "pages": [
+          6
+        ],
+        "pageCount": 24,
+        "syntax": "ch18:s6"
+      },
+      "origin": "2021",
+      "sourceFile": "data/exams/2021.json",
+      "sourceQuestionId": "Q41",
+      "questionType": "mcq",
+      "poolIndex": 13
+    },
+    {
+      "id": "Q42",
+      "topic": "Chapter 18: Groups and Teams",
+      "questionText": "Formal groups that handle routine activities and are outlined on an organization chart are called ________",
+      "context": null,
+      "options": [
+        {
+          "id": "a",
+          "content": "task groups"
+        },
+        {
+          "id": "b",
+          "content": "committees"
+        },
+        {
+          "id": "c",
+          "content": "transitory groups"
+        },
+        {
+          "id": "d",
+          "content": "work teams"
+        },
+        {
+          "id": "e",
+          "content": "command groups"
+        }
+      ],
+      "correctAnswerId": "e",
+      "explanation": "A command group is a formal group that is outlined in the chain of command on an organization chart. They handle routine activities, unlike task groups which handle nonroutine tasks.",
+      "reference": "Chapter 18: Groups and Teams - Found on Slide 9.",
+      "slideRef": "ch18:s9",
+      "slideRefParsed": {
+        "lectureId": "ch18",
+        "chapterNumber": 18,
+        "topic": "Chapter 18: Groups and Teams",
+        "lectureFile": "Chapter 18 - Groups and Teams.pdf",
+        "pdfPath": "Lectures/Chapter 18 - Groups and Teams.pdf",
+        "kind": "slides",
+        "pages": [
+          9
+        ],
+        "pageCount": 24,
+        "syntax": "ch18:s9"
+      },
+      "origin": "2021",
+      "sourceFile": "data/exams/2021.json",
+      "sourceQuestionId": "Q42",
+      "questionType": "mcq",
+      "poolIndex": 14
+    },
+    {
+      "id": "Q43",
+      "topic": "Chapter 18: Groups and Teams",
+      "questionText": "Two formal groups that are often established in organizations are ________ and ________",
+      "context": null,
+      "options": [
+        {
+          "id": "a",
+          "content": "transitory groups; recurrent groups"
+        },
+        {
+          "id": "b",
+          "content": "interest groups; committees"
+        },
+        {
+          "id": "c",
+          "content": "in-groups; out-groups"
+        },
+        {
+          "id": "d",
+          "content": "committees; work teams"
+        },
+        {
+          "id": "e",
+          "content": "interest groups; work teams"
+        }
+      ],
+      "correctAnswerId": "d",
+      "explanation": "While 'Command' and 'Task' are the primary categories of formal groups, 'Committees' are explicitly classified as a type of formal task group, and 'Work Teams' (as formal teams) are also established by organizations. Interest groups are informal.",
+      "reference": "Chapter 18: Groups and Teams - Found on Slide 10 (Committees) and Slide 18/19 (Teams).",
+      "slideRef": "ch18:s10,18",
+      "slideRefParsed": {
+        "lectureId": "ch18",
+        "chapterNumber": 18,
+        "topic": "Chapter 18: Groups and Teams",
+        "lectureFile": "Chapter 18 - Groups and Teams.pdf",
+        "pdfPath": "Lectures/Chapter 18 - Groups and Teams.pdf",
+        "kind": "slides",
+        "pages": [
+          10,
+          18
+        ],
+        "pageCount": 24,
+        "syntax": "ch18:s10,18"
+      },
+      "origin": "2021",
+      "sourceFile": "data/exams/2021.json",
+      "sourceQuestionId": "Q43",
+      "questionType": "mcq",
+      "poolIndex": 15
+    },
+    {
+      "id": "Q22",
+      "topic": "Chapter 18: Groups and Teams",
+      "questionText": "Which of the following is least accurate regarding groups?",
+      "context": null,
+      "options": [
+        {
+          "id": "a",
+          "content": "They are found in all organizations."
+        },
+        {
+          "id": "b",
+          "content": "An understanding of groups can help managers raise the probability that the groups will cause desirable consequences for the organization."
+        },
+        {
+          "id": "c",
+          "content": "Groups inevitably form in all facets of organizational existence."
+        },
+        {
+          "id": "d",
+          "content": "Groups invariably cause desirable consequences within the organization."
+        },
+        {
+          "id": "e",
+          "content": "Groups are characterized by a size small enough to permit each member to communicate with all other members on a face-to-face basis."
+        }
+      ],
+      "correctAnswerId": "d",
+      "explanation": "The slides explicitly state that \"Groups can cause either desirable or undesirable consequences within the organization.\" Therefore, stating that they \"invariably\" (always) cause desirable consequences is inaccurate.",
+      "reference": "Chapter 18: Groups and Teams - Found on Slide 5.",
+      "slideRef": "ch18:s5",
+      "slideRefParsed": {
+        "lectureId": "ch18",
+        "chapterNumber": 18,
+        "topic": "Chapter 18: Groups and Teams",
+        "lectureFile": "Chapter 18 - Groups and Teams.pdf",
+        "pdfPath": "Lectures/Chapter 18 - Groups and Teams.pdf",
+        "kind": "slides",
+        "pages": [
+          5
+        ],
+        "pageCount": 24,
+        "syntax": "ch18:s5"
+      },
+      "origin": "2024",
+      "sourceFile": "data/exams/2024.json",
+      "sourceQuestionId": "Q22",
+      "questionType": "mcq",
+      "poolIndex": 16
+    },
+    {
+      "id": "Q30",
+      "topic": "Chapter 18: Groups and Teams",
+      "questionText": "Formal groups are commonly divided into ____ and ____",
+      "context": null,
+      "options": [
+        {
+          "id": "a",
+          "content": "transitory groups; recurrent groups"
+        },
+        {
+          "id": "b",
+          "content": "in-groups; out-groups"
+        },
+        {
+          "id": "c",
+          "content": "command groups; task groups"
+        },
+        {
+          "id": "d",
+          "content": "interest groups; friendship groups"
+        },
+        {
+          "id": "e",
+          "content": "primary groups; secondary groups"
+        }
+      ],
+      "correctAnswerId": "c",
+      "explanation": "The two kinds of Formal Groups listed are the Command Group and the Task Group.",
+      "reference": "Chapter 18: Groups and Teams - Found on Slide 9.",
+      "slideRef": "ch18:s9",
+      "slideRefParsed": {
+        "lectureId": "ch18",
+        "chapterNumber": 18,
+        "topic": "Chapter 18: Groups and Teams",
+        "lectureFile": "Chapter 18 - Groups and Teams.pdf",
+        "pdfPath": "Lectures/Chapter 18 - Groups and Teams.pdf",
+        "kind": "slides",
+        "pages": [
+          9
+        ],
+        "pageCount": 24,
+        "syntax": "ch18:s9"
+      },
+      "origin": "2024",
+      "sourceFile": "data/exams/2024.json",
+      "sourceQuestionId": "Q30",
+      "questionType": "mcq",
+      "poolIndex": 17
+    },
+    {
+      "id": "Q39",
+      "topic": "Chapter 18: Groups and Teams",
+      "questionText": "An informal group that gains and maintains membership primarily because of a common concern members have about a specific issue is called",
+      "context": null,
+      "options": [
+        {
+          "id": "a",
+          "content": "a work team"
+        },
+        {
+          "id": "b",
+          "content": "a friendship group"
+        },
+        {
+          "id": "c",
+          "content": "a command group"
+        },
+        {
+          "id": "d",
+          "content": "an interest group"
+        },
+        {
+          "id": "e",
+          "content": "a committee"
+        }
+      ],
+      "correctAnswerId": "d",
+      "explanation": "This is the exact definition provided for an \"Interest Group\".",
+      "reference": "Chapter 18: Groups and Teams - Found on Slide 21.",
+      "slideRef": "ch18:s21",
+      "slideRefParsed": {
+        "lectureId": "ch18",
+        "chapterNumber": 18,
+        "topic": "Chapter 18: Groups and Teams",
+        "lectureFile": "Chapter 18 - Groups and Teams.pdf",
+        "pdfPath": "Lectures/Chapter 18 - Groups and Teams.pdf",
+        "kind": "slides",
+        "pages": [
+          21
+        ],
+        "pageCount": 24,
+        "syntax": "ch18:s21"
+      },
+      "origin": "2024",
+      "sourceFile": "data/exams/2024.json",
+      "sourceQuestionId": "Q39",
+      "questionType": "mcq",
+      "poolIndex": 18
+    },
+    {
+      "id": "Q41",
+      "topic": "Chapter 18: Groups and Teams",
+      "questionText": "A work team composed of people from different functional areas of the organization who are all focused on a specified objective is known as a",
+      "context": null,
+      "options": [
+        {
+          "id": "a",
+          "content": "a task group"
+        },
+        {
+          "id": "b",
+          "content": "cross-functional team"
+        },
+        {
+          "id": "c",
+          "content": "a command group"
+        },
+        {
+          "id": "d",
+          "content": "special-purpose group"
+        },
+        {
+          "id": "e",
+          "content": "self-directed team"
+        }
+      ],
+      "correctAnswerId": "b",
+      "explanation": "While 'cross-functional team' is not explicitly defined in the provided slides, it is the standard management term for a team composed of members from different functional areas. A 'task group' is broader, simply defining a group formed for a nonroutine task.",
+      "reference": "Chapter 18: Groups and Teams - Standard management terminology (Inferred from the context of Teams vs Groups on Slide 19).",
+      "slideRef": "ch18:s19",
+      "slideRefParsed": {
+        "lectureId": "ch18",
+        "chapterNumber": 18,
+        "topic": "Chapter 18: Groups and Teams",
+        "lectureFile": "Chapter 18 - Groups and Teams.pdf",
+        "pdfPath": "Lectures/Chapter 18 - Groups and Teams.pdf",
+        "kind": "slides",
+        "pages": [
+          19
+        ],
+        "pageCount": 24,
+        "syntax": "ch18:s19"
+      },
+      "origin": "2024",
+      "sourceFile": "data/exams/2024.json",
+      "sourceQuestionId": "Q41",
+      "questionType": "mcq",
+      "poolIndex": 19
+    },
+    {
+      "id": "Q43",
+      "topic": "Chapter 18: Groups and Teams",
+      "questionText": "One of the benefits of utilizing committees is that",
+      "context": null,
+      "options": [
+        {
+          "id": "a",
+          "content": "the decision-making process is much quicker than individual decision-making"
+        },
+        {
+          "id": "b",
+          "content": "there is no limit on the size of the committee"
+        },
+        {
+          "id": "c",
+          "content": "a committee does need a leader or a secretary"
+        },
+        {
+          "id": "d",
+          "content": "committees improve the quality of decision-making"
+        },
+        {
+          "id": "e",
+          "content": "decision-makers don't have to represent the group they come from"
+        }
+      ],
+      "correctAnswerId": "d",
+      "explanation": "The slides list \"Committees can improve the quality of decision making\" as one of the primary reasons managers should use committees.",
+      "reference": "Chapter 18: Groups and Teams - Found on Slide 12.",
+      "slideRef": "ch18:s12",
+      "slideRefParsed": {
+        "lectureId": "ch18",
+        "chapterNumber": 18,
+        "topic": "Chapter 18: Groups and Teams",
+        "lectureFile": "Chapter 18 - Groups and Teams.pdf",
+        "pdfPath": "Lectures/Chapter 18 - Groups and Teams.pdf",
+        "kind": "slides",
+        "pages": [
+          12
+        ],
+        "pageCount": 24,
+        "syntax": "ch18:s12"
+      },
+      "origin": "2024",
+      "sourceFile": "data/exams/2024.json",
+      "sourceQuestionId": "Q43",
+      "questionType": "mcq",
+      "poolIndex": 20
+    },
+    {
+      "id": "Q46",
+      "topic": "Chapter 18: Groups and Teams",
+      "questionText": "Which of the following is a purely procedural step that could be taken to increase the probability that a committee will be successful?",
+      "context": null,
+      "options": [
+        {
+          "id": "a",
+          "content": "rephrasing ideas already expressed"
+        },
+        {
+          "id": "b",
+          "content": "specifying the authority of the committee"
+        },
+        {
+          "id": "c",
+          "content": "bringing all members into active participation"
+        },
+        {
+          "id": "d",
+          "content": "stimulating further thought by members"
+        },
+        {
+          "id": "e",
+          "content": "keeping the goals of the group flexible"
+        }
+      ],
+      "correctAnswerId": "b",
+      "explanation": "Under 'Procedural Steps' for committee success, \"The committee's authority should be specified\" is explicitly listed. Rephrasing, bringing members into participation, and stimulating thought are 'People-Oriented Guidelines'.",
+      "reference": "Chapter 18: Groups and Teams - Found on Slide 14.",
+      "slideRef": "ch18:s14",
+      "slideRefParsed": {
+        "lectureId": "ch18",
+        "chapterNumber": 18,
+        "topic": "Chapter 18: Groups and Teams",
+        "lectureFile": "Chapter 18 - Groups and Teams.pdf",
+        "pdfPath": "Lectures/Chapter 18 - Groups and Teams.pdf",
+        "kind": "slides",
+        "pages": [
+          14
+        ],
+        "pageCount": 24,
+        "syntax": "ch18:s14"
+      },
+      "origin": "2024",
+      "sourceFile": "data/exams/2024.json",
+      "sourceQuestionId": "Q46",
+      "questionType": "mcq",
+      "poolIndex": 21
+    },
+    {
+      "id": "Q50",
+      "topic": "Chapter 18: Groups and Teams",
+      "questionText": "Which of the following is an example of an interest group?",
+      "context": null,
+      "options": [
+        {
+          "id": "a",
+          "content": "a group of friends interested in interested in rock music"
+        },
+        {
+          "id": "b",
+          "content": "a quarterly work planning-group"
+        },
+        {
+          "id": "c",
+          "content": "a group meeting to consider the feasibility of a new product"
+        },
+        {
+          "id": "d",
+          "content": "a group meeting to prepare the monthly financial reports"
+        },
+        {
+          "id": "e",
+          "content": "a group of workers pressing management for better pay"
+        }
+      ],
+      "correctAnswerId": "e",
+      "explanation": "An interest group forms because members share a common concern about a specific issue (e.g., pressing management for better pay). A group of friends listening to music is a Friendship Group. The other options are formal Task or Command groups.",
+      "reference": "Chapter 18: Groups and Teams - Based on the definition of Interest Group on Slide 21.",
+      "slideRef": "ch18:s21",
+      "slideRefParsed": {
+        "lectureId": "ch18",
+        "chapterNumber": 18,
+        "topic": "Chapter 18: Groups and Teams",
+        "lectureFile": "Chapter 18 - Groups and Teams.pdf",
+        "pdfPath": "Lectures/Chapter 18 - Groups and Teams.pdf",
+        "kind": "slides",
+        "pages": [
+          21
+        ],
+        "pageCount": 24,
+        "syntax": "ch18:s21"
+      },
+      "origin": "2024",
+      "sourceFile": "data/exams/2024.json",
+      "sourceQuestionId": "Q50",
+      "questionType": "mcq",
+      "poolIndex": 22
+    },
+    {
+      "id": "Q52",
+      "topic": "Chapter 18: Groups and Teams",
+      "questionText": "Which of the following statements about groupthink is true?",
+      "context": null,
+      "options": [
+        {
+          "id": "a",
+          "content": "Groupthink cannot take place in a newly formed group."
+        },
+        {
+          "id": "b",
+          "content": "A group with high levels of mistrust and conflicts is likely to be most susceptible to groupthink."
+        },
+        {
+          "id": "c",
+          "content": "A group with a high level of cohesiveness is likely to be susceptible to groupthink."
+        },
+        {
+          "id": "d",
+          "content": "Managers must help committees to establish groupthink to generate alternative problem solutions."
+        },
+        {
+          "id": "e",
+          "content": "A group which is highly competitive will most probably result in groupthink."
+        }
+      ],
+      "correctAnswerId": "c",
+      "explanation": "Groupthink occurs when the \"desire for agreement so dominates the group that it overrides the need to realistically appraise alternative problem solutions.\" High cohesiveness creates this strong desire for agreement and conformity, making the group highly susceptible to groupthink.",
+      "reference": "Chapter 18: Groups and Teams - Inferred from the definition and symptoms of Groupthink on Slide 16.",
+      "slideRef": "ch18:s16",
+      "slideRefParsed": {
+        "lectureId": "ch18",
+        "chapterNumber": 18,
+        "topic": "Chapter 18: Groups and Teams",
+        "lectureFile": "Chapter 18 - Groups and Teams.pdf",
+        "pdfPath": "Lectures/Chapter 18 - Groups and Teams.pdf",
+        "kind": "slides",
+        "pages": [
+          16
+        ],
+        "pageCount": 24,
+        "syntax": "ch18:s16"
+      },
+      "origin": "2024",
+      "sourceFile": "data/exams/2024.json",
+      "sourceQuestionId": "Q52",
+      "questionType": "mcq",
+      "poolIndex": 23
+    },
+    {
+      "id": "Q60",
+      "topic": "Chapter 18: Groups and Teams",
+      "questionText": "____ is the mode of thinking that group members engage in when the desire for agreement so dominates the group that it overrides the need to realistically appraise alternative problem solutions.",
+      "context": null,
+      "options": [
+        {
+          "id": "a",
+          "content": "Social loafing"
+        },
+        {
+          "id": "b",
+          "content": "Group polarization"
+        },
+        {
+          "id": "c",
+          "content": "Groupthink."
+        },
+        {
+          "id": "d",
+          "content": "Cognitive dissonance"
+        },
+        {
+          "id": "e",
+          "content": "Collective intelligence"
+        }
+      ],
+      "correctAnswerId": "c",
+      "explanation": "This is the exact definition of Groupthink provided in the lecture.",
+      "reference": "Chapter 18: Groups and Teams - Found verbatim on Slide 16.",
+      "slideRef": "ch18:s16",
+      "slideRefParsed": {
+        "lectureId": "ch18",
+        "chapterNumber": 18,
+        "topic": "Chapter 18: Groups and Teams",
+        "lectureFile": "Chapter 18 - Groups and Teams.pdf",
+        "pdfPath": "Lectures/Chapter 18 - Groups and Teams.pdf",
+        "kind": "slides",
+        "pages": [
+          16
+        ],
+        "pageCount": 24,
+        "syntax": "ch18:s16"
+      },
+      "origin": "2024",
+      "sourceFile": "data/exams/2024.json",
+      "sourceQuestionId": "Q60",
+      "questionType": "mcq",
+      "poolIndex": 24
+    },
+    {
+      "id": "Q37",
+      "topic": "Chapter 18: Groups and Teams",
+      "questionText": "Which of the following would be considered a formal group?",
+      "context": null,
+      "options": [
+        {
+          "id": "a",
+          "content": "task force for employee birthday celebrations"
+        },
+        {
+          "id": "b",
+          "content": "reading group"
+        },
+        {
+          "id": "c",
+          "content": "bowling team"
+        },
+        {
+          "id": "d",
+          "content": "bringing people from various functions to solve a business dilemma"
+        }
+      ],
+      "correctAnswerId": "d",
+      "explanation": "A group formed by management to solve a business dilemma (a nonroutine task) is a formal \"Task Group.\" Birthday, reading, and bowling groups are informal interest or friendship groups.",
+      "reference": "Chapter 18: Groups and Teams - Based on the definition of Task Group on Slide 9.",
+      "slideRef": "ch18:s9",
+      "slideRefParsed": {
+        "lectureId": "ch18",
+        "chapterNumber": 18,
+        "topic": "Chapter 18: Groups and Teams",
+        "lectureFile": "Chapter 18 - Groups and Teams.pdf",
+        "pdfPath": "Lectures/Chapter 18 - Groups and Teams.pdf",
+        "kind": "slides",
+        "pages": [
+          9
+        ],
+        "pageCount": 24,
+        "syntax": "ch18:s9"
+      },
+      "origin": "2025",
+      "sourceFile": "data/exams/2025.json",
+      "sourceQuestionId": "Q37",
+      "questionType": "mcq",
+      "poolIndex": 25
+    },
+    {
+      "id": "Q46",
+      "topic": "Chapter 18: Groups and Teams",
+      "questionText": "A collection of individuals whose common work experiences result in the development of a system of interpersonal relationships that extend beyond those established by management is a/an",
+      "context": null,
+      "options": [
+        {
+          "id": "a",
+          "content": "work team"
+        },
+        {
+          "id": "b",
+          "content": "task group"
+        },
+        {
+          "id": "c",
+          "content": "informal group"
+        },
+        {
+          "id": "d",
+          "content": "command group"
+        }
+      ],
+      "correctAnswerId": "c",
+      "explanation": "This is the exact definition of an Informal Group provided in the lecture.",
+      "reference": "Chapter 18: Groups and Teams - Found verbatim on Slide 6.",
+      "slideRef": "ch18:s6",
+      "slideRefParsed": {
+        "lectureId": "ch18",
+        "chapterNumber": 18,
+        "topic": "Chapter 18: Groups and Teams",
+        "lectureFile": "Chapter 18 - Groups and Teams.pdf",
+        "pdfPath": "Lectures/Chapter 18 - Groups and Teams.pdf",
+        "kind": "slides",
+        "pages": [
+          6
+        ],
+        "pageCount": 24,
+        "syntax": "ch18:s6"
+      },
+      "origin": "2025",
+      "sourceFile": "data/exams/2025.json",
+      "sourceQuestionId": "Q46",
+      "questionType": "mcq",
+      "poolIndex": 26
+    },
+    {
+      "id": "Q48",
+      "topic": "Chapter 18: Groups and Teams",
+      "questionText": "______ are work groups established by the organization that have designate work assignments and specific tasks.",
+      "context": null,
+      "options": [
+        {
+          "id": "a",
+          "content": "tasks groups"
+        },
+        {
+          "id": "b",
+          "content": "formal groups"
+        },
+        {
+          "id": "c",
+          "content": "informal groups"
+        },
+        {
+          "id": "d",
+          "content": "cross-functional groups"
+        }
+      ],
+      "correctAnswerId": "b",
+      "explanation": "Formal groups are defined as existing within an organization by virtue of management decree to perform specific tasks. While \"task groups\" is a subset, \"formal groups\" is the broader, correct umbrella term for groups established by the organization with designated assignments.",
+      "reference": "Chapter 18: Groups and Teams - Found on Slide 6.",
+      "slideRef": "ch18:s6",
+      "slideRefParsed": {
+        "lectureId": "ch18",
+        "chapterNumber": 18,
+        "topic": "Chapter 18: Groups and Teams",
+        "lectureFile": "Chapter 18 - Groups and Teams.pdf",
+        "pdfPath": "Lectures/Chapter 18 - Groups and Teams.pdf",
+        "kind": "slides",
+        "pages": [
+          6
+        ],
+        "pageCount": 24,
+        "syntax": "ch18:s6"
+      },
+      "origin": "2025",
+      "sourceFile": "data/exams/2025.json",
+      "sourceQuestionId": "Q48",
+      "questionType": "mcq",
+      "poolIndex": 27
+    },
+    {
+      "id": "Q58",
+      "topic": "Chapter 18: Groups and Teams",
+      "questionText": "Which of the following statements about groupthink is true?",
+      "context": null,
+      "options": [
+        {
+          "id": "a",
+          "content": "Groupthink cannot take place in a newly formed group."
+        },
+        {
+          "id": "b",
+          "content": "A group with high levels of mistrust and conflicts is likely to be most susceptible to groupthink."
+        },
+        {
+          "id": "c",
+          "content": "A group with a high level of cohesiveness is likely to be susceptible to groupthink."
+        },
+        {
+          "id": "d",
+          "content": "Managers must help committees to establish groupthink to generate alternative problem solutions."
+        },
+        {
+          "id": "e",
+          "content": "A group which is highly competitive will most probably result in groupthink."
+        }
+      ],
+      "correctAnswerId": "c",
+      "explanation": "Groupthink happens when the desire for agreement dominates the group. A highly cohesive group is naturally more driven by agreement and conformity, making it highly susceptible to groupthink.",
+      "reference": "Chapter 18: Groups and Teams - Inferred from the definition and symptoms of Groupthink on Slide 16.",
+      "slideRef": "ch18:s16",
+      "slideRefParsed": {
+        "lectureId": "ch18",
+        "chapterNumber": 18,
+        "topic": "Chapter 18: Groups and Teams",
+        "lectureFile": "Chapter 18 - Groups and Teams.pdf",
+        "pdfPath": "Lectures/Chapter 18 - Groups and Teams.pdf",
+        "kind": "slides",
+        "pages": [
+          16
+        ],
+        "pageCount": 24,
+        "syntax": "ch18:s16"
+      },
+      "origin": "2025",
+      "sourceFile": "data/exams/2025.json",
+      "sourceQuestionId": "Q58",
+      "questionType": "mcq",
+      "poolIndex": 28
+    }
+  ]
+}

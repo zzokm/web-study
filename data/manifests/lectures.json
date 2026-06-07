@@ -1,0 +1,86 @@
+{
+  "syntax": "ch{N}:s{pages}|all|course â€” see slide_ref.py docstring",
+  "slideEqualsPdfPage": true,
+  "lectures": {
+    "ch1": {
+      "lectureId": "ch1",
+      "chapterNumber": 1,
+      "topic": "Chapter 1: Introduction",
+      "lectureFile": "Chapter 1 - Introduction.pdf",
+      "pdfPath": "assets/lectures/Chapter 1 - Introduction.pdf",
+      "pageCount": 30
+    },
+    "ch2": {
+      "lectureId": "ch2",
+      "chapterNumber": 2,
+      "topic": "Chapter 2: History and Current Thinking",
+      "lectureFile": "Chapter 2  - History and Current Thinking.pdf",
+      "pdfPath": "assets/lectures/Chapter 2  - History and Current Thinking.pdf",
+      "pageCount": 49
+    },
+    "ch3": {
+      "lectureId": "ch3",
+      "chapterNumber": 3,
+      "topic": "Chapter 3: Business Ethics",
+      "lectureFile": "Chapter 3 - Busniess Ethics.pdf",
+      "pdfPath": "assets/lectures/Chapter 3 - Busniess Ethics.pdf",
+      "pageCount": 19
+    },
+    "ch7": {
+      "lectureId": "ch7",
+      "chapterNumber": 7,
+      "topic": "Chapter 7: Principles of Planning",
+      "lectureFile": "Chapter 7 - Principles of Planning.pdf",
+      "pdfPath": "assets/lectures/Chapter 7 - Principles of Planning.pdf",
+      "pageCount": 27
+    },
+    "ch8": {
+      "lectureId": "ch8",
+      "chapterNumber": 8,
+      "topic": "Chapter 8: Making Decisions",
+      "lectureFile": "Chapter 8 - Making Decisions.pdf",
+      "pdfPath": "assets/lectures/Chapter 8 - Making Decisions.pdf",
+      "pageCount": 33
+    },
+    "ch11": {
+      "lectureId": "ch11",
+      "chapterNumber": 11,
+      "topic": "Chapter 11: Fundamentals of Organizing",
+      "lectureFile": "Chapter 11 - Fundamentals of Organizing.pdf",
+      "pdfPath": "assets/lectures/Chapter 11 - Fundamentals of Organizing.pdf",
+      "pageCount": 38
+    },
+    "ch13": {
+      "lectureId": "ch13",
+      "chapterNumber": 13,
+      "topic": "Chapter 13: Human Resource Management",
+      "lectureFile": "Chapter 13 - Human Resource Management.pdf",
+      "pdfPath": "assets/lectures/Chapter 13 - Human Resource Management.pdf",
+      "pageCount": 46
+    },
+    "ch15": {
+      "lectureId": "ch15",
+      "chapterNumber": 15,
+      "topic": "Chapter 15: Influencing and Communication",
+      "lectureFile": "Chapter 15 - Influencing and Communication.pdf",
+      "pdfPath": "assets/lectures/Chapter 15 - Influencing and Communication.pdf",
+      "pageCount": 25
+    },
+    "ch18": {
+      "lectureId": "ch18",
+      "chapterNumber": 18,
+      "topic": "Chapter 18: Groups and Teams",
+      "lectureFile": "Chapter 18 - Groups and Teams.pdf",
+      "pdfPath": "assets/lectures/Chapter 18 - Groups and Teams.pdf",
+      "pageCount": 24
+    },
+    "ch21": {
+      "lectureId": "ch21",
+      "chapterNumber": 21,
+      "topic": "Chapter 21: Controlling Fundamentals",
+      "lectureFile": "Chapter 21  - Controlling Fundamentals.pdf",
+      "pdfPath": "assets/lectures/Chapter 21  - Controlling Fundamentals.pdf",
+      "pageCount": 19
+    }
+  }
+}

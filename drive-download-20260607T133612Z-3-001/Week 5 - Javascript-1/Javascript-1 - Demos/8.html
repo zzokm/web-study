@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <script>
+    //global vairable
+    var myvariable = 5;
+    console.log(window.myvariable);
+    console.log(frames.myvariable);
+    console.log(self.myvariable);
+    console.log(this.myvariable);
+    console.log(globalThis.myvariable);
+
+    function myfunction(){
+        var myvariable=9;
+        alert(myvariable);
+    }
+    myfunction();
+    </script>
+</head>
+<body>
+
+<h2>Global vairable</h2>
+<p><script>document.writeln(window.myvariable);</script>Test in console</p>
+
+
+
+</body>
+</html> 

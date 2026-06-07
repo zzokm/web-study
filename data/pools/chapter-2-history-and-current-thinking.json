@@ -1,0 +1,48 @@
+{
+  "lecture": "Chapter 2: History and Current Thinking",
+  "slug": "chapter-2-history-and-current-thinking",
+  "totalQuestions": 1,
+  "originsBreakdown": {
+    "2025": 1
+  },
+  "questions": [
+    {
+      "id": "Q12",
+      "topic": "Chapter 2: History and Current Thinking",
+      "questionText": "Henri Fayol recommends that businesses establish multiple guiding authorities when organizing resources.",
+      "context": null,
+      "options": [
+        {
+          "id": "a",
+          "content": "True"
+        },
+        {
+          "id": "b",
+          "content": "False"
+        }
+      ],
+      "correctAnswerId": "b",
+      "explanation": "Henri Fayol's General Principles of Management explicitly include 'Unity of Command' and 'Unity of Direction'. These principles dictate that employees should receive orders from only one superior and that there should be one head and one unified plan for a group of activities having the same objective. Therefore, establishing multiple guiding authorities contradicts Fayol's framework.",
+      "reference": "Chapter 2: History and Current Thinking - Answer found on Slide 13 under General Principles of Management.",
+      "slideRef": "ch2:s13",
+      "slideRefParsed": {
+        "lectureId": "ch2",
+        "chapterNumber": 2,
+        "topic": "Chapter 2: History and Current Thinking",
+        "lectureFile": "Chapter 2  - History and Current Thinking.pdf",
+        "pdfPath": "Lectures/Chapter 2  - History and Current Thinking.pdf",
+        "kind": "slides",
+        "pages": [
+          13
+        ],
+        "pageCount": 49,
+        "syntax": "ch2:s13"
+      },
+      "origin": "2025",
+      "sourceFile": "data/exams/2025.json",
+      "sourceQuestionId": "Q12",
+      "questionType": "true_false",
+      "poolIndex": 1
+    }
+  ]
+}
