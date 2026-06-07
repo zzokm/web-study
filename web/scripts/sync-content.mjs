@@ -154,6 +154,15 @@ function syncCodeExamples(publicCodeExamples) {
     ensureDir(publicDir);
     writeFileSync(destPath, wrapHtmlIfNeeded(rawSource), "utf8");
 
+    const explanation =
+      example.explanation ?? explanations[id] ?? "";
+
+    if (!explanation.trim()) {
+      throw new Error(
+        `Missing explanation for code example ${id} (${lectureId}/${file}). Add it to data/manifests/code-example-explanations.json.`
+      );
+    }
+
     const entry = {
       id,
       lectureId,
@@ -161,8 +170,7 @@ function syncCodeExamples(publicCodeExamples) {
       title,
       file,
       language: language ?? "html",
-      explanation:
-        example.explanation ?? explanations[id] ?? "",
+      explanation,
       source: rawSource,
       previewUrl: `/code-examples/${lectureId}/${file}`,
       previewAvailable:

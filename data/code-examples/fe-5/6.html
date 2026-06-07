@@ -2,15 +2,13 @@
 <html>
 <body>
 
-<h2>My First Web Page</h2>
-<p>My first paragraph.</p>
+<h2>What Can JavaScript Do?</h2>
 
-<p>What will displayed in this page?</p>
+<p>JavaScript can show hidden HTML elements.</p>
 
-<script>
-document.write("5" + 6);
-console.log("Hello");
-</script>
+<p id="demo" style="display:none">Hello JavaScript!</p>
+
+<button type="button" onclick="document.getElementById('demo').style.display='block'">Click Me!</button>
 
 </body>
 </html> 
