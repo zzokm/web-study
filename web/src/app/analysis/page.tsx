@@ -15,7 +15,7 @@ export default function AnalysisPage() {
       <div>
         <h1 className="text-2xl font-semibold tracking-tight">Exam analysis</h1>
         <p className="text-muted-foreground">
-          Patterns, high-yield chapters, and study priorities across all four finals.
+          Patterns, high-yield topics, and study priorities across all finals.
         </p>
       </div>
       <AnalysisPageClient data={data} />

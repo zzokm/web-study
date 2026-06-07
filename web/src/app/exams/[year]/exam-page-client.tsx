@@ -5,10 +5,10 @@ import { useSearchParams } from "next/navigation";
 import type { LectureMeta } from "@/types/question";
 import { AnalyticsEvents } from "@/lib/analytics-events";
 import { trackEvent } from "@/lib/analytics";
-import { getLectureMeta } from "@/lib/questions";
+import { getExamMeta, examAsLectureMeta } from "@/lib/questions";
 import { LectureViewerDynamic as LectureViewer } from "@/components/pdf/lecture-viewer-dynamic";
 
-export function LecturePageClient({ lecture }: { lecture: LectureMeta }) {
+export function ExamPageClient({ exam }: { exam: LectureMeta }) {
   const searchParams = useSearchParams();
   const pageParam = searchParams.get("page");
   const initialPage = pageParam ? Math.max(1, parseInt(pageParam, 10) || 1) : 1;
@@ -18,26 +18,28 @@ export function LecturePageClient({ lecture }: { lecture: LectureMeta }) {
     if (lastTrackedPage.current === initialPage) return;
     lastTrackedPage.current = initialPage;
     trackEvent(AnalyticsEvents.lectureSlideView, {
-      lecture_id: lecture.lectureId,
+      lecture_id: exam.lectureId,
       slide_page: initialPage,
-      page_count: lecture.pageCount,
-      topic: lecture.topic,
+      page_count: exam.pageCount,
+      topic: exam.topic,
     });
-  }, [initialPage, lecture.lectureId, lecture.pageCount, lecture.topic]);
+  }, [initialPage, exam.lectureId, exam.pageCount, exam.topic]);
 
-  const lectures = useMemo(
+  const exams = useMemo(
     () =>
-      Object.values(getLectureMeta())
-        .filter((lec) => lec.track === lecture.track)
-        .sort((a, b) => a.lectureNumber - b.lectureNumber),
-    [lecture.track]
+      Object.values(getExamMeta())
+        .map(examAsLectureMeta)
+        .sort((a, b) => a.chapterNumber - b.chapterNumber),
+    []
   );
 
   return (
     <LectureViewer
-      lecture={lecture}
-      lectures={lectures}
+      lecture={exam}
+      lectures={exams}
       initialPage={initialPage}
+      routeBase="/exams"
+      pageLabel="page"
     />
   );
 }

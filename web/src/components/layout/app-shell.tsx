@@ -5,15 +5,17 @@ import { usePathname } from "next/navigation";
 import type { LucideIcon } from "lucide-react";
 import {
   BookmarkIcon,
-  BookOpenIcon,
   BrainIcon,
+  CodeIcon,
   FileTextIcon,
   GraduationCapIcon,
   HomeIcon,
   LayersIcon,
+  MonitorIcon,
   PresentationIcon,
   MessageSquareIcon,
   RepeatIcon,
+  ServerIcon,
 } from "lucide-react";
 import {
   FEEDBACK_FORM_TOOLTIP,
@@ -57,15 +59,16 @@ const navSections: { label: string; items: NavItem[] }[] = [
   {
     label: "Materials",
     items: [
-      { href: "/lectures/", label: "Lecture slides", icon: PresentationIcon },
-      { href: "/book/", label: "Textbook chapters", icon: BookOpenIcon },
+      { href: "/exams/", label: "Exam files", icon: FileTextIcon },
+      { href: "/lectures/frontend/", label: "Frontend lectures", icon: MonitorIcon },
+      { href: "/lectures/backend/", label: "Backend lectures", icon: ServerIcon },
     ],
   },
   {
     label: "Practice",
     items: [
       { href: "/practice/", label: "Practice", icon: BrainIcon },
-      { href: "/by-lecture/", label: "By lecture", icon: BookOpenIcon },
+      { href: "/by-lecture/", label: "By lecture", icon: PresentationIcon },
       { href: "/by-exam/", label: "By exam", icon: GraduationCapIcon },
       { href: "/repetitive/", label: "Repetitive", icon: RepeatIcon },
       { href: "/saved/", label: "Saved", icon: BookmarkIcon },
@@ -73,7 +76,7 @@ const navSections: { label: string; items: NavItem[] }[] = [
   },
   {
     label: "Analysis",
-    items: [{ href: "/analysis/", label: "Exam analysis", icon: FileTextIcon }],
+    items: [{ href: "/analysis/", label: "Exam analysis", icon: CodeIcon }],
   },
 ];
 
@@ -93,9 +96,9 @@ export function AppShell({ children }: { children: React.ReactNode }) {
           <SidebarHeader className="border-b border-sidebar-border px-4 py-4">
             <Link href="/" className="flex items-center gap-2 font-semibold tracking-tight">
               <LayersIcon className="size-5" />
-              Management Study
+              Web Study
             </Link>
-            <p className="text-xs text-muted-foreground">Management finals prep</p>
+            <p className="text-xs text-muted-foreground">Web Technology finals prep</p>
           </SidebarHeader>
           <SidebarContent className="pt-0">
             <div className="flex flex-col justify-end px-2 pt-3 pb-1">
@@ -190,7 +193,7 @@ export function AppShell({ children }: { children: React.ReactNode }) {
             <SidebarTrigger />
             <Separator orientation="vertical" className="mr-2 h-4" />
             <span className="text-sm font-medium text-muted-foreground">
-              Management Study Site
+              Web Study Site
             </span>
           </header>
           <main className="flex-1 p-4 md:p-6">

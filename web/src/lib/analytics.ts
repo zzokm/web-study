@@ -24,7 +24,7 @@ function gtag(...args: unknown[]) {
 
 function currentPageContext(): { page_path: string; page_title: string } {
   if (typeof window === "undefined") {
-    return { page_path: "/", page_title: "Management Study" };
+    return { page_path: "/", page_title: "Web Study" };
   }
   const page_path = window.location.pathname;
   const params = new URLSearchParams(window.location.search);

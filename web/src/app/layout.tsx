@@ -16,8 +16,8 @@ const bricolageGrotesque = Bricolage_Grotesque({
 });
 
 export const metadata: Metadata = {
-  title: "Management Study",
-  description: "Management final exam study — questions, lectures, and practice",
+  title: "Web Study",
+  description: "Web Technology final exam study — questions, lectures, and practice",
 };
 
 export default function RootLayout({

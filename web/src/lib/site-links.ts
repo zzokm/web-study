@@ -1,4 +1,4 @@
-/** Google Form — feedback and suggestions for mgmt.yehia.dev */
+/** Google Form — feedback and suggestions for Web Study */
 export const FEEDBACK_FORM_URL = "https://forms.gle/KaPg9BPufjT7Vebd9";
 
 export const FEEDBACK_FORM_TOOLTIP =
@@ -6,11 +6,11 @@ export const FEEDBACK_FORM_TOOLTIP =
 
 export const GITHUB_PROFILE_URL = "https://github.com/zzokm";
 
-export const GITHUB_REPO_URL = "https://github.com/zzokm/mgmt-study";
+export const GITHUB_REPO_URL = "https://github.com/zzokm/web-study";
 
 /** Final exam window — update when the schedule changes. */
 export const EXAM_START = {
-  date: "2026-06-04",
+  date: "2026-06-10",
   hour: 12,
   minute: 0,
   timeZone: "Africa/Cairo",
@@ -18,7 +18,7 @@ export const EXAM_START = {
 } as const;
 
 export const EXAM_END = {
-  date: "2026-06-04",
+  date: "2026-06-10",
   hour: 14,
   minute: 0,
   timeZone: "Africa/Cairo",

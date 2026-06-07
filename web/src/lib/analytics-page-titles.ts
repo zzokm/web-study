@@ -1,7 +1,6 @@
-import { getBookChapterMeta } from "@/lib/questions";
-import { getLectureMeta, getLectureSlugs } from "@/lib/questions";
+import { getExamMeta, getLectureMeta, getLectureSlugs } from "@/lib/questions";
 
-const SITE = "Management Study";
+const SITE = "Web Study";
 
 function lectureTitle(slug: string): string | undefined {
   return getLectureSlugs().find((l) => l.slug === slug)?.lecture;
@@ -11,8 +10,8 @@ function lectureTitleById(lectureId: string): string | undefined {
   return getLectureMeta()[lectureId]?.topic;
 }
 
-function bookChapterTitleById(chapterId: string): string | undefined {
-  return getBookChapterMeta()[chapterId]?.topic;
+function examTitleByYear(year: string): string | undefined {
+  return getExamMeta()[year]?.title;
 }
 
 export type PageTitleSearchParams = Record<string, string | string[] | undefined>;
@@ -30,7 +29,6 @@ export type PageTitleOverrides = {
   practiceResultTitle?: string;
 };
 
-/** Human-readable page title for GA4 and document.title. */
 export function getPageTitle(
   pathname: string,
   searchParams?: PageTitleSearchParams,
@@ -79,6 +77,8 @@ export function getPageTitle(
   }
 
   if (segments[0] === "lectures") {
+    if (segments[1] === "frontend") return `Frontend lectures · ${SITE}`;
+    if (segments[1] === "backend") return `Backend lectures · ${SITE}`;
     if (segments[1]) {
       const topic = lectureTitleById(segments[1]);
       const page = param(searchParams, "page");
@@ -89,21 +89,20 @@ export function getPageTitle(
     return `Lectures · ${SITE}`;
   }
 
-  if (segments[0] === "book") {
+  if (segments[0] === "exams") {
     if (segments[1]) {
-      const topic = bookChapterTitleById(segments[1]);
+      const title = examTitleByYear(segments[1]);
       const page = param(searchParams, "page");
       const pageSuffix = page ? ` (page ${page})` : "";
-      const label = topic ?? segments[1];
-      return `Textbook · ${label}${pageSuffix} · ${SITE}`;
+      const label = title ?? segments[1];
+      return `Exam · ${label}${pageSuffix} · ${SITE}`;
     }
-    return `Textbook chapters · ${SITE}`;
+    return `Exam files · ${SITE}`;
   }
 
   return `${SITE}`;
 }
 
-/** For generateMetadata default template. */
 export function metadataTitle(pathname: string, searchParams?: PageTitleSearchParams) {
   return getPageTitle(pathname, searchParams);
 }

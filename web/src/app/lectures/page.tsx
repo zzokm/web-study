@@ -1,38 +1,47 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { metadataTitle } from "@/lib/analytics-page-titles";
-import { getLectureMeta } from "@/lib/questions";
+import { getLecturesByTrack, getTracks } from "@/lib/questions";
+import { LectureListCard } from "@/components/lectures/lecture-list-card";
 
 export const metadata: Metadata = {
   title: metadataTitle("/lectures/"),
 };
-import { Card, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 
 export default function LecturesPage() {
-  const lectures = Object.values(getLectureMeta()).sort(
-    (a, b) => a.chapterNumber - b.chapterNumber
-  );
+  const tracks = getTracks();
 
   return (
-    <div className="mx-auto flex max-w-3xl flex-col gap-6">
+    <div className="mx-auto flex max-w-3xl flex-col gap-8">
       <div>
         <h1 className="text-2xl font-semibold tracking-tight">Lecture slides</h1>
         <p className="text-muted-foreground">
-          Full PDF decks — slide numbers match question references.
+          Course materials split into frontend and backend tracks.
         </p>
       </div>
-      <div className="grid gap-4 sm:grid-cols-2">
-        {lectures.map((lec) => (
-          <Link key={lec.lectureId} href={`/lectures/${lec.lectureId}/`}>
-            <Card className="h-full transition-colors hover:bg-muted/50">
-              <CardHeader>
-                <CardTitle className="text-base">{lec.topic}</CardTitle>
-                <CardDescription>{lec.pageCount} slides</CardDescription>
-              </CardHeader>
-            </Card>
-          </Link>
-        ))}
-      </div>
+
+      {Object.values(tracks).map((track) => {
+        const lectures = getLecturesByTrack(track.trackId);
+        return (
+          <section key={track.trackId} className="flex flex-col gap-4">
+            <div>
+              <h2 className="text-lg font-medium">{track.label}</h2>
+              <p className="text-sm text-muted-foreground">{track.description}</p>
+            </div>
+            <div className="grid gap-4 sm:grid-cols-2">
+              {lectures.map((lec) => (
+                <LectureListCard key={lec.lectureId} lecture={lec} />
+              ))}
+            </div>
+            <Link
+              href={`/lectures/${track.trackId}/`}
+              className="text-sm text-muted-foreground underline-offset-4 hover:underline"
+            >
+              View all {track.label.toLowerCase()} lectures
+            </Link>
+          </section>
+        );
+      })}
     </div>
   );
 }
