@@ -13,6 +13,7 @@ import { PracticeResultsAccordion } from "@/components/practice/practice-results
 import { PracticeResultsBreakdown } from "@/components/practice/practice-results-breakdown";
 import { PracticeResultsSummary } from "@/components/practice/practice-results-summary";
 import { LinkButton } from "@/components/ui/link-button";
+import { ReportIssueButton } from "@/components/report/report-issue-button";
 import { Button } from "@/components/ui/button";
 import { Empty, EmptyDescription, EmptyHeader, EmptyTitle } from "@/components/ui/empty";
 import type { Question } from "@/types/question";
@@ -112,18 +113,27 @@ export function PracticeResultsPageClient() {
 
   return (
     <div className="mx-auto flex max-w-3xl flex-col gap-6">
-      <div>
-        <h1 className="text-2xl font-semibold tracking-tight">Practice results</h1>
-        <p className="text-muted-foreground">{stored.title}</p>
-        {stored.mockExamSpec ? (
+      <div className="flex flex-wrap items-start justify-between gap-3">
+        <div>
+          <h1 className="text-2xl font-semibold tracking-tight">Practice results</h1>
+          <p className="text-muted-foreground">{stored.title}</p>
+          {stored.mockExamSpec ? (
+            <p className="text-xs text-muted-foreground">
+              Mock exam · {stored.mockExamSpec.frontendShare}% frontend · seed{" "}
+              {stored.mockExamSpec.seed}
+            </p>
+          ) : null}
           <p className="text-xs text-muted-foreground">
-            Mock exam · {stored.mockExamSpec.frontendShare}% frontend · seed{" "}
-            {stored.mockExamSpec.seed}
+            Finished {new Date(stored.finishedAt).toLocaleString()}
           </p>
+        </div>
+        {stored.mockExamSpec ? (
+          <ReportIssueButton
+            mockExamSpec={stored.mockExamSpec}
+            pageUrl={`/practice/results/?id=${id}`}
+            issueType="Mock Exam Generation Issue"
+          />
         ) : null}
-        <p className="text-xs text-muted-foreground">
-          Finished {new Date(stored.finishedAt).toLocaleString()}
-        </p>
       </div>
 
       <PracticeResultsSummary
@@ -164,6 +174,7 @@ export function PracticeResultsPageClient() {
         questions={questions}
         progress={stored.progress}
         mistakesOnly={mistakesOnly}
+        mockExamSpec={stored.mockExamSpec}
       />
 
       <div className="flex flex-wrap gap-3 pb-8">

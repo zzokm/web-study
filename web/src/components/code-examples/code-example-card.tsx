@@ -14,6 +14,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { PlayIcon } from "lucide-react";
 import { CodeExampleExplanation } from "@/components/code-examples/code-example-explanation";
 import { CodeExamplePreview } from "@/components/code-examples/code-example-preview";
+import { ReportIssueButton } from "@/components/report/report-issue-button";
 
 export function CodeExampleCard({ example }: { example: CodeExample }) {
   const [runCount, setRunCount] = useState(0);
@@ -37,18 +38,30 @@ export function CodeExampleCard({ example }: { example: CodeExample }) {
             {example.file}
           </p>
         </div>
-        {canPreview ? (
-          <Button
-            type="button"
-            variant="outline"
-            size="sm"
-            className="h-8 shrink-0 gap-1.5"
-            onClick={handleRun}
-          >
-            <PlayIcon className="size-3.5" />
-            {isRunning ? "Run again" : "Run"}
-          </Button>
-        ) : null}
+        <div className="flex shrink-0 items-center gap-1">
+          <ReportIssueButton
+            codeExample={{
+              id: example.id,
+              file: example.file,
+              title: example.title,
+              lectureId: example.lectureId,
+            }}
+            pageUrl={`/code-examples/${example.lectureId}/`}
+            size="icon"
+          />
+          {canPreview ? (
+            <Button
+              type="button"
+              variant="outline"
+              size="sm"
+              className="h-8 shrink-0 gap-1.5"
+              onClick={handleRun}
+            >
+              <PlayIcon className="size-3.5" />
+              {isRunning ? "Run again" : "Run"}
+            </Button>
+          ) : null}
+        </div>
       </CardHeader>
       <CardContent className="px-4 pt-2">
         <Tabs

@@ -1,6 +1,7 @@
 "use client";
 
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
+import type { MockExamSpec } from "@/lib/mock-exam";
 import type { Question } from "@/types/question";
 import { AnalyticsEvents } from "@/lib/analytics-events";
 import { questionAnalyticsParams, trackAnalyticsEvent } from "@/lib/analytics";
@@ -38,6 +39,7 @@ interface PracticeResultsAccordionProps {
   questions: Question[];
   progress: PracticeProgress;
   mistakesOnly: boolean;
+  mockExamSpec?: MockExamSpec;
 }
 
 function statusFor(question: Question, progress: PracticeProgress) {
@@ -53,6 +55,7 @@ export function PracticeResultsAccordion({
   questions,
   progress,
   mistakesOnly,
+  mockExamSpec,
 }: PracticeResultsAccordionProps) {
   const visible = mistakesOnly
     ? questions.filter((q) => isAttemptWrong(q, getAttempt(progress, q.questionKey)))
@@ -235,6 +238,7 @@ export function PracticeResultsAccordion({
                   showExamAppearances={false}
                   variant="browse"
                   showReportButton
+                  mockExamSpec={mockExamSpec}
                 />
               </div>
             </AccordionContent>

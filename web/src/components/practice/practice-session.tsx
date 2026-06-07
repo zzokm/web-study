@@ -559,13 +559,21 @@ function PracticeSessionInner({
         </div>
 
         <Card className="relative">
-          {!examSimulation ? (
+          {!examSimulation || mockExamSpec ? (
             <div className="absolute top-3 right-3 z-10 flex items-center gap-0.5">
-              <ReportIssueButton question={question} corner />
-              <SaveButton key={question.questionKey} question={question} corner />
+              <ReportIssueButton
+                question={question}
+                mockExamSpec={mockExamSpec}
+                corner
+              />
+              {!examSimulation ? (
+                <SaveButton key={question.questionKey} question={question} corner />
+              ) : null}
             </div>
           ) : null}
-          <CardHeader className={examSimulation ? undefined : "pr-40"}>
+          <CardHeader
+            className={!examSimulation || mockExamSpec ? "pr-40" : undefined}
+          >
             <CardTitle className="text-base font-medium text-muted-foreground">
               {examSimulation
                 ? "Select your answer"

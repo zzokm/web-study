@@ -1,7 +1,8 @@
 "use client";
 
 import type { Question } from "@/types/question";
-import type { IssueType } from "@/lib/report-issue";
+import type { MockExamSpec } from "@/lib/mock-exam";
+import type { CodeExampleReportTarget, IssueType } from "@/lib/report-issue";
 import { Button } from "@/components/ui/button";
 import { FlagIcon } from "lucide-react";
 import { cn } from "@/lib/utils";
@@ -9,6 +10,8 @@ import { useReportIssue } from "@/components/report/report-issue-context";
 
 interface ReportIssueButtonProps {
   question?: Question;
+  codeExample?: CodeExampleReportTarget;
+  mockExamSpec?: MockExamSpec;
   issueType?: IssueType;
   pageUrl?: string;
   size?: "sm" | "icon";
@@ -18,6 +21,8 @@ interface ReportIssueButtonProps {
 
 export function ReportIssueButton({
   question,
+  codeExample,
+  mockExamSpec,
   issueType,
   pageUrl,
   size = "sm",
@@ -27,7 +32,7 @@ export function ReportIssueButton({
   const { openReportIssue } = useReportIssue();
 
   function handleClick() {
-    openReportIssue({ question, issueType, pageUrl });
+    openReportIssue({ question, codeExample, mockExamSpec, issueType, pageUrl });
   }
 
   if (size === "icon") {

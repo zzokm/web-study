@@ -33,6 +33,7 @@ import { Input } from "@/components/ui/input";
 import { Slider } from "@/components/ui/slider";
 import { Switch } from "@/components/ui/switch";
 import { LinkButton } from "@/components/ui/link-button";
+import { ReportIssueButton } from "@/components/report/report-issue-button";
 import { PencilIcon } from "lucide-react";
 
 type MockExamSetupProps = {
@@ -282,11 +283,18 @@ export function MockExamSetup({
             Synthetic exam from historical lecture allocation across past finals.
           </p>
         </div>
-        {backHref ? (
-          <LinkButton href={backHref} variant="outline">
-            Back
-          </LinkButton>
-        ) : null}
+        <div className="flex shrink-0 flex-wrap items-center gap-2">
+          <ReportIssueButton
+            mockExamSpec={previewSpec}
+            pageUrl="/practice/mock-exam/"
+            issueType="Mock Exam Generation Issue"
+          />
+          {backHref ? (
+            <LinkButton href={backHref} variant="outline">
+              Back
+            </LinkButton>
+          ) : null}
+        </div>
       </div>
 
       <Card>

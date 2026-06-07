@@ -1,3 +1,4 @@
+import type { MockExamSpec } from "@/lib/mock-exam";
 import type { Question } from "@/types/question";
 import { cn } from "@/lib/utils";
 import { QuestionExamAppearances } from "./question-exam-appearances";
@@ -13,6 +14,7 @@ interface QuestionAccordionDetailsProps {
   showExamAppearances?: boolean;
   variant?: "default" | "browse";
   showReportButton?: boolean;
+  mockExamSpec?: MockExamSpec;
 }
 
 /** Answer and explanation for browse / results views. */
@@ -23,6 +25,7 @@ export function QuestionAccordionDetails({
   showExamAppearances = true,
   variant = "default",
   showReportButton = false,
+  mockExamSpec,
 }: QuestionAccordionDetailsProps) {
   return (
     <div className={cn("flex flex-col gap-4", className)}>
@@ -38,6 +41,7 @@ export function QuestionAccordionDetails({
         question={question}
         variant={variant}
         showReportButton={showReportButton}
+        mockExamSpec={mockExamSpec}
       />
     </div>
   );

@@ -7,14 +7,23 @@ import { trackAnalyticsEvent } from "@/lib/analytics";
 import { getExamYears, getLectureSlugs } from "@/lib/questions";
 import {
   BUG_ISSUE_TYPES,
+  CODE_EXAMPLES_LECTURE_IDS,
   ISSUE_TYPE_WRONG_ANSWER,
   ISSUE_TYPES,
   REPORT_HUB_LOCATIONS,
+  buildCodeExampleReportContext,
+  buildMockExamReportContext,
   buildReportFormUrl,
   collectDeviceInfo,
+  deriveCodeExamplesScopeFromPathname,
   deriveReportContext,
+  enrichReportDescription,
+  formatMockExamDetails,
+  formatReportCodeExampleSummary,
+  formatReportMockExamSummary,
   formatReportQuestionSummary,
   resolveLocationPageUrl,
+  type CodeExamplesScope,
   type IssueType,
   type OpenReportIssueOptions,
   type ReportLocationId,
@@ -47,6 +56,8 @@ import { cn } from "@/lib/utils";
 const LOCATION_OPTIONS: Array<{ value: ReportLocationId; label: string }> = [
   { value: "this_page", label: "This page" },
   ...REPORT_HUB_LOCATIONS.map((h) => ({ value: h.id, label: h.label })),
+  { value: "code_examples", label: "Code examples" },
+  { value: "mock_exam", label: "Mock exam" },
   { value: "by_exam", label: "By exam" },
   { value: "by_lecture", label: "By lecture" },
 ];
@@ -61,6 +72,12 @@ function examScopeLabel(scope: "general" | "year"): string {
 
 function lectureScopeLabel(scope: "general" | "lecture"): string {
   return scope === "general" ? "General (all lectures)" : "Specific lecture";
+}
+
+function codeExamplesScopeLabel(scope: CodeExamplesScope): string {
+  if (scope === "general") return "General (frontend lectures hub)";
+  if (scope === "fe-5") return "JavaScript 1 (fe-5)";
+  return "JavaScript 2 (fe-6)";
 }
 
 const REPORT_SELECT_TRIGGER = "w-full min-w-0";
@@ -161,10 +178,18 @@ function ReportIssueForm({
   }, [pathname, searchParams]);
 
   const lockedQuestion = options.question;
+  const lockedCodeExample = options.codeExample;
+  const lockedMockExamSpec = options.mockExamSpec;
+  const hasLockedTarget = Boolean(
+    lockedQuestion || lockedCodeExample || lockedMockExamSpec
+  );
   const examYears = useMemo(() => getExamYears(), []);
   const lectureSlugs = useMemo(() => getLectureSlugs(), []);
 
   const [locationId, setLocationId] = useState<ReportLocationId>("this_page");
+  const [codeExamplesScope, setCodeExamplesScope] = useState<CodeExamplesScope>(
+    () => deriveCodeExamplesScopeFromPathname(pathname)
+  );
   const [byExamScope, setByExamScope] = useState<"general" | "year">("general");
   const [selectedExamYear, setSelectedExamYear] = useState(
     () => lockedQuestion?.origin ?? examYears[0] ?? ""
@@ -186,9 +211,13 @@ function ReportIssueForm({
   useEffect(() => {
     trackAnalyticsEvent(AnalyticsEvents.issueReportOpen, {
       has_question_key: Boolean(lockedQuestion?.questionKey),
-      report_context: deriveReportContext(pathname),
+      report_context: lockedCodeExample
+        ? buildCodeExampleReportContext(lockedCodeExample)
+        : lockedMockExamSpec
+          ? buildMockExamReportContext(lockedMockExamSpec)
+          : deriveReportContext(pathname),
     });
-  }, [lockedQuestion?.questionKey, pathname]);
+  }, [lockedCodeExample, lockedMockExamSpec, lockedQuestion?.questionKey, pathname]);
 
   const resolvedLocation = useMemo(() => {
     if (options.pageUrl) {
@@ -205,6 +234,7 @@ function ReportIssueForm({
       examYear: selectedExamYear,
       byLectureScope,
       lectureSlug: selectedLectureSlug,
+      codeExamplesScope,
     });
     const pagePath = location.pageUrl.split("?")[0] ?? location.pageUrl;
 
@@ -220,6 +250,7 @@ function ReportIssueForm({
     selectedExamYear,
     byLectureScope,
     selectedLectureSlug,
+    codeExamplesScope,
   ]);
 
   const showExpectedAnswer = issueType === ISSUE_TYPE_WRONG_ANSWER;
@@ -229,26 +260,50 @@ function ReportIssueForm({
   const questionSummary = lockedQuestion
     ? formatReportQuestionSummary(lockedQuestion)
     : null;
+  const codeExampleSummary = lockedCodeExample
+    ? formatReportCodeExampleSummary(lockedCodeExample)
+    : null;
+  const mockExamSummary = lockedMockExamSpec
+    ? formatReportMockExamSummary(lockedMockExamSpec)
+    : null;
 
   function handleSubmit() {
     if (!canSubmit) return;
 
     const pageUrl = options.pageUrl ?? resolvedLocation.pageUrl;
     const pagePath = pageUrl.split("?")[0] ?? pageUrl;
-    const issueScope = lockedQuestion ? "specific" : resolvedLocation.issueScope;
+    const issueScope = hasLockedTarget
+      ? "specific"
+      : resolvedLocation.issueScope;
+    const reportContext = lockedCodeExample
+      ? buildCodeExampleReportContext(lockedCodeExample)
+      : lockedMockExamSpec
+        ? buildMockExamReportContext(lockedMockExamSpec)
+        : deriveReportContext(pagePath);
 
     const url = buildReportFormUrl({
       issueType,
-      description: description.trim(),
+      description: enrichReportDescription(description.trim(), {
+        codeExample: lockedCodeExample,
+        mockExamSpec: lockedMockExamSpec,
+      }),
       contactEmail: contactEmail.trim() || undefined,
       expectedAnswer: expectedAnswer.trim() || undefined,
       steps: steps.trim() || undefined,
       pageUrl,
       issueScope,
-      reportContext: deriveReportContext(pagePath),
+      reportContext,
       questionKey: lockedQuestion?.questionKey,
       examYear: lockedQuestion?.origin ?? resolvedLocation.examYear,
-      lectureSlug: lockedQuestion?.lectureSlug ?? resolvedLocation.lectureSlug,
+      lectureSlug:
+        lockedCodeExample?.lectureId ??
+        lockedQuestion?.lectureSlug ??
+        resolvedLocation.lectureSlug,
+      codeExampleId: lockedCodeExample?.id,
+      codeExampleFile: lockedCodeExample?.file,
+      mockExamDetails: lockedMockExamSpec
+        ? formatMockExamDetails(lockedMockExamSpec)
+        : undefined,
       deviceInfo: collectDeviceInfo(),
       timestamp: new Date().toISOString(),
     });
@@ -256,7 +311,7 @@ function ReportIssueForm({
     trackAnalyticsEvent(AnalyticsEvents.issueReportSubmit, {
       issue_type: issueType,
       issue_scope: issueScope,
-      report_context: deriveReportContext(pagePath),
+      report_context: reportContext,
       has_question_key: Boolean(lockedQuestion?.questionKey),
     });
 
@@ -289,6 +344,35 @@ function ReportIssueForm({
               <p className="mt-0.5 text-sm text-muted-foreground">
                 {questionSummary?.subtitle}
               </p>
+              {mockExamSummary ? (
+                <p className="mt-2 font-mono text-xs text-muted-foreground">
+                  {mockExamSummary.headline} · {mockExamSummary.subtitle}
+                </p>
+              ) : null}
+            </div>
+          ) : lockedCodeExample ? (
+            <div className="rounded-lg border bg-muted/30 px-3 py-3">
+              <p className="text-xs font-medium tracking-wide text-muted-foreground uppercase">
+                Reporting about
+              </p>
+              <p className="mt-1 text-sm font-medium text-foreground">
+                {codeExampleSummary?.headline}
+              </p>
+              <p className="mt-0.5 font-mono text-xs text-muted-foreground">
+                {codeExampleSummary?.subtitle}
+              </p>
+            </div>
+          ) : lockedMockExamSpec ? (
+            <div className="rounded-lg border bg-muted/30 px-3 py-3">
+              <p className="text-xs font-medium tracking-wide text-muted-foreground uppercase">
+                Reporting about
+              </p>
+              <p className="mt-1 text-sm font-medium text-foreground">
+                {mockExamSummary?.headline}
+              </p>
+              <p className="mt-0.5 font-mono text-xs text-muted-foreground">
+                {mockExamSummary?.subtitle}
+              </p>
             </div>
           ) : (
             <div className="flex flex-col gap-4">
@@ -310,6 +394,12 @@ function ReportIssueForm({
                           {hub.label}
                         </SelectItem>
                       ))}
+                    </SelectGroup>
+                    <SelectSeparator />
+                    <SelectGroup>
+                      <SelectLabel>Materials</SelectLabel>
+                      <SelectItem value="code_examples">Code examples</SelectItem>
+                      <SelectItem value="mock_exam">Mock exam</SelectItem>
                     </SelectGroup>
                     <SelectSeparator />
                     <SelectGroup>
@@ -362,6 +452,38 @@ function ReportIssueForm({
                       </Select>
                     </ReportField>
                   ) : null}
+                </ReportSubFields>
+              ) : null}
+
+              {locationId === "code_examples" ? (
+                <ReportSubFields>
+                  <ReportField id="report-code-scope" label="Code examples scope">
+                    <Select
+                      value={codeExamplesScope}
+                      onValueChange={(v) =>
+                        setCodeExamplesScope(v as CodeExamplesScope)
+                      }
+                    >
+                      <SelectTrigger
+                        id="report-code-scope"
+                        className={REPORT_SELECT_TRIGGER}
+                      >
+                        <SelectValue>
+                          {codeExamplesScopeLabel(codeExamplesScope)}
+                        </SelectValue>
+                      </SelectTrigger>
+                      <ReportSelectContent>
+                        <SelectItem value="general">
+                          General (frontend lectures hub)
+                        </SelectItem>
+                        {CODE_EXAMPLES_LECTURE_IDS.map((lectureId) => (
+                          <SelectItem key={lectureId} value={lectureId}>
+                            {codeExamplesScopeLabel(lectureId)}
+                          </SelectItem>
+                        ))}
+                      </ReportSelectContent>
+                    </Select>
+                  </ReportField>
                 </ReportSubFields>
               ) : null}
 

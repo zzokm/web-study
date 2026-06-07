@@ -1,5 +1,6 @@
 "use client";
 
+import type { MockExamSpec } from "@/lib/mock-exam";
 import type { Question } from "@/types/question";
 import { OptionContent } from "@/components/code/question-content";
 import { mcqOptionDisplayLabel } from "@/lib/mcq-options";
@@ -22,6 +23,7 @@ interface QuestionDetailSectionsProps {
   variant?: "default" | "browse";
   /** Pin report control on the answer card (browse pages). */
   showReportButton?: boolean;
+  mockExamSpec?: MockExamSpec;
 }
 
 function browseRevealOptionClass(
@@ -85,6 +87,7 @@ export function QuestionDetailSections({
   className,
   variant = "default",
   showReportButton = false,
+  mockExamSpec,
 }: QuestionDetailSectionsProps) {
   const isBrowse = variant === "browse";
   const answer = getCorrectAnswerDisplay(question);
@@ -97,7 +100,11 @@ export function QuestionDetailSections({
       <Card size="sm" className={cn(showReportButton && "relative")}>
         {showReportButton ? (
           <div className="absolute top-3 right-3 z-10">
-            <ReportIssueButton question={question} corner />
+            <ReportIssueButton
+              question={question}
+              mockExamSpec={mockExamSpec}
+              corner
+            />
           </div>
         ) : null}
         <CardHeader className={showReportButton ? "pr-24" : undefined}>
