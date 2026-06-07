@@ -1,5 +1,5 @@
 /** Google Form — feedback and suggestions for Web Study */
-export const FEEDBACK_FORM_URL = "https://forms.gle/KaPg9BPufjT7Vebd9";
+export const FEEDBACK_FORM_URL = "https://forms.gle/yWE4Ekhs2AaCubGg6";
 
 export const FEEDBACK_FORM_TOOLTIP =
   "Help us improve the site — takes less than a minute to complete.";
@@ -7,6 +7,9 @@ export const FEEDBACK_FORM_TOOLTIP =
 export const GITHUB_PROFILE_URL = "https://github.com/zzokm";
 
 export const GITHUB_REPO_URL = "https://github.com/zzokm/web-study";
+
+export const GITHUB_FOLLOW_TOOLTIP =
+  "Follow @zzokm on GitHub for more projects like this.";
 
 /** Final exam window — update when the schedule changes. */
 export const EXAM_START = {

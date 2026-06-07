@@ -1,45 +1,39 @@
-# Web Study
+# Web Study (Next.js app)
 
-Static Next.js study app for Web Technology finals. Data is synced from the repo root `data/` folder (exams, lectures, analysis).
+Static Next.js study app for Web Technology finals. Data syncs from the repo root [`data/`](../data/) folder.
 
-## Requirements
-
-- Node.js 20+
-- npm
+| | |
+|---|---|
+| **Live** | [webtech.yehia.dev](https://webtech.yehia.dev) |
+| **Repo** | [github.com/zzokm/web-study](https://github.com/zzokm/web-study) |
+| **Features** | [../docs/FEATURES.md](../docs/FEATURES.md) |
 
 ## Setup
 
 ```bash
-cd web
 npm install
 npm run sync
+npm run dev
 ```
-
-`npm run sync` copies JSON and PDFs from `../data/` into `public/` and regenerates `src/data/generated/catalog.json`.
 
 ## Scripts
 
 | Script | Description |
 |--------|-------------|
-| `npm run dev` | Sync content, then start dev server |
-| `npm run build` | Audit (0 moderate+), sync, static export to `out/` |
-| `npm run sync` | Refresh data from repo `data/` folder |
-| `npm run audit:ci` | Fail if npm audit reports moderate+ vulnerabilities |
+| `npm run dev` | Sync + dev server |
+| `npm run build` | Audit, sync, static export → `out/` |
+| `npm run sync` | Copy `../data/` → `public/`, regenerate catalog |
+| `npm run lint` | ESLint (`src/`) |
+| `npm run audit:ci` | Fail on moderate+ npm audit findings |
 
 ## PDF viewing
 
-Lecture and exam pages use the EmbedPDF viewer (`@embedpdf/react-pdf-viewer`) with tabbed documents, in-viewer scroll tracking, and URL `?page=` sync.
+Lecture and exam routes use EmbedPDF with tabbed documents, `?page=` URL sync, and in-viewer scroll tracking.
 
-PDF assets are copied on `postinstall` (`pdf.worker.min.mjs`, `pdfium.wasm`).
+## Analytics
 
-## Security
-
-`package.json` uses an `overrides` entry for `postcss >= 8.5.10` so `npm audit` reports **0 vulnerabilities**. Do not remove without re-running audit.
+Optional GA4 — see [docs/GA4_SETUP.md](docs/GA4_SETUP.md) and [docs/GA4_EVENTS_GUIDE.md](docs/GA4_EVENTS_GUIDE.md).
 
 ## Deploy
 
-After `npm run build`, deploy the `out/` directory to any static host, or use the root `docker-compose.yml`.
-
-## VS Code
-
-Open this repo and run tasks **dev** or **build** (they run from `web/` and sync first).
+`npm run build` then serve `out/`, or use root `docker compose up --build` (port 7821).

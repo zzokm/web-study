@@ -13,17 +13,15 @@ import {
   HomeIcon,
   MonitorIcon,
   PresentationIcon,
-  MessageSquareIcon,
   RepeatIcon,
   ServerIcon,
 } from "lucide-react";
-import {
-  FEEDBACK_FORM_TOOLTIP,
-  FEEDBACK_FORM_URL,
-  GITHUB_PROFILE_URL,
-  GITHUB_REPO_URL,
-} from "@/lib/site-links";
 import { ExamCountdown } from "@/components/layout/exam-countdown";
+import { SidebarFeedbackPill } from "@/components/layout/sidebar-feedback-pill";
+import { SidebarGithubLinks } from "@/components/layout/sidebar-github-links";
+import { OutboundTrackedLink } from "@/components/analytics/outbound-tracked-link";
+import { GitHubIcon } from "@/components/icons/github-icon";
+import { GITHUB_PROFILE_URL } from "@/lib/site-links";
 import { ExamPostCelebration } from "@/components/layout/exam-post-celebration";
 import { PageBreadcrumbs } from "@/components/layout/page-breadcrumbs";
 import {
@@ -47,14 +45,7 @@ import {
   SidebarTrigger,
 } from "@/components/ui/sidebar";
 import { NavTrackedLink } from "@/components/analytics/nav-tracked-link";
-import { OutboundTrackedLink } from "@/components/analytics/outbound-tracked-link";
-import { GitHubIcon } from "@/components/icons/github-icon";
-import {
-  Tooltip,
-  TooltipContent,
-  TooltipProvider,
-  TooltipTrigger,
-} from "@/components/ui/tooltip";
+import { TooltipProvider } from "@/components/ui/tooltip";
 
 type NavItem = { href: string; label: string; icon: LucideIcon };
 
@@ -109,8 +100,9 @@ function AppShellInner({ children }: { children: React.ReactNode }) {
           </Link>
         </SidebarHeader>
         <SidebarContent className="sidebar-scroll pt-0">
-          <div className="flex flex-col justify-end px-2 pt-3 pb-1">
+          <div className="flex flex-col justify-end px-2 pt-3">
             <ExamCountdown className="mx-0" />
+            <SidebarFeedbackPill />
           </div>
           {navSections.map((section, index) => (
             <SidebarGroup
@@ -141,54 +133,7 @@ function AppShellInner({ children }: { children: React.ReactNode }) {
               </SidebarGroupContent>
             </SidebarGroup>
           ))}
-          <SidebarGroup>
-            <SidebarGroupLabel>Feedback</SidebarGroupLabel>
-            <SidebarGroupContent>
-              <SidebarMenu>
-                <SidebarMenuItem>
-                  <Tooltip>
-                    <TooltipTrigger
-                      render={
-                        <SidebarMenuButton
-                          render={
-                            <OutboundTrackedLink
-                              href={FEEDBACK_FORM_URL}
-                              outboundLabel="Feedback"
-                              target="_blank"
-                              rel="noopener noreferrer"
-                            />
-                          }
-                        />
-                      }
-                    >
-                      <MessageSquareIcon />
-                      <span>
-                        Feedback <span aria-hidden="true">⭐</span>
-                      </span>
-                    </TooltipTrigger>
-                    <TooltipContent side="right" className="max-w-xs">
-                      {FEEDBACK_FORM_TOOLTIP}
-                    </TooltipContent>
-                  </Tooltip>
-                </SidebarMenuItem>
-                <SidebarMenuItem>
-                  <SidebarMenuButton
-                    render={
-                      <OutboundTrackedLink
-                        href={GITHUB_REPO_URL}
-                        outboundLabel="GitHub repository"
-                        target="_blank"
-                        rel="noopener noreferrer"
-                      />
-                    }
-                  >
-                    <GitHubIcon />
-                    <span>GitHub repository</span>
-                  </SidebarMenuButton>
-                </SidebarMenuItem>
-              </SidebarMenu>
-            </SidebarGroupContent>
-          </SidebarGroup>
+          <SidebarGithubLinks />
         </SidebarContent>
         <SidebarFooter className="mt-auto border-t border-sidebar-border px-4 py-3">
           <OutboundTrackedLink
