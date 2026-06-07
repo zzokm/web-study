@@ -1,7 +1,8 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { metadataTitle } from "@/lib/analytics-page-titles";
-import { getExamYears, getLectureSlugs } from "@/lib/questions";
+import { getExamYears } from "@/lib/questions";
+import { LectureQuestionLinkList } from "@/components/questions/lecture-question-link-list";
 
 export const metadata: Metadata = {
   title: metadataTitle("/practice/"),
@@ -11,15 +12,13 @@ import { Card, CardDescription, CardHeader, CardTitle } from "@/components/ui/ca
 
 export default function PracticeIndexPage() {
   const years = getExamYears();
-  const lectures = getLectureSlugs();
 
   return (
     <div className="mx-auto flex max-w-3xl flex-col gap-6">
       <div>
         <h1 className="text-2xl font-semibold tracking-tight">Practice</h1>
         <p className="text-muted-foreground">
-          One question at a time — check your answer, then see explanation, reference, and
-          slides.
+          One question at a time — check your answer, then see the explanation.
         </p>
       </div>
 
@@ -43,18 +42,7 @@ export default function PracticeIndexPage() {
 
       <div>
         <h2 className="mb-3 text-sm font-medium text-muted-foreground">By lecture</h2>
-        <div className="flex flex-col gap-2">
-          {lectures.map((lec) => (
-            <Link key={lec.slug} href={`/practice/lecture/${lec.slug}/`}>
-              <Card className="transition-colors hover:bg-muted/50">
-                <CardHeader className="py-4">
-                  <CardTitle className="text-sm font-medium">{lec.lecture}</CardTitle>
-                  <CardDescription>{lec.count} questions</CardDescription>
-                </CardHeader>
-              </Card>
-            </Link>
-          ))}
-        </div>
+        <LectureQuestionLinkList hrefPrefix="/practice/lecture/" compact />
       </div>
 
       <Link href="/practice/repetitive/">

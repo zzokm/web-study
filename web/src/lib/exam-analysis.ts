@@ -1,16 +1,16 @@
 import type { Question } from "@/types/question";
 import {
-  countUniqueQuestionsInPools,
+  countUniqueQuestions,
   getAllQuestions,
   getCatalog,
   getExamYears,
+  getLectureSlugs,
   getQuestionsByExamYear,
   getQuestionsByLectureSlug,
   getQuestionsByLectureSlugRaw,
   getRepetitiveFileQuestions,
   getRepetitiveStats,
   getStats,
-  slugFromLectureFile,
 } from "@/lib/questions";
 
 export interface ExamYearRow {
@@ -129,42 +129,20 @@ export interface ExamAnalysisData {
 }
 
 const THEME_RULES: Array<{ theme: string; test: (text: string) => boolean }> = [
+  { theme: "HTML & DOM", test: (t) => /html|dom|element|attribute|tag/i.test(t) },
+  { theme: "CSS", test: (t) => /css|stylesheet|selector|margin|padding/i.test(t) },
   {
-    theme: "Management functions",
-    test: (t) =>
-      /planning|organizing|influencing|controlling|management function/i.test(t),
+    theme: "JavaScript",
+    test: (t) => /javascript|js\b|typeof|function|variable|array|object/i.test(t),
   },
+  { theme: "HTTP & URLs", test: (t) => /http|url|status code|request|response|method/i.test(t) },
+  { theme: "Django", test: (t) => /django|mvt|model|view|template|admin/i.test(t) },
+  { theme: "Python", test: (t) => /python|oop|class|file handling/i.test(t) },
+  { theme: "AJAX", test: (t) => /ajax|xmlhttp|fetch|async/i.test(t) },
   {
-    theme: "Groups & teams",
-    test: (t) => /group|team|groupthink/i.test(t),
+    theme: "Networking",
+    test: (t) => /protocol|tcp|ip\b|dns|internet/i.test(t),
   },
-  {
-    theme: "Decision making",
-    test: (t) => /decision|problem solving|alternative/i.test(t),
-  },
-  {
-    theme: "Controlling",
-    test: (t) => /controlling|standard|deviation/i.test(t),
-  },
-  {
-    theme: "Communication",
-    test: (t) => /communication|communicat/i.test(t),
-  },
-  {
-    theme: "Organizing & structure",
-    test: (t) => /organiz|span of|bureaucracy|division of labor|scalar/i.test(t),
-  },
-  { theme: "Ethics", test: (t) => /ethic|moral/i.test(t) },
-  {
-    theme: "Power & politics",
-    test: (t) => /power|politic|authority/i.test(t),
-  },
-  {
-    theme: "Skills",
-    test: (t) => /technical skill|human skill|conceptual skill/i.test(t),
-  },
-  { theme: "HR & staffing", test: (t) => /human resource|staffing|recruit/i.test(t) },
-  { theme: "Classical management", test: (t) => /fayol|mintzberg|bureaucracy/i.test(t) },
 ];
 
 function normalizeType(q: Question): "mcq" | "true_false" | "other" {
@@ -242,16 +220,14 @@ function buildLectureYield(
   getCount: (slug: string) => number,
   poolTotal: number
 ): LectureYieldRow[] {
-  const catalog = getCatalog();
   const total = poolTotal || 1;
 
-  return catalog.poolIndex.lectureFiles
+  return getLectureSlugs()
     .map((f) => {
-      const slug = slugFromLectureFile(f.file);
-      const count = getCount(slug);
+      const count = getCount(f.slug);
       return {
         lecture: f.lecture,
-        slug,
+        slug: f.slug,
         count,
         share: Math.round((count / total) * 1000) / 10,
       };
@@ -301,7 +277,7 @@ export function buildExamAnalysis(): ExamAnalysisData {
     .filter((r) => r.count > 0);
 
   const lectureYieldTotals = {
-    unique: countUniqueQuestionsInPools(),
+    unique: countUniqueQuestions(),
     all: catalog.stats.totalQuestions,
   };
 
@@ -315,17 +291,18 @@ export function buildExamAnalysis(): ExamAnalysisData {
     lectureYieldTotals.all
   );
 
-  const poolByLecture: PoolByYearRow[] = catalog.poolIndex.lectureFiles.map(
-    (f) => {
-      const slug = slugFromLectureFile(f.file);
-      return {
-        lecture: f.lecture,
-        slug,
-        total: getQuestionsByLectureSlug(slug).length,
-        byYear: { ...f.origins },
-      };
+  const poolByLecture: PoolByYearRow[] = getLectureSlugs().map((f) => {
+    const byYear: Record<string, number> = {};
+    for (const q of getQuestionsByLectureSlugRaw(f.slug)) {
+      byYear[q.origin] = (byYear[q.origin] ?? 0) + 1;
     }
-  );
+    return {
+      lecture: f.lecture,
+      slug: f.slug,
+      total: f.count,
+      byYear,
+    };
+  });
 
   const repetitive = getRepetitiveFileQuestions();
   const repeatedStems: RepeatedStemRow[] = repetitive

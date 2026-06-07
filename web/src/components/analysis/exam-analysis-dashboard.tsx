@@ -269,7 +269,7 @@ export function ExamAnalysisDashboard({ data }: { data: ExamAnalysisData }) {
             <TableHeader>
               <TableRow>
                 <TableHead className="w-12">#</TableHead>
-                <TableHead>Chapter</TableHead>
+                <TableHead>Lecture</TableHead>
                 <TableHead className="text-right">Questions</TableHead>
                 <TableHead className="text-right">Share</TableHead>
                 <TableHead className="w-[88px]" />
@@ -311,7 +311,7 @@ export function ExamAnalysisDashboard({ data }: { data: ExamAnalysisData }) {
           <Table>
             <TableHeader>
               <TableRow>
-                <TableHead>Chapter</TableHead>
+                <TableHead>Lecture</TableHead>
                 <TableHead className="text-right">Total</TableHead>
                 {data.examYears.map((e) => (
                   <TableHead key={e.year} className="text-right">
@@ -438,7 +438,7 @@ export function ExamAnalysisDashboard({ data }: { data: ExamAnalysisData }) {
                 <Table>
                   <TableHeader>
                     <TableRow>
-                      <TableHead>Chapter</TableHead>
+                      <TableHead>Lecture</TableHead>
                       <TableHead className="text-right">Total</TableHead>
                       <TableHead className="text-right">T/F</TableHead>
                       <TableHead className="text-right">MCQ</TableHead>
