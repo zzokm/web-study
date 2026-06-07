@@ -12,12 +12,15 @@ import {
 } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { ExplanationText } from "@/components/questions/explanation-text";
+import { ReportIssueButton } from "@/components/report/report-issue-button";
 import { cn } from "@/lib/utils";
 
 interface QuestionDetailSectionsProps {
   question: Question;
   className?: string;
   variant?: "default" | "browse";
+  /** Pin report control on the answer card (browse pages). */
+  showReportButton?: boolean;
 }
 
 function browseRevealOptionClass(
@@ -80,6 +83,7 @@ export function QuestionDetailSections({
   question,
   className,
   variant = "default",
+  showReportButton = false,
 }: QuestionDetailSectionsProps) {
   const isBrowse = variant === "browse";
   const answer = getCorrectAnswerDisplay(question);
@@ -89,8 +93,13 @@ export function QuestionDetailSections({
 
   return (
     <div className={cn("flex flex-col gap-4", className)}>
-      <Card size="sm">
-        <CardHeader>
+      <Card size="sm" className={cn(showReportButton && "relative")}>
+        {showReportButton ? (
+          <div className="absolute top-3 right-3 z-10">
+            <ReportIssueButton question={question} corner />
+          </div>
+        ) : null}
+        <CardHeader className={showReportButton ? "pr-24" : undefined}>
           <CardTitle>Answer</CardTitle>
           <CardDescription>Correct response</CardDescription>
         </CardHeader>

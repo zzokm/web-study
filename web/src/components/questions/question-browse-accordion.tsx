@@ -1,7 +1,7 @@
 "use client";
 
 import type { ReactNode } from "react";
-import { useCallback, useMemo, useRef } from "react";
+import { useCallback, useMemo, useRef, useState } from "react";
 import type { Question } from "@/types/question";
 import type { BrowseContext } from "@/lib/analytics-events";
 import { AnalyticsEvents } from "@/lib/analytics-events";
@@ -16,6 +16,7 @@ import {
 import { QuestionAccordionDetails } from "./question-accordion-details";
 import { QuestionMeta } from "./question-meta";
 import { QuestionStem } from "./question-stem";
+import { Button } from "@/components/ui/button";
 import { SaveButton } from "./save-button";
 import { ReportIssueButton } from "@/components/report/report-issue-button";
 
@@ -31,6 +32,10 @@ interface QuestionBrowseAccordionProps {
   onOpenValuesChange?: (values: string[]) => void;
   /** DOM id prefix for scroll targets: `{scrollIdPrefix}-{questionKey}` */
   scrollIdPrefix?: string;
+  /** Expand all / collapse all controls above the list */
+  showExpandControls?: boolean;
+  /** Report control on the answer card instead of above the details */
+  reportButtonInAnswer?: boolean;
 }
 
 export function QuestionBrowseAccordion({
@@ -41,10 +46,19 @@ export function QuestionBrowseAccordion({
   openValues,
   onOpenValuesChange,
   scrollIdPrefix,
+  showExpandControls = true,
+  reportButtonInAnswer = true,
 }: QuestionBrowseAccordionProps) {
+  const [internalOpenValues, setInternalOpenValues] = useState<string[]>([]);
   const controlled =
     openValues !== undefined && onOpenValuesChange !== undefined;
-  const prevOpenRef = useRef<string[]>(openValues ?? []);
+  const resolvedOpenValues = controlled ? openValues : internalOpenValues;
+  const setResolvedOpenValues = controlled ? onOpenValuesChange! : setInternalOpenValues;
+  const prevOpenRef = useRef<string[]>(resolvedOpenValues ?? []);
+  const allQuestionKeys = useMemo(
+    () => questions.map((q) => q.questionKey),
+    [questions]
+  );
   const questionsByKey = useMemo(
     () => new Map(questions.map((q) => [q.questionKey, q])),
     [questions]
@@ -79,10 +93,22 @@ export function QuestionBrowseAccordion({
       }
 
       prevOpenRef.current = next;
-      if (controlled) onOpenValuesChange(next);
+      setResolvedOpenValues(next);
     },
-    [browseContext, controlled, onOpenValuesChange, questionsByKey]
+    [browseContext, questionsByKey, setResolvedOpenValues]
   );
+
+  const allExpanded =
+    allQuestionKeys.length > 0 &&
+    allQuestionKeys.every((key) => resolvedOpenValues.includes(key));
+
+  function handleExpandAll() {
+    handleOpenChange(allQuestionKeys);
+  }
+
+  function handleCollapseAll() {
+    handleOpenChange([]);
+  }
 
   const itemClassName =
     "rounded-xl border bg-card shadow-sm overflow-hidden not-last:border-b-0";
@@ -91,13 +117,35 @@ export function QuestionBrowseAccordion({
   const contentClassName = "border-t bg-muted/20 pb-0";
 
   return (
-    <Accordion
-      multiple
-      className="flex w-full flex-col gap-3"
-      {...(controlled
-        ? { value: openValues, onValueChange: handleOpenChange }
-        : { onValueChange: handleOpenChange })}
-    >
+    <div className="flex w-full flex-col gap-3">
+      {showExpandControls ? (
+        <div className="flex justify-end gap-2">
+          <Button
+            type="button"
+            variant="outline"
+            size="sm"
+            onClick={handleExpandAll}
+            disabled={allExpanded}
+          >
+            Expand all
+          </Button>
+          <Button
+            type="button"
+            variant="outline"
+            size="sm"
+            onClick={handleCollapseAll}
+            disabled={resolvedOpenValues.length === 0}
+          >
+            Collapse all
+          </Button>
+        </div>
+      ) : null}
+      <Accordion
+        multiple
+        className="flex w-full flex-col gap-3"
+        value={resolvedOpenValues}
+        onValueChange={handleOpenChange}
+      >
       {questions.map((q) => (
         <AccordionItem
           key={q.questionKey}
@@ -123,20 +171,26 @@ export function QuestionBrowseAccordion({
           </AccordionTrigger>
           <AccordionContent className={contentClassName}>
             <div className="flex flex-col gap-4 p-4">
-              <div className="flex justify-end gap-2">
-                <ReportIssueButton question={q} />
-                {showSaveButton ? <SaveButton question={q} /> : null}
-              </div>
+              {!reportButtonInAnswer || showSaveButton ? (
+                <div className="flex justify-end gap-2">
+                  {!reportButtonInAnswer ? (
+                    <ReportIssueButton question={q} />
+                  ) : null}
+                  {showSaveButton ? <SaveButton question={q} /> : null}
+                </div>
+              ) : null}
               <QuestionAccordionDetails
                 question={q}
                 showStem={false}
                 showExamAppearances={false}
                 variant="browse"
+                showReportButton={reportButtonInAnswer}
               />
             </div>
           </AccordionContent>
         </AccordionItem>
       ))}
-    </Accordion>
+      </Accordion>
+    </div>
   );
 }

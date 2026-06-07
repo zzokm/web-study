@@ -1,6 +1,6 @@
 "use client";
 
-import { useCallback, useMemo, useRef } from "react";
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import type { Question } from "@/types/question";
 import { AnalyticsEvents } from "@/lib/analytics-events";
 import { questionAnalyticsParams, trackAnalyticsEvent } from "@/lib/analytics";
@@ -22,8 +22,8 @@ import {
   AccordionTrigger,
 } from "@/components/ui/accordion";
 import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
 import { QuestionAccordionDetails } from "@/components/questions/question-accordion-details";
-import { ReportIssueButton } from "@/components/report/report-issue-button";
 import { QuestionMeta } from "@/components/questions/question-meta";
 import { QuestionStem } from "@/components/questions/question-stem";
 import { cn } from "@/lib/utils";
@@ -58,7 +58,12 @@ export function PracticeResultsAccordion({
     ? questions.filter((q) => isAttemptWrong(q, getAttempt(progress, q.questionKey)))
     : questions;
 
+  const [openValues, setOpenValues] = useState<string[]>([]);
   const prevOpenRef = useRef<string[]>([]);
+  const visibleKeys = useMemo(
+    () => visible.map((q) => q.questionKey),
+    [visible]
+  );
   const questionsByKey = useMemo(
     () => new Map(visible.map((q) => [q.questionKey, q])),
     [visible]
@@ -98,7 +103,19 @@ export function PracticeResultsAccordion({
       }
     }
     prevOpenRef.current = next;
+    setOpenValues(next);
   }, [questionsByKey, progress]);
+
+  const allExpanded =
+    visibleKeys.length > 0 && visibleKeys.every((key) => openValues.includes(key));
+
+  useEffect(() => {
+    setOpenValues((prev) => {
+      const next = prev.filter((key) => visibleKeys.includes(key));
+      prevOpenRef.current = next;
+      return next;
+    });
+  }, [visibleKeys]);
 
   if (visible.length === 0) {
     return (
@@ -117,11 +134,33 @@ export function PracticeResultsAccordion({
   const contentClassName = "border-t bg-muted/20 pb-0";
 
   return (
-    <Accordion
-      multiple
-      className="flex w-full flex-col gap-3"
-      onValueChange={handleOpenChange}
-    >
+    <div className="flex w-full flex-col gap-3">
+      <div className="flex justify-end gap-2">
+        <Button
+          type="button"
+          variant="outline"
+          size="sm"
+          onClick={() => handleOpenChange(visibleKeys)}
+          disabled={allExpanded}
+        >
+          Expand all
+        </Button>
+        <Button
+          type="button"
+          variant="outline"
+          size="sm"
+          onClick={() => handleOpenChange([])}
+          disabled={openValues.length === 0}
+        >
+          Collapse all
+        </Button>
+      </div>
+      <Accordion
+        multiple
+        className="flex w-full flex-col gap-3"
+        value={openValues}
+        onValueChange={handleOpenChange}
+      >
       {visible.map((q) => {
         const attempt = getAttempt(progress, q.questionKey);
         const status = statusFor(q, progress);
@@ -182,9 +221,6 @@ export function PracticeResultsAccordion({
             </AccordionTrigger>
             <AccordionContent className={contentClassName}>
               <div className="flex flex-col gap-4 p-4">
-                <div className="flex justify-end">
-                  <ReportIssueButton question={q} />
-                </div>
                 {thinkingMs != null ? (
                   <p className="text-sm text-muted-foreground">
                     Thinking time:{" "}
@@ -198,12 +234,14 @@ export function PracticeResultsAccordion({
                   showStem={false}
                   showExamAppearances={false}
                   variant="browse"
+                  showReportButton
                 />
               </div>
             </AccordionContent>
           </AccordionItem>
         );
       })}
-    </Accordion>
+      </Accordion>
+    </div>
   );
 }

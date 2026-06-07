@@ -12,6 +12,7 @@ interface QuestionAccordionDetailsProps {
   /** When false, skip exam list (already shown in accordion trigger on browse pages). */
   showExamAppearances?: boolean;
   variant?: "default" | "browse";
+  showReportButton?: boolean;
 }
 
 /** Answer and explanation for browse / results views. */
@@ -21,6 +22,7 @@ export function QuestionAccordionDetails({
   showStem = true,
   showExamAppearances = true,
   variant = "default",
+  showReportButton = false,
 }: QuestionAccordionDetailsProps) {
   return (
     <div className={cn("flex flex-col gap-4", className)}>
@@ -32,7 +34,11 @@ export function QuestionAccordionDetails({
           className="rounded-lg border bg-muted/30 px-4 py-3"
         />
       ) : null}
-      <QuestionDetailSections question={question} variant={variant} />
+      <QuestionDetailSections
+        question={question}
+        variant={variant}
+        showReportButton={showReportButton}
+      />
     </div>
   );
 }
