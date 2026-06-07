@@ -4,11 +4,12 @@ import {
   getAllQuestions,
   getCatalog,
   getExamYears,
+  getLectureMeta,
   getLectureSlugs,
   getQuestionsByExamYear,
   getQuestionsByLectureSlug,
   getQuestionsByLectureSlugRaw,
-  getRepetitiveFileQuestions,
+  getRepeatedStemQuestions,
   getRepetitiveStats,
   getStats,
 } from "@/lib/questions";
@@ -31,6 +32,7 @@ export interface LectureYieldRow {
   slug: string;
   count: number;
   share: number;
+  track: string;
 }
 
 export interface PoolByYearRow {
@@ -46,18 +48,12 @@ export interface RepeatedStemRow {
   correctAnswerId: string;
   questionType: string;
   topic: string;
-  chapterNumber: number | null;
-  lectureSlug: string;
+  lectureIds: string[];
+  lectureLabels: string[];
   questionText: string;
   questionKey: string;
 }
 
-export function chapterNumberFromTopic(topic: string): number | null {
-  const match = topic.match(/Chapter\s+(\d+)/i);
-  return match ? parseInt(match[1], 10) : null;
-}
-
-/** Hash target for /repetitive/ deep-link (expand + scroll). */
 export function repetitiveQuestionHash(questionKey: string): string {
   return encodeURIComponent(questionKey);
 }
@@ -68,6 +64,7 @@ export function repetitiveQuestionHref(questionKey: string): string {
 
 export interface YearLectureRow {
   lecture: string;
+  slug: string;
   count: number;
   trueFalse: number;
   mcq: number;
@@ -114,7 +111,7 @@ export interface ExamAnalysisData {
   lectureYieldTotals: { unique: number; all: number };
   poolByLecture: PoolByYearRow[];
   repeatedStems: RepeatedStemRow[];
-  fourExamHighlight: RepeatedStemRow | null;
+  allExamsHighlight: RepeatedStemRow | null;
   yearLectureBreakdown: Record<string, YearLectureRow[]>;
   yearFormat: YearFormatRow[];
   itemPatterns: {
@@ -123,25 +120,26 @@ export interface ExamAnalysisData {
     fillInBlank: number;
     trueFalseNegation: number;
     trueFalseShare: number;
+    codeContext: number;
+    codeOptions: number;
   };
   themes: ThemeRow[];
   correctAnswerDistributionByYear: Record<string, CorrectAnswerDistribution>;
 }
 
 const THEME_RULES: Array<{ theme: string; test: (text: string) => boolean }> = [
-  { theme: "HTML & DOM", test: (t) => /html|dom|element|attribute|tag/i.test(t) },
-  { theme: "CSS", test: (t) => /css|stylesheet|selector|margin|padding/i.test(t) },
+  { theme: "HTML & DOM", test: (t) => /html|dom|element|attribute|tag|anchor/i.test(t) },
+  { theme: "CSS", test: (t) => /css|stylesheet|selector|margin|padding|font/i.test(t) },
   {
     theme: "JavaScript",
-    test: (t) => /javascript|js\b|typeof|function|variable|array|object/i.test(t),
+    test: (t) => /javascript|js\b|typeof|function|variable|array|object|ajax/i.test(t),
   },
-  { theme: "HTTP & URLs", test: (t) => /http|url|status code|request|response|method/i.test(t) },
-  { theme: "Django", test: (t) => /django|mvt|model|view|template|admin/i.test(t) },
-  { theme: "Python", test: (t) => /python|oop|class|file handling/i.test(t) },
-  { theme: "AJAX", test: (t) => /ajax|xmlhttp|fetch|async/i.test(t) },
+  { theme: "HTTP & URLs", test: (t) => /http|url|status code|request|response|method|cookie/i.test(t) },
+  { theme: "Django", test: (t) => /django|mvt|model|view|template|admin|migration/i.test(t) },
+  { theme: "Python", test: (t) => /python|oop|class|tuple|import\b/i.test(t) },
   {
     theme: "Networking",
-    test: (t) => /protocol|tcp|ip\b|dns|internet/i.test(t),
+    test: (t) => /protocol|tcp|ip\b|dns|internet|smtp/i.test(t),
   },
 ];
 
@@ -157,7 +155,7 @@ function isFillInBlank(text: string): boolean {
 }
 
 function isTrueFalseNegation(text: string): boolean {
-  return /\b(not|never|only|unlike|avoid)\b/i.test(text);
+  return /\b(not|never|only|unlike|avoid|false)\b/i.test(text);
 }
 
 function trueFalseCorrectLabel(q: Question): "True" | "False" | null {
@@ -230,10 +228,38 @@ function buildLectureYield(
         slug: f.slug,
         count,
         share: Math.round((count / total) * 1000) / 10,
+        track: f.track,
       };
     })
     .sort((a, b) => b.count - a.count)
     .map((row, i) => ({ ...row, rank: i + 1 }));
+}
+
+function lectureLabelsForQuestion(
+  question: Question,
+  lectureMeta: ReturnType<typeof getLectureMeta>
+): { ids: string[]; labels: string[] } {
+  const ids = [...new Set(question.relatedTopics ?? [])];
+  const labels = ids.map((id) => lectureMeta[id]?.topic ?? id);
+  return { ids, labels };
+}
+
+function mapRepeatedStem(
+  q: Question,
+  lectureMeta: ReturnType<typeof getLectureMeta>
+): RepeatedStemRow {
+  const { ids, labels } = lectureLabelsForQuestion(q, lectureMeta);
+  return {
+    instanceCount: q.instanceCount ?? q.origins?.length ?? 2,
+    origins: q.origins ?? [q.origin],
+    correctAnswerId: q.correctAnswerId,
+    questionType: q.questionType,
+    topic: q.topic,
+    lectureIds: ids,
+    lectureLabels: labels,
+    questionText: q.questionText,
+    questionKey: q.questionKey,
+  };
 }
 
 export function buildExamAnalysis(): ExamAnalysisData {
@@ -242,6 +268,8 @@ export function buildExamAnalysis(): ExamAnalysisData {
   const questions = getAllQuestions();
   const total = questions.length || 1;
   const years = getExamYears();
+  const lectureMeta = getLectureMeta();
+  const examCount = years.length;
 
   const examYears: ExamYearRow[] = years.map((year) => ({
     year,
@@ -251,6 +279,8 @@ export function buildExamAnalysis(): ExamAnalysisData {
   const typeCounts = { mcq: 0, true_false: 0, other: 0 };
   let fillInBlank = 0;
   let trueFalseNegation = 0;
+  let codeContext = 0;
+  let codeOptions = 0;
 
   for (const q of questions) {
     const t = normalizeType(q);
@@ -259,6 +289,8 @@ export function buildExamAnalysis(): ExamAnalysisData {
     if (t === "true_false" && isTrueFalseNegation(q.questionText)) {
       trueFalseNegation++;
     }
+    if (q.context?.code) codeContext++;
+    if (q.options.some((o) => o.type === "code")) codeOptions++;
   }
 
   const typeMix: TypeMixRow[] = (
@@ -304,38 +336,35 @@ export function buildExamAnalysis(): ExamAnalysisData {
     };
   });
 
-  const repetitive = getRepetitiveFileQuestions();
+  const repetitive = getRepeatedStemQuestions();
   const repeatedStems: RepeatedStemRow[] = repetitive
-    .map((q) => ({
-      instanceCount: q.instanceCount ?? q.origins?.length ?? 2,
-      origins: q.origins ?? [q.origin],
-      correctAnswerId: q.correctAnswerId,
-      questionType: q.questionType,
-      topic: q.topic,
-      chapterNumber: chapterNumberFromTopic(q.topic),
-      lectureSlug: q.lectureSlug,
-      questionText: q.questionText,
-      questionKey: q.questionKey,
-    }))
+    .map((q) => mapRepeatedStem(q, lectureMeta))
     .sort((a, b) => b.instanceCount - a.instanceCount);
 
-  const fourExamHighlight =
-    repeatedStems.find((r) => r.instanceCount >= 4) ?? null;
+  const allExamsHighlight =
+    repeatedStems.find((r) => r.origins.length >= examCount) ?? null;
 
   const yearLectureBreakdown: Record<string, YearLectureRow[]> = {};
   for (const year of years) {
     const byLecture = new Map<string, YearLectureRow>();
     for (const q of getQuestionsByExamYear(year)) {
-      const existing = byLecture.get(q.topic) ?? {
-        lecture: q.topic,
-        count: 0,
-        trueFalse: 0,
-        mcq: 0,
-      };
-      existing.count++;
-      if (normalizeType(q) === "true_false") existing.trueFalse++;
-      else if (normalizeType(q) === "mcq") existing.mcq++;
-      byLecture.set(q.topic, existing);
+      const lectureIds = q.relatedTopics?.length
+        ? q.relatedTopics
+        : ["unmapped"];
+      for (const lectureId of lectureIds) {
+        const label = lectureMeta[lectureId]?.topic ?? lectureId;
+        const existing = byLecture.get(lectureId) ?? {
+          lecture: label,
+          slug: lectureId,
+          count: 0,
+          trueFalse: 0,
+          mcq: 0,
+        };
+        existing.count++;
+        if (normalizeType(q) === "true_false") existing.trueFalse++;
+        else if (normalizeType(q) === "mcq") existing.mcq++;
+        byLecture.set(lectureId, existing);
+      }
     }
     yearLectureBreakdown[year] = [...byLecture.values()].sort(
       (a, b) => b.count - a.count
@@ -366,7 +395,7 @@ export function buildExamAnalysis(): ExamAnalysisData {
     );
     let themeTotal = 0;
     for (const q of questions) {
-      const hay = `${q.questionText} ${q.topic}`;
+      const hay = `${q.questionText} ${q.topic} ${q.explanation}`;
       if (!test(hay)) continue;
       themeTotal++;
       byYear[q.origin] = (byYear[q.origin] ?? 0) + 1;
@@ -397,7 +426,7 @@ export function buildExamAnalysis(): ExamAnalysisData {
     lectureYieldTotals,
     poolByLecture,
     repeatedStems,
-    fourExamHighlight,
+    allExamsHighlight,
     yearLectureBreakdown,
     yearFormat,
     itemPatterns: {
@@ -409,6 +438,8 @@ export function buildExamAnalysis(): ExamAnalysisData {
         typeCounts.true_false > 0
           ? Math.round((trueFalseNegation / typeCounts.true_false) * 100)
           : 0,
+      codeContext,
+      codeOptions,
     },
     themes,
     correctAnswerDistributionByYear,

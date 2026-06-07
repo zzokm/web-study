@@ -16,6 +16,8 @@ import {
   parseBlockContext,
   parseQuestionText,
 } from "./parse-question-content.mjs";
+import { buildRepetitiveCatalog } from "./stem-match.mjs";
+import { writeExamAnalysisMarkdown } from "./write-exam-analysis-md.mjs";
 
 const WEB_ROOT = join(dirname(fileURLToPath(import.meta.url)), "..");
 const REPO_ROOT = join(WEB_ROOT, "..");
@@ -208,28 +210,32 @@ function main() {
     writeFileSync(dest, JSON.stringify(flattened, null, 2), "utf8");
   }
 
-  const repetitive = {
-    questions: [],
-    uniqueRepeatedStems: 0,
-  };
+  const repetitive = buildRepetitiveCatalog(questions);
   writeFileSync(
     join(publicData, "repetitive-questions.json"),
-    JSON.stringify(repetitive, null, 2),
+    JSON.stringify(
+      {
+        title: "Repetitive questions",
+        description:
+          "Stems that appear in more than one final with the same keyed answer.",
+        uniqueRepeatedStems: repetitive.uniqueRepeatedStems,
+        questions: repetitive.questions,
+      },
+      null,
+      2
+    ),
     "utf8"
   );
 
-  const analysisSrc = join(REPO_ROOT, "data", "analysis", "exam-question-analysis.md");
-  if (existsSync(analysisSrc)) {
-    copy(analysisSrc, join(publicData, "analysis.md"));
-  }
+  const generatedAt = new Date().toISOString();
 
   const catalog = {
-    generatedAt: new Date().toISOString(),
+    generatedAt,
     stats: {
       totalQuestions: questions.length,
       lectures: Object.keys(lectureMeta).length,
       exams: Object.keys(examMeta).length,
-      repetitive: 0,
+      repetitive: repetitive.uniqueRepeatedStems,
     },
     examYears: ["2021", "2024", "2025"],
     tracks: manifest.tracks,
@@ -238,7 +244,7 @@ function main() {
     questions,
     byExamYear,
     byLectureSlug,
-    repetitiveKeys: [],
+    repetitiveKeys: repetitive.repetitiveKeys,
     questionByKey,
   };
 
@@ -252,6 +258,15 @@ function main() {
     JSON.stringify(catalog, null, 2),
     "utf8"
   );
+
+  writeExamAnalysisMarkdown({
+    catalog,
+    repetitive: {
+      questions: repetitive.questions,
+      uniqueRepeatedStems: repetitive.uniqueRepeatedStems,
+    },
+    generatedAt,
+  });
 
   console.log(
     `Synced ${questions.length} questions, ${Object.keys(lectureMeta).length} lectures, ${Object.keys(examMeta).length} exam PDFs.`

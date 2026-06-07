@@ -1,6 +1,6 @@
 import type { Question } from "@/types/question";
 
-export const EXAM_YEAR_ORDER = ["2019", "2021", "2024", "2025"] as const;
+export const EXAM_YEAR_ORDER = ["2021", "2024", "2025"] as const;
 
 export type ExamAppearance = NonNullable<Question["appearances"]>[number];
 

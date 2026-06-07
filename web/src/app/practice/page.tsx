@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { metadataTitle } from "@/lib/analytics-page-titles";
-import { getExamYears } from "@/lib/questions";
+import { getExamYears, getRepetitiveStats } from "@/lib/questions";
 import { LectureQuestionLinkList } from "@/components/questions/lecture-question-link-list";
 
 export const metadata: Metadata = {
@@ -12,6 +12,7 @@ import { Card, CardDescription, CardHeader, CardTitle } from "@/components/ui/ca
 
 export default function PracticeIndexPage() {
   const years = getExamYears();
+  const repetitiveCount = getRepetitiveStats();
 
   return (
     <div className="mx-auto flex max-w-3xl flex-col gap-6">
@@ -49,7 +50,11 @@ export default function PracticeIndexPage() {
         <Card className="transition-colors hover:bg-muted/50">
           <CardHeader>
             <CardTitle className="text-base">Repetitive questions only</CardTitle>
-            <CardDescription>25 high-yield repeated stems</CardDescription>
+            <CardDescription>
+              {repetitiveCount > 0
+                ? `${repetitiveCount} cross-exam repeated stems`
+                : "Repeated stems across finals"}
+            </CardDescription>
           </CardHeader>
         </Card>
       </Link>

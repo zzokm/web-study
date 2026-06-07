@@ -61,9 +61,13 @@ export function CodeBlock({
   showLanguage = true,
   className,
 }: CodeBlockProps) {
-  const [html, setHtml] = useState<string | null>(null);
   const lines = useMemo(() => code.replace(/\n$/, "").split("\n"), [code]);
   const resolvedLanguage = resolveHighlightLanguage(language, code);
+  const highlightKey = `${resolvedLanguage}:${code}`;
+  const [highlightState, setHighlightState] = useState<{
+    key: string;
+    html: string | null;
+  }>({ key: "", html: null });
 
   useEffect(() => {
     let cancelled = false;
@@ -75,19 +79,25 @@ export function CodeBlock({
           lang: resolvedLanguage,
           theme: "dark-plus",
         });
-        if (!cancelled) setHtml(highlighted);
+        if (!cancelled) {
+          setHighlightState({ key: highlightKey, html: highlighted });
+        }
       } catch {
-        if (!cancelled) setHtml(null);
+        if (!cancelled) {
+          setHighlightState({ key: highlightKey, html: null });
+        }
       }
     }
 
-    setHtml(null);
     void highlight();
 
     return () => {
       cancelled = true;
     };
-  }, [code, resolvedLanguage]);
+  }, [code, resolvedLanguage, highlightKey]);
+
+  const html =
+    highlightState.key === highlightKey ? highlightState.html : null;
 
   return (
     <div

@@ -1,6 +1,6 @@
 import type { Catalog, LectureMeta, Question } from "@/types/question";
 import { sortExamAppearances } from "@/lib/question-appearances";
-import { clusterByRepetitionKey, normQuestionText, repetitionKey } from "@/lib/stem-match";
+import { clusterByRepetitionKey, groupByRepetitionKey } from "@/lib/stem-match";
 import catalogJson from "@/data/generated/catalog.json";
 import repetitiveJson from "../../public/data/repetitive-questions.json";
 
@@ -172,10 +172,31 @@ export function getCorrectAnswerDisplay(question: Question): {
   };
 }
 
-export function getRepetitiveQuestions(): Question[] {
-  return catalog.repetitiveKeys
+export function getRepeatedStemQuestions(): Question[] {
+  const fromKeys = catalog.repetitiveKeys
     .map((k) => catalog.questionByKey[k])
     .filter(Boolean);
+
+  if (fromKeys.length > 0) {
+    return fromKeys.map((q) => {
+      const fileQ = repetitiveJson as {
+        questions: Array<Record<string, unknown>>;
+      };
+      const raw = fileQ.questions.find(
+        (r) => (r as unknown as Question).questionKey === q.questionKey
+      );
+      if (!raw) return q;
+      return { ...q, ...repetitiveMetaFromRaw(raw) };
+    });
+  }
+
+  return groupByRepetitionKey(catalog.questions)
+    .map((group) => mergeDuplicateStemGroup(group))
+    .sort((a, b) => (b.instanceCount ?? 0) - (a.instanceCount ?? 0));
+}
+
+export function getRepetitiveQuestions(): Question[] {
+  return getRepeatedStemQuestions();
 }
 
 function repetitiveMetaFromRaw(raw: Record<string, unknown>) {
@@ -188,38 +209,15 @@ function repetitiveMetaFromRaw(raw: Record<string, unknown>) {
 }
 
 export function getRepetitiveFileQuestions(): Question[] {
-  const data = repetitiveJson as { questions: Array<Record<string, unknown>> };
-  return data.questions.map((raw) => {
-    const q = raw as unknown as Question;
-    const questionKey =
-      q.questionKey ?? `${q.origin}:${q.sourceQuestionId || q.id}`;
-    const meta = repetitiveMetaFromRaw(raw);
-    const fromCatalog = catalog.questionByKey[questionKey];
-    if (fromCatalog) {
-      return { ...fromCatalog, ...meta };
-    }
-    return {
-      ...q,
-      ...meta,
-      questionKey,
-      lectureSlug: q.lectureSlug ?? slugFromTopic(q.topic),
-      examOrder: q.examOrder ?? 0,
-    };
-  });
-}
-
-function slugFromTopic(topic: string): string {
-  return topic
-    .toLowerCase()
-    .replace(/[^\w\s-]/g, "")
-    .trim()
-    .replace(/\s+/g, "-")
-    .slice(0, 80);
+  return getRepeatedStemQuestions();
 }
 
 export function getRepetitiveStats() {
-  const data = repetitiveJson as { uniqueRepeatedStems: number };
-  return data.uniqueRepeatedStems;
+  if (catalog.stats.repetitive != null) {
+    return catalog.stats.repetitive;
+  }
+  const data = repetitiveJson as { uniqueRepeatedStems?: number };
+  return data.uniqueRepeatedStems ?? getRepeatedStemQuestions().length;
 }
 
 export function getLectureIdList(): string[] {

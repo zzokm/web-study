@@ -1,7 +1,7 @@
 "use client";
 
 import dynamic from "next/dynamic";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { GitHubIcon } from "@/components/icons/github-icon";
 import { getExamPhase } from "@/lib/exam-start";
 import {
@@ -20,12 +20,7 @@ const ExamConfetti = dynamic(
 );
 
 export function ExamPostCelebration() {
-  const [visible, setVisible] = useState(false);
-
-  useEffect(() => {
-    if (getExamPhase() !== "after") return;
-    setVisible(true);
-  }, []);
+  const [visible] = useState(() => getExamPhase() === "after");
 
   if (!visible) return null;
 

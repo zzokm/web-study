@@ -33,17 +33,23 @@ function formatGeneratedAt(iso: string) {
 }
 
 function truncate(text: string, max = 72) {
-  if (text.length <= max) return text;
-  return `${text.slice(0, max).trim()}…`;
+  const line = text.split("\n")[0];
+  if (line.length <= max) return line;
+  return `${line.slice(0, max).trim()}…`;
 }
 
-const CORRECT_ANSWER_YEAR_TABS = ["all", "2025", "2024", "2021", "2019"] as const;
-const LECTURE_YIELD_MODES = ["unique", "all"] as const;
+const CORRECT_ANSWER_YEAR_TABS = ["all", "2025", "2024", "2021"] as const;
+type LectureYieldMode = "unique" | "all";
+
+function shortLectureName(name: string, max = 18) {
+  if (name.length <= max) return name;
+  return `${name.slice(0, max - 1)}…`;
+}
 
 export function ExamAnalysisDashboard({ data }: { data: ExamAnalysisData }) {
   const { stats } = data;
   const [answerYear, setAnswerYear] = useState<string>("all");
-  const [yieldMode, setYieldMode] = useState<(typeof LECTURE_YIELD_MODES)[number]>("unique");
+  const [yieldMode, setYieldMode] = useState<LectureYieldMode>("unique");
   const answerDistribution =
     data.correctAnswerDistributionByYear[answerYear] ??
     data.correctAnswerDistributionByYear.all;
@@ -55,27 +61,28 @@ export function ExamAnalysisDashboard({ data }: { data: ExamAnalysisData }) {
     yieldMode === "unique"
       ? data.lectureYieldTotals.unique
       : data.lectureYieldTotals.all;
-  const chartLectures = lectureYieldRows.slice(0, 8).map((r) => ({
-    name: `Ch ${r.slug.match(/chapter-(\d+)/)?.[1] ?? "?"}`,
+  const topLectures = lectureYieldRows.slice(0, 8).map((r) => ({
+    name: shortLectureName(r.lecture),
     count: r.count,
     full: r.lecture,
   }));
+  const topStudyLectures = lectureYieldRows.slice(0, 5);
 
   return (
     <div className="flex flex-col gap-10">
       <section className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
-        <StatCard label="Total questions" value={stats.totalQuestions} />
-        <StatCard label="Lecture chapters" value={stats.lectures} />
-        <StatCard label="Exam years" value={stats.exams} />
+        <StatCard label="Unique questions" value={stats.totalQuestions} />
+        <StatCard label="Exam instances" value={stats.totalExamInstances ?? 0} />
+        <StatCard label="Lectures" value={stats.lectures} />
         <StatCard label="Repeated stems" value={stats.repetitive} />
       </section>
 
       <section className="flex flex-col gap-4">
         <SectionHeading
           title="Exams at a glance"
-          description="Question counts from 2019, 2021, 2024, and 2025 finals."
+          description="Question counts from the 2021, 2024, and 2025 Web Technology finals."
         />
-        <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
+        <div className="grid gap-3 sm:grid-cols-3">
           {data.examYears.map(({ year, count }) => (
             <Card key={year}>
               <CardHeader className="pb-2">
@@ -104,7 +111,7 @@ export function ExamAnalysisDashboard({ data }: { data: ExamAnalysisData }) {
         <Card>
           <CardHeader>
             <CardTitle className="text-lg">Question formats</CardTitle>
-            <CardDescription>Share of the combined pool</CardDescription>
+            <CardDescription>Share of all exam instances combined</CardDescription>
           </CardHeader>
           <CardContent className="flex flex-col gap-4">
             {data.typeMix.map((row) => (
@@ -124,7 +131,7 @@ export function ExamAnalysisDashboard({ data }: { data: ExamAnalysisData }) {
         <Card>
           <CardHeader>
             <CardTitle className="text-lg">Format shift by year</CardTitle>
-            <CardDescription>True/false share per exam</CardDescription>
+            <CardDescription>True/false share per final</CardDescription>
           </CardHeader>
           <CardContent>
             <AnalysisChart height={220}>
@@ -138,15 +145,17 @@ export function ExamAnalysisDashboard({ data }: { data: ExamAnalysisData }) {
                   <CartesianGrid strokeDasharray="3 3" className="stroke-border" />
                   <XAxis dataKey="year" tick={{ fontSize: 12 }} />
                   <YAxis tick={{ fontSize: 12 }} unit="%" />
-                  <Tooltip
-                    formatter={(value) => [`${value ?? 0}%`, "T/F share"]}
+                  <Tooltip formatter={(value) => [`${value ?? 0}%`, "T/F share"]} />
+                  <Bar
+                    dataKey="trueFalseShare"
+                    fill="hsl(var(--chart-1))"
+                    radius={[4, 4, 0, 0]}
                   />
-                  <Bar dataKey="trueFalseShare" fill="hsl(var(--chart-1))" radius={[4, 4, 0, 0]} />
                 </BarChart>
               )}
             </AnalysisChart>
             <p className="mt-3 text-xs text-muted-foreground">
-              2024–2025 lean heavily toward MCQ; 2021 is an even split.
+              2024 and 2025 are MCQ-heavy; 2021 mixes more true/false with multiple choice.
             </p>
           </CardContent>
         </Card>
@@ -158,7 +167,7 @@ export function ExamAnalysisDashboard({ data }: { data: ExamAnalysisData }) {
           description={`How often each option is the keyed correct answer for ${answerYearLabel}.`}
         />
         <Tabs value={answerYear} onValueChange={setAnswerYear}>
-          <TabsList className="flex flex-wrap h-auto gap-1">
+          <TabsList className="flex h-auto flex-wrap gap-1">
             {CORRECT_ANSWER_YEAR_TABS.map((year) => (
               <TabsTrigger key={year} value={year}>
                 {year === "all" ? "All" : year}
@@ -216,17 +225,17 @@ export function ExamAnalysisDashboard({ data }: { data: ExamAnalysisData }) {
       <section className="flex flex-col gap-4">
         <div className="flex flex-col gap-3 sm:flex-row sm:items-end sm:justify-between">
           <SectionHeading
-            title="Highest-yield chapters"
+            title="Highest-yield lectures"
             description={
               yieldMode === "unique"
-                ? `Chapters ranked by unique stems (${lectureYieldTotal} questions after deduplication).`
-                : `Chapters ranked by every exam appearance (${lectureYieldTotal} total, including repeats).`
+                ? `Lectures ranked by unique stems (${lectureYieldTotal} questions after deduplication).`
+                : `Lectures ranked by every exam appearance (${lectureYieldTotal} total, including repeats).`
             }
           />
           <Tabs
             value={yieldMode}
             onValueChange={(value) =>
-              setYieldMode(value as (typeof LECTURE_YIELD_MODES)[number])
+              setYieldMode(value as LectureYieldMode)
             }
           >
             <TabsList className="flex h-auto flex-wrap gap-1">
@@ -246,13 +255,18 @@ export function ExamAnalysisDashboard({ data }: { data: ExamAnalysisData }) {
                 <BarChart
                   width={width}
                   height={height}
-                  data={chartLectures}
+                  data={topLectures}
                   layout="vertical"
                   margin={{ top: 4, right: 16, left: 8, bottom: 4 }}
                 >
                   <CartesianGrid strokeDasharray="3 3" className="stroke-border" />
                   <XAxis type="number" tick={{ fontSize: 11 }} />
-                  <YAxis type="category" dataKey="name" width={36} tick={{ fontSize: 11 }} />
+                  <YAxis
+                    type="category"
+                    dataKey="name"
+                    width={88}
+                    tick={{ fontSize: 11 }}
+                  />
                   <Tooltip
                     labelFormatter={(_, payload) =>
                       payload?.[0]?.payload?.full ?? ""
@@ -270,6 +284,7 @@ export function ExamAnalysisDashboard({ data }: { data: ExamAnalysisData }) {
               <TableRow>
                 <TableHead className="w-12">#</TableHead>
                 <TableHead>Lecture</TableHead>
+                <TableHead>Track</TableHead>
                 <TableHead className="text-right">Questions</TableHead>
                 <TableHead className="text-right">Share</TableHead>
                 <TableHead className="w-[88px]" />
@@ -282,6 +297,9 @@ export function ExamAnalysisDashboard({ data }: { data: ExamAnalysisData }) {
                     {row.rank}
                   </TableCell>
                   <TableCell className="font-medium">{row.lecture}</TableCell>
+                  <TableCell className="capitalize text-muted-foreground">
+                    {row.track}
+                  </TableCell>
                   <TableCell className="text-right tabular-nums">{row.count}</TableCell>
                   <TableCell className="text-right tabular-nums text-muted-foreground">
                     {row.share}%
@@ -304,8 +322,8 @@ export function ExamAnalysisDashboard({ data }: { data: ExamAnalysisData }) {
 
       <section className="flex flex-col gap-4">
         <SectionHeading
-          title="Questions per chapter by exam year"
-          description="How each final samples the chapters."
+          title="Questions per lecture by exam year"
+          description="How each final samples the lecture pool (questions may map to multiple lectures)."
         />
         <div className="overflow-x-auto rounded-lg border">
           <Table>
@@ -326,7 +344,10 @@ export function ExamAnalysisDashboard({ data }: { data: ExamAnalysisData }) {
                   <TableCell className="max-w-[240px] font-medium">{row.lecture}</TableCell>
                   <TableCell className="text-right tabular-nums">{row.total}</TableCell>
                   {data.examYears.map((e) => (
-                    <TableCell key={e.year} className="text-right tabular-nums text-muted-foreground">
+                    <TableCell
+                      key={e.year}
+                      className="text-right tabular-nums text-muted-foreground"
+                    >
                       {row.byYear[e.year] ?? 0}
                     </TableCell>
                   ))}
@@ -341,26 +362,37 @@ export function ExamAnalysisDashboard({ data }: { data: ExamAnalysisData }) {
         <div className="flex flex-wrap items-end justify-between gap-3">
           <SectionHeading
             title="Cross-exam repetition"
-            description={`${data.uniqueRepeatedStems} stems appear verbatim in more than one exam — strongest review priority.`}
+            description={
+              data.uniqueRepeatedStems > 0
+                ? `${data.uniqueRepeatedStems} stems repeat across finals with the same keyed answer.`
+                : "No verbatim cross-exam repeats were detected with the current stem matcher."
+            }
           />
-          <LinkButton href="/repetitive/">All repetitive questions</LinkButton>
-          <LinkButton href="/practice/repetitive/" variant="outline">
-            Practice repetitive set
-          </LinkButton>
+          {data.uniqueRepeatedStems > 0 ? (
+            <>
+              <LinkButton href="/repetitive/">All repetitive questions</LinkButton>
+              <LinkButton href="/practice/repetitive/" variant="outline">
+                Practice repetitive set
+              </LinkButton>
+            </>
+          ) : null}
         </div>
 
-        {data.fourExamHighlight ? (
+        {data.allExamsHighlight ? (
           <Card className="border-amber-500/40 bg-amber-500/5">
             <CardHeader>
-              <CardTitle className="text-base">Appeared in all four exams</CardTitle>
-              <CardDescription>{data.fourExamHighlight.topic}</CardDescription>
+              <CardTitle className="text-base">Appeared in all three finals</CardTitle>
+              <CardDescription>
+                {data.allExamsHighlight.lectureLabels.join(" · ") ||
+                  data.allExamsHighlight.topic}
+              </CardDescription>
             </CardHeader>
             <CardContent className="flex flex-col gap-3">
               <p className="text-sm leading-relaxed">
-                {data.fourExamHighlight.questionText}
+                {truncate(data.allExamsHighlight.questionText, 200)}
               </p>
               <LinkButton
-                href={repetitiveQuestionHref(data.fourExamHighlight.questionKey)}
+                href={repetitiveQuestionHref(data.allExamsHighlight.questionKey)}
                 variant="outline"
                 size="sm"
                 className="w-fit"
@@ -371,61 +403,72 @@ export function ExamAnalysisDashboard({ data }: { data: ExamAnalysisData }) {
           </Card>
         ) : null}
 
-        <div className="overflow-x-auto rounded-lg border">
-          <Table>
-            <TableHeader>
-              <TableRow>
-                <TableHead className="w-28 text-right">Occurrences</TableHead>
-                <TableHead>Years</TableHead>
-                <TableHead className="w-16 text-center">Ch.</TableHead>
-                <TableHead>Question</TableHead>
-                <TableHead className="w-[88px]" />
-              </TableRow>
-            </TableHeader>
-            <TableBody>
-              {data.repeatedStems.slice(0, 15).map((row) => (
-                <TableRow key={row.questionKey}>
-                  <TableCell className="text-right font-medium tabular-nums">
-                    {row.instanceCount}
-                  </TableCell>
-                  <TableCell>
-                    <div className="flex flex-wrap gap-1">
-                      {row.origins.map((o) => (
-                        <Badge key={o} variant="secondary" className="text-xs">
-                          {o}
-                        </Badge>
-                      ))}
-                    </div>
-                  </TableCell>
-                  <TableCell className="text-center tabular-nums text-muted-foreground">
-                    {row.chapterNumber ?? "—"}
-                  </TableCell>
-                  <TableCell className="max-w-md text-sm">
-                    {truncate(row.questionText)}
-                  </TableCell>
-                  <TableCell>
-                    <LinkButton
-                      href={repetitiveQuestionHref(row.questionKey)}
-                      variant="outline"
-                      size="sm"
-                    >
-                      View
-                    </LinkButton>
-                  </TableCell>
+        {data.repeatedStems.length > 0 ? (
+          <div className="overflow-x-auto rounded-lg border">
+            <Table>
+              <TableHeader>
+                <TableRow>
+                  <TableHead className="w-28 text-right">Occurrences</TableHead>
+                  <TableHead>Years</TableHead>
+                  <TableHead>Lectures</TableHead>
+                  <TableHead>Question</TableHead>
+                  <TableHead className="w-[88px]" />
                 </TableRow>
-              ))}
-            </TableBody>
-          </Table>
-        </div>
+              </TableHeader>
+              <TableBody>
+                {data.repeatedStems.map((row) => (
+                  <TableRow key={row.questionKey}>
+                    <TableCell className="text-right font-medium tabular-nums">
+                      {row.instanceCount}
+                    </TableCell>
+                    <TableCell>
+                      <div className="flex flex-wrap gap-1">
+                        {row.origins.map((o) => (
+                          <Badge key={o} variant="secondary" className="text-xs">
+                            {o}
+                          </Badge>
+                        ))}
+                      </div>
+                    </TableCell>
+                    <TableCell className="max-w-[180px] text-xs text-muted-foreground">
+                      {row.lectureLabels.length
+                        ? row.lectureLabels.join(", ")
+                        : "—"}
+                    </TableCell>
+                    <TableCell className="max-w-md text-sm">
+                      {truncate(row.questionText)}
+                    </TableCell>
+                    <TableCell>
+                      <LinkButton
+                        href={repetitiveQuestionHref(row.questionKey)}
+                        variant="outline"
+                        size="sm"
+                      >
+                        View
+                      </LinkButton>
+                    </TableCell>
+                  </TableRow>
+                ))}
+              </TableBody>
+            </Table>
+          </div>
+        ) : (
+          <Card>
+            <CardContent className="py-6 text-sm text-muted-foreground">
+              Finals mostly reuse concepts with different wording. Prioritize high-yield
+              lectures and thematic clusters instead of expecting large repeated-stem sets.
+            </CardContent>
+          </Card>
+        )}
       </section>
 
       <section className="flex flex-col gap-4">
         <SectionHeading
-          title="Chapter focus by exam year"
-          description="Which chapters each year emphasized."
+          title="Lecture focus by exam year"
+          description="Allocated lecture coverage emphasized in each final."
         />
-        <Tabs defaultValue={data.examYears[0]?.year ?? "2019"}>
-          <TabsList className="flex flex-wrap h-auto gap-1">
+        <Tabs defaultValue={data.examYears[0]?.year ?? "2021"}>
+          <TabsList className="flex h-auto flex-wrap gap-1">
             {data.examYears.map((e) => (
               <TabsTrigger key={e.year} value={e.year}>
                 {e.year}
@@ -446,7 +489,7 @@ export function ExamAnalysisDashboard({ data }: { data: ExamAnalysisData }) {
                   </TableHeader>
                   <TableBody>
                     {(data.yearLectureBreakdown[e.year] ?? []).map((row) => (
-                      <TableRow key={row.lecture}>
+                      <TableRow key={row.slug}>
                         <TableCell className="font-medium">{row.lecture}</TableCell>
                         <TableCell className="text-right tabular-nums">{row.count}</TableCell>
                         <TableCell className="text-right tabular-nums text-muted-foreground">
@@ -481,8 +524,16 @@ export function ExamAnalysisDashboard({ data }: { data: ExamAnalysisData }) {
               value={String(data.itemPatterns.fillInBlank)}
             />
             <PatternRow
-              label="T/F with negation traps"
+              label="T/F with negation wording"
               value={`${data.itemPatterns.trueFalseNegation} (${data.itemPatterns.trueFalseShare}% of T/F)`}
+            />
+            <PatternRow
+              label="Shared code context blocks"
+              value={String(data.itemPatterns.codeContext)}
+            />
+            <PatternRow
+              label="Code answer choices"
+              value={String(data.itemPatterns.codeOptions)}
             />
           </CardContent>
         </Card>
@@ -500,7 +551,9 @@ export function ExamAnalysisDashboard({ data }: { data: ExamAnalysisData }) {
                   <span className="tabular-nums text-muted-foreground">{theme.total}</span>
                 </div>
                 <Progress
-                  value={Math.round((theme.total / stats.totalQuestions) * 100)}
+                  value={Math.round(
+                    (theme.total / (stats.totalExamInstances ?? stats.totalQuestions)) * 100
+                  )}
                   className="h-1.5"
                 />
               </div>
@@ -512,40 +565,46 @@ export function ExamAnalysisDashboard({ data }: { data: ExamAnalysisData }) {
       <section>
         <Card>
           <CardHeader>
-            <CardTitle className="text-lg">Study strategy</CardTitle>
-            <CardDescription>Practical order based on this dataset</CardDescription>
+            <CardTitle className="text-lg">Study priorities</CardTitle>
+            <CardDescription>Practical order based on this Web Technology dataset</CardDescription>
           </CardHeader>
           <CardContent>
             <ol className="list-decimal space-y-2 pl-5 text-sm leading-relaxed text-muted-foreground">
+              {data.uniqueRepeatedStems > 0 ? (
+                <li>
+                  Drill{" "}
+                  <Link href="/repetitive/" className="text-primary hover:underline">
+                    repetitive stems
+                  </Link>{" "}
+                  first — anything that appeared in multiple finals with the same answer.
+                </li>
+              ) : null}
               <li>
-                Drill{" "}
-                <Link href="/repetitive/" className="text-primary hover:underline">
-                  repetitive stems
-                </Link>{" "}
-                first — especially anything that appeared in 3–4 exams.
+                Weight lectures by pool size:{" "}
+                {topStudyLectures.map((l) => l.lecture).join(" → ")}.
               </li>
               <li>
-                Weight chapters by pool size: Ch. 21 → 7 → 18 → 11 → 15 → 8 → 13 → 1; Ch. 2
-                is minimal.
+                For 2024–2025 style exams, practice JavaScript output tracing, DOM APIs, and
+                Django template/model questions.
               </li>
               <li>
-                For 2024–2025 style exams, practice MCQ advantage/disadvantage and
-                completion-style stems.
-              </li>
-              <li>
-                For T/F items, watch negation and swapped definitions (planning vs
-                organizing, skill types).
+                For 2021, review HTTP fundamentals and true/false traps around protocol
+                definitions and caching headers.
               </li>
               <li>
                 Use{" "}
                 <Link href="/by-lecture/" className="text-primary hover:underline">
                   browse by lecture
                 </Link>{" "}
-                and filter mentally by exam year when simulating a specific final.
+                to drill one PDF track at a time, then simulate a full year with{" "}
+                <Link href="/practice/" className="text-primary hover:underline">
+                  practice by exam
+                </Link>
+                .
               </li>
               <li>
-                Keep a one-page map of the four management functions and how exam wording
-                labels them.
+                Review code-context blocks carefully — {data.itemPatterns.codeContext} questions
+                share a snippet and {data.itemPatterns.codeOptions} use code as answer choices.
               </li>
             </ol>
           </CardContent>
@@ -554,7 +613,8 @@ export function ExamAnalysisDashboard({ data }: { data: ExamAnalysisData }) {
 
       <p className="text-center text-xs text-muted-foreground">
         Analysis generated {formatGeneratedAt(data.generatedAt)} from the synced question
-        catalog.
+        catalog ({stats.totalExamInstances ?? 0} instances, {stats.totalQuestions} unique
+        stems).
       </p>
     </div>
   );

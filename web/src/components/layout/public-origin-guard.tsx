@@ -30,6 +30,8 @@ function isChunkLoadFailure(message: string): boolean {
 /** Runs before React so the first paint never stays on :3000/:7821. */
 export function PublicOriginInlineScript() {
   return (
+    // Must run before hydration on public hosts; App Router has no pages/_document.
+    // eslint-disable-next-line @next/next/no-before-interactive-script-outside-document -- origin guard
     <Script id="public-origin-inline" strategy="beforeInteractive">
       {`(function(){var p=location.port,h=location.hostname,b=p==="3000"||p==="7821",l=h==="localhost"||h==="127.0.0.1"||h==="[::1]";function clean(u){try{var x=new URL(u,location.href);if((x.port==="3000"||x.port==="7821")&&x.hostname!=="localhost"&&x.hostname!=="127.0.0.1"){x.port="";return x.toString()}return u}catch(e){return u}}if(b&&!l){location.replace(location.protocol+"//"+h+location.pathname+location.search+location.hash)}document.addEventListener("click",function(e){var t=e.target;if(!t||!t.closest)return;var a=t.closest("a[href]");if(!a||a.target&&a.target!=="_self"||a.hasAttribute("download"))return;var href=a.getAttribute("href");if(!href||href[0]==="#"||href.indexOf("mailto:")===0||href.indexOf("tel:")===0)return;try{var u=new URL(a.href);if((u.port==="3000"||u.port==="7821")&&u.hostname!=="localhost"&&u.hostname!=="127.0.0.1"){e.preventDefault();e.stopPropagation();location.assign(clean(a.href))}}catch(err){}},true);})();`}
     </Script>
