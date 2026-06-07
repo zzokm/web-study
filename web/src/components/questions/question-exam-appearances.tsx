@@ -41,21 +41,24 @@ export function QuestionExamAppearances({
   }
 
   return (
-    <div className={cn("flex flex-col gap-1.5", className)}>
-      <span className="text-xs font-medium text-muted-foreground">
+    <>
+      <span
+        className={cn(
+          "text-xs font-medium text-muted-foreground",
+          className
+        )}
+      >
         Appeared in
       </span>
-      <div className="flex flex-wrap gap-1.5">
-        {appearances.map((a) => (
-          <Badge
-            key={`${a.origin}:${a.sourceQuestionId}`}
-            variant="secondary"
-            className="font-normal tabular-nums"
-          >
-            {formatExamAppearanceLabel(a)}
-          </Badge>
-        ))}
-      </div>
-    </div>
+      {appearances.map((a) => (
+        <Badge
+          key={`${a.origin}:${a.sourceQuestionId}`}
+          variant="secondary"
+          className="font-normal tabular-nums"
+        >
+          {formatExamAppearanceLabel(a)}
+        </Badge>
+      ))}
+    </>
   );
 }
