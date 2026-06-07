@@ -38,10 +38,64 @@ export function resolveHighlightLanguage(
   );
 }
 
+const CODE_INDENT_SIZE = 4;
+
+function detectIndentStep(uniqueIndents: number[]): number {
+  const blockIndents = uniqueIndents.filter((count) => count >= 2);
+  if (blockIndents.includes(4)) return 4;
+  if (blockIndents.includes(3)) return 3;
+  if (blockIndents.includes(2)) return 2;
+
+  for (const candidate of uniqueIndents) {
+    if (uniqueIndents.every((indent) => indent % candidate === 0)) {
+      return candidate;
+    }
+  }
+
+  return blockIndents[0] ?? uniqueIndents[0] ?? CODE_INDENT_SIZE;
+}
+
+/** Re-map exam/PDF indentation to 4-space levels (tabs → 4 spaces). */
+export function normalizeCodeIndentation(
+  code: string,
+  indentSize = CODE_INDENT_SIZE
+): string {
+  const lines = code.replace(/\r\n/g, "\n").split("\n");
+  const expanded = lines.map((line) =>
+    line.replace(/\t/g, " ".repeat(indentSize))
+  );
+
+  const leadingSpaces = expanded.map((line) => {
+    const match = line.match(/^( +)/);
+    return match ? match[1].length : 0;
+  });
+
+  const uniqueIndents = [
+    ...new Set(leadingSpaces.filter((count) => count > 0)),
+  ].sort((a, b) => a - b);
+
+  if (uniqueIndents.length === 0) {
+    return expanded.join("\n");
+  }
+
+  const step = detectIndentStep(uniqueIndents);
+
+  return expanded
+    .map((line, index) => {
+      const content = line.trimStart();
+      if (!content) return "";
+      const level = Math.round(leadingSpaces[index] / step);
+      return `${" ".repeat(level * indentSize)}${content}`;
+    })
+    .join("\n");
+}
+
 export function cleanExamCode(code: string): string {
   const lines = code.replace(/\r\n/g, "\n").split("\n");
   const stripped = lines.map((line) => line.replace(/^\s*\d+\.\s+/, ""));
-  return stripped.join("\n").replace(/\n+$/, "").trimStart();
+  return normalizeCodeIndentation(
+    stripped.join("\n").replace(/\n+$/, "").trimStart()
+  );
 }
 
 export function inferLanguageFromCode(code: string): SupportedCodeLanguage | null {
