@@ -95,7 +95,7 @@ export function PracticeResultsAccordion({
     "rounded-xl border bg-card shadow-sm overflow-hidden not-last:border-b-0";
   const triggerClassName =
     "px-4 py-4 w-full cursor-pointer hover:bg-muted/40 hover:no-underline";
-  const contentClassName = "border-t bg-muted/20";
+  const contentClassName = "border-t bg-muted/20 pb-0";
 
   return (
     <Accordion
@@ -155,8 +155,13 @@ export function PracticeResultsAccordion({
               </div>
             </AccordionTrigger>
             <AccordionContent className={contentClassName}>
-              <div className="p-4">
-                <QuestionAccordionDetails question={q} />
+              <div className="flex flex-col gap-4 p-4">
+                <QuestionAccordionDetails
+                  question={q}
+                  showStem={false}
+                  showExamAppearances={false}
+                  variant="browse"
+                />
               </div>
             </AccordionContent>
           </AccordionItem>

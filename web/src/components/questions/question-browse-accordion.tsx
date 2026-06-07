@@ -4,6 +4,7 @@ import type { ReactNode } from "react";
 import { useCallback, useMemo, useRef } from "react";
 import type { Question } from "@/types/question";
 import type { BrowseContext } from "@/lib/analytics-events";
+import { examQuestionNumberFromId } from "@/lib/question-appearances";
 import { AnalyticsEvents } from "@/lib/analytics-events";
 import { questionAnalyticsParams, trackEvent } from "@/lib/analytics";
 import { cn } from "@/lib/utils";
@@ -91,8 +92,7 @@ export function QuestionBrowseAccordion({
     "rounded-xl border bg-card shadow-sm overflow-hidden not-last:border-b-0";
   const triggerClassName =
     "px-4 py-4 w-full cursor-pointer hover:bg-muted/40 hover:no-underline";
-  const contentClassName =
-    "border-t bg-muted/20 [&>div]:p-0 [&>div]:pb-0";
+  const contentClassName = "border-t bg-muted/20 pb-0";
 
   return (
     <Accordion
@@ -120,8 +120,8 @@ export function QuestionBrowseAccordion({
             <div className="min-w-0 flex-1 text-left">
               <div className="flex flex-col gap-2">
                 {showQuestionIdBadge ? (
-                  <Badge variant="outline" className="w-fit">
-                    {q.id}
+                  <Badge variant="outline" className="w-fit tabular-nums">
+                    Q{examQuestionNumberFromId(q.sourceQuestionId)}
                   </Badge>
                 ) : null}
                 {renderTriggerPrefix?.(q)}
@@ -131,20 +131,16 @@ export function QuestionBrowseAccordion({
             </div>
           </AccordionTrigger>
           <AccordionContent className={contentClassName}>
-            <div className="flex flex-col p-4">
+            <div className="flex flex-col gap-4 p-4">
               {showSaveButton ? (
-                <div className="mb-4 flex justify-end">
+                <div className="flex justify-end">
                   <SaveButton question={q} />
                 </div>
               ) : null}
               <QuestionAccordionDetails
                 question={q}
-                showStem={
-                  browseContext !== "by_lecture" && browseContext !== "by_exam"
-                }
-                showExamAppearances={
-                  browseContext !== "by_lecture" && browseContext !== "by_exam"
-                }
+                showStem={false}
+                showExamAppearances={false}
                 variant="browse"
               />
             </div>
