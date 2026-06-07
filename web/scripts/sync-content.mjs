@@ -99,47 +99,10 @@ function classifyQuestionType(q) {
   return "other";
 }
 
-function hasRenderableBodyMarkup(source) {
-  const body = source.match(/<body[^>]*>([\s\S]*?)<\/body>/i)?.[1] ?? "";
-  const withoutScripts = body.replace(/<script[\s\S]*?<\/script>/gi, "").trim();
-  if (!withoutScripts) {
-    return false;
-  }
-  return (
-    /<(h[1-6]|p|div|button|img|table|ul|ol|input|form|span|section|main)\b/i.test(
-      withoutScripts
-    ) || withoutScripts.replace(/<[^>]+>/g, "").trim().length > 0
-  );
-}
-
 function isPreviewAvailable(source) {
-  const normalized = source.replace(/<!--[\s\S]*?-->/g, "");
-  const hasVisibleOutput =
-    /document\.(write|writeln)|\.innerHTML\s*=|\.textContent\s*=|getElementById\([^)]+\)\.(style|innerHTML|src)|\.style\.(display|color|fontSize)|appendChild/i.test(
-      normalized
-    );
-  const hasInteraction =
-    /<button\b|onclick\s*=|<img\b|onchange\s*=|oninput\s*=|<input\b/i.test(
-      normalized
-    );
-
-  if (hasVisibleOutput || hasInteraction) {
-    return true;
-  }
-
-  const hasPageContent = hasRenderableBodyMarkup(normalized);
-
-  if (/\b(alert|confirm|prompt)\s*\(/i.test(normalized)) {
-    return false;
-  }
-
-  // Console output is not visible inside the iframe — only skip preview when
-  // there is no HTML on the page to show either.
-  if (/console\.(log|warn|error|info|debug)/i.test(normalized)) {
-    return hasPageContent;
-  }
-
-  return true;
+  // Any non-empty example can run in the sandboxed iframe (scripts, alerts,
+  // prompts, and console output all execute on Run).
+  return source.trim().length > 0;
 }
 
 function wrapHtmlIfNeeded(source) {
