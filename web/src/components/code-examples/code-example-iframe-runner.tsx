@@ -27,9 +27,6 @@ export function CodeExampleIframeRunner({
   const iframeRef = useRef<HTMLIFrameElement>(null);
 
   useEffect(() => {
-    const iframe = iframeRef.current;
-    if (!iframe) return;
-
     let cancelled = false;
 
     async function loadExample() {
@@ -37,13 +34,16 @@ export function CodeExampleIframeRunner({
       const html = await response.text();
       if (cancelled) return;
 
+      const currentIframe = iframeRef.current;
+      if (!currentIframe) return;
+
       const prepared = injectConsoleCapture(
         html,
         previewBaseHref(src),
         sessionId
       );
 
-      const doc = iframe.contentDocument;
+      const doc = currentIframe.contentDocument;
       if (!doc) return;
 
       doc.open();
