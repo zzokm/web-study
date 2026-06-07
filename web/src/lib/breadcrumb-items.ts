@@ -151,6 +151,10 @@ export function getBreadcrumbItems(
       });
       return items;
     }
+    if (segments[1] === "mock-exam") {
+      items.push({ label: "Mock exam" });
+      return items;
+    }
     if (segments[1] === "repetitive") {
       items.push({ label: "Repetitive" });
       return items;

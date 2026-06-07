@@ -23,6 +23,25 @@ export default function PracticeIndexPage() {
       </div>
 
       <div>
+        <h2 className="mb-3 text-sm font-medium text-muted-foreground">Mock exam</h2>
+        <HubTrackedLink
+          href="/practice/mock-exam/"
+          hubType="practice"
+          label="Mock exam"
+        >
+          <Card className="mb-6 border-primary/30 bg-primary/5 transition-colors hover:bg-primary/10">
+            <CardHeader>
+              <CardTitle className="text-base">Mock exam</CardTitle>
+              <CardDescription>
+                Generate a new exam from historical lecture mix with custom size
+                and frontend/backend allocation.
+              </CardDescription>
+            </CardHeader>
+          </Card>
+        </HubTrackedLink>
+      </div>
+
+      <div>
         <h2 className="mb-3 text-sm font-medium text-muted-foreground">By exam year</h2>
         <div className="grid gap-3 sm:grid-cols-2">
           {years.map((year) => (

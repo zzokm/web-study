@@ -17,20 +17,38 @@ export default function ByExamPage() {
         <h1 className="text-2xl font-semibold tracking-tight">By exam</h1>
         <p className="text-muted-foreground">Questions in original exam order.</p>
       </div>
-      <div className="grid gap-4 sm:grid-cols-2">
-        {years.map((year) => {
-          const count = getQuestionsByExamYear(year).length;
-          return (
-            <Link key={year} href={`/by-exam/${year}/`}>
-              <Card className="transition-colors hover:bg-muted/50">
-                <CardHeader>
-                  <CardTitle>{year} Final</CardTitle>
-                  <CardDescription>{count} questions</CardDescription>
-                </CardHeader>
-              </Card>
-            </Link>
-          );
-        })}
+      <div>
+        <h2 className="mb-3 text-sm font-medium text-muted-foreground">Mock exam</h2>
+        <Link href="/practice/mock-exam/?from=by-exam">
+          <Card className="mb-6 border-primary/30 bg-primary/5 transition-colors hover:bg-primary/10">
+            <CardHeader>
+              <CardTitle className="text-base">Mock exam</CardTitle>
+              <CardDescription>
+                Synthetic exam from historical lecture allocation — customize
+                size, frontend/backend mix, and session options.
+              </CardDescription>
+            </CardHeader>
+          </Card>
+        </Link>
+      </div>
+
+      <div>
+        <h2 className="mb-3 text-sm font-medium text-muted-foreground">By exam year</h2>
+        <div className="grid gap-4 sm:grid-cols-2">
+          {years.map((year) => {
+            const count = getQuestionsByExamYear(year).length;
+            return (
+              <Link key={year} href={`/by-exam/${year}/`}>
+                <Card className="transition-colors hover:bg-muted/50">
+                  <CardHeader>
+                    <CardTitle className="text-base">{year} Final</CardTitle>
+                    <CardDescription>{count} questions</CardDescription>
+                  </CardHeader>
+                </Card>
+              </Link>
+            );
+          })}
+        </div>
       </div>
     </div>
   );
