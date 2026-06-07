@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { Fragment, useEffect, useState } from "react";
 import {
   getExamPhase,
   getMsUntilExamEnd,
@@ -14,17 +14,76 @@ function pad(value: number): string {
   return String(value).padStart(2, "0");
 }
 
-function formatDuration(ms: number): string {
-  if (ms <= 0) return "00 : 00 : 00";
+const DURATION_UNITS = ["Days", "Hrs", "Min", "Sec"] as const;
+
+function formatDurationParts(ms: number) {
+  if (ms <= 0) {
+    return { days: 0, hours: 0, minutes: 0, seconds: 0 };
+  }
 
   const totalSeconds = Math.floor(ms / 1000);
   const days = Math.floor(totalSeconds / 86_400);
-  const hours = Math.floor((totalSeconds % 86_400) / 3_600);
-  const minutes = Math.floor((totalSeconds % 3_600) / 60);
+  const hours = Math.floor((totalSeconds % 86_400) / 3600);
+  const minutes = Math.floor((totalSeconds % 3600) / 60);
   const seconds = totalSeconds % 60;
-  const time = `${pad(hours)} : ${pad(minutes)} : ${pad(seconds)}`;
 
-  return days > 0 ? `${days}d ${time}` : time;
+  return { days, hours, minutes, seconds };
+}
+
+function DurationDisplay({
+  remainingMs,
+  labelClassName,
+  timerClassName,
+}: {
+  remainingMs: number | null;
+  labelClassName: string;
+  timerClassName: string;
+}) {
+  const parts =
+    remainingMs === null ? null : formatDurationParts(remainingMs);
+  const values = parts
+    ? [parts.days, parts.hours, parts.minutes, parts.seconds]
+    : [null, null, null, null];
+
+  return (
+    <div className="mt-1">
+      <div
+        className={cn(
+          "mb-0.5 flex items-center gap-3 text-[10px] font-medium uppercase tracking-wide",
+          labelClassName
+        )}
+      >
+        {DURATION_UNITS.map((unit) => (
+          <span key={unit} className="min-w-[2.25rem]">
+            {unit}
+          </span>
+        ))}
+      </div>
+      <div
+        className={cn(
+          "flex items-center gap-1.5 text-xl font-semibold tabular-nums tracking-tight",
+          timerClassName
+        )}
+      >
+        {values.map((value, index) => (
+          <Fragment key={DURATION_UNITS[index]}>
+            {index > 0 ? (
+              <span className="text-base font-normal opacity-50">:</span>
+            ) : null}
+            <span className="min-w-[2.25rem]">
+              {value === null ? "--" : pad(value)}
+            </span>
+          </Fragment>
+        ))}
+      </div>
+      {parts ? (
+        <span className="sr-only">
+          {parts.days} days, {parts.hours} hours, {parts.minutes} minutes,{" "}
+          {parts.seconds} seconds
+        </span>
+      ) : null}
+    </div>
+  );
 }
 
 const phaseStyles: Record<
@@ -86,9 +145,11 @@ export function ExamCountdown({ className }: { className?: string }) {
         <p className="text-[11px] font-medium uppercase tracking-wide text-sidebar-foreground/60">
           Exam in
         </p>
-        <p className="mt-1 text-xl font-semibold tabular-nums tracking-tight text-sidebar-foreground/35">
-          -- : -- : --
-        </p>
+        <DurationDisplay
+          remainingMs={null}
+          labelClassName="text-sidebar-foreground/45"
+          timerClassName="text-sidebar-foreground/35"
+        />
       </div>
     );
   }
@@ -120,9 +181,6 @@ export function ExamCountdown({ className }: { className?: string }) {
     phase === "before"
       ? EXAM_START.label
       : `${EXAM_START.label} · ends ${EXAM_END.label}`;
-  const display =
-    remainingMs === null ? "-- : -- : --" : formatDuration(remainingMs);
-
   return (
     <div
       className={cn("mx-2 rounded-lg border px-3 py-2.5", styles.container, className)}
@@ -140,15 +198,14 @@ export function ExamCountdown({ className }: { className?: string }) {
         </span>
         <span className={cn("text-[10px]", styles.subtitle)}>{subtitle}</span>
       </div>
-      <p
-        className={cn(
-          "mt-1 text-xl font-semibold tabular-nums tracking-tight",
-          remainingMs === null ? "opacity-35" : "",
-          styles.timer
+      <DurationDisplay
+        remainingMs={remainingMs}
+        labelClassName={styles.label}
+        timerClassName={cn(
+          styles.timer,
+          remainingMs === null ? "opacity-35" : ""
         )}
-      >
-        {display}
-      </p>
+      />
     </div>
   );
 }

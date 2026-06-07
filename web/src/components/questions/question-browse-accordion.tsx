@@ -91,7 +91,8 @@ export function QuestionBrowseAccordion({
     "rounded-xl border bg-card shadow-sm overflow-hidden not-last:border-b-0";
   const triggerClassName =
     "px-4 py-4 w-full cursor-pointer hover:bg-muted/40 hover:no-underline";
-  const contentClassName = "border-t bg-muted/20";
+  const contentClassName =
+    "border-t bg-muted/20 [&>div]:p-0 [&>div]:pb-0";
 
   return (
     <Accordion
@@ -130,9 +131,9 @@ export function QuestionBrowseAccordion({
             </div>
           </AccordionTrigger>
           <AccordionContent className={contentClassName}>
-            <div className="flex flex-col gap-4 p-4">
+            <div className="flex flex-col p-4">
               {showSaveButton ? (
-                <div className="flex justify-end">
+                <div className="mb-4 flex justify-end">
                   <SaveButton question={q} />
                 </div>
               ) : null}
@@ -141,6 +142,10 @@ export function QuestionBrowseAccordion({
                 showStem={
                   browseContext !== "by_lecture" && browseContext !== "by_exam"
                 }
+                showExamAppearances={
+                  browseContext !== "by_lecture" && browseContext !== "by_exam"
+                }
+                variant="browse"
               />
             </div>
           </AccordionContent>

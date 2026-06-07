@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import ReactConfetti from "react-confetti";
 
 const CONFETTI_COLORS = [
@@ -41,6 +41,14 @@ function useViewportSize() {
 export function ExamConfetti() {
   const { width, height } = useViewportSize();
   const [run, setRun] = useState(true);
+  const mountedRef = useRef(false);
+
+  useEffect(() => {
+    mountedRef.current = true;
+    return () => {
+      mountedRef.current = false;
+    };
+  }, []);
 
   if (width === 0 || height === 0) return null;
 
@@ -59,7 +67,9 @@ export function ExamConfetti() {
       tweenDuration={8000}
       colors={CONFETTI_COLORS}
       opacity={0.9}
-      onConfettiComplete={() => setRun(false)}
+      onConfettiComplete={() => {
+        if (mountedRef.current) setRun(false);
+      }}
       style={{
         position: "fixed",
         inset: 0,
