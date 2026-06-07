@@ -5,6 +5,7 @@ export function practiceModeFromPathname(pathname: string): PracticeMode | undef
   if (pathname.includes("/practice/exam/")) return "exam";
   if (pathname.includes("/practice/repetitive")) return "repetitive";
   if (pathname.includes("/practice/saved")) return "saved";
+  if (pathname.includes("/practice/mock-exam")) return "mock_exam";
   return undefined;
 }
 

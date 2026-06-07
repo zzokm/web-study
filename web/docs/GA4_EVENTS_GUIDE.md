@@ -86,6 +86,8 @@ Our code adds **`scroll_depth`** at finer milestones (25/50/75/90/100%).
 | `practice_finish` | Session completed |
 | `practice_reset_confirm` | Reset dialog confirmed |
 | `practice_reset` | Progress cleared |
+| `mock_exam_generate` | Mock exam generated and session started |
+| `mock_exam_regenerate` | New seed drawn on mock exam setup or in-session |
 
 ### Practice results
 
@@ -273,6 +275,18 @@ Shared practice parameters:
 | `shuffle_mcq_options` | MCQ answer shuffle enabled |
 | `show_session_timer` | Session timer shown |
 | `exam_simulation` | Exam simulation mode enabled |
+| `frontend_share` | Mock exam: frontend allocation % (when applicable) |
+| `mock_exam_seed` | Mock exam: PRNG seed (when applicable) |
+
+### `mock_exam_generate` / `mock_exam_regenerate`
+
+| Parameter | Meaning |
+|-----------|---------|
+| `practice_mode` | `mock_exam` |
+| `question_count` | Generated question count |
+| `frontend_share` | Frontend track allocation % |
+| `mock_exam_seed` | Seed for reproducible generation |
+| `previous_session_key` | Regenerate only — prior storage key |
 
 ### `practice_start`
 

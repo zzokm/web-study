@@ -16,4 +16,9 @@ export type BrowseContext =
   | "saved"
   | "practice_results";
 
-export type PracticeMode = "lecture" | "exam" | "repetitive" | "saved";
+export type PracticeMode =
+  | "lecture"
+  | "exam"
+  | "repetitive"
+  | "saved"
+  | "mock_exam";

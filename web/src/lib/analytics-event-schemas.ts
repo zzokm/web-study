@@ -53,6 +53,12 @@ export type PracticeSetupConfigParams = {
 
 export type PracticeSetupStartMode = "start" | "resume" | "fresh";
 
+export type MockExamEventParams = {
+  frontend_share?: number;
+  mock_exam_seed?: number;
+  previous_session_key?: string;
+};
+
 export type AnalyticsEventMap = {
   scroll_depth: PageContextParams & {
     scroll_percent: number;
@@ -96,13 +102,25 @@ export type AnalyticsEventMap = {
     };
   practice_setup_start: PageContextParams &
     PracticeContextParams &
-    PracticeSetupConfigParams & {
+    PracticeSetupConfigParams &
+    MockExamEventParams & {
       question_count: number;
       start_mode: PracticeSetupStartMode;
     };
   practice_start: PageContextParams &
     PracticeContextParams &
-    PracticeSetupConfigParams & {
+    PracticeSetupConfigParams &
+    MockExamEventParams & {
+      question_count: number;
+    };
+  mock_exam_generate: PageContextParams &
+    PracticeContextParams &
+    MockExamEventParams & {
+      question_count: number;
+    };
+  mock_exam_regenerate: PageContextParams &
+    PracticeContextParams &
+    MockExamEventParams & {
       question_count: number;
     };
   practice_question_view: PageContextParams &
@@ -231,6 +249,8 @@ export const AnalyticsEventNames = {
   analysisFilterChange: "analysis_filter_change",
   practiceSetupView: "practice_setup_view",
   practiceSetupStart: "practice_setup_start",
+  mockExamGenerate: "mock_exam_generate",
+  mockExamRegenerate: "mock_exam_regenerate",
   practiceStart: "practice_start",
   practiceQuestionView: "practice_question_view",
   practiceSelectAnswer: "practice_select_answer",

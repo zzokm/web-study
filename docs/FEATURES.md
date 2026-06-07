@@ -98,6 +98,7 @@ Technical overview of every user-facing capability in the app.
 
 | Feature | What it does |
 |---------|--------------|
+| Mock exam | Generate a synthetic exam from historical lecture allocation (`/practice/mock-exam/`). |
 | By exam year | Start a full timed-style flow for 2021, 2024, or 2025. |
 | By lecture | Pick a lecture slug and practice its allocated questions. |
 | Repetitive only | Practice cross-exam repeated stems. |
@@ -105,7 +106,20 @@ Technical overview of every user-facing capability in the app.
 
 ### Practice setup (before session starts)
 
-All practice entry points (exam, lecture, repetitive, saved) show a **setup screen** first:
+All practice entry points (exam, lecture, repetitive, saved, mock exam) show a **setup screen** first:
+
+### Mock exam setup (`/practice/mock-exam/`)
+
+| Control | Default | What it does |
+|---------|---------|--------------|
+| Question count | 84 | How many questions to generate (capped by pool size). |
+| Frontend / Backend slider | 70% / 30% | Scales historical per-lecture weights within each track. |
+| Session options | Shuffle on, exam simulation on, timer on | Same toggles as other practice modes; timer is not auto-disabled when exam simulation is on. |
+| Seed | Random per generate | Stored in `localStorage`; same seed + settings reproduces the same exam. |
+| Regenerate exam | — | New seed, new question set; clears progress for the previous exam. |
+| Resume / Start fresh | — | Same as other practice modes for the current seed + settings. |
+
+Entry points: **Practice** hub and **By exam** hub (prominent card).
 
 | Option | What it does |
 |--------|--------------|
@@ -166,7 +180,9 @@ All practice entry points (exam, lecture, repetitive, saved) show a **setup scre
 | Key | Storage | What it stores |
 |-----|---------|----------------|
 | `webstudy:practice-v1:*` | `localStorage` | In-progress practice selections and reveal state per session. |
-| `webstudy:practice-result-v1:*` | `localStorage` | Finished practice result snapshots (score, timing, progress). |
+| `webstudy:practice-display-v1:*` | `localStorage` | Question/option display order for resume. |
+| `webstudy:mock-exam-active-v1` | `localStorage` | Active mock exam spec (seed, count, FE/BE split, config). |
+| `webstudy:practice-result-v1:*` | `localStorage` | Finished practice result snapshots (score, timing, progress, optional mock spec). |
 | `webstudy:saved-v1` | `localStorage` | Bookmarked question keys and display snapshots. |
 
 Data is **per browser** — clearing site data removes progress and saves.
@@ -180,7 +196,7 @@ Optional Google Analytics when `NEXT_PUBLIC_GOOGLE_TAG_ID` is set.
 | Area | Events (examples) |
 |------|-------------------|
 | Navigation | `page_view`, `nav_click`, `breadcrumb_switch`, `sidebar_toggle` |
-| Practice | `practice_setup_view`, `practice_setup_start`, `practice_start`, `practice_check_answer`, `practice_pause`, `practice_finish`, … |
+| Practice | `practice_setup_view`, `practice_setup_start`, `mock_exam_generate`, `mock_exam_regenerate`, `practice_start`, `practice_check_answer`, `practice_pause`, `practice_finish`, … |
 | Results | `practice_results_view`, `practice_results_breakdown_sort`, … |
 | PDF | `pdf_page_view`, `pdf_document_switch` |
 | Engagement | `scroll_depth`, `ui_click`, `hub_card_click`, `outbound_click` |
