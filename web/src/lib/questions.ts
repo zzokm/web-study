@@ -1,4 +1,5 @@
 import type { Catalog, LectureMeta, Question } from "@/types/question";
+import { mcqOptionDisplayLabelForId } from "@/lib/mcq-options";
 import { formatLectureBadgeLabel } from "@/lib/lecture-label";
 import { sortExamAppearances } from "@/lib/question-appearances";
 import { clusterByRepetitionKey, groupByRepetitionKey } from "@/lib/stem-match";
@@ -168,7 +169,7 @@ export function getCorrectAnswerDisplay(question: Question): {
   );
   const content = opt?.content ?? question.correctAnswerId;
   return {
-    id: question.correctAnswerId.toUpperCase(),
+    id: mcqOptionDisplayLabelForId(question.options, question.correctAnswerId),
     label: content,
   };
 }

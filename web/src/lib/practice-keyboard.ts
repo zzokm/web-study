@@ -33,10 +33,8 @@ export function resolvePracticeOptionKey(
   }
 
   if (/^[a-d]$/.test(normalized)) {
-    return (
-      question.options.find((option) => option.id.toLowerCase() === normalized)
-        ?.id ?? null
-    );
+    const index = normalized.charCodeAt(0) - "a".charCodeAt(0);
+    return question.options[index]?.id ?? null;
   }
 
   if (question.questionType === "true_false") {

@@ -1,5 +1,10 @@
 "use client";
 
+import type {
+  PracticeDisplaySnapshot,
+  PracticeSessionConfig,
+} from "@/lib/practice-session-config";
+import { configStorageSuffix } from "@/lib/practice-session-config";
 import { isAnswerCorrect } from "@/lib/questions";
 import type { Question } from "@/types/question";
 
@@ -63,11 +68,11 @@ export function patchQuestionShownCleared(
   };
 }
 
-/** Freeze thinking time when Check answer is clicked. */
-export function patchQuestionChecked(
+function patchQuestionThinkingAt(
   progress: PracticeProgress,
   questionKey: string,
-  now = Date.now()
+  now: number,
+  revealed: boolean
 ): PracticeProgress {
   const attempt = getAttempt(progress, questionKey);
   const shownAt = attempt.shownAt ?? now;
@@ -75,14 +80,77 @@ export function patchQuestionChecked(
     ...progress,
     [questionKey]: {
       ...attempt,
-      revealed: true,
+      revealed,
       checkedAt: now,
       thinkingMs: Math.max(0, now - shownAt),
     },
   };
 }
 
-export function practiceSessionKey(questions: { questionKey: string }[]): string {
+/** Freeze thinking time when Check answer is clicked. */
+export function patchQuestionChecked(
+  progress: PracticeProgress,
+  questionKey: string,
+  now = Date.now()
+): PracticeProgress {
+  return patchQuestionThinkingAt(progress, questionKey, now, true);
+}
+
+/** Exam mode: freeze thinking time on Next without revealing yet. */
+export function patchQuestionThinkingFrozen(
+  progress: PracticeProgress,
+  questionKey: string,
+  now = Date.now()
+): PracticeProgress {
+  const attempt = getAttempt(progress, questionKey);
+  if (attempt.thinkingMs != null) return progress;
+  return patchQuestionThinkingAt(progress, questionKey, now, false);
+}
+
+/** Exam mode submit: reveal all answered questions. */
+export function patchAllQuestionsRevealed(
+  progress: PracticeProgress,
+  questions: Question[],
+  now = Date.now()
+): PracticeProgress {
+  let next = progress;
+  for (const q of questions) {
+    const attempt = getAttempt(next, q.questionKey);
+    if (!attempt.selectedId) continue;
+    if (attempt.revealed) continue;
+    next = patchQuestionThinkingAt(
+      next,
+      q.questionKey,
+      attempt.checkedAt ?? now,
+      true
+    );
+  }
+  return next;
+}
+
+/** Sorted question keys — identifies the pool regardless of display order. */
+export function canonicalPracticeSessionKey(
+  questions: { questionKey: string }[]
+): string {
+  return [...questions]
+    .map((q) => q.questionKey)
+    .sort()
+    .join("\0");
+}
+
+export function practiceSessionKey(
+  questions: { questionKey: string }[],
+  config?: PracticeSessionConfig
+): string {
+  const canonical = canonicalPracticeSessionKey(questions);
+  if (!config) return canonical;
+  return canonical + configStorageSuffix(config);
+}
+
+/** @deprecated Use canonicalPracticeSessionKey + config suffix. */
+export function orderedPracticeSessionKey(
+  questions: { questionKey: string }[]
+): string {
   return questions.map((q) => q.questionKey).join("\0");
 }
 
@@ -132,9 +200,91 @@ export function clearPracticeProgress(sessionKey: string): void {
   if (typeof window === "undefined") return;
   try {
     localStorage.removeItem(storageKey(sessionKey));
+    localStorage.removeItem(displayStorageKey(sessionKey));
   } catch {
     // ignore
   }
+}
+
+const DISPLAY_PREFIX = "webstudy:practice-display-v1:";
+
+function displayStorageKey(sessionKey: string): string {
+  return DISPLAY_PREFIX + sessionKey;
+}
+
+export function savePracticeDisplaySnapshot(
+  sessionKey: string,
+  snapshot: PracticeDisplaySnapshot
+): void {
+  if (typeof window === "undefined") return;
+  try {
+    localStorage.setItem(displayStorageKey(sessionKey), JSON.stringify(snapshot));
+  } catch {
+    // ignore
+  }
+}
+
+export function loadPracticeDisplaySnapshot(
+  sessionKey: string
+): PracticeDisplaySnapshot | null {
+  if (typeof window === "undefined") return null;
+  try {
+    const raw = localStorage.getItem(displayStorageKey(sessionKey));
+    if (!raw) return null;
+    const parsed = JSON.parse(raw) as PracticeDisplaySnapshot;
+    if (!parsed?.questionKeys || !parsed.optionOrderByKey) return null;
+    return parsed;
+  } catch {
+    return null;
+  }
+}
+
+/** @deprecated Use savePracticeDisplaySnapshot */
+export function savePracticeQuestionOrder(
+  sessionKey: string,
+  questionKeys: string[]
+): void {
+  savePracticeDisplaySnapshot(sessionKey, {
+    questionKeys,
+    optionOrderByKey: {},
+  });
+}
+
+/** @deprecated Use loadPracticeDisplaySnapshot */
+export function loadPracticeQuestionOrder(sessionKey: string): string[] | null {
+  return loadPracticeDisplaySnapshot(sessionKey)?.questionKeys ?? null;
+}
+
+export function resumeQuestionIndex(
+  questions: Question[],
+  progress: PracticeProgress,
+  examSimulation: boolean
+): number {
+  for (let i = 0; i < questions.length; i++) {
+    const attempt = getAttempt(progress, questions[i].questionKey);
+    if (examSimulation) {
+      if (!attempt.selectedId) return i;
+      if (!attempt.revealed) return i;
+    } else if (!attempt.revealed) {
+      return i;
+    }
+  }
+  return Math.max(0, questions.length - 1);
+}
+
+export function allQuestionsAnswered(
+  questions: Question[],
+  progress: PracticeProgress
+): boolean {
+  return questions.every((q) => getAttempt(progress, q.questionKey).selectedId);
+}
+
+export function answeredQuestionCount(
+  questions: Question[],
+  progress: PracticeProgress
+): number {
+  return questions.filter((q) => getAttempt(progress, q.questionKey).selectedId)
+    .length;
 }
 
 export function isAttemptCorrect(

@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { metadataTitle } from "@/lib/analytics-page-titles";
 import { getExamYears, getQuestionsByExamYear } from "@/lib/questions";
-import { PracticeSessionHydrated } from "@/components/practice/practice-session-hydrated";
+import { PracticeLauncher } from "@/components/practice/practice-launcher";
 
 export function generateStaticParams() {
   return getExamYears().map((year) => ({ year }));
@@ -28,6 +28,10 @@ export default async function PracticeExamPage({
   const questions = getQuestionsByExamYear(year);
 
   return (
-    <PracticeSessionHydrated questions={questions} title={`${year} Final — Practice`} />
+    <PracticeLauncher
+      questions={questions}
+      title={`${year} Final — Practice`}
+      backHref={`/by-exam/${year}/`}
+    />
   );
 }

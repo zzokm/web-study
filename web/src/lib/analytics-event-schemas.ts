@@ -44,6 +44,15 @@ export type PracticeContextParams = {
   interaction_source?: InteractionSource;
 };
 
+export type PracticeSetupConfigParams = {
+  shuffle_questions?: boolean;
+  shuffle_mcq_options?: boolean;
+  show_session_timer?: boolean;
+  exam_simulation?: boolean;
+};
+
+export type PracticeSetupStartMode = "start" | "resume" | "fresh";
+
 export type AnalyticsEventMap = {
   scroll_depth: PageContextParams & {
     scroll_percent: number;
@@ -81,8 +90,19 @@ export type AnalyticsEventMap = {
     filter_type: string;
     filter_value: string;
   };
-  practice_start: PageContextParams &
+  practice_setup_view: PageContextParams &
     PracticeContextParams & {
+      question_count: number;
+    };
+  practice_setup_start: PageContextParams &
+    PracticeContextParams &
+    PracticeSetupConfigParams & {
+      question_count: number;
+      start_mode: PracticeSetupStartMode;
+    };
+  practice_start: PageContextParams &
+    PracticeContextParams &
+    PracticeSetupConfigParams & {
       question_count: number;
     };
   practice_question_view: PageContextParams &
@@ -112,7 +132,8 @@ export type AnalyticsEventMap = {
       pause_duration_ms: number;
     };
   practice_finish: PageContextParams &
-    PracticeContextParams & {
+    PracticeContextParams &
+    PracticeSetupConfigParams & {
       question_count: number;
       score_percent: number;
       correct: number;
@@ -208,6 +229,8 @@ export const AnalyticsEventNames = {
   hubCardClick: "hub_card_click",
   outboundClick: "outbound_click",
   analysisFilterChange: "analysis_filter_change",
+  practiceSetupView: "practice_setup_view",
+  practiceSetupStart: "practice_setup_start",
   practiceStart: "practice_start",
   practiceQuestionView: "practice_question_view",
   practiceSelectAnswer: "practice_select_answer",

@@ -1,6 +1,6 @@
 "use client";
 
-import { useCallback, useEffect, useMemo, useRef, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import { usePathname, useRouter } from "next/navigation";
 import type { Question } from "@/types/question";
 import { AnalyticsEvents } from "@/lib/analytics-events";
@@ -18,16 +18,23 @@ import {
   trackAnalyticsEvent,
 } from "@/lib/analytics";
 import { isAnswerCorrect } from "@/lib/questions";
+import { cn } from "@/lib/utils";
 import {
+  practiceConfigAnalyticsParams,
+  type PracticeSessionConfig,
+} from "@/lib/practice-session-config";
+import {
+  allQuestionsAnswered,
   clearPracticeProgress,
   computePracticeScore,
   getAttempt,
   loadPracticeProgress,
+  patchAllQuestionsRevealed,
   patchQuestionChecked,
   patchQuestionShown,
   patchQuestionShownCleared,
+  patchQuestionThinkingFrozen,
   practiceProgressCount,
-  practiceSessionKey,
   savePracticeProgress,
   type PracticeProgress,
   type QuestionAttempt,
@@ -59,17 +66,27 @@ import {
 interface PracticeSessionProps {
   questions: Question[];
   title: string;
+  config: PracticeSessionConfig;
+  sessionKey: string;
+  initialIndex?: number;
+  startFresh?: boolean;
 }
 
-export function PracticeSession({ questions, title }: PracticeSessionProps) {
-  const sessionKey = useMemo(() => practiceSessionKey(questions), [questions]);
-
+export function PracticeSession({
+  questions,
+  title,
+  config,
+  sessionKey,
+  initialIndex = 0,
+}: PracticeSessionProps) {
   return (
     <PracticeSessionInner
       key={sessionKey}
       sessionKey={sessionKey}
       questions={questions}
       title={title}
+      config={config}
+      initialIndex={initialIndex}
     />
   );
 }
@@ -78,7 +95,9 @@ function PracticeSessionInner({
   sessionKey,
   questions,
   title,
-}: PracticeSessionProps & { sessionKey: string }) {
+  config,
+  initialIndex = 0,
+}: PracticeSessionProps) {
   const router = useRouter();
   const pathname = usePathname();
   const practiceMode = practiceModeFromPathname(pathname);
@@ -92,7 +111,9 @@ function PracticeSessionInner({
   const pauseStartedAtRef = useRef<number | null>(null);
   const prevPausedRef = useRef<boolean | null>(null);
   const viewedQuestionsRef = useRef(new Set<string>());
-  const [index, setIndex] = useState(0);
+  const examSimulation = config.examSimulation;
+  const showTimer = config.showSessionTimer && !examSimulation;
+  const [index, setIndex] = useState(initialIndex);
   const [progress, setProgress] = useState<PracticeProgress>(() =>
     loadPracticeProgress(sessionKey)
   );
@@ -131,23 +152,31 @@ function PracticeSessionInner({
   useEffect(() => {
     const startedAt = Date.now();
     sessionStartedAtRef.current = new Date(startedAt).toISOString();
-    setPracticeHeader({
-      mode: "elapsed",
-      startedAt,
-      paused: false,
-      totalPausedMs: 0,
-    });
+    if (showTimer) {
+      setPracticeHeader({
+        mode: "elapsed",
+        startedAt,
+        paused: false,
+        totalPausedMs: 0,
+      });
+    } else {
+      setPracticeHeader(null);
+    }
     return () => setPracticeHeader(null);
-  }, [practiceMode, setPracticeHeader]);
+  }, [practiceMode, setPracticeHeader, showTimer]);
 
   useEffect(() => {
     if (!question) return;
     const questionKey = question.questionKey;
     // Record when each question becomes visible for thinking-time measurement.
     // eslint-disable-next-line react-hooks/set-state-in-effect -- sync progress with visible question
-    patchProgress((prev) => patchQuestionShown(prev, questionKey));
+    patchProgress((prev) => {
+      const attempt = getAttempt(prev, questionKey);
+      if (examSimulation && attempt.thinkingMs != null) return prev;
+      return patchQuestionShown(prev, questionKey);
+    });
     // eslint-disable-next-line react-hooks/exhaustive-deps -- keyed on questionKey only
-  }, [question?.questionKey, patchProgress]);
+  }, [question?.questionKey, patchProgress, examSimulation]);
 
   useEffect(() => {
     if (!practiceHeaderState) return;
@@ -201,13 +230,22 @@ function PracticeSessionInner({
     trackAnalyticsEvent(AnalyticsEvents.practiceStart, {
       ...practiceContextFromPath(pathname, title),
       question_count: questions.length,
+      ...practiceConfigAnalyticsParams(config),
     });
     setUserProperties({
       last_practice_mode: practiceMode,
       last_exam_year: examYear,
       last_lecture_slug: lectureSlug,
     });
-  }, [questions.length, practiceMode, examYear, lectureSlug, title, pathname]);
+  }, [
+    questions.length,
+    practiceMode,
+    examYear,
+    lectureSlug,
+    title,
+    pathname,
+    config,
+  ]);
 
   useEffect(() => {
     if (!question || !practiceMode) return;
@@ -282,7 +320,22 @@ function PracticeSessionInner({
 
   const handleNext = useCallback(
     (source: InteractionSource = "click") => {
-      if (index < questions.length - 1 && revealed && question) {
+      if (!question || index >= questions.length - 1) return;
+
+      if (examSimulation) {
+        if (!selectedId) return;
+        patchProgress((prev) =>
+          patchQuestionThinkingFrozen(prev, question.questionKey)
+        );
+        trackAnalyticsEvent(AnalyticsEvents.practiceNext, {
+          ...practiceBase(source),
+          ...questionAnalyticsParams(question),
+        });
+        setIndex((i) => i + 1);
+        return;
+      }
+
+      if (revealed) {
         trackAnalyticsEvent(AnalyticsEvents.practiceNext, {
           ...practiceBase(source),
           ...questionAnalyticsParams(question),
@@ -290,7 +343,16 @@ function PracticeSessionInner({
         setIndex((i) => i + 1);
       }
     },
-    [index, questions.length, revealed, question, practiceBase]
+    [
+      index,
+      questions.length,
+      revealed,
+      question,
+      practiceBase,
+      examSimulation,
+      selectedId,
+      patchProgress,
+    ]
   );
 
   const handlePrevious = useCallback(
@@ -332,6 +394,7 @@ function PracticeSessionInner({
     revealed,
     selectedId,
     disabled: paused,
+    examSimulation,
     onSelect: (id) => handleSelect(id, "keyboard"),
     onCheck: () => handleCheck("keyboard"),
     onPrevious: () => handlePrevious("keyboard"),
@@ -339,38 +402,60 @@ function PracticeSessionInner({
     onSave: () => handleSave("keyboard"),
   });
 
+  const finishSession = useCallback(
+    (finalProgress: PracticeProgress) => {
+      const finishedAt = new Date().toISOString();
+      const score = computePracticeScore(questions, finalProgress);
+      const includeWallClock = config.showSessionTimer && !examSimulation;
+      const timing = computePracticeTimingStats(questions, finalProgress, {
+        sessionStartedAt: includeWallClock
+          ? sessionStartedAtRef.current ?? undefined
+          : undefined,
+        finishedAt: includeWallClock ? finishedAt : undefined,
+      });
+      trackAnalyticsEvent(AnalyticsEvents.practiceFinish, {
+        ...practiceContextFromPath(pathname, title),
+        question_count: questions.length,
+        score_percent: score.percent,
+        correct: score.correct,
+        incorrect: score.incorrect,
+        skipped: score.skipped,
+        total_thinking_ms:
+          timing.recordedCount > 0 ? timing.totalThinkingMs : undefined,
+        session_wall_ms: includeWallClock
+          ? timing.sessionWallMs ?? undefined
+          : undefined,
+        ...practiceConfigAnalyticsParams(config),
+      });
+      setUserProperties({
+        last_score_percent: score.percent,
+        last_finish_at: finishedAt,
+      });
+      const id = savePracticeResult({
+        sessionKey,
+        title,
+        finishedAt,
+        sessionStartedAt: sessionStartedAtRef.current ?? undefined,
+        questionKeys: questions.map((q) => q.questionKey),
+        progress: finalProgress,
+        config,
+      });
+      clearPracticeProgress(sessionKey);
+      router.push(`/practice/results/?id=${id}`);
+    },
+    [sessionKey, title, questions, router, pathname, config, examSimulation]
+  );
+
   const handleFinish = useCallback(() => {
-    const finishedAt = new Date().toISOString();
-    const score = computePracticeScore(questions, progress);
-    const timing = computePracticeTimingStats(questions, progress, {
-      sessionStartedAt: sessionStartedAtRef.current ?? undefined,
-      finishedAt,
-    });
-    trackAnalyticsEvent(AnalyticsEvents.practiceFinish, {
-      ...practiceContextFromPath(pathname, title),
-      question_count: questions.length,
-      score_percent: score.percent,
-      correct: score.correct,
-      incorrect: score.incorrect,
-      skipped: score.skipped,
-      total_thinking_ms:
-        timing.recordedCount > 0 ? timing.totalThinkingMs : undefined,
-      session_wall_ms: timing.sessionWallMs ?? undefined,
-    });
-    setUserProperties({
-      last_score_percent: score.percent,
-      last_finish_at: finishedAt,
-    });
-    const id = savePracticeResult({
-      sessionKey,
-      title,
-      finishedAt,
-      sessionStartedAt: sessionStartedAtRef.current ?? undefined,
-      questionKeys: questions.map((q) => q.questionKey),
-      progress,
-    });
-    router.push(`/practice/results/?id=${id}`);
-  }, [sessionKey, title, questions, progress, router, pathname]);
+    finishSession(progress);
+  }, [finishSession, progress]);
+
+  const handleSubmitExam = useCallback(() => {
+    if (!allQuestionsAnswered(questions, progress)) return;
+    const next = patchAllQuestionsRevealed(progress, questions);
+    patchProgress(() => next);
+    finishSession(next);
+  }, [questions, progress, patchProgress, finishSession]);
 
   const handleResetProgress = useCallback(() => {
     const savedCount = practiceProgressCount(progress);
@@ -404,13 +489,17 @@ function PracticeSessionInner({
 
   const progressPct =
     questions.length > 0 ? ((index + 1) / questions.length) * 100 : 0;
+  const everyQuestionAnswered = allQuestionsAnswered(questions, progress);
 
   return (
     <>
-      <PracticePauseOverlay open={paused} />
-      <PracticeFloatingTimer />
+      <PracticePauseOverlay open={paused && showTimer} />
+      {showTimer ? <PracticeFloatingTimer /> : null}
       <div
-        className="mx-auto flex max-w-3xl flex-col gap-6 pt-12 md:pt-14"
+        className={cn(
+          "mx-auto flex max-w-3xl flex-col gap-6",
+          showTimer ? "pt-12 md:pt-14" : "pt-2"
+        )}
         aria-hidden={paused}
         style={{
           paddingBottom: `calc(${PRACTICE_FOOTER_HEIGHT} + 1.5rem)`,
@@ -431,13 +520,21 @@ function PracticeSessionInner({
         </div>
 
         <Card className="relative">
-          <div className="absolute top-3 right-3 z-10 flex items-center gap-0.5">
-            <ReportIssueButton question={question} corner />
-            <SaveButton key={question.questionKey} question={question} corner />
-          </div>
-          <CardHeader className="pr-40">
+          {!examSimulation ? (
+            <div className="absolute top-3 right-3 z-10 flex items-center gap-0.5">
+              <ReportIssueButton question={question} corner />
+              <SaveButton key={question.questionKey} question={question} corner />
+            </div>
+          ) : null}
+          <CardHeader className={examSimulation ? undefined : "pr-40"}>
             <CardTitle className="text-base font-medium text-muted-foreground">
-              {revealed ? (correct ? "Correct" : "Incorrect") : "Answer the question"}
+              {examSimulation
+                ? "Select your answer"
+                : revealed
+                  ? correct
+                    ? "Correct"
+                    : "Incorrect"
+                  : "Answer the question"}
             </CardTitle>
           </CardHeader>
           <CardContent className="flex flex-col gap-6">
@@ -445,11 +542,14 @@ function PracticeSessionInner({
               question={question}
               selectedId={selectedId}
               onSelect={handleSelect}
-              revealed={revealed}
-              disabled={revealed}
+              revealed={examSimulation ? false : revealed}
+              disabled={examSimulation ? false : revealed}
+              hideMeta={examSimulation}
             />
 
-            {revealed && <AnswerReveal question={question} />}
+            {!examSimulation && revealed ? (
+              <AnswerReveal question={question} />
+            ) : null}
           </CardContent>
         </Card>
       </div>
@@ -461,10 +561,13 @@ function PracticeSessionInner({
         correct={correct}
         selectedId={selectedId}
         paused={paused}
+        mode={examSimulation ? "exam" : "standard"}
+        allAnswered={everyQuestionAnswered}
         onPrevious={() => handlePrevious("click")}
         onNext={() => handleNext("click")}
         onCheck={() => handleCheck("click")}
         onFinish={handleFinish}
+        onSubmitExam={handleSubmitExam}
       />
     </>
   );

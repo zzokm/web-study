@@ -75,6 +75,8 @@ Our code adds **`scroll_depth`** at finer milestones (25/50/75/90/100%).
 
 | Event | When |
 |-------|------|
+| `practice_setup_view` | Setup screen shown before session |
+| `practice_setup_start` | User starts, resumes, or starts fresh from setup |
 | `practice_start` | Practice session loads (once) |
 | `practice_question_view` | Question first shown in session |
 | `practice_select_answer` | Answer option selected |
@@ -255,11 +257,29 @@ Shared practice parameters:
 | `question_index` | 1-based position in session |
 | `interaction_source` | `keyboard` or `click` (navigation & answer actions) |
 
+### `practice_setup_view`
+
+| Parameter | Meaning |
+|-----------|---------|
+| `question_count` | Questions in the set |
+
+### `practice_setup_start`
+
+| Parameter | Meaning |
+|-----------|---------|
+| `question_count` | Questions in the set |
+| `start_mode` | `start`, `resume`, or `fresh` |
+| `shuffle_questions` | Question shuffle enabled |
+| `shuffle_mcq_options` | MCQ answer shuffle enabled |
+| `show_session_timer` | Session timer shown |
+| `exam_simulation` | Exam simulation mode enabled |
+
 ### `practice_start`
 
 | Parameter | Meaning |
 |-----------|---------|
 | `question_count` | Questions in the set |
+| `shuffle_questions`, `shuffle_mcq_options`, `show_session_timer`, `exam_simulation` | Session options (when set from setup) |
 
 **Sets user properties:** `last_practice_mode`, `last_exam_year`, `last_lecture_slug`.
 

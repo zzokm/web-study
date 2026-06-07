@@ -2,6 +2,7 @@
 
 import type { Question } from "@/types/question";
 import { OptionContent } from "@/components/code/question-content";
+import { mcqOptionDisplayLabel } from "@/lib/mcq-options";
 import { getCorrectAnswerDisplay, isAnswerCorrect } from "@/lib/questions";
 import {
   Card,
@@ -59,7 +60,7 @@ function BrowseAnswerOptions({ question }: { question: Question }) {
 
   return (
     <div className="flex flex-col gap-2">
-      {question.options.map((opt) => (
+      {question.options.map((opt, index) => (
         <div
           key={opt.id}
           className={cn(
@@ -68,7 +69,7 @@ function BrowseAnswerOptions({ question }: { question: Question }) {
           )}
         >
           <span className="shrink-0 text-sm font-medium uppercase tabular-nums">
-            {opt.id}.
+            {mcqOptionDisplayLabel(index)}.
           </span>
           <div className="min-w-0 flex-1 text-sm leading-snug">
             <OptionContent option={opt} compact={opt.type === "code"} />

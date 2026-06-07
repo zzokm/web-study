@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import type { Question } from "@/types/question";
 import { getQuestionByKey } from "@/lib/questions";
 import { getSavedQuestions } from "@/lib/saved-questions";
-import { PracticeSessionHydrated } from "@/components/practice/practice-session-hydrated";
+import { PracticeLauncher } from "@/components/practice/practice-launcher";
 import { LinkButton } from "@/components/ui/link-button";
 import { Empty, EmptyDescription, EmptyHeader, EmptyTitle } from "@/components/ui/empty";
 
@@ -44,6 +44,10 @@ export default function PracticeSavedPage() {
   }
 
   return (
-    <PracticeSessionHydrated questions={questions} title="Saved questions — Practice" />
+    <PracticeLauncher
+      questions={questions}
+      title="Saved questions — Practice"
+      backHref="/saved/"
+    />
   );
 }

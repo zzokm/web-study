@@ -1,6 +1,7 @@
 "use client";
 
 import type { Question } from "@/types/question";
+import { mcqOptionDisplayLabel } from "@/lib/mcq-options";
 import { isAnswerCorrect } from "@/lib/questions";
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
@@ -15,6 +16,7 @@ interface QuestionCardProps {
   onSelect: (id: string) => void;
   revealed: boolean;
   disabled?: boolean;
+  hideMeta?: boolean;
 }
 
 export function QuestionCard({
@@ -23,6 +25,7 @@ export function QuestionCard({
   onSelect,
   revealed,
   disabled,
+  hideMeta = false,
 }: QuestionCardProps) {
   const isTf = question.questionType === "true_false";
 
@@ -84,7 +87,7 @@ export function QuestionCard({
   if (isTf) {
     return (
       <div className="flex flex-col gap-6">
-        <QuestionMeta question={question} />
+        {hideMeta ? null : <QuestionMeta question={question} />}
         <QuestionStem question={question} />
         <div className="flex flex-col gap-3 sm:flex-row">
           {question.options.map((opt) => (
@@ -107,7 +110,7 @@ export function QuestionCard({
 
   return (
     <div className="flex flex-col gap-6">
-      <QuestionMeta question={question} />
+      {hideMeta ? null : <QuestionMeta question={question} />}
       <QuestionStem question={question} />
       <RadioGroup
         value={selectedId ?? ""}
@@ -115,7 +118,7 @@ export function QuestionCard({
         className="flex flex-col gap-3"
         disabled={disabled || revealed}
       >
-        {question.options.map((opt) => {
+        {question.options.map((opt, index) => {
           const interactive = !disabled && !revealed;
 
           return (
@@ -140,7 +143,7 @@ export function QuestionCard({
               />
               <div className="pointer-events-none grid min-w-0 flex-1 grid-cols-[auto_1fr] items-center gap-x-2 text-base leading-snug">
                 <span className="font-medium uppercase text-muted-foreground">
-                  {opt.id}.
+                  {mcqOptionDisplayLabel(index)}.
                 </span>
                 <div className="flex min-w-0 items-center">
                   <OptionContent option={opt} compact={opt.type === "code"} />

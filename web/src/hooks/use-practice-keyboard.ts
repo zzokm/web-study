@@ -12,6 +12,7 @@ interface UsePracticeKeyboardOptions {
   revealed: boolean;
   selectedId: string | null;
   disabled?: boolean;
+  examSimulation?: boolean;
   onSelect: (optionId: string) => void;
   onCheck: () => void;
   onPrevious: () => void;
@@ -24,12 +25,14 @@ export function usePracticeKeyboard({
   revealed,
   selectedId,
   disabled = false,
+  examSimulation = false,
   onSelect,
   onCheck,
   onPrevious,
   onNext,
   onSave,
 }: UsePracticeKeyboardOptions) {
+  const examSimulationRef = useRef(examSimulation);
   const disabledRef = useRef(disabled);
   const revealedRef = useRef(revealed);
   const selectedIdRef = useRef(selectedId);
@@ -40,6 +43,7 @@ export function usePracticeKeyboard({
   const onSaveRef = useRef(onSave);
 
   useEffect(() => {
+    examSimulationRef.current = examSimulation;
     disabledRef.current = disabled;
     revealedRef.current = revealed;
     selectedIdRef.current = selectedId;
@@ -49,6 +53,7 @@ export function usePracticeKeyboard({
     onNextRef.current = onNext;
     onSaveRef.current = onSave;
   }, [
+    examSimulation,
     disabled,
     revealed,
     selectedId,
@@ -77,7 +82,7 @@ export function usePracticeKeyboard({
       }
 
       if (key === "ArrowRight") {
-        if (revealedRef.current) {
+        if (examSimulationRef.current ? selectedIdRef.current : revealedRef.current) {
           event.preventDefault();
           event.stopImmediatePropagation();
           onNextRef.current();
@@ -92,11 +97,15 @@ export function usePracticeKeyboard({
       ) {
         event.preventDefault();
         event.stopImmediatePropagation();
-        onCheckRef.current();
+        if (examSimulationRef.current) {
+          onNextRef.current();
+        } else {
+          onCheckRef.current();
+        }
         return;
       }
 
-      if (key.toLowerCase() === "s") {
+      if (key.toLowerCase() === "s" && !examSimulationRef.current) {
         event.preventDefault();
         event.stopImmediatePropagation();
         onSaveRef.current();

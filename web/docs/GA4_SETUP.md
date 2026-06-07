@@ -38,7 +38,7 @@ Summary of custom events (full param docs in the events guide):
 | Domain | Events |
 |--------|--------|
 | Navigation | `page_view`, `scroll_depth`, `nav_click`, `breadcrumb_switch`, `sidebar_toggle`, `ui_click` |
-| Practice | `practice_start`, `practice_question_view`, `practice_select_answer`, `practice_check_answer`, `practice_next`, `practice_previous`, `practice_pause`, `practice_resume`, `practice_finish`, `practice_reset_confirm`, `practice_reset` |
+| Practice | `practice_setup_view`, `practice_setup_start`, `practice_start`, `practice_question_view`, `practice_select_answer`, `practice_check_answer`, `practice_next`, `practice_previous`, `practice_pause`, `practice_resume`, `practice_finish`, `practice_reset_confirm`, `practice_reset` |
 | Results | `practice_results_view`, `practice_results_filter`, `practice_results_breakdown_sort`, `practice_results_methodology_toggle`, `practice_results_timing_view` |
 | Browse | `question_expand`, `question_collapse`, `question_save`, `question_unsave` |
 | PDF | `pdf_page_view`, `pdf_document_switch` |
@@ -63,7 +63,12 @@ After events appear in **Admin → Data display → Events** (can take 24h), reg
 | Session title | `session_title` | `practice_start`, `practice_finish`, `practice_results_view` |
 | Question index | `question_index` | `practice_*` |
 | Interaction source | `interaction_source` | `practice_select_answer`, `practice_check_answer`, `practice_next`, `practice_previous`, `question_save`, `question_unsave` |
-| Question count | `question_count` | `practice_start`, `practice_finish`, `practice_results_view` |
+| Question count | `question_count` | `practice_setup_*`, `practice_start`, `practice_finish`, `practice_results_view` |
+| Start mode | `start_mode` | `practice_setup_start` |
+| Shuffle questions | `shuffle_questions` | `practice_setup_start`, `practice_start`, `practice_finish` |
+| Shuffle MCQ options | `shuffle_mcq_options` | `practice_setup_start`, `practice_start`, `practice_finish` |
+| Show session timer | `show_session_timer` | `practice_setup_start`, `practice_start`, `practice_finish` |
+| Exam simulation | `exam_simulation` | `practice_setup_start`, `practice_start`, `practice_finish` |
 | Score percent | `score_percent` | `practice_finish`, `practice_results_view` |
 | Correct | `correct` | `practice_check_answer`, `practice_finish`, `practice_results_view` |
 | Selected option | `selected_option_id` | `practice_select_answer`, `practice_check_answer` |
@@ -177,6 +182,7 @@ Mark in **Admin → Data display → Events → Mark as key event**:
 |------|-------------------|
 | Sidebar | `nav_click`, `sidebar_toggle` |
 | Breadcrumb switcher | `breadcrumb_switch` |
+| Practice setup | `practice_setup_view`, `practice_setup_start` (toggle flags + `start_mode`) |
 | Practice session | `practice_start`, `practice_question_view`, `practice_check_answer` (with `thinking_ms`, `interaction_source`), `practice_pause`, `practice_resume`, `practice_finish` |
 | Results | `practice_results_view`, `practice_results_breakdown_sort`, `practice_results_methodology_toggle` |
 | PDF viewer | `pdf_page_view` (`source=viewer_scroll`), `pdf_document_switch` |

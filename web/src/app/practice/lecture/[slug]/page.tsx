@@ -5,7 +5,7 @@ import {
   getLectureSlugs,
   getQuestionsByLectureSlug,
 } from "@/lib/questions";
-import { PracticeSessionHydrated } from "@/components/practice/practice-session-hydrated";
+import { PracticeLauncher } from "@/components/practice/practice-launcher";
 
 export function generateStaticParams() {
   return getLectureSlugs().map((l) => ({ slug: l.slug }));
@@ -32,10 +32,10 @@ export default async function PracticeLecturePage({
   const questions = getQuestionsByLectureSlug(slug);
 
   return (
-    <PracticeSessionHydrated
+    <PracticeLauncher
       questions={questions}
       title={`${meta.lecture} — Practice`}
-      lectureSlug={slug}
+      backHref={`/by-lecture/${slug}/`}
     />
   );
 }

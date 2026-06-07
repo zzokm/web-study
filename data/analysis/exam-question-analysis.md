@@ -51,22 +51,22 @@ Counts use `relatedTopics` lecture allocation — one question may count toward 
 
 | Occurrences | Years | Lectures | Question |
 | ---: | --- | --- | --- |
+| 2 | 2021, 2024 | Python Essentials | 78. In Python. A set is a collection which is both unordered and indexed. |
 | 2 | 2021, 2024 | Internet Protocols | 43. "Expires: Tuesday, 17 Dec 2020 18:30 GMT" is a _______ header denoting _______ |
 | 2 | 2021, 2025 | JavaScript 1 | 52. What is the output of the following JavaScript snippet? |
 | 2 | 2021, 2025 | JavaScript 2 & AJAX | 56. In the following function: |
 | 2 | 2021, 2025 | Python Essentials | 59. x = { "name": "Ahmed", "id": "1", "mobile": 123456789, "mobile": 987654321 } |
-| 2 | 2021, 2024 | Python Essentials | 78. In Python. A set is a collection which is both unordered and indexed. |
 | 2 | 2021, 2024 | Python Essentials | 79. In the following statement: myNumbers = {1, 2, 3} |
 | 2 | 2024, 2025 | Django IV | 10. When you have done changes in a model in Django, which command has to be executed in order to ma… |
 | 2 | 2025 | Python Essentials | 65. In the following Python Statements: |
 
 ### Cross-year repeats
 
+- **2021 + 2024** — 78. In Python. A set is a collection which is both unordered and indexed.
 - **2021 + 2024** — 43. "Expires: Tuesday, 17 Dec 2020 18:30 GMT" is a _______ header denoting _______
 - **2021 + 2025** — 52. What is the output of the following JavaScript snippet?
 - **2021 + 2025** — 56. In the following function:
 - **2021 + 2025** — 59. x = { "name": "Ahmed", "id": "1", "mobile": 123456789, "mobile": 987654321 }
-- **2021 + 2024** — 78. In Python. A set is a collection which is both unordered and indexed.
 - **2021 + 2024** — 79. In the following statement: myNumbers = {1, 2, 3}
 - **2024 + 2025** — 10. When you have done changes in a model in Django, which command has to be executed in order to make the changes take…
 

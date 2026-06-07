@@ -32,6 +32,7 @@ interface PracticeResultsSummaryProps {
   score: PracticeScore;
   timing: PracticeTimingStats;
   progress: PracticeProgress;
+  showSessionTimer?: boolean;
 }
 
 function StatCard({
@@ -93,12 +94,14 @@ export function PracticeResultsSummary({
   score,
   timing,
   progress,
+  showSessionTimer = true,
 }: PracticeResultsSummaryProps) {
   const [methodologyOpen, setMethodologyOpen] = useState(false);
   const timingAvailable =
     hasTimingData(progress) && timing.recordedCount > 0;
 
   const hasSessionOverview =
+    showSessionTimer &&
     timingAvailable &&
     timing.sessionWallMs != null &&
     timing.reviewGapMs != null;

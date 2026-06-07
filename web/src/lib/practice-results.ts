@@ -1,5 +1,7 @@
 "use client";
 
+import type { PracticeSessionConfig } from "@/lib/practice-session-config";
+import { DEFAULT_PRACTICE_SESSION_CONFIG } from "@/lib/practice-session-config";
 import type { PracticeProgress } from "@/lib/practice-progress";
 
 export interface StoredPracticeResult {
@@ -10,6 +12,7 @@ export interface StoredPracticeResult {
   sessionStartedAt?: string;
   questionKeys: string[];
   progress: PracticeProgress;
+  config?: PracticeSessionConfig;
 }
 
 const RESULT_PREFIX = "webstudy:practice-result-v1:";
@@ -46,7 +49,10 @@ export function loadPracticeResult(id: string): StoredPracticeResult | null {
     ) {
       return null;
     }
-    return parsed;
+    return {
+      ...parsed,
+      config: parsed.config ?? DEFAULT_PRACTICE_SESSION_CONFIG,
+    };
   } catch {
     return null;
   }

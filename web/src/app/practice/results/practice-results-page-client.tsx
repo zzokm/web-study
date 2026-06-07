@@ -41,12 +41,16 @@ export function PracticeResultsPageClient() {
     [stored, questions]
   );
 
+  const showSessionTimer = stored?.config?.showSessionTimer ?? true;
+
   const timing = useMemo(
     () =>
       stored
         ? computePracticeTimingStats(questions, stored.progress, {
-            sessionStartedAt: stored.sessionStartedAt,
-            finishedAt: stored.finishedAt,
+            sessionStartedAt: showSessionTimer
+              ? stored.sessionStartedAt
+              : undefined,
+            finishedAt: showSessionTimer ? stored.finishedAt : undefined,
           })
         : {
             totalThinkingMs: 0,
@@ -64,7 +68,7 @@ export function PracticeResultsPageClient() {
             sessionWallMs: null,
             reviewGapMs: null,
           },
-    [stored, questions]
+    [stored, questions, showSessionTimer]
   );
 
   const viewedRef = useRef(false);
@@ -118,6 +122,7 @@ export function PracticeResultsPageClient() {
         score={score}
         timing={timing}
         progress={stored.progress}
+        showSessionTimer={showSessionTimer}
       />
 
       <PracticeResultsBreakdown

@@ -31,10 +31,13 @@ interface PracticeSessionFooterProps {
   correct: boolean;
   selectedId: string | null;
   paused?: boolean;
+  mode?: "standard" | "exam";
+  allAnswered?: boolean;
   onPrevious: () => void;
   onNext: () => void;
   onCheck: () => void;
   onFinish?: () => void;
+  onSubmitExam?: () => void;
 }
 
 export function PracticeSessionFooter({
@@ -44,13 +47,17 @@ export function PracticeSessionFooter({
   correct,
   selectedId,
   paused = false,
+  mode = "standard",
+  allAnswered = false,
   onPrevious,
   onNext,
   onCheck,
   onFinish,
+  onSubmitExam,
 }: PracticeSessionFooterProps) {
   const isFirst = index === 0;
   const isLast = index >= total - 1;
+  const examMode = mode === "exam";
 
   return (
     <footer
@@ -93,7 +100,28 @@ export function PracticeSessionFooter({
           </div>
 
           <div className="flex min-w-0 flex-[1.35] items-center justify-center">
-            {!revealed ? (
+            {examMode ? (
+              isLast ? (
+                <Button
+                  type="button"
+                  size="lg"
+                  onClick={onSubmitExam}
+                  disabled={!allAnswered}
+                  className={cn(PRACTICE_FOOTER_BTN_CLASS, "w-full")}
+                  title={
+                    allAnswered
+                      ? undefined
+                      : "Answer all questions to submit the exam"
+                  }
+                >
+                  <span className="truncate">Submit exam</span>
+                </Button>
+              ) : (
+                <span className="px-2 text-center text-xs text-muted-foreground sm:text-sm">
+                  {selectedId ? "Next to continue" : "Select an answer"}
+                </span>
+              )
+            ) : !revealed ? (
               <Button
                 type="button"
                 size="lg"
@@ -127,7 +155,22 @@ export function PracticeSessionFooter({
           </div>
 
           <div className="flex min-w-0 flex-1 items-center justify-end">
-            {isLast && revealed ? (
+            {examMode ? (
+              !isLast ? (
+                <Button
+                  type="button"
+                  variant="outline"
+                  size="lg"
+                  onClick={onNext}
+                  disabled={!selectedId}
+                  className={PRACTICE_FOOTER_BTN_CLASS}
+                  aria-label="Next question"
+                >
+                  <span className="hidden min-[380px]:inline">Next</span>
+                  <ChevronRightIcon className="size-4 shrink-0" />
+                </Button>
+              ) : null
+            ) : isLast && revealed ? (
               <Button
                 type="button"
                 size="lg"

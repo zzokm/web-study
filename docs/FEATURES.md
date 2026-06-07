@@ -103,6 +103,18 @@ Technical overview of every user-facing capability in the app.
 | Repetitive only | Practice cross-exam repeated stems. |
 | Saved practice | Practice only bookmarked questions (`/practice/saved/`). |
 
+### Practice setup (before session starts)
+
+All practice entry points (exam, lecture, repetitive, saved) show a **setup screen** first:
+
+| Option | What it does |
+|--------|--------------|
+| Shuffle question order | Randomize question sequence for the session. |
+| Shuffle MCQ answers | Randomize A/B/C/D for multiple choice only; true/false unchanged. |
+| Show session timer | Floating elapsed timer with pause (default on). Per-question thinking time is always recorded. |
+| Exam simulation | Minimal UI: stem + options + Prev/Next only; no check, meta, save, or report until submit; **Submit exam** reveals all on results. |
+| Resume / Start fresh | If in-progress progress exists for the same set + options, resume or clear and restart. |
+
 ### Practice session (all practice routes)
 
 | Feature | What it does |
@@ -168,7 +180,7 @@ Optional Google Analytics when `NEXT_PUBLIC_GOOGLE_TAG_ID` is set.
 | Area | Events (examples) |
 |------|-------------------|
 | Navigation | `page_view`, `nav_click`, `breadcrumb_switch`, `sidebar_toggle` |
-| Practice | `practice_start`, `practice_check_answer`, `practice_pause`, `practice_finish`, … |
+| Practice | `practice_setup_view`, `practice_setup_start`, `practice_start`, `practice_check_answer`, `practice_pause`, `practice_finish`, … |
 | Results | `practice_results_view`, `practice_results_breakdown_sort`, … |
 | PDF | `pdf_page_view`, `pdf_document_switch` |
 | Engagement | `scroll_depth`, `ui_click`, `hub_card_click`, `outbound_click` |
