@@ -2,9 +2,11 @@
 
 import { useMemo, useState } from "react";
 import type { Question } from "@/types/question";
+import { isWrittenQuestion } from "@/lib/questions";
 import {
   getAttempt,
   getQuestionThinkingMs,
+  hasWrittenResponse,
   isAttemptCorrect,
   type PracticeProgress,
 } from "@/lib/practice-progress";
@@ -51,14 +53,23 @@ export function PracticeResultsBreakdown({
     return questions.map((question, index) => {
       const attempt = getAttempt(progress, question.questionKey);
       const thinkingMs = getQuestionThinkingMs(attempt);
-      const answerLabel =
-        question.options.find((o) => o.id === attempt.selectedId)?.content ??
-        attempt.selectedId ??
-        "—";
+      const answerLabel = isWrittenQuestion(question)
+        ? hasWrittenResponse(attempt)
+          ? `HTML (${attempt.writtenAnswer!.trim().split("\n").length} lines)`
+          : "—"
+        : (question.options.find((o) => o.id === attempt.selectedId)?.content ??
+          attempt.selectedId ??
+          "—");
 
       let status: BreakdownRow["status"] = "skipped";
-      if (attempt.revealed && attempt.selectedId) {
-        status = isAttemptCorrect(question, attempt) ? "correct" : "wrong";
+      if (attempt.revealed) {
+        if (isWrittenQuestion(question)) {
+          if (hasWrittenResponse(attempt)) {
+            status = isAttemptCorrect(question, attempt) ? "correct" : "wrong";
+          }
+        } else if (attempt.selectedId) {
+          status = isAttemptCorrect(question, attempt) ? "correct" : "wrong";
+        }
       }
 
       return { index, question, status, answerLabel, thinkingMs };

@@ -189,7 +189,9 @@ export function PracticeResultsPageClient() {
             Retake same mock exam
           </Button>
         ) : null}
-        <LinkButton href="/practice/">Practice again</LinkButton>
+        <LinkButton href={stored.returnHref ?? "/practice/"}>
+          Practice again
+        </LinkButton>
         <LinkButton href="/" variant="outline">
           Home
         </LinkButton>

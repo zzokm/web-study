@@ -25,6 +25,7 @@ interface QuestionAccordionDetailsProps {
   variant?: "default" | "browse";
   showReportButton?: boolean;
   mockExamSpec?: MockExamSpec;
+  userWrittenAnswer?: string | null;
 }
 
 function ContextCodeCollapsible({ question }: { question: Question }) {
@@ -66,6 +67,7 @@ export function QuestionAccordionDetails({
   variant = "default",
   showReportButton = false,
   mockExamSpec,
+  userWrittenAnswer,
 }: QuestionAccordionDetailsProps) {
   const showContextCollapsible = !showStem && variant === "browse";
 
@@ -87,6 +89,7 @@ export function QuestionAccordionDetails({
         variant={variant}
         showReportButton={showReportButton}
         mockExamSpec={mockExamSpec}
+        userWrittenAnswer={userWrittenAnswer}
       />
     </div>
   );

@@ -5,9 +5,11 @@ import type { MockExamSpec } from "@/lib/mock-exam";
 import type { Question } from "@/types/question";
 import { AnalyticsEvents } from "@/lib/analytics-events";
 import { questionAnalyticsParams, trackAnalyticsEvent } from "@/lib/analytics";
+import { isWrittenQuestion } from "@/lib/questions";
 import {
   getAttempt,
   getQuestionThinkingMs,
+  hasWrittenResponse,
   isAttemptCorrect,
   isAttemptWrong,
   type PracticeProgress,
@@ -44,11 +46,30 @@ interface PracticeResultsAccordionProps {
 
 function statusFor(question: Question, progress: PracticeProgress) {
   const attempt = getAttempt(progress, question.questionKey);
+  if (isWrittenQuestion(question)) {
+    if (!attempt.revealed || !hasWrittenResponse(attempt)) {
+      return "skipped" as const;
+    }
+    return isAttemptCorrect(question, attempt) ? "correct" : "wrong";
+  }
   if (!attempt.revealed || !attempt.selectedId) {
     return "skipped" as const;
   }
   if (isAttemptCorrect(question, attempt)) return "correct" as const;
   return "wrong" as const;
+}
+
+function answerSummaryLabel(question: Question, attempt: ReturnType<typeof getAttempt>) {
+  if (isWrittenQuestion(question)) {
+    if (!hasWrittenResponse(attempt)) return "—";
+    const lines = attempt.writtenAnswer!.trim().split("\n").length;
+    return `HTML (${lines} line${lines === 1 ? "" : "s"})`;
+  }
+  return (
+    question.options.find((o) => o.id === attempt.selectedId)?.content ??
+    attempt.selectedId ??
+    "—"
+  );
 }
 
 export function PracticeResultsAccordion({
@@ -167,10 +188,7 @@ export function PracticeResultsAccordion({
       {visible.map((q) => {
         const attempt = getAttempt(progress, q.questionKey);
         const status = statusFor(q, progress);
-        const selectedLabel =
-          q.options.find((o) => o.id === attempt.selectedId)?.content ??
-          attempt.selectedId ??
-          "—";
+        const selectedLabel = answerSummaryLabel(q, attempt);
         const thinkingMs = getQuestionThinkingMs(attempt);
 
         return (
@@ -239,6 +257,9 @@ export function PracticeResultsAccordion({
                   variant="browse"
                   showReportButton
                   mockExamSpec={mockExamSpec}
+                  userWrittenAnswer={
+                    isWrittenQuestion(q) ? attempt.writtenAnswer : undefined
+                  }
                 />
               </div>
             </AccordionContent>

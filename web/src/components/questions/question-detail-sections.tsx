@@ -2,9 +2,14 @@
 
 import type { MockExamSpec } from "@/lib/mock-exam";
 import type { Question } from "@/types/question";
+import { CodeBlock } from "@/components/code/code-block";
 import { OptionContent } from "@/components/code/question-content";
 import { mcqOptionDisplayLabel } from "@/lib/mcq-options";
-import { getCorrectAnswerDisplay, isAnswerCorrect } from "@/lib/questions";
+import {
+  getCorrectAnswerDisplay,
+  isAnswerCorrect,
+  isWrittenQuestion,
+} from "@/lib/questions";
 import {
   Card,
   CardContent,
@@ -24,6 +29,8 @@ interface QuestionDetailSectionsProps {
   /** Pin report control on the answer card (browse pages). */
   showReportButton?: boolean;
   mockExamSpec?: MockExamSpec;
+  /** User-submitted HTML for written questions (practice results). */
+  userWrittenAnswer?: string | null;
 }
 
 function browseRevealOptionClass(
@@ -82,18 +89,77 @@ function BrowseAnswerOptions({ question }: { question: Question }) {
   );
 }
 
+function WrittenUserAnswer({ code }: { code: string }) {
+  if (!code.trim()) return null;
+  return (
+    <Card size="sm">
+      <CardHeader>
+        <CardTitle>Your answer</CardTitle>
+        <CardDescription>HTML you submitted</CardDescription>
+      </CardHeader>
+      <CardContent>
+        <CodeBlock code={code} language="html" compact className="w-full" />
+      </CardContent>
+    </Card>
+  );
+}
+
+function WrittenModelAnswer({ question }: { question: Question }) {
+  if (!question.expectedAnswer?.trim()) return null;
+  return (
+    <Card size="sm">
+      <CardHeader>
+        <CardTitle>Model answer</CardTitle>
+        <CardDescription>Reference HTML solution</CardDescription>
+      </CardHeader>
+      <CardContent>
+        <CodeBlock
+          code={question.expectedAnswer}
+          language="html"
+          compact
+          className="w-full"
+        />
+      </CardContent>
+    </Card>
+  );
+}
+
 export function QuestionDetailSections({
   question,
   className,
   variant = "default",
   showReportButton = false,
   mockExamSpec,
+  userWrittenAnswer,
 }: QuestionDetailSectionsProps) {
   const isBrowse = variant === "browse";
+  const isWritten = isWrittenQuestion(question);
   const answer = getCorrectAnswerDisplay(question);
   const correctOption = question.options.find(
     (o) => o.id.toLowerCase() === question.correctAnswerId.toLowerCase()
   );
+
+  if (isWritten) {
+    return (
+      <div className={cn("flex flex-col gap-4", className)}>
+        {userWrittenAnswer ? (
+          <WrittenUserAnswer code={userWrittenAnswer} />
+        ) : null}
+        <WrittenModelAnswer question={question} />
+        {question.explanation ? (
+          <Card size="sm">
+            <CardHeader>
+              <CardTitle>Explanation</CardTitle>
+              <CardDescription>What a correct solution should achieve</CardDescription>
+            </CardHeader>
+            <CardContent>
+              <ExplanationText text={question.explanation} />
+            </CardContent>
+          </Card>
+        ) : null}
+      </div>
+    );
+  }
 
   return (
     <div className={cn("flex flex-col gap-4", className)}>

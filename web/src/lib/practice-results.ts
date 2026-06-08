@@ -15,6 +15,8 @@ export interface StoredPracticeResult {
   progress: PracticeProgress;
   config?: PracticeSessionConfig;
   mockExamSpec?: MockExamSpec;
+  /** Practice launcher to return to (exam, lecture, written, etc.). */
+  returnHref?: string;
 }
 
 const RESULT_PREFIX = "webstudy:practice-result-v1:";
