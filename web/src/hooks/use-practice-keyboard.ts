@@ -13,6 +13,8 @@ interface UsePracticeKeyboardOptions {
   selectedId: string | null;
   disabled?: boolean;
   examSimulation?: boolean;
+  /** When false, ArrowRight does not advance (e.g. written skip is click-only). */
+  allowKeyboardNext?: boolean;
   onSelect: (optionId: string) => void;
   onCheck: () => void;
   onPrevious: () => void;
@@ -26,6 +28,7 @@ export function usePracticeKeyboard({
   selectedId,
   disabled = false,
   examSimulation = false,
+  allowKeyboardNext = true,
   onSelect,
   onCheck,
   onPrevious,
@@ -33,6 +36,7 @@ export function usePracticeKeyboard({
   onSave,
 }: UsePracticeKeyboardOptions) {
   const examSimulationRef = useRef(examSimulation);
+  const allowKeyboardNextRef = useRef(allowKeyboardNext);
   const disabledRef = useRef(disabled);
   const revealedRef = useRef(revealed);
   const selectedIdRef = useRef(selectedId);
@@ -44,6 +48,7 @@ export function usePracticeKeyboard({
 
   useEffect(() => {
     examSimulationRef.current = examSimulation;
+    allowKeyboardNextRef.current = allowKeyboardNext;
     disabledRef.current = disabled;
     revealedRef.current = revealed;
     selectedIdRef.current = selectedId;
@@ -54,6 +59,7 @@ export function usePracticeKeyboard({
     onSaveRef.current = onSave;
   }, [
     examSimulation,
+    allowKeyboardNext,
     disabled,
     revealed,
     selectedId,
@@ -82,6 +88,7 @@ export function usePracticeKeyboard({
       }
 
       if (key === "ArrowRight") {
+        if (!allowKeyboardNextRef.current) return;
         if (examSimulationRef.current ? selectedIdRef.current : revealedRef.current) {
           event.preventDefault();
           event.stopImmediatePropagation();

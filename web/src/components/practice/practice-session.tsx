@@ -509,6 +509,7 @@ function PracticeSessionInner({
     selectedId,
     disabled: paused,
     examSimulation,
+    allowKeyboardNext: examSimulation || !isWritten || revealed,
     onSelect: (id) => handleSelect(id, "keyboard"),
     onCheck: () => handleCheck("keyboard"),
     onPrevious: () => handlePrevious("keyboard"),
@@ -583,6 +584,42 @@ function PracticeSessionInner({
   const handleFinish = useCallback(() => {
     finishSession(progress);
   }, [finishSession, progress]);
+
+  const handleSkip = useCallback(
+    (source: InteractionSource = "click") => {
+      if (!question || examSimulation || revealed) return;
+
+      trackAnalyticsEvent(AnalyticsEvents.practiceNext, {
+        ...practiceBase(source),
+        ...questionAnalyticsParams(question),
+        skipped: true,
+      });
+
+      const isLast = index >= questions.length - 1;
+
+      patchProgress((prev) => {
+        const next = patchQuestionShownCleared(prev, question.questionKey);
+        if (isLast) {
+          finishSession(next);
+        }
+        return next;
+      });
+
+      if (!isLast) {
+        setIndex((i) => i + 1);
+      }
+    },
+    [
+      question,
+      examSimulation,
+      revealed,
+      index,
+      questions.length,
+      patchProgress,
+      practiceBase,
+      finishSession,
+    ]
+  );
 
   const handleSubmitExam = useCallback(async () => {
     if (!allQuestionsAnswered(questions, progress)) return;
@@ -778,6 +815,11 @@ function PracticeSessionInner({
         allAnswered={everyQuestionAnswered}
         onPrevious={() => handlePrevious("click")}
         onNext={() => handleNext("click")}
+        onSkip={
+          isWritten && !examSimulation
+            ? () => handleSkip("click")
+            : undefined
+        }
         onCheck={() => void handleCheck("click")}
         onFinish={handleFinish}
         onSubmitExam={() => void handleSubmitExam()}

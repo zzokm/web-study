@@ -39,6 +39,7 @@ interface PracticeSessionFooterProps {
   allAnswered?: boolean;
   onPrevious: () => void;
   onNext: () => void;
+  onSkip?: () => void;
   onCheck: () => void;
   onFinish?: () => void;
   onSubmitExam?: () => void;
@@ -59,6 +60,7 @@ export function PracticeSessionFooter({
   allAnswered = false,
   onPrevious,
   onNext,
+  onSkip,
   onCheck,
   onFinish,
   onSubmitExam,
@@ -186,6 +188,18 @@ export function PracticeSessionFooter({
                   <ChevronRightIcon className="size-4 shrink-0" />
                 </Button>
               ) : null
+            ) : isWritten && !revealed && onSkip ? (
+              <Button
+                type="button"
+                variant="outline"
+                size="lg"
+                onClick={onSkip}
+                className={PRACTICE_FOOTER_BTN_CLASS}
+                aria-label="Skip question"
+              >
+                <span className="hidden min-[380px]:inline">Skip</span>
+                <ChevronRightIcon className="size-4 shrink-0" />
+              </Button>
             ) : isLast && revealed ? (
               <Button
                 type="button"
