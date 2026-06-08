@@ -30,20 +30,20 @@ Counts use `relatedTopics` lecture allocation — one question may count toward 
 | ---: | --- | --- | ---: | ---: |
 | 1 | JavaScript 1 | frontend | 53 | 21.1% |
 | 2 | Python Essentials | backend | 50 | 19.9% |
-| 3 | CSS | frontend | 38 | 15.1% |
-| 4 | JavaScript 2 & AJAX | frontend | 35 | 13.9% |
+| 3 | JavaScript 2 & AJAX | frontend | 46 | 18.3% |
+| 4 | CSS | frontend | 38 | 15.1% |
 | 5 | HTML Document Object Model | frontend | 24 | 9.6% |
-| 6 | Internet Protocols | frontend | 21 | 8.4% |
-| 7 | Architecture and HTML | frontend | 14 | 5.6% |
-| 8 | Django I | backend | 12 | 4.8% |
-| 9 | Django IV | backend | 11 | 4.4% |
-| 10 | Web Basics, HTTP, URLs, and Status Codes | backend | 9 | 3.6% |
+| 6 | Internet Protocols | frontend | 22 | 8.8% |
+| 7 | Web Basics, HTTP, URLs, and Status Codes | backend | 17 | 6.8% |
+| 8 | Architecture and HTML | frontend | 14 | 5.6% |
+| 9 | Django I | backend | 12 | 4.8% |
+| 10 | Django IV | backend | 11 | 4.4% |
 | 11 | Django III | backend | 7 | 2.8% |
-| 12 | OOP and File Handling | backend | 3 | 1.2% |
+| 12 | OOP and File Handling | backend | 4 | 1.6% |
 | 13 | Intro | backend | 1 | 0.4% |
 | 14 | Django II | backend | 1 | 0.4% |
 
-**Highest-yield lectures:** JavaScript 1 → Python Essentials → CSS → JavaScript 2 & AJAX → HTML Document Object Model. JavaScript and Python essentials dominate the pool.
+**Highest-yield lectures:** JavaScript 1 → Python Essentials → JavaScript 2 & AJAX → CSS → HTML Document Object Model. JavaScript and Python essentials dominate the pool.
 
 ## Cross-exam repetition
 
@@ -74,7 +74,7 @@ Counts use `relatedTopics` lecture allocation — one question may count toward 
 
 - **True / false:** 49 (19.5%)
 - **Multiple choice:** 202
-- **Fill-in-the-blank stems:** 15
+- **Fill-in-the-blank stems:** 16
 - **T/F with negation wording:** 7 (14% of T/F)
 - **Shared code context blocks:** 37
 - **Code answer choices:** 5
@@ -85,7 +85,7 @@ Keyword hits across stems, topics, and explanations (categories may overlap).
 
 | Theme | Total | 2021 | 2024 | 2025 |
 | --- | ---: | ---: | ---: | ---: |
-| JavaScript | 120 | 52 | 39 | 29 |
+| JavaScript | 119 | 52 | 38 | 29 |
 | HTML & DOM | 96 | 27 | 45 | 24 |
 | Python | 73 | 18 | 23 | 32 |
 | HTTP & URLs | 62 | 19 | 21 | 22 |
@@ -100,23 +100,24 @@ Keyword hits across stems, topics, and explanations (categories may overlap).
 | Lecture | Total | T/F | MCQ |
 | --- | ---: | ---: | ---: |
 | JavaScript 1 | 28 | 3 | 25 |
-| Internet Protocols | 14 | 0 | 14 |
+| Internet Protocols | 15 | 0 | 15 |
+| JavaScript 2 & AJAX | 13 | 0 | 13 |
 | CSS | 12 | 0 | 12 |
+| Web Basics, HTTP, URLs, and Status Codes | 11 | 0 | 11 |
 | Python Essentials | 10 | 4 | 6 |
 | Django I | 5 | 0 | 5 |
-| JavaScript 2 & AJAX | 5 | 0 | 5 |
 | HTML Document Object Model | 4 | 0 | 4 |
-| Web Basics, HTTP, URLs, and Status Codes | 3 | 0 | 3 |
 | Django III | 3 | 0 | 3 |
 | Architecture and HTML | 2 | 0 | 2 |
+| OOP and File Handling | 1 | 0 | 1 |
 | Django IV | 1 | 0 | 1 |
 
 ### 2024
 
 | Lecture | Total | T/F | MCQ |
 | --- | ---: | ---: | ---: |
+| JavaScript 2 & AJAX | 19 | 0 | 19 |
 | Python Essentials | 19 | 5 | 14 |
-| JavaScript 2 & AJAX | 18 | 0 | 18 |
 | JavaScript 1 | 16 | 1 | 15 |
 | CSS | 16 | 1 | 15 |
 | Architecture and HTML | 10 | 0 | 10 |
@@ -133,7 +134,7 @@ Keyword hits across stems, topics, and explanations (categories may overlap).
 | Lecture | Total | T/F | MCQ |
 | --- | ---: | ---: | ---: |
 | Python Essentials | 21 | 14 | 7 |
-| JavaScript 2 & AJAX | 12 | 1 | 11 |
+| JavaScript 2 & AJAX | 14 | 1 | 13 |
 | HTML Document Object Model | 11 | 1 | 10 |
 | CSS | 10 | 2 | 8 |
 | JavaScript 1 | 9 | 2 | 7 |
@@ -149,7 +150,7 @@ Keyword hits across stems, topics, and explanations (categories may overlap).
 ## Study priorities
 
 1. **Repetitive stems** — drill the cross-exam repeats listed above before broad review.
-2. **Lecture weighting** — prioritize JavaScript 1 → Python Essentials → CSS → JavaScript 2 & AJAX → HTML Document Object Model.
+2. **Lecture weighting** — prioritize JavaScript 1 → Python Essentials → JavaScript 2 & AJAX → CSS → HTML Document Object Model.
 3. **2024–2025 style** — practice JavaScript output tracing, DOM APIs, Django model/migration questions, and Python collection semantics.
 4. **2021 style** — review HTTP caching headers, protocol definitions, and true/false traps around negation.
 5. **Code blocks** — trace snippets carefully; many items share a context block or use code as answer choices.
