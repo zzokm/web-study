@@ -145,7 +145,6 @@ export function QuestionDetailSections({
         {userWrittenAnswer ? (
           <WrittenUserAnswer code={userWrittenAnswer} />
         ) : null}
-        <WrittenModelAnswer question={question} />
         {question.explanation ? (
           <Card size="sm">
             <CardHeader>
@@ -157,6 +156,7 @@ export function QuestionDetailSections({
             </CardContent>
           </Card>
         ) : null}
+        <WrittenModelAnswer question={question} />
       </div>
     );
   }
