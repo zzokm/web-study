@@ -325,11 +325,12 @@
   overflow: auto;
   padding: var(--code-pad-y) var(--code-pad-x);
   padding-left: calc(
-    var(--code-pad-x) + var(--code-ln-width) + var(--code-ln-gap) + 1px +
-      var(--code-ln-gap) + var(--code-src-pad-x)
+    var(--code-pad-x) + var(--code-ln-width) + var(--code-ln-gap) +
+      var(--code-src-pad-x)
   );
   background: transparent;
   color: transparent;
+  -webkit-text-fill-color: transparent;
   caret-color: #d4d4d4;
   font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono",
     "Courier New", monospace;
@@ -357,6 +358,13 @@
 .code-ide-editor-input::-webkit-scrollbar-thumb {
   background: #5a5a5a;
   border-radius: 9999px;
+}
+
+.code-ide-editor-input::selection,
+.code-ide-editor-input::-moz-selection {
+  background: rgba(38, 79, 120, 0.99);
+  color: transparent;
+  -webkit-text-fill-color: transparent;
 }
 
 .app-shell-header {

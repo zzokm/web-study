@@ -50,16 +50,19 @@ export function CodeIdeRow({
 
 export function useShikiLines(
   code: string,
-  language: string | null | undefined
+  language: string | null | undefined,
+  options?: { editor?: boolean }
 ): {
   lines: string[];
   displayLines: DisplayToken[][];
   resolvedLanguage: SupportedCodeLanguage;
 } {
-  const normalizedCode = useMemo(
-    () => normalizeCodeIndentation(code.replace(/\n$/, "")),
-    [code]
-  );
+  const editor = options?.editor ?? false;
+  const normalizedCode = useMemo(() => {
+    const lineEndings = code.replace(/\r\n/g, "\n");
+    if (editor) return lineEndings;
+    return normalizeCodeIndentation(lineEndings.replace(/\n$/, ""));
+  }, [code, editor]);
   const lines = useMemo(() => normalizedCode.split("\n"), [normalizedCode]);
   const resolvedLanguage = resolveHighlightLanguage(language, code);
   const highlightKey = `${resolvedLanguage}:${normalizedCode}`;

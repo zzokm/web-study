@@ -26,7 +26,9 @@ export function CodeIdeEditor({
 }: CodeIdeEditorProps) {
   const textareaRef = useRef<HTMLTextAreaElement>(null);
   const [scrollOffset, setScrollOffset] = useState({ top: 0, left: 0 });
-  const { lines, displayLines, resolvedLanguage } = useShikiLines(value, language);
+  const { lines, displayLines, resolvedLanguage } = useShikiLines(value, language, {
+    editor: true,
+  });
 
   const rowCount = Math.max(displayLines.length, minLines);
 
