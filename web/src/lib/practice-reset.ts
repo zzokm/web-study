@@ -1,5 +1,6 @@
 "use client";
 
+import { clearActivePracticeSession } from "@/lib/practice-active-session";
 import { bumpPracticeStatusStore } from "@/lib/practice-session-pointer";
 
 const PRACTICE_STORAGE_PREFIXES = [
@@ -27,6 +28,7 @@ export function clearAllPracticeProgress(): void {
     for (const key of keysToRemove) {
       localStorage.removeItem(key);
     }
+    clearActivePracticeSession();
     bumpPracticeStatusStore();
   } catch {
     // ignore
