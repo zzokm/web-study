@@ -85,12 +85,12 @@ Keyword hits across stems, topics, and explanations (categories may overlap).
 
 | Theme | Total | 2021 | 2024 | 2025 |
 | --- | ---: | ---: | ---: | ---: |
-| JavaScript | 147 | 52 | 38 | 29 |
+| JavaScript | 145 | 52 | 38 | 29 |
 | HTML & DOM | 117 | 27 | 45 | 24 |
 | Python | 85 | 18 | 23 | 32 |
 | HTTP & URLs | 75 | 19 | 21 | 22 |
 | CSS | 49 | 12 | 16 | 13 |
-| Django | 36 | 10 | 8 | 12 |
+| Django | 37 | 10 | 8 | 12 |
 | Networking | 6 | 3 | 2 | 1 |
 
 ## Lecture focus by exam year
