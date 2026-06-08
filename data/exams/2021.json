@@ -1075,7 +1075,7 @@
       {
         "id": "q27",
         "type": "multiple_choice",
-        "questionText": "27. What will the following python code print?\nlst = []\nlst.append([15, 6])\nlst.append([10, 30, 20])\nlst.sort()\nprint(lst)",
+        "questionText": "27. What will the following python code print?\nlst = []\nnums = [15, 6]\nlst.append(nums)\nnums = [10, 30, 20]\nlst.append(nums)\nlst.sort()\nprint(lst)",
         "options": [
           {
             "id": "a",
@@ -2148,7 +2148,7 @@
       {
         "id": "q54",
         "type": "multiple_choice",
-        "questionText": "54. If you have the following JavaScript statement: const f = (a,b)=>a+b+5;",
+        "questionText": "54. If you have the following JavaScript statement:\nconst f = (a,b)=>a+b+5;",
         "options": [
           {
             "id": "a",

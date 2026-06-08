@@ -2325,7 +2325,7 @@
       {
         "id": "q64",
         "type": "multiple_choice",
-        "questionText": "64. If you have the following JavaScript statement: const f = (a, b) a + b + 5;",
+        "questionText": "64. If you have the following JavaScript statement:\nconst f = (a, b) a + b + 5;",
         "options": [
           {
             "id": "a",
