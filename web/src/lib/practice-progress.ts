@@ -349,6 +349,31 @@ export function answeredQuestionCount(
   ).length;
 }
 
+/** Whether a question counts toward hub/setup practice progress. */
+export function isQuestionPracticed(
+  question: Question,
+  attempt: QuestionAttempt,
+  examSimulation: boolean
+): boolean {
+  if (isWrittenQuestion(question)) {
+    return attempt.revealed && hasWrittenResponse(attempt);
+  }
+  if (examSimulation) {
+    return isQuestionAnswered(question, attempt);
+  }
+  return attempt.revealed;
+}
+
+export function practicedQuestionCount(
+  questions: Question[],
+  progress: PracticeProgress,
+  examSimulation: boolean
+): number {
+  return questions.filter((q) =>
+    isQuestionPracticed(q, getAttempt(progress, q.questionKey), examSimulation)
+  ).length;
+}
+
 export function isAttemptCorrect(
   question: Question,
   attempt: QuestionAttempt

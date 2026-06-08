@@ -49,7 +49,10 @@ import {
   type PracticeProgress,
   type QuestionAttempt,
 } from "@/lib/practice-progress";
-import { touchPracticeSessionPointer } from "@/lib/practice-session-pointer";
+import {
+  bumpPracticeStatusStore,
+  touchPracticeSessionPointer,
+} from "@/lib/practice-session-pointer";
 import { computePracticeTimingStats } from "@/lib/practice-timing";
 import { ResetPracticeProgressButton } from "@/components/practice/reset-practice-progress-button";
 import { savePracticeResult } from "@/lib/practice-results";
@@ -167,6 +170,7 @@ function PracticeSessionInner({
           config,
           status: "in_progress",
         });
+        bumpPracticeStatusStore();
         return next;
       });
     },
@@ -556,7 +560,8 @@ function PracticeSessionInner({
         status: "completed",
         resultId: id,
       });
-      clearPracticeProgress(sessionKey, canonicalKey);
+      clearPracticeProgress(sessionKey);
+      bumpPracticeStatusStore();
       onSessionFinished?.();
       router.push(`/practice/results/?id=${id}`);
     },
@@ -568,7 +573,6 @@ function PracticeSessionInner({
       pathname,
       config,
       mockExamSpec,
-      canonicalKey,
       onSessionFinished,
     ]
   );

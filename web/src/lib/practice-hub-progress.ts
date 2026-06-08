@@ -17,7 +17,7 @@ export function derivePracticeHubProgressDisplay(
     return {
       percent: 0,
       statusTitle: "Loading progress",
-      statusDetail: `0 of ${questionCount} answered`,
+      statusDetail: `0 of ${questionCount} practiced`,
       completed: false,
     };
   }
@@ -26,7 +26,7 @@ export function derivePracticeHubProgressDisplay(
     return {
       percent: 0,
       statusTitle: "Not started",
-      statusDetail: `0 of ${questionCount} answered`,
+      statusDetail: `0 of ${questionCount} practiced`,
       completed: false,
     };
   }
@@ -46,7 +46,7 @@ export function derivePracticeHubProgressDisplay(
     statusTitle: "In progress",
     statusDetail: `${sessionStatus.answered} of ${sessionStatus.total} question${
       sessionStatus.total === 1 ? "" : "s"
-    } answered`,
+    } practiced`,
     completed: false,
   };
 }

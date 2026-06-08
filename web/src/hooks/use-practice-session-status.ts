@@ -2,8 +2,8 @@
 
 import { useSyncExternalStore } from "react";
 import {
+  getPracticeSessionStatusSnapshot,
   getPracticeStatusStoreVersion,
-  resolvePracticeSessionStatus,
   subscribePracticeStatus,
   type PracticeSessionStatus,
 } from "@/lib/practice-session-pointer";
@@ -16,8 +16,7 @@ export function usePracticeSessionStatus(
     subscribePracticeStatus,
     () => {
       void getPracticeStatusStoreVersion();
-      if (questions.length === 0) return null;
-      return resolvePracticeSessionStatus(questions);
+      return getPracticeSessionStatusSnapshot(questions);
     },
     () => null
   );

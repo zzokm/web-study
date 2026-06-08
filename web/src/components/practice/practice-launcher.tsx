@@ -37,7 +37,8 @@ import {
 import {
   bumpPracticeStatusStore,
   getPracticeStatusStoreVersion,
-  resolvePracticeSessionStatus,
+  getPracticeSessionStatusSnapshot,
+  reconcilePracticeSessionPointer,
   subscribePracticeStatus,
   touchPracticeSessionPointer,
   type PracticeSessionStatus,
@@ -91,7 +92,7 @@ export function PracticeLauncher({
     (): PracticeSessionStatus | null => {
       void getPracticeStatusStoreVersion();
       if (phase !== "setup") return null;
-      return resolvePracticeSessionStatus(baseQuestions);
+      return getPracticeSessionStatusSnapshot(baseQuestions);
     },
     (): PracticeSessionStatus | null => null
   );
@@ -114,6 +115,12 @@ export function PracticeLauncher({
       question_count: baseQuestions.length,
     });
   }, [baseQuestions.length, pathname, title]);
+
+  useEffect(() => {
+    if (phase !== "setup" || baseQuestions.length === 0) return;
+    reconcilePracticeSessionPointer(baseQuestions);
+    bumpPracticeStatusStore();
+  }, [phase, canonicalKey, baseQuestions]);
 
   const beginSession = useCallback(
     (
@@ -155,6 +162,7 @@ export function PracticeLauncher({
         config: sessionConfig,
         status: "in_progress",
       });
+      bumpPracticeStatusStore();
 
       trackAnalyticsEvent(AnalyticsEvents.practiceSetupStart, {
         ...practiceContextFromPath(pathname, title),
