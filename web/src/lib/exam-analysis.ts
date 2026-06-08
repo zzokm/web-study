@@ -101,6 +101,18 @@ export interface CorrectAnswerDistribution {
   };
 }
 
+/** Frontend vs backend share from lecture topic allocation hits. */
+export interface TrackAllocationRow {
+  /** `all`, `average`, or an exam year. */
+  key: string;
+  label: string;
+  frontendShare: number;
+  backendShare: number;
+  frontendHits: number;
+  backendHits: number;
+  questionCount: number;
+}
+
 export interface ExamAnalysisData {
   generatedAt: string;
   stats: ReturnType<typeof getStats>;
@@ -126,6 +138,7 @@ export interface ExamAnalysisData {
   };
   themes: ThemeRow[];
   correctAnswerDistributionByYear: Record<string, CorrectAnswerDistribution>;
+  trackAllocation: TrackAllocationRow[];
 }
 
 const THEME_RULES: Array<{ theme: string; test: (text: string) => boolean }> = [
@@ -213,6 +226,94 @@ function buildCorrectAnswerDistribution(
     trueFalse: buildCorrectAnswerRows(questions, "true_false", ["True", "False"]),
     mcq: buildCorrectAnswerRows(questions, "mcq", ["A", "B", "C", "D", "E"]),
   };
+}
+
+function countTrackAllocationHits(questions: Question[]): {
+  frontendHits: number;
+  backendHits: number;
+} {
+  const lectureMeta = getLectureMeta();
+  let frontendHits = 0;
+  let backendHits = 0;
+
+  for (const q of questions) {
+    const topics = q.relatedTopics?.filter(Boolean) ?? [];
+    for (const slug of topics) {
+      const track = lectureMeta[slug]?.track;
+      if (track === "frontend") frontendHits++;
+      else if (track === "backend") backendHits++;
+    }
+  }
+
+  return { frontendHits, backendHits };
+}
+
+function trackSharesFromHits(
+  frontendHits: number,
+  backendHits: number
+): { frontendShare: number; backendShare: number } {
+  const total = frontendHits + backendHits;
+  if (total === 0) {
+    return { frontendShare: 0, backendShare: 0 };
+  }
+  const frontendShare = Math.round((frontendHits / total) * 1000) / 10;
+  return {
+    frontendShare,
+    backendShare: Math.round((100 - frontendShare) * 10) / 10,
+  };
+}
+
+function buildTrackAllocationRow(
+  key: string,
+  label: string,
+  questions: Question[]
+): TrackAllocationRow {
+  const { frontendHits, backendHits } = countTrackAllocationHits(questions);
+  const shares = trackSharesFromHits(frontendHits, backendHits);
+  return {
+    key,
+    label,
+    ...shares,
+    frontendHits,
+    backendHits,
+    questionCount: questions.length,
+  };
+}
+
+export function buildTrackAllocation(years: string[]): TrackAllocationRow[] {
+  const yearRows = years.map((year) =>
+    buildTrackAllocationRow(year, year, getQuestionsByExamYear(year))
+  );
+
+  const allQuestions = getAllQuestions();
+  const allRow = buildTrackAllocationRow("all", "All exams", allQuestions);
+
+  const averageFrontendShare =
+    yearRows.length > 0
+      ? Math.round(
+          (yearRows.reduce((sum, row) => sum + row.frontendShare, 0) /
+            yearRows.length) *
+            10
+        ) / 10
+      : 0;
+
+  const averageRow: TrackAllocationRow = {
+    key: "average",
+    label: "Year average",
+    frontendShare: averageFrontendShare,
+    backendShare: Math.round((100 - averageFrontendShare) * 10) / 10,
+    frontendHits: Math.round(
+      yearRows.reduce((sum, row) => sum + row.frontendHits, 0) / yearRows.length
+    ),
+    backendHits: Math.round(
+      yearRows.reduce((sum, row) => sum + row.backendHits, 0) / yearRows.length
+    ),
+    questionCount: Math.round(
+      yearRows.reduce((sum, row) => sum + row.questionCount, 0) / yearRows.length
+    ),
+  };
+
+  return [allRow, averageRow, ...yearRows];
 }
 
 function buildLectureYield(
@@ -448,5 +549,6 @@ export function buildExamAnalysis(): ExamAnalysisData {
     },
     themes,
     correctAnswerDistributionByYear,
+    trackAllocation: buildTrackAllocation(years),
   };
 }

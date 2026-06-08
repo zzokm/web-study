@@ -69,6 +69,11 @@ export function ExamAnalysisDashboard({ data }: { data: ExamAnalysisData }) {
     full: r.lecture,
   }));
   const topStudyLectures = lectureYieldRows.slice(0, 5);
+  const trackAllocationChart = data.trackAllocation.map((row) => ({
+    label: row.label,
+    frontendShare: row.frontendShare,
+    backendShare: row.backendShare,
+  }));
 
   return (
     <div className="flex flex-col gap-10">
@@ -77,6 +82,62 @@ export function ExamAnalysisDashboard({ data }: { data: ExamAnalysisData }) {
         <StatCard label="Exam instances" value={stats.totalExamInstances ?? 0} />
         <StatCard label="Lectures" value={stats.lectures} />
         <StatCard label="Repeated stems" value={stats.repetitive} />
+      </section>
+
+      <section className="flex flex-col gap-4">
+        <SectionHeading
+          title="Frontend / backend allocation"
+          description="Share of lecture topic hits per exam (same basis as mock exam weights). Questions mapped to multiple lectures count toward each track."
+        />
+        <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-5">
+          {data.trackAllocation.map((row) => (
+            <TrackAllocationCard key={row.key} row={row} />
+          ))}
+        </div>
+        <Card>
+          <CardHeader className="pb-2">
+            <CardTitle className="text-lg">Compare allocation</CardTitle>
+            <CardDescription>
+              Frontend share across all exams, the mean of the three finals, and each year
+            </CardDescription>
+          </CardHeader>
+          <CardContent>
+            <AnalysisChart height={220}>
+              {({ width, height }) => (
+                <BarChart
+                  width={width}
+                  height={height}
+                  data={trackAllocationChart}
+                  margin={{ top: 8, right: 8, left: 0, bottom: 0 }}
+                >
+                  <CartesianGrid strokeDasharray="3 3" className="stroke-border" />
+                  <XAxis dataKey="label" tick={{ fontSize: 11 }} />
+                  <YAxis tick={{ fontSize: 12 }} unit="%" domain={[0, 100]} />
+                  <Tooltip
+                    formatter={(value, name) => [
+                      `${value ?? 0}%`,
+                      name === "frontendShare" ? "Frontend" : "Backend",
+                    ]}
+                  />
+                  <Bar
+                    dataKey="frontendShare"
+                    stackId="track"
+                    fill="hsl(var(--chart-1))"
+                    radius={[0, 0, 0, 0]}
+                    name="Frontend"
+                  />
+                  <Bar
+                    dataKey="backendShare"
+                    stackId="track"
+                    fill="hsl(var(--chart-2))"
+                    radius={[4, 4, 0, 0]}
+                    name="Backend"
+                  />
+                </BarChart>
+              )}
+            </AnalysisChart>
+          </CardContent>
+        </Card>
       </section>
 
       <section className="flex flex-col gap-4">
@@ -643,6 +704,43 @@ function StatCard({ label, value }: { label: string; value: number }) {
         <CardDescription>{label}</CardDescription>
         <CardTitle className="text-3xl tabular-nums">{value}</CardTitle>
       </CardHeader>
+    </Card>
+  );
+}
+
+function TrackAllocationCard({
+  row,
+}: {
+  row: ExamAnalysisData["trackAllocation"][number];
+}) {
+  return (
+    <Card>
+      <CardHeader className="pb-2">
+        <CardDescription>{row.label}</CardDescription>
+        <CardTitle className="text-2xl tabular-nums">
+          {row.frontendShare}%
+          <span className="text-base font-normal text-muted-foreground">
+            {" "}
+            / {row.backendShare}%
+          </span>
+        </CardTitle>
+      </CardHeader>
+      <CardContent className="flex flex-col gap-2 pt-0">
+        <div className="flex h-2 overflow-hidden rounded-full bg-muted">
+          <div
+            className="bg-[hsl(var(--chart-1))]"
+            style={{ width: `${row.frontendShare}%` }}
+          />
+          <div
+            className="bg-[hsl(var(--chart-2))]"
+            style={{ width: `${row.backendShare}%` }}
+          />
+        </div>
+        <p className="text-xs text-muted-foreground">
+          {row.questionCount} questions · FE {row.frontendHits} / BE{" "}
+          {row.backendHits} topic hits
+        </p>
+      </CardContent>
     </Card>
   );
 }
