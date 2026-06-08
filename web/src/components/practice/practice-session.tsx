@@ -30,6 +30,15 @@ import {
 } from "@/lib/practice-session-config";
 import { RegenerateMockExamButton } from "@/components/practice/regenerate-mock-exam-button";
 import {
+  notifyBuildReloadSafeMoment,
+  registerBuildReloadGate,
+  unregisterBuildReloadGate,
+} from "@/lib/build-update-reload";
+import {
+  clearActivePracticeSession,
+  saveActivePracticeSession,
+} from "@/lib/practice-active-session";
+import {
   allQuestionsAnswered,
   canonicalPracticeSessionKey,
   clearPracticeProgress,
@@ -165,6 +174,24 @@ function PracticeSessionInner({
   const [checkingWritten, setCheckingWritten] = useState(false);
   const writtenPanelRef = useRef<WrittenQuestionPanelHandle>(null);
   const isMobile = useIsMobile();
+  const reloadGateId = `practice:${sessionKey}`;
+
+  useEffect(() => {
+    registerBuildReloadGate(reloadGateId);
+    return () => unregisterBuildReloadGate(reloadGateId);
+  }, [reloadGateId]);
+
+  useEffect(() => {
+    saveActivePracticeSession({
+      version: 1,
+      returnPath: pathname,
+      sessionKey,
+      canonicalKey,
+      config,
+      currentIndex: index,
+      updatedAt: new Date().toISOString(),
+    });
+  }, [pathname, sessionKey, canonicalKey, config, index]);
 
   const patchProgress = useCallback(
     (updater: (prev: PracticeProgress) => PracticeProgress) => {
@@ -397,6 +424,7 @@ function PracticeSessionInner({
           if (writtenQuestionShowsPreviewTabs(question)) {
             writtenPanelRef.current?.showPreview();
           }
+          notifyBuildReloadSafeMoment();
         } finally {
           setCheckingWritten(false);
         }
@@ -418,6 +446,7 @@ function PracticeSessionInner({
         });
         return next;
       });
+      notifyBuildReloadSafeMoment();
     },
     [
       selectedId,
@@ -571,6 +600,7 @@ function PracticeSessionInner({
         resultId: id,
       });
       clearPracticeProgress(sessionKey);
+      clearActivePracticeSession();
       bumpPracticeStatusStore();
       onSessionFinished?.();
       router.push(`/practice/results/?id=${id}`);
