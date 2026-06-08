@@ -3,6 +3,7 @@
 import Script from "next/script";
 import { usePathname } from "next/navigation";
 import { useEffect, useRef } from "react";
+import { markBuildUpdatePending } from "@/lib/build-update-reload";
 import {
   canonicalPublicUrl,
   hasInternalPortOnPublicHost,
@@ -59,7 +60,7 @@ export function PublicOriginGuard() {
         }
         if (buildIdRef.current !== remote) {
           buildIdRef.current = remote;
-          reloadOnCleanOrigin();
+          markBuildUpdatePending();
         }
       } catch {
         // ignore network errors
