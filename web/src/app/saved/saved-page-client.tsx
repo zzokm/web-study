@@ -5,6 +5,7 @@ import type { Question } from "@/types/question";
 import { getQuestionByKey } from "@/lib/questions";
 import { getSavedQuestions } from "@/lib/saved-questions";
 import { QuestionBrowseAccordion } from "@/components/questions/question-browse-accordion";
+import { PracticeSavedSetCard } from "@/components/practice/practice-saved-set-card";
 import { LinkButton } from "@/components/ui/link-button";
 import { Empty, EmptyDescription, EmptyHeader, EmptyTitle } from "@/components/ui/empty";
 
@@ -50,15 +51,14 @@ export function SavedPageClient() {
 
   return (
     <>
-      <div className="flex flex-wrap items-start justify-between gap-4">
-        <div>
-          <h1 className="text-2xl font-semibold tracking-tight">Saved for later</h1>
-          <p className="text-muted-foreground">
-            {count} question{count === 1 ? "" : "s"} bookmarked in this browser
-          </p>
-        </div>
-        <LinkButton href="/practice/saved/">Practice saved set</LinkButton>
+      <div>
+        <h1 className="text-2xl font-semibold tracking-tight">Saved for later</h1>
+        <p className="text-muted-foreground">
+          {count} question{count === 1 ? "" : "s"} bookmarked in this browser
+        </p>
       </div>
+
+      <PracticeSavedSetCard />
 
       <QuestionBrowseAccordion
         questions={questions}

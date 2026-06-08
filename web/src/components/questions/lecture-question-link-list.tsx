@@ -1,7 +1,10 @@
+"use client";
+
 import type { HubType } from "@/lib/analytics-event-schemas";
 import { HubTrackedLink } from "@/components/analytics/hub-tracked-link";
-import { getLectureSlugs } from "@/lib/questions";
-import { Card, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import { PracticeHubCardHeader } from "@/components/practice/practice-hub-card-header";
+import { getLectureSlugs, getQuestionsByLectureSlug } from "@/lib/questions";
+import { Card } from "@/components/ui/card";
 
 type LectureQuestionLinkListProps = {
   hrefPrefix: "/practice/lecture/" | "/by-lecture/";
@@ -29,25 +32,28 @@ export function LectureQuestionLinkList({
               {trackLectures[0]?.trackLabel ?? trackId}
             </h2>
             <div className={compact ? "flex flex-col gap-2" : "flex flex-col gap-3"}>
-              {trackLectures.map((lec) => (
-                <HubTrackedLink
-                  key={lec.slug}
-                  href={`${hrefPrefix}${lec.slug}/`}
-                  hubType={hubType}
-                  label={lec.lecture}
-                >
-                  <Card className="transition-colors hover:bg-muted/50">
-                    <CardHeader className={compact ? "py-4" : undefined}>
-                      <CardTitle className={compact ? "text-sm font-medium" : "text-base"}>
-                        {lec.lecture}
-                      </CardTitle>
-                      <CardDescription>
-                        {lec.count} question{lec.count === 1 ? "" : "s"}
-                      </CardDescription>
-                    </CardHeader>
-                  </Card>
-                </HubTrackedLink>
-              ))}
+              {trackLectures.map((lec) => {
+                const questions = getQuestionsByLectureSlug(lec.slug);
+                return (
+                  <HubTrackedLink
+                    key={lec.slug}
+                    href={`${hrefPrefix}${lec.slug}/`}
+                    hubType={hubType}
+                    label={lec.lecture}
+                  >
+                    <Card className="transition-colors hover:bg-muted/50">
+                      <PracticeHubCardHeader
+                        title={lec.lecture}
+                        description={`${lec.count} question${
+                          lec.count === 1 ? "" : "s"
+                        }`}
+                        questions={questions}
+                        compact={compact}
+                      />
+                    </Card>
+                  </HubTrackedLink>
+                );
+              })}
             </div>
           </div>
         );

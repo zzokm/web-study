@@ -1,12 +1,13 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { metadataTitle } from "@/lib/analytics-page-titles";
-import { getExamYears, getQuestionsByExamYear } from "@/lib/questions";
+import { getExamYears } from "@/lib/questions";
+import { ExamYearLinkGrid } from "@/components/questions/exam-year-link-grid";
+import { Card, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 
 export const metadata: Metadata = {
   title: metadataTitle("/by-exam/"),
 };
-import { Card, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 
 export default function ByExamPage() {
   const years = getExamYears();
@@ -34,21 +35,11 @@ export default function ByExamPage() {
 
       <div>
         <h2 className="mb-3 text-sm font-medium text-muted-foreground">By exam year</h2>
-        <div className="grid gap-4 sm:grid-cols-2">
-          {years.map((year) => {
-            const count = getQuestionsByExamYear(year).length;
-            return (
-              <Link key={year} href={`/by-exam/${year}/`}>
-                <Card className="transition-colors hover:bg-muted/50">
-                  <CardHeader>
-                    <CardTitle className="text-base">{year} Final</CardTitle>
-                    <CardDescription>{count} questions</CardDescription>
-                  </CardHeader>
-                </Card>
-              </Link>
-            );
-          })}
-        </div>
+        <ExamYearLinkGrid
+          years={years}
+          hrefPrefix="/by-exam/"
+          className="gap-4"
+        />
       </div>
     </div>
   );

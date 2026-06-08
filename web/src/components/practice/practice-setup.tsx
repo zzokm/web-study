@@ -1,6 +1,10 @@
 "use client";
 
 import type { PracticeSessionStatus } from "@/lib/practice-session-pointer";
+import {
+  derivePracticeHubProgressDisplay,
+  practiceHubProgressAriaLabel,
+} from "@/lib/practice-hub-progress";
 import type { PracticeSessionConfig } from "@/lib/practice-session-config";
 import { DEFAULT_PRACTICE_SESSION_CONFIG } from "@/lib/practice-session-config";
 import { Button } from "@/components/ui/button";
@@ -79,46 +83,23 @@ function SetupOption({
   );
 }
 
-function deriveProgressDisplay(
-  sessionStatus: PracticeSessionStatus | null,
-  questionCount: number
-): {
-  percent: number;
-  statusTitle: string;
-  statusDetail: string;
-  centerLabel?: string;
+type SetupProgressDisplay = ReturnType<typeof derivePracticeHubProgressDisplay> & {
   showActions: boolean;
-  completed: boolean;
-} {
-  if (!sessionStatus) {
-    return {
-      percent: 0,
-      statusTitle: "Not started",
-      statusDetail: `0 of ${questionCount} answered`,
-      showActions: false,
-      completed: false,
-    };
-  }
+};
 
-  if (sessionStatus.kind === "completed") {
-    return {
-      percent: 100,
-      statusTitle: "Completed",
-      statusDetail: "You finished this practice set.",
-      centerLabel: "Done",
-      showActions: true,
-      completed: true,
-    };
-  }
-
+function deriveSetupProgressDisplay(
+  sessionStatus: PracticeSessionStatus | null,
+  questionCount: number,
+  statusHydrated: boolean
+): SetupProgressDisplay {
+  const base = derivePracticeHubProgressDisplay(
+    sessionStatus,
+    questionCount,
+    statusHydrated
+  );
   return {
-    percent: sessionStatus.percent,
-    statusTitle: "In progress",
-    statusDetail: `${sessionStatus.answered} of ${sessionStatus.total} question${
-      sessionStatus.total === 1 ? "" : "s"
-    } answered`,
-    showActions: true,
-    completed: false,
+    ...base,
+    showActions: statusHydrated && sessionStatus != null,
   };
 }
 
@@ -126,11 +107,11 @@ function SetupCardProgress({
   progress,
   statusHydrated,
 }: {
-  progress: ReturnType<typeof deriveProgressDisplay>;
+  progress: SetupProgressDisplay;
   statusHydrated: boolean;
 }) {
   const ariaLabel = statusHydrated
-    ? `${progress.statusTitle} — ${progress.statusDetail}`
+    ? practiceHubProgressAriaLabel(progress)
     : "Loading progress";
 
   return (
@@ -154,7 +135,7 @@ function SetupCardHeader({
 }: {
   title: string;
   description: string;
-  progress: ReturnType<typeof deriveProgressDisplay>;
+  progress: SetupProgressDisplay;
   statusHydrated: boolean;
 }) {
   return (
@@ -183,7 +164,11 @@ export function PracticeSetup({
   variant = "default",
 }: PracticeSetupProps) {
   const isWritten = variant === "written";
-  const progress = deriveProgressDisplay(sessionStatus, questionCount);
+  const progress = deriveSetupProgressDisplay(
+    sessionStatus,
+    questionCount,
+    statusHydrated
+  );
 
   function patch(partial: Partial<PracticeSessionConfig>) {
     onConfigChange({ ...config, ...partial });

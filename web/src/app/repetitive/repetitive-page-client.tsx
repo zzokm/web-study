@@ -2,7 +2,7 @@
 
 import { useCallback, useEffect, useState } from "react";
 import type { Question } from "@/types/question";
-import { LinkButton } from "@/components/ui/link-button";
+import { PracticeRepetitiveSetCard } from "@/components/practice/practice-repetitive-set-card";
 import { QuestionBrowseAccordion } from "@/components/questions/question-browse-accordion";
 
 function hashQuestionKey(): string | null {
@@ -63,18 +63,17 @@ export function RepetitivePageClient({
 
   return (
     <>
-      <div className="flex flex-wrap items-start justify-between gap-4">
-        <div>
-          <h1 className="text-2xl font-semibold tracking-tight">
-            Repetitive questions
-          </h1>
-          <p className="text-muted-foreground">
-            {count} stems that appeared in multiple exams — highest yield for
-            review.
-          </p>
-        </div>
-        <LinkButton href="/practice/repetitive/">Practice repetitive set</LinkButton>
+      <div>
+        <h1 className="text-2xl font-semibold tracking-tight">
+          Repetitive questions
+        </h1>
+        <p className="text-muted-foreground">
+          {count} stems that appeared in multiple exams — highest yield for
+          review.
+        </p>
       </div>
+
+      <PracticeRepetitiveSetCard questions={questions} count={count} />
 
       <QuestionBrowseAccordion
         questions={questions}
