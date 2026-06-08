@@ -673,17 +673,19 @@ function PracticeSessionInner({
       {showTimer ? <PracticeFloatingTimer /> : null}
       <div
         className={cn(
-          "mx-auto flex max-w-3xl flex-col gap-6",
-          showTimer ? "pt-12 md:pt-14" : "pt-2"
+          "mx-auto flex max-w-3xl flex-col gap-6 md:gap-4",
+          showTimer && "max-md:pt-12"
         )}
         aria-hidden={paused}
         style={{
           paddingBottom: `calc(${PRACTICE_FOOTER_HEIGHT} + 1.5rem)`,
         }}
       >
-        <div className="flex flex-col gap-2">
-          <div className="flex flex-wrap items-start justify-between gap-3">
-            <h1 className="text-2xl font-semibold tracking-tight">{title}</h1>
+        <div className="flex flex-col gap-1.5 md:gap-1">
+          <div className="flex flex-wrap items-start justify-between gap-2 md:gap-3">
+            <h1 className="text-xl font-semibold tracking-tight md:text-2xl">
+              {title}
+            </h1>
             <div className="flex shrink-0 items-center gap-2">
               {onRegenerateExam ? (
                 <RegenerateMockExamButton
