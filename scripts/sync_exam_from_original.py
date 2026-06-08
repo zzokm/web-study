@@ -317,7 +317,7 @@ ANSWER_FIXES: dict[str, dict[str, str]] = {
     },
     "2025": {
         "q53": "c",
-        "q65": "c",
+        "q65": "d",
         "q76": "d",
         "q79": "d",
     },
@@ -373,6 +373,7 @@ EXPLANATION_FIXES: dict[str, dict[str, str]] = {
         "q80": "Parentheses define a tuple, not a list.",
     },
     "2025": {
+        "q65": "Python 3 prints `{1, 2, 3, 5}` with spaces; option c's `{1,2,3,5}` does not match exactly.",
         "q76": "Duplicates are removed, so the values are `{1, 2, 3, 5}`, but Python 3 prints sets with curly braces, not `set([1,2,3,5])`.",
         "q79": "`.flat(2)` yields `[1, 2, 3, 4, 5, 6, 7, 8]`, and `console.log` prints brackets; option c omits them.",
     },

@@ -2070,9 +2070,9 @@
             "codeLanguage": null
           }
         ],
-        "correctAnswerId": "c",
+        "correctAnswerId": "d",
         "expectedAnswer": null,
-        "explanation": "`Y` is a set, so duplicate values are removed. `print(Y)` outputs `{1, 2, 3, 5}` (spacing may vary), which matches option c.",
+        "explanation": "Duplicates are removed, so the values are `{1, 2, 3, 5}`, but Python 3 prints sets with spaces after commas (e.g. `{1, 2, 3, 5}`). Option c omits those spaces, so none of the options match exactly.",
         "relatedTopics": [
           "be-2"
         ]
