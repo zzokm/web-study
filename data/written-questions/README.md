@@ -77,7 +77,7 @@ After `npm run sync` (in `web/`):
 |-------|----------|-------------|
 | `type` | yes | Must be `"written"` |
 | `topic` | yes | Short group title (e.g. `"Written — HTML styling"`) |
-| `questionText` | yes | Stem shown in practice. Use `\n` for numbered parts. Do **not** include the exam number prefix here — sync adds it for `examPlacement`. |
+| `questionText` | yes | Stem shown in practice. Start with a one-line scenario (e.g. `Given …, write a complete snippet to:`), then numbered parts (`1.`, `2.`, …) separated by `\n`. Do **not** include the exam number prefix here — sync adds it for `examPlacement`. |
 | `context` | yes | Shared block context object, or `null` for standalone coding tasks |
 | `relatedTopics` | yes | Lecture IDs (`fe-3`, `be-5`, …). **1–2 entries max.** See [Lecture IDs](#lecture-ids-relatedtopics) below. |
 | `answerLanguage` | no | Editor language (`html`, `javascript`, `css`, `python`). Defaults from topic and rubric. Python/Django/text-only tasks hide preview and console. |
@@ -255,7 +255,7 @@ See [`questions.json`](./questions.json) for the live file. One complete questio
   },
   "type": "written",
   "topic": "Written — HTML styling",
-  "questionText": "1. Display the text \"My favorite subject is English Arabic\" where \"English\" is struck-through and \"Arabic\" is underlined.\n2. Add a button labeled \"Style\" that, when clicked, changes the paragraph's:\n- Font color to green\n- Font size to 14px\n- Font family to Arial",
+  "questionText": "Given a paragraph element in an HTML file, write a complete snippet to:\n1. Display the text \"My favorite subject is English Arabic\" where \"English\" is struck-through and \"Arabic\" is underlined.\n2. Add a button labeled \"Style\" that, when clicked, changes the paragraph's:\n- Font color to green\n- Font size to 14px\n- Font family to Arial",
   "context": null,
   "expectedAnswer": "<p id=\"myPara\">My favorite subject is <s>English</s> <u>Arabic</u></p>\n<button onclick=\"changeStyle()\">Style</button>\n<script>\nfunction changeStyle() {\n  let p = document.getElementById(\"myPara\");\n  p.style.color = \"green\";\n  p.style.fontSize = \"14px\";\n  p.style.fontFamily = \"Arial\";\n}\n</script>",
   "writtenRubric": {

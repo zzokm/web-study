@@ -58,9 +58,14 @@ import { computePracticeTimingStats } from "@/lib/practice-timing";
 import { ResetPracticeProgressButton } from "@/components/practice/reset-practice-progress-button";
 import { savePracticeResult } from "@/lib/practice-results";
 import { toggleSavedQuestion } from "@/lib/saved-questions";
+import { useIsMobile } from "@/hooks/use-mobile";
 import { usePracticeKeyboard } from "@/hooks/use-practice-keyboard";
 import { QuestionCard } from "@/components/questions/question-card";
 import { AnswerReveal } from "@/components/questions/answer-reveal";
+import {
+  WrittenAiReviewButton,
+  WRITTEN_AI_REVIEW_FLOAT_CLEARANCE,
+} from "@/components/written-questions/written-ai-review-button";
 import { SaveButton } from "@/components/questions/save-button";
 import { ReportIssueButton } from "@/components/report/report-issue-button";
 import { Progress } from "@/components/ui/progress";
@@ -159,6 +164,7 @@ function PracticeSessionInner({
   >({});
   const [checkingWritten, setCheckingWritten] = useState(false);
   const writtenPanelRef = useRef<WrittenQuestionPanelHandle>(null);
+  const isMobile = useIsMobile();
 
   const patchProgress = useCallback(
     (updater: (prev: PracticeProgress) => PracticeProgress) => {
@@ -706,6 +712,11 @@ function PracticeSessionInner({
   const progressPct =
     questions.length > 0 ? ((index + 1) / questions.length) * 100 : 0;
   const everyQuestionAnswered = allQuestionsAnswered(questions, progress);
+  const showAiReviewFab =
+    !examSimulation &&
+    revealed &&
+    isWritten &&
+    (writtenAnswer?.trim() ?? "").length > 0;
 
   return (
     <>
@@ -718,7 +729,10 @@ function PracticeSessionInner({
         )}
         aria-hidden={paused}
         style={{
-          paddingBottom: `calc(${PRACTICE_FOOTER_HEIGHT} + 1.5rem)`,
+          paddingBottom:
+            showAiReviewFab && isMobile
+              ? `calc(${PRACTICE_FOOTER_HEIGHT} + 1.5rem + ${WRITTEN_AI_REVIEW_FLOAT_CLEARANCE})`
+              : `calc(${PRACTICE_FOOTER_HEIGHT} + 1.5rem)`,
         }}
       >
         <div className="flex flex-col gap-1.5 md:gap-1">
@@ -797,12 +811,18 @@ function PracticeSessionInner({
               <AnswerReveal
                 question={question}
                 userWrittenAnswer={isWritten ? writtenAnswer : undefined}
-                showAiReview={isWritten}
               />
             ) : null}
           </CardContent>
         </Card>
       </div>
+
+      {showAiReviewFab ? (
+        <WrittenAiReviewButton
+          question={question}
+          userAnswer={writtenAnswer.trim()}
+        />
+      ) : null}
 
       <PracticeSessionFooter
         index={index}

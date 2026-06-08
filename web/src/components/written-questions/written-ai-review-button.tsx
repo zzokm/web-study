@@ -12,9 +12,13 @@ import {
   formatWrittenAnswerLanguageLabel,
 } from "@/lib/written-ai-review-prompt";
 import { inferWrittenEditorLanguage } from "@/lib/written-question-utils";
-import { Button } from "@/components/ui/button";
-import { BrainIcon } from "lucide-react";
+import { ShinyButton } from "@/components/ui/shiny-button";
+import { PRACTICE_FOOTER_HEIGHT } from "@/components/practice/practice-session-footer";
+import { Sparkles } from "lucide-react";
 import { toast } from "sonner";
+
+/** Extra scroll clearance when the floating AI review button is visible. */
+export const WRITTEN_AI_REVIEW_FLOAT_CLEARANCE = "3.75rem";
 
 type WrittenAiReviewButtonProps = {
   question: Question;
@@ -38,7 +42,9 @@ export function WrittenAiReviewButton({
           inferWrittenEditorLanguage(question)
         ),
       });
-      toast.success("Review prompt copied — paste it into your AI assistant");
+      toast.success(
+        "Review prompt copied — paste into your AI assistant (e.g. Claude, ChatGPT, Gemini)"
+      );
     } catch {
       toast.error("Could not copy the review prompt. Try again.");
     } finally {
@@ -47,15 +53,38 @@ export function WrittenAiReviewButton({
   }
 
   return (
-    <Button
-      type="button"
-      variant="outline"
-      onClick={() => void handleCopy()}
-      disabled={copying}
-      className="w-full gap-2 sm:w-auto"
+    <div
+      className="pointer-events-none fixed z-[49]"
+      style={{
+        bottom: `calc(${PRACTICE_FOOTER_HEIGHT} + 0.75rem)`,
+        right: "max(1rem, env(safe-area-inset-right))",
+        left: "auto",
+      }}
     >
-      <BrainIcon className="size-4 shrink-0" aria-hidden />
-      {copying ? "Copying…" : "Review with AI"}
-    </Button>
+      <ShinyButton
+        type="button"
+        size="compact"
+        disabled={copying}
+        onClick={() => void handleCopy()}
+        aria-label="Review with AI — copy prompt to clipboard"
+        className="pointer-events-auto min-w-[11.5rem] shadow-lg"
+      >
+        <div className="grid w-full grid-cols-[1.125rem_1fr_1.125rem] items-center gap-x-3">
+          <Sparkles
+            className="col-start-1 size-3.5 shrink-0 self-center"
+            aria-hidden
+          />
+          <span className="col-start-2 flex flex-col items-center gap-0.5 text-center leading-tight">
+            <span className="text-xs font-semibold">
+              {copying ? "Copying…" : "Review with AI"}
+            </span>
+            <span className="text-[10px] font-normal text-violet-100/85">
+              Copies AI prompt
+            </span>
+          </span>
+          <span className="col-start-3 size-3.5 shrink-0" aria-hidden />
+        </div>
+      </ShinyButton>
+    </div>
   );
 }

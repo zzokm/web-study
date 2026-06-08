@@ -98,6 +98,7 @@ Frontend — JS DOM
 JavaScript
 
 ## Question
+Given a task status area on a page, write a complete HTML and JavaScript snippet to:
 1. Write an HTML `<div>` with the id 'status' and the text 'Pending'.
 2. Write a JavaScript function `completeTask()` that changes the text of this div to 'Completed'.
 3. Add a button that calls this function when clicked.

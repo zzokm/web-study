@@ -14,7 +14,7 @@
       },
       "type": "written",
       "topic": "Written — HTML styling",
-      "questionText": "1. Display the text \"My favorite subject is English Arabic\" where \"English\" is struck-through and \"Arabic\" is underlined.\n2. Add a button labeled \"Style\" that, when clicked, changes the paragraph's:\n- Font color to green\n- Font size to 14px\n- Font family to Arial",
+      "questionText": "Given a paragraph element in an HTML file, write a complete snippet to:\n1. Display the text \"My favorite subject is English Arabic\" where \"English\" is struck-through and \"Arabic\" is underlined.\n2. Add a button labeled \"Style\" that, when clicked, changes the paragraph's:\n- Font color to green\n- Font size to 14px\n- Font family to Arial",
       "context": null,
       "expectedAnswer": "<p id=\"myPara\">My favorite subject is <s>English</s> <u>Arabic</u></p>\n<button onclick=\"changeStyle()\">Style</button>\n<script>\nfunction changeStyle() {\n  let p = document.getElementById(\"myPara\");\n  p.style.color = \"green\";\n  p.style.fontSize = \"14px\";\n  p.style.fontFamily = \"Arial\";\n}\n</script>",
       "writtenRubric": {
@@ -65,7 +65,7 @@
       "order": 2,
       "type": "written",
       "topic": "Frontend — JS DOM",
-      "questionText": "1. Write an HTML `<div>` with the id 'status' and the text 'Pending'.\n2. Write a JavaScript function `completeTask()` that changes the text of this div to 'Completed'.\n3. Add a button that calls this function when clicked.",
+      "questionText": "Given a task status area on a page, write a complete HTML and JavaScript snippet to:\n1. Write an HTML `<div>` with the id 'status' and the text 'Pending'.\n2. Write a JavaScript function `completeTask()` that changes the text of this div to 'Completed'.\n3. Add a button that calls this function when clicked.",
       "context": null,
       "expectedAnswer": "<div id=\"status\">Pending</div>\n<button onclick=\"completeTask()\">Complete</button>\n<script>\nfunction completeTask() {\n  document.getElementById(\"status\").innerHTML = \"Completed\";\n}\n</script>",
       "writtenRubric": {
@@ -93,7 +93,7 @@
       "order": 3,
       "type": "written",
       "topic": "Frontend — JS Arrays",
-      "questionText": "1. Given an array `const scores = [45, 80, 89, 30, 95];`, write a JavaScript snippet using the `.filter()` method to create a new array called `passingScores` that only contains numbers greater than 50.\n2. Log the result using `console.log()`.",
+      "questionText": "Given a scores array in JavaScript, write a complete snippet to:\n1. Start with `const scores = [45, 80, 89, 30, 95];` and use the `.filter()` method to create a new array called `passingScores` that only contains numbers greater than 50.\n2. Log the result using `console.log()`.",
       "context": null,
       "expectedAnswer": "<script>\nconst scores = [45, 80, 89, 30, 95];\nconst passingScores = scores.filter(score => score > 50);\nconsole.log(passingScores);\n</script>",
       "writtenRubric": {
@@ -119,7 +119,7 @@
       "order": 4,
       "type": "written",
       "topic": "Frontend — JS Promises",
-      "questionText": "1. Write an `async` function named `loadData()`.\n2. Inside the function, await a hypothetical promise-returning function called `fetchData()`. If it succeeds, log the result to the console.\n3. Wrap the await call in a try/catch block, and log any error in the catch block.",
+      "questionText": "Write a complete JavaScript snippet using async/await to:\n1. Define an `async` function named `loadData()`.\n2. Inside the function, await a hypothetical promise-returning function called `fetchData()`. If it succeeds, log the result to the console.\n3. Wrap the await call in a try/catch block, and log any error in the catch block.",
       "context": null,
       "expectedAnswer": "<script>\nasync function loadData() {\n  try {\n    const result = await fetchData();\n    console.log(result);\n  } catch (error) {\n    console.log(error);\n  }\n}\n</script>",
       "writtenRubric": {
@@ -150,7 +150,7 @@
       "order": 5,
       "type": "written",
       "topic": "Frontend — CSS Styling",
-      "questionText": "1. Make all `<a>` tags inside an element with the class `.nav-menu` have no text decoration.\n2. When the user hovers over these links, change their text color to `red`.",
+      "questionText": "Given a navigation menu using the class `.nav-menu`, write complete CSS rules to:\n1. Make all `<a>` tags inside `.nav-menu` have no text decoration.\n2. When the user hovers over these links, change their text color to `red`.",
       "context": null,
       "expectedAnswer": "<style>\n.nav-menu a {\n  text-decoration: none;\n}\n.nav-menu a:hover {\n  color: red;\n}\n</style>",
       "writtenRubric": {
@@ -176,7 +176,7 @@
       "order": 6,
       "type": "written",
       "topic": "Frontend — JS Objects",
-      "questionText": "1. Create a JavaScript object named `student` with properties `name` ('Ali') and `gpa` (3.8).\n2. Write a command using `document.writeln()` that outputs: 'Ali has a GPA of 3.8' by dynamically accessing the object's properties.",
+      "questionText": "Given a student record stored in a JavaScript object, write a complete snippet to:\n1. Create an object named `student` with properties `name` ('Ali') and `gpa` (3.8).\n2. Use `document.writeln()` to output: 'Ali has a GPA of 3.8' by dynamically accessing the object's properties.",
       "context": null,
       "expectedAnswer": "<script>\nvar student = {\n  name: 'Ali',\n  gpa: 3.8\n};\ndocument.writeln(student.name + ' has a GPA of ' + student.gpa);\n</script>",
       "writtenRubric": {
@@ -202,7 +202,7 @@
       "order": 7,
       "type": "written",
       "topic": "Frontend — HTML Elements",
-      "questionText": "1. Create a simple HTML login form with an `<input>` for the username.\n2. Add an `<input>` for the password (which hides the typed characters).\n3. Add a submit `<button>` labeled 'Login'.",
+      "questionText": "Write a complete HTML snippet for a simple login form to:\n1. Include an `<input>` for the username.\n2. Add an `<input>` for the password (which hides the typed characters).\n3. Add a submit `<button>` labeled 'Login'.",
       "context": null,
       "expectedAnswer": "<form>\n  <label>Username: <input type=\"text\" name=\"username\"></label><br>\n  <label>Password: <input type=\"password\" name=\"password\"></label><br>\n  <button type=\"submit\">Login</button>\n</form>",
       "writtenRubric": {
@@ -229,7 +229,7 @@
       "order": 8,
       "type": "written",
       "topic": "Frontend — AJAX",
-      "questionText": "1. Write a vanilla JavaScript snippet using the `XMLHttpRequest` object to send a GET request to 'api/data'.\n2. If the request is successful (readyState is 4 and status is 200), update the `innerHTML` of an HTML element with the id 'result' to be the response text.",
+      "questionText": "Given a result element with id 'result' on the page, write a complete JavaScript AJAX snippet to:\n1. Use the `XMLHttpRequest` object to send a GET request to 'api/data'.\n2. If the request is successful (readyState is 4 and status is 200), update the element's `innerHTML` to the response text.",
       "context": null,
       "expectedAnswer": "<script>\nvar xhttp = new XMLHttpRequest();\nxhttp.onreadystatechange = function() {\n  if (this.readyState == 4 && this.status == 200) {\n    document.getElementById(\"result\").innerHTML = this.responseText;\n  }\n};\nxhttp.open(\"GET\", \"api/data\", true);\nxhttp.send();\n</script>",
       "writtenRubric": {
@@ -255,7 +255,7 @@
       "order": 9,
       "type": "written",
       "topic": "Frontend — JS ES6",
-      "questionText": "1. Convert the following traditional function to an ES6 arrow function and assign it to a const variable `multiply`: `function(a, b) { return a * b; }`",
+      "questionText": "Given the traditional function `function(a, b) { return a * b; }`, write a complete JavaScript snippet to:\n1. Convert it to an ES6 arrow function and assign it to a const variable `multiply`.",
       "context": null,
       "expectedAnswer": "<script>\nconst multiply = (a, b) => a * b;\n</script>",
       "writtenRubric": {
@@ -281,7 +281,7 @@
       "order": 10,
       "type": "written",
       "topic": "Frontend — HTML5 APIs",
-      "questionText": "1. Write a single JavaScript statement to save the string 'Guest' under the key 'username' in the browser's HTML5 `localStorage`.",
+      "questionText": "Write a complete JavaScript snippet to:\n1. Save the string 'Guest' under the key 'username' in the browser's HTML5 `localStorage` using a single statement.",
       "context": null,
       "expectedAnswer": "<script>\nlocalStorage.setItem('username', 'Guest');\n</script>",
       "writtenRubric": {
@@ -302,7 +302,7 @@
       "order": 11,
       "type": "written",
       "topic": "Frontend — CSS Layouts",
-      "questionText": "1. Write CSS rules for a class named `.container` that uses Flexbox.\n2. Center its child elements horizontally using `justify-content: center`.\n3. Center its child elements vertically using `align-items: center`.",
+      "questionText": "Write complete CSS rules for a Flexbox layout to:\n1. Target a class named `.container` and set `display: flex`.\n2. Center its child elements horizontally using `justify-content: center`.\n3. Center its child elements vertically using `align-items: center`.",
       "context": null,
       "expectedAnswer": "<style>\n.container {\n  display: flex;\n  justify-content: center;\n  align-items: center;\n}\n</style>",
       "writtenRubric": {
@@ -333,7 +333,7 @@
       "order": 12,
       "type": "written",
       "topic": "Frontend — JS DOM",
-      "questionText": "1. Write a JavaScript function `turnOn()` that finds an image element with the ID 'lightbulb'.\n2. Change its `src` attribute to 'pic_bulbon.gif'.",
+      "questionText": "Given an image element with the id 'lightbulb', write a complete JavaScript snippet to:\n1. Define a function `turnOn()` that finds the image.\n2. Change its `src` attribute to 'pic_bulbon.gif'.",
       "context": null,
       "expectedAnswer": "<script>\nfunction turnOn() {\n  document.getElementById('lightbulb').src = 'pic_bulbon.gif';\n}\n</script>",
       "writtenRubric": {
@@ -359,7 +359,7 @@
       "order": 13,
       "type": "written",
       "topic": "Frontend — CSS Layouts",
-      "questionText": "1. Write CSS to make an element with the class `.dashboard` display as a CSS Grid container.\n2. Define exactly 3 columns of equal width using `grid-template-columns`.",
+      "questionText": "Write complete CSS rules for a dashboard layout to:\n1. Make an element with the class `.dashboard` display as a CSS Grid container.\n2. Define exactly 3 columns of equal width using `grid-template-columns`.",
       "context": null,
       "expectedAnswer": "<style>\n.dashboard {\n  display: grid;\n  grid-template-columns: repeat(3, 1fr);\n}\n</style>",
       "writtenRubric": {
@@ -385,7 +385,7 @@
       "order": 14,
       "type": "written",
       "topic": "Frontend — JS ES6 Arrays",
-      "questionText": "1. Given an array `const servers = [{host: 'Alpha'}, {host: 'Beta'}];`, use the ES6 `.map()` method with arrow function syntax.\n2. Create a new array called `serverNames` containing only the host strings.",
+      "questionText": "Given an array `const servers = [{host: 'Alpha'}, {host: 'Beta'}];`, write a complete JavaScript snippet to:\n1. Use the ES6 `.map()` method with arrow function syntax.\n2. Create a new array called `serverNames` containing only the host strings.",
       "context": null,
       "expectedAnswer": "<script>\nconst servers = [{host: 'Alpha'}, {host: 'Beta'}];\nconst serverNames = servers.map(server => server.host);\n</script>",
       "writtenRubric": {
@@ -411,7 +411,7 @@
       "order": 15,
       "type": "written",
       "topic": "Frontend — JS ES6",
-      "questionText": "1. Write an ES6 arrow function named `greet` that takes one parameter `name` with default value 'User'.\n2. Return the string 'Welcome ' concatenated with the name.",
+      "questionText": "Write a complete JavaScript snippet using ES6 syntax to:\n1. Define an arrow function named `greet` that takes one parameter `name` with default value 'User'.\n2. Return the string 'Welcome ' concatenated with the name.",
       "context": null,
       "expectedAnswer": "<script>\nconst greet = (name = 'User') => 'Welcome ' + name;\n</script>",
       "writtenRubric": {
@@ -437,7 +437,7 @@
       "order": 16,
       "type": "written",
       "topic": "Frontend — DOM & CSS",
-      "questionText": "1. Create a button labeled 'Toggle Theme'.\n2. Write a JavaScript function that toggles a CSS class `.dark-mode` on the `<body>` element when the button is clicked.\n3. Include a `<style>` block for `.dark-mode` setting the background to black and text to white.",
+      "questionText": "Write a complete HTML, CSS, and JavaScript snippet to implement a dark-mode toggle:\n1. Create a button labeled 'Toggle Theme'.\n2. Write a JavaScript function that toggles a CSS class `.dark-mode` on the `<body>` element when the button is clicked.\n3. Include a `<style>` block for `.dark-mode` setting the background to black and text to white.",
       "context": null,
       "expectedAnswer": "<style>\n.dark-mode {\n  background-color: black;\n  color: white;\n}\n</style>\n<button onclick=\"toggleTheme()\">Toggle Theme</button>\n<script>\nfunction toggleTheme() {\n  document.body.classList.toggle('dark-mode');\n}\n</script>",
       "writtenRubric": {
@@ -468,7 +468,7 @@
       "order": 17,
       "type": "written",
       "topic": "Frontend — AJAX",
-      "questionText": "1. Write an `XMLHttpRequest` GET request to 'api/config'.\n2. When the response loads successfully (`readyState` is 4 and `status` is 200), parse `responseText` as JSON.\n3. Log the resulting object to the console.",
+      "questionText": "Write a complete JavaScript AJAX snippet to:\n1. Send an `XMLHttpRequest` GET request to 'api/config'.\n2. When the response loads successfully (`readyState` is 4 and `status` is 200), parse `responseText` as JSON.\n3. Log the resulting object to the console.",
       "context": null,
       "expectedAnswer": "<script>\nvar xhr = new XMLHttpRequest();\nxhr.onreadystatechange = function() {\n  if (this.readyState == 4 && this.status == 200) {\n    var data = JSON.parse(this.responseText);\n    console.log(data);\n  }\n};\nxhr.open('GET', 'api/config', true);\nxhr.send();\n</script>",
       "writtenRubric": {
@@ -499,7 +499,7 @@
       "order": 18,
       "type": "written",
       "topic": "Frontend — JS Promises",
-      "questionText": "1. Create a function `checkStatus()` that returns a new Promise.\n2. Inside the promise, use `setTimeout` to wait 1000 milliseconds, then call `resolve('System Operational')`.\n3. Execute `checkStatus().then()` and log the resolved message to the console.",
+      "questionText": "Write a complete JavaScript snippet using Promises to:\n1. Create a function `checkStatus()` that returns a new Promise.\n2. Inside the promise, use `setTimeout` to wait 1000 milliseconds, then call `resolve('System Operational')`.\n3. Execute `checkStatus().then()` and log the resolved message to the console.",
       "context": null,
       "expectedAnswer": "<script>\nfunction checkStatus() {\n  return new Promise((resolve, reject) => {\n    setTimeout(() => {\n      resolve('System Operational');\n    }, 1000);\n  });\n}\n\ncheckStatus().then(message => console.log(message));\n</script>",
       "writtenRubric": {
@@ -530,7 +530,7 @@
       "order": 19,
       "type": "written",
       "topic": "Frontend — Form Events",
-      "questionText": "1. Write an HTML form (id 'authForm') with a password input (id 'pwd') and a submit button.\n2. Add a JavaScript event listener for the form's 'submit' event.\n3. If the password length is less than 8 characters, prevent the default submission and show an alert.",
+      "questionText": "Write a complete HTML and JavaScript snippet for client-side form validation to:\n1. Create a form (id 'authForm') with a password input (id 'pwd') and a submit button.\n2. Add a JavaScript event listener for the form's 'submit' event.\n3. If the password length is less than 8 characters, prevent the default submission and show an alert.",
       "context": null,
       "expectedAnswer": "<form id=\"authForm\">\n  <input type=\"password\" id=\"pwd\">\n  <button type=\"submit\">Login</button>\n</form>\n<script>\ndocument.getElementById('authForm').addEventListener('submit', function(event) {\n  var password = document.getElementById('pwd').value;\n  if (password.length < 8) {\n    event.preventDefault();\n    alert('Password too short');\n  }\n});\n</script>",
       "writtenRubric": {
@@ -561,7 +561,7 @@
       "order": 20,
       "type": "written",
       "topic": "Frontend — JS ES6 Arrays",
-      "questionText": "1. Given an array of strings `const labels = ['Secure', 'Fast', 'Scalable'];`, use the `.reduce()` method to concatenate them into a single hyphen-separated string (e.g., 'Secure-Fast-Scalable').\n2. Assign the result to a variable `tagline`.",
+      "questionText": "Given an array of strings `const labels = ['Secure', 'Fast', 'Scalable'];`, write a complete JavaScript snippet to:\n1. Use the `.reduce()` method to concatenate them into a single hyphen-separated string (e.g., 'Secure-Fast-Scalable').\n2. Assign the result to a variable `tagline`.",
       "context": null,
       "expectedAnswer": "<script>\nconst labels = ['Secure', 'Fast', 'Scalable'];\nconst tagline = labels.reduce((acc, curr) => acc + '-' + curr);\n</script>",
       "writtenRubric": {
@@ -587,7 +587,7 @@
       "order": 21,
       "type": "written",
       "topic": "Frontend — DOM Manipulation",
-      "questionText": "1. Write HTML with two buttons and two content divs (ids 'panel1' and 'panel2').\n2. Write a JS function `switchTab(targetId)` that hides both panels by setting their CSS `display` to 'none'.\n3. Show the panel matching `targetId` by setting its `display` to 'block'.",
+      "questionText": "Write a complete HTML and JavaScript snippet for a tab switcher to:\n1. Include two buttons and two content divs (ids 'panel1' and 'panel2').\n2. Write a JS function `switchTab(targetId)` that hides both panels by setting their CSS `display` to 'none'.\n3. Show the panel matching `targetId` by setting its `display` to 'block'.",
       "context": null,
       "expectedAnswer": "<button onclick=\"switchTab('panel1')\">Tab 1</button>\n<button onclick=\"switchTab('panel2')\">Tab 2</button>\n<div id=\"panel1\">Content 1</div>\n<div id=\"panel2\" style=\"display:none;\">Content 2</div>\n\n<script>\nfunction switchTab(targetId) {\n  document.getElementById('panel1').style.display = 'none';\n  document.getElementById('panel2').style.display = 'none';\n  document.getElementById(targetId).style.display = 'block';\n}\n</script>",
       "writtenRubric": {
@@ -618,7 +618,7 @@
       "order": 22,
       "type": "written",
       "topic": "Frontend — JS ES6",
-      "questionText": "1. Write an ES6 class named `Admin` with a constructor that accepts a `role` parameter.\n2. Add a method `getAccess()` that returns the string 'Access level: [role]'.\n3. Instantiate a new `Admin` with role 'Superuser' and log their access level.",
+      "questionText": "Write a complete JavaScript snippet using ES6 classes to:\n1. Define a class named `Admin` with a constructor that accepts a `role` parameter.\n2. Add a method `getAccess()` that returns the string 'Access level: [role]'.\n3. Instantiate a new `Admin` with role 'Superuser' and log their access level.",
       "context": null,
       "expectedAnswer": "<script>\nclass Admin {\n  constructor(role) {\n    this.role = role;\n  }\n  getAccess() {\n    return 'Access level: ' + this.role;\n  }\n}\nconst user = new Admin('Superuser');\nconsole.log(user.getAccess());\n</script>",
       "writtenRubric": {
@@ -649,7 +649,7 @@
       "order": 23,
       "type": "written",
       "topic": "Frontend — DOM Traversal",
-      "questionText": "1. Given the HTML `<div class='wrapper'><p id='node'>Data</p></div>`, target the element with id 'node'.\n2. Traverse up to its parent node and add the CSS class 'highlight' to that parent.",
+      "questionText": "Given the HTML `<div class='wrapper'><p id='node'>Data</p></div>`, write a complete JavaScript snippet to:\n1. Target the element with id 'node'.\n2. Traverse up to its parent node and add the CSS class 'highlight' to that parent.",
       "context": null,
       "expectedAnswer": "<script>\nconst target = document.getElementById('node');\ntarget.parentNode.classList.add('highlight');\n</script>",
       "writtenRubric": {
@@ -675,7 +675,7 @@
       "order": 24,
       "type": "written",
       "topic": "Frontend — Event Listeners",
-      "questionText": "1. You have a `<ul>` with the id 'nav-list' containing several `<li>` items.\n2. Using event delegation, add a single 'click' event listener to the `<ul>`.\n3. In the handler, if the clicked target is an `<li>` element, log its `innerText`.",
+      "questionText": "Given a `<ul>` with the id 'nav-list' containing several `<li>` items, write a complete JavaScript snippet using event delegation to:\n1. Add a single 'click' event listener to the `<ul>`.\n2. In the handler, check if the clicked target is an `<li>` element.\n3. If it is, log its `innerText`.",
       "context": null,
       "expectedAnswer": "<script>\ndocument.getElementById('nav-list').addEventListener('click', function(event) {\n  if (event.target.nodeName === 'LI') {\n    console.log(event.target.innerText);\n  }\n});\n</script>",
       "writtenRubric": {
@@ -701,7 +701,7 @@
       "order": 25,
       "type": "written",
       "topic": "Frontend — DOM & CSS",
-      "questionText": "1. Create a `<span>` with the id 'indicator', default text 'Disconnected', and a CSS class `.err` that makes text red.\n2. Include CSS for `.success` that makes text green.\n3. Write a JS function `establishConnection()` that sets the text to 'Connected', removes `.err`, and adds `.success`.",
+      "questionText": "Write a complete HTML, CSS, and JavaScript snippet for a connection status badge to:\n1. Create a `<span>` with the id 'indicator', default text 'Disconnected', and a CSS class `.err` that makes text red.\n2. Include CSS for `.success` that makes text green.\n3. Write a JS function `establishConnection()` that sets the text to 'Connected', removes `.err`, and adds `.success`.",
       "context": null,
       "expectedAnswer": "<style>\n.err { color: red; }\n.success { color: green; }\n</style>\n<span id=\"indicator\" class=\"err\">Disconnected</span>\n\n<script>\nfunction establishConnection() {\n  let badge = document.getElementById('indicator');\n  badge.innerText = 'Connected';\n  badge.classList.remove('err');\n  badge.classList.add('success');\n}\n</script>",
       "writtenRubric": {
@@ -733,7 +733,7 @@
       "type": "written",
       "topic": "Backend — Django Models",
       "answerLanguage": "python",
-      "questionText": "1. Write a Django Model named `Product` that inherits from `models.Model`.\n2. Add a `name` field (CharField, max length 100) and a `price` field (IntegerField).",
+      "questionText": "Write complete Python code for a Django model to:\n1. Define a Model named `Product` that inherits from `models.Model`.\n2. Add a `name` field (CharField, max length 100) and a `price` field (IntegerField).",
       "context": null,
       "expectedAnswer": "from django.db import models\n\nclass Product(models.Model):\n    name = models.CharField(max_length=100)\n    price = models.IntegerField()",
       "writtenRubric": {
@@ -760,7 +760,7 @@
       "type": "written",
       "topic": "Backend — Django Views",
       "answerLanguage": "python",
-      "questionText": "1. Write a function-based Django view named `home_view` that takes a `request` object.\n2. Return an `HttpResponse` containing the HTML string '<h1>Welcome to Django</h1>'.",
+      "questionText": "Write complete Python code for a Django view to:\n1. Define a function-based view named `home_view` that takes a `request` object.\n2. Return an `HttpResponse` containing the HTML string '<h1>Welcome to Django</h1>'.",
       "context": null,
       "expectedAnswer": "from django.http import HttpResponse\n\ndef home_view(request):\n    return HttpResponse('<h1>Welcome to Django</h1>')",
       "writtenRubric": {
@@ -787,7 +787,7 @@
       "type": "written",
       "topic": "Backend — Django Templates",
       "answerLanguage": "html",
-      "questionText": "1. Write a Django HTML template snippet that expects a context variable `users` (a list of names).\n2. Use a Django template loop (`{% for %}`) to iterate over the list and display each name inside an `<li>` tag within a `<ul>` container.",
+      "questionText": "Write a complete Django HTML template snippet to:\n1. Expect a context variable `users` (a list of names).\n2. Use a Django template loop (`{% for %}`) to iterate over the list and display each name inside an `<li>` tag within a `<ul>` container.",
       "context": null,
       "expectedAnswer": "<ul>\n{% for user in users %}\n  <li>{{ user }}</li>\n{% endfor %}\n</ul>",
       "writtenRubric": {
@@ -814,7 +814,7 @@
       "type": "written",
       "topic": "Backend — Django URLs",
       "answerLanguage": "python",
-      "questionText": "1. Write a Django `urls.py` snippet that imports `path` and `views`.\n2. Define a `urlpatterns` list and add a path for 'contact/' that routes to `views.contact_view` and assigns it the name 'contact'.",
+      "questionText": "Write a complete Django `urls.py` snippet to:\n1. Import `path` and `views`.\n2. Define a `urlpatterns` list and add a path for 'contact/' that routes to `views.contact_view` and assigns it the name 'contact'.",
       "context": null,
       "expectedAnswer": "from django.urls import path\nfrom . import views\n\nurlpatterns = [\n    path('contact/', views.contact_view, name='contact'),\n]",
       "writtenRubric": {
@@ -841,7 +841,7 @@
       "type": "written",
       "topic": "Backend — Python Basics",
       "answerLanguage": "python",
-      "questionText": "1. Write a Python function `get_grade(name)` that checks if a name exists in a dictionary `grades = {'Ahmed': 'A', 'Mona': 'B'}`.\n2. If the name exists, return the grade; otherwise return 'Not Found'.",
+      "questionText": "Write complete Python code to:\n1. Define a function `get_grade(name)` that checks if a name exists in a dictionary `grades = {'Ahmed': 'A', 'Mona': 'B'}`.\n2. If the name exists, return the grade; otherwise return 'Not Found'.",
       "context": null,
       "expectedAnswer": "def get_grade(name):\n    grades = {'Ahmed': 'A', 'Mona': 'B'}\n    if name in grades:\n        return grades[name]\n    return 'Not Found'\n    \n# Alternatively: return grades.get(name, 'Not Found')",
       "writtenRubric": {
@@ -863,7 +863,7 @@
       "type": "written",
       "topic": "Backend — Python OOP",
       "answerLanguage": "python",
-      "questionText": "1. Write a Python class named `Car` with an `__init__` constructor that accepts and sets `make` and `year` attributes.\n2. Add a method `display()` that returns a formatted string like '2020 Toyota'.",
+      "questionText": "Write complete Python code for a `Car` class to:\n1. Define an `__init__` constructor that accepts and sets `make` and `year` attributes.\n2. Add a method `display()` that returns a formatted string like '2020 Toyota'.",
       "context": null,
       "expectedAnswer": "class Car:\n    def __init__(self, make, year):\n        self.make = make\n        self.year = year\n        \n    def display(self):\n        return f\"{self.year} {self.make}\"",
       "writtenRubric": {
@@ -890,7 +890,7 @@
       "type": "written",
       "topic": "Backend — Python Error Handling",
       "answerLanguage": "python",
-      "questionText": "1. Write a Python snippet that attempts to divide variable `a` by `b` and print the result.\n2. Use a `try/except` block to catch a `ZeroDivisionError` specifically, and print 'Cannot divide by zero' if it occurs.",
+      "questionText": "Write a complete Python snippet to:\n1. Attempt to divide variable `a` by `b` and print the result.\n2. Use a `try/except` block to catch a `ZeroDivisionError` specifically, and print 'Cannot divide by zero' if it occurs.",
       "context": null,
       "expectedAnswer": "try:\n    result = a / b\n    print(result)\nexcept ZeroDivisionError:\n    print('Cannot divide by zero')",
       "writtenRubric": {

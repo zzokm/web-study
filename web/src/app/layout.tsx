@@ -39,7 +39,7 @@ export default function RootLayout({
           <AnalyticsEngagement />
         </Suspense>
         <AppShell>{children}</AppShell>
-        <Toaster richColors closeButton position="bottom-center" />
+        <Toaster richColors position="top-center" />
       </body>
     </html>
   );
