@@ -249,7 +249,7 @@ function findLegacyCompletedStatus(
   for (const { storageCanonicalKey, pointer } of enumerateStoredPracticePointers()) {
     if (storageCanonicalKey === canonicalKey) continue;
     const status = completedStatusFromPointer(pointer);
-    if (!status) continue;
+    if (!status || status.kind !== "completed") continue;
 
     const result = loadPracticeResult(status.resultId);
     if (!result || !isCompletedResultForPool(result, questions, currentQuestionKeys)) {
