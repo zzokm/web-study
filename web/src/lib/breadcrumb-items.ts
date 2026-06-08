@@ -168,6 +168,10 @@ export function getBreadcrumbItems(
       items.push({ label: "Mock exam" });
       return items;
     }
+    if (segments[1] === "written") {
+      items.push({ label: "Written questions" });
+      return items;
+    }
     if (segments[1] === "repetitive") {
       items.push({ label: "Repetitive" });
       return items;
