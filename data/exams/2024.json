@@ -662,9 +662,9 @@
             "codeLanguage": null
           }
         ],
-        "correctAnswerId": "b",
+        "correctAnswerId": "a",
         "expectedAnswer": null,
-        "explanation": "JavaScript evaluates expressions from left to right. `10 + 20` evaluates to the number `30`. Then, `30 + \"5\"` triggers type coercion, turning the number `30` into a string and concatenating it with `\"5\"`, resulting in `\"305\"`.",
+        "explanation": "JavaScript evaluates left to right: `10 + 20` is `30`, then `30 + \"5\"` coerces to string concatenation, giving `\"305\"`.",
         "relatedTopics": [
           "fe-5"
         ]
@@ -810,9 +810,9 @@
             "codeLanguage": null
           }
         ],
-        "correctAnswerId": "b",
+        "correctAnswerId": "c",
         "expectedAnswer": null,
-        "explanation": "Without an initial value provided, `reduce` uses the first element (170) as the initial `total`. Step 1: 170 - 50 = 120. Step 2: 120 - 25 = 95.",
+        "explanation": "`reduce` subtracts left to right: `170 - 50 = 120`, then `120 - 25 = 95`.",
         "relatedTopics": [
           "fe-6"
         ]
@@ -1070,9 +1070,9 @@
             "codeLanguage": null
           }
         ],
-        "correctAnswerId": "c",
+        "correctAnswerId": "b",
         "expectedAnswer": null,
-        "explanation": "Deleting `cars.company` removes the property, so `cars.company` evaluates to `undefined`. `cars[x]` equates to `cars[\"color\"]`, which is `\"white\"`. Concatenated output: `undefinedwhite`.",
+        "explanation": "After `delete cars.company`, `cars.company` is `undefined`. With `x = \"color\"`, `cars[x]` is `cars[\"color\"]` → `\"white\"`, so the output is `undefined white`.",
         "relatedTopics": [
           "fe-6"
         ]
@@ -1145,9 +1145,9 @@
             "codeLanguage": null
           }
         ],
-        "correctAnswerId": "c",
+        "correctAnswerId": "b",
         "expectedAnswer": null,
-        "explanation": "The `filter()` method returns a new array (`[20, 30]`). In JavaScript, the `typeof` an array is always `\"object\"`.",
+        "explanation": "`filter()` returns an array, and `typeof` an array in JavaScript is `\"object\"`.",
         "relatedTopics": [
           "fe-6"
         ]
@@ -1182,9 +1182,9 @@
             "codeLanguage": null
           }
         ],
-        "correctAnswerId": "d",
+        "correctAnswerId": "a",
         "expectedAnswer": null,
-        "explanation": "`lastIndexOf(10)` searches backwards and finds the `10` at index 2 (`y = 2`). `indexOf(30)` finds `30` at index 3 (`z = 3`). The sum `2 + 3` equals 5. Because 5 is not explicitly listed in the available options (a is 23, b is 3), 'None of the previous' is the safest fallback if 5 is omitted.",
+        "explanation": "`lastIndexOf(10)` is `2`, `indexOf(30)` is `3`, and `2 + 3 = 5` (option a).",
         "relatedTopics": [
           "fe-6"
         ]
@@ -1530,9 +1530,9 @@
             "codeLanguage": null
           }
         ],
-        "correctAnswerId": "b",
+        "correctAnswerId": "a",
         "expectedAnswer": null,
-        "explanation": "The standard semantic HTML to show deleted (struck-through) text is `<del>`, and inserted (underlined) text is `<ins>`.",
+        "explanation": "Deleted text uses `<del>` and inserted text uses `<ins>`. There is no standard `<cut>` element.",
         "relatedTopics": [
           "fe-2",
           "fe-3"
@@ -1815,9 +1815,9 @@
             "codeLanguage": null
           }
         ],
-        "correctAnswerId": "b",
+        "correctAnswerId": "c",
         "expectedAnswer": null,
-        "explanation": "The `index()` method returns the index of the *first* occurrence of the specified value. The first '3' is at index 2 (counting from 0).",
+        "explanation": "`index(3)` returns the index of the first `3`, which is `2` (0-based indexing).",
         "relatedTopics": [
           "be-2"
         ]
@@ -2352,9 +2352,9 @@
             "codeLanguage": null
           }
         ],
-        "correctAnswerId": "d",
+        "correctAnswerId": "c",
         "expectedAnswer": null,
-        "explanation": "The provided code is missing the fundamental arrow operator `=>`. For it to work, it must be written `const f = (a, b) => a + b + 5;`.",
+        "explanation": "`const f = (a, b) => a + b + 5` is valid arrow-function syntax; `f(4, 5)` returns `4 + 5 + 5 = 14`.",
         "relatedTopics": [
           "fe-5",
           "fe-6"

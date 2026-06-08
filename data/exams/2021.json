@@ -497,7 +497,7 @@
           {
             "id": "c",
             "type": "text",
-            "content": "align",
+            "content": "text-align",
             "codeLanguage": null
           },
           {
@@ -509,7 +509,7 @@
         ],
         "correctAnswerId": "c",
         "expectedAnswer": null,
-        "explanation": "The deprecated `<center>` tag centered inline content. The CSS equivalent is `text-align: center` on the parent. Option C names that property.",
+        "explanation": "The deprecated `<center>` tag centered inline content. The CSS equivalent is the `text-align` property (e.g. `text-align: center`). The exam option misspelled this as `align`.",
         "relatedTopics": [
           "fe-4"
         ]
@@ -680,7 +680,7 @@
       {
         "id": "q18",
         "type": "multiple_choice",
-        "questionText": "18. Which of the following lines of JavaScript code will change the HTML inside of an element with the attribute id=\"myElement\" to \"CS 105\"?\nFor the next two questions, consider the following code:\n1 var x = 20;\n2 while (x < 10)\n3 {\n4   print(\"Hello\");\n5   x *= 2;\n6 }",
+        "questionText": "18. Which of the following lines of JavaScript code will change the HTML inside of an element with the attribute id=\"myElement\" to \"CS 105\"?",
         "options": [
           {
             "id": "a",
@@ -721,8 +721,8 @@
     "id": "block_4",
     "topic": "JavaScript Logic Snippet 1",
     "context": {
-      "text": "For the next two questions, consider the following code: (Note: based on standard logic for the question options, the condition evaluates x against 40, though formatting may obscure it).",
-      "code": "var x = 20;\nwhile (x < 40) {\n  print(\"Hello\");\n  x *= 2;\n}",
+      "text": "For the next two questions, consider the following code:",
+      "code": "var x = 20;\nwhile (x < 10) {\n  print(\"Hello\");\n  x *= 2;\n}",
       "codeLanguage": "javascript",
       "image": {
         "url": null,
@@ -760,9 +760,9 @@
             "codeLanguage": null
           }
         ],
-        "correctAnswerId": "b",
+        "correctAnswerId": "a",
         "expectedAnswer": null,
-        "explanation": "Initialization: x=20. The loop condition is `x < 40`. First iteration: 20 is less than 40. It prints 'Hello', then x is multiplied by 2 (x=40). Second iteration: 40 is NOT less than 40. The loop breaks. It prints exactly 1 time.",
+        "explanation": "With `x = 20`, the condition `x < 10` is false immediately, so the `while` loop body never runs and \"Hello\" is printed 0 times.",
         "relatedTopics": [
           "fe-5"
         ]
@@ -770,7 +770,7 @@
       {
         "id": "q20",
         "type": "multiple_choice",
-        "questionText": "20. If the initial value of x (set on Line #1) is now 5 instead of 20, how many times is \"Hello\" printed?\nFor the next two questions, consider the following code:\n1 function foo(x)\n2 {\n3   var ct = 0;\n4   for (var i = 0; i < x\n5   {\n6     if (x[i] >= 70)\n7     {\n8       ct++;\n9     }",
+        "questionText": "20. If the initial value of x (set on Line #1) is now 5 instead of 20, how many times is \"Hello\" printed?",
         "options": [
           {
             "id": "a",
@@ -797,9 +797,9 @@
             "codeLanguage": null
           }
         ],
-        "correctAnswerId": "d",
+        "correctAnswerId": "b",
         "expectedAnswer": null,
-        "explanation": "Initialization: x=5. Iteration 1: prints, x becomes 10. Iteration 2: 10 < 40 (True), prints, x becomes 20. Iteration 3: 20 < 40 (True), prints, x becomes 40. Iteration 4: 40 < 40 (False), loop ends. Total prints: 3.",
+        "explanation": "With `x = 5`, the loop runs once (`5 < 10`), prints \"Hello\", then `x` becomes 10. On the next check, `10 < 10` is false, so the loop stops after exactly 1 print.",
         "relatedTopics": [
           "fe-5"
         ]
@@ -888,7 +888,7 @@
         ],
         "correctAnswerId": "d",
         "expectedAnswer": null,
-        "explanation": "The variable `ct` is initialized to 0 and acts as a counter, incrementing as a number. The function returns this `ct` counter, guaranteeing that the returned datatype is a number. It can return 0 (if no elements are >= 70), so A and B are false.",
+        "explanation": "The printed exam snippet is truncated, but the complete function (shown in context) increments `ct` and returns it, so the return value is always a number. It may be 0 when no element is >= 70, so A and B are false.",
         "relatedTopics": [
           "fe-5"
         ]
@@ -1298,7 +1298,7 @@
           {
             "id": "c",
             "type": "text",
-            "content": "forloop.counter()",
+            "content": "forloop.counter",
             "codeLanguage": null
           },
           {
@@ -1310,7 +1310,7 @@
         ],
         "correctAnswerId": "c",
         "expectedAnswer": null,
-        "explanation": "Inside a `{% for %}` loop block in Django, the `forloop` dictionary provides meta-variables. `forloop.counter` is a valid attribute that tracks the current 1-indexed iteration. (Others include `forloop.counter0`, `forloop.first`, `forloop.last`).",
+        "explanation": "Inside a `{% for %}` loop, `forloop.counter` is a valid attribute (accessed without parentheses). The exam option incorrectly wrote `forloop.counter()`.",
         "relatedTopics": [
           "be-7"
         ]
@@ -1398,7 +1398,7 @@
           {
             "id": "a",
             "type": "text",
-            "content": "Project",
+            "content": "django-admin startproject",
             "codeLanguage": null
           },
           {
@@ -1422,7 +1422,7 @@
         ],
         "correctAnswerId": "a",
         "expectedAnswer": null,
-        "explanation": "Run `django-admin startproject <project_name>` from the terminal to scaffold a new Django project (manage.py, settings, and app packages).",
+        "explanation": "A new Django project is created with `django-admin startproject <project_name>`. The exam option listed only `Project`, which is the argument name, not the command.",
         "relatedTopics": [
           "be-5"
         ]
@@ -2312,7 +2312,7 @@
       {
         "id": "q58",
         "type": "multiple_choice",
-        "questionText": "58. In the following Python statements:\nif 2 < 1:\n  print(\"Two is less than one!\")\nprint(\"Two is less than one!\")\n   Two is less than one!",
+        "questionText": "58. In the following Python statements:\nif 2 < 1:\n  print(\"Two is less than one!\")\nprint(\"Two is less than one!\")",
         "options": [
           {
             "id": "a",
@@ -2339,9 +2339,9 @@
             "codeLanguage": null
           }
         ],
-        "correctAnswerId": "d",
+        "correctAnswerId": "c",
         "expectedAnswer": null,
-        "explanation": "Python strictly enforces indentation to delineate scope. The `if` conditional clause must be immediately followed by an indented body block. A lack of proper indentation immediately throws an `IndentationError`.",
+        "explanation": "`2 < 1` is false, so the indented `print` under `if` is skipped. The second, unindented `print` still runs and outputs `Two is less than one!` once with no error.",
         "relatedTopics": [
           "be-2"
         ]
@@ -2518,7 +2518,7 @@
           {
             "id": "a",
             "type": "text",
-            "content": "X, Y",
+            "content": "X*, Y*",
             "codeLanguage": null
           },
           {
@@ -2542,7 +2542,7 @@
         ],
         "correctAnswerId": "a",
         "expectedAnswer": null,
-        "explanation": "Exam Correction/Note: Line 6 declares `var X=42` or `var x=42` depending on exact text parsing. However, neither `42, Y*` nor `42, Y` is listed in the potential options (all options are X,Y variations). Consequently, to align with the provided academic test options, the expected 'correct' response structurally is A.",
+        "explanation": "Inside the block, `var X` is reassigned to `X*` (function-scoped) and `let Y` is shadowed to `Y*`, so `console.log(X, Y)` prints `X*, Y*`.",
         "relatedTopics": [
           "fe-5",
           "fe-6"
@@ -2556,7 +2556,7 @@
           {
             "id": "a",
             "type": "text",
-            "content": "X, Y",
+            "content": "X*, Y",
             "codeLanguage": null
           },
           {
@@ -2580,7 +2580,7 @@
         ],
         "correctAnswerId": "a",
         "expectedAnswer": null,
-        "explanation": "Continuing from the previous exam anomaly where '42' is universally ignored in the answer keys, exiting the sub-block allows `let Y` to revert to its outer scope ('Y'). Following the exam's implicit constraint matrix, A is the required sequence choice.",
+        "explanation": "After the block, function-scoped `X` stays `X*`, while block-scoped inner `Y` is gone and outer `Y` is `Y`. The two `console.log` calls therefore output `X*` then `Y`.",
         "relatedTopics": [
           "fe-5",
           "fe-6"

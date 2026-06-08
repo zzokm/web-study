@@ -211,6 +211,11 @@ p:first-child { color: red; }
         },
     },
     "2021": {
+        "block_while_code": {
+            "text": "For the next two questions, consider the following code:",
+            "code": "var x = 20;\nwhile (x < 10) {\n  print(\"Hello\");\n  x *= 2;\n}",
+            "codeLanguage": "javascript",
+        },
         "block_run_code": {
             "text": "Use the following code, answer questions from 62-64: When the function run() is called.",
             "code": """function run() {
@@ -252,6 +257,7 @@ console.log(y);""",
 
 BLOCK_ID_CONTEXT_KEY: dict[str, dict[str, str]] = {
     "2021": {
+        "block_4": "block_while_code",
         "block_13": "block_run_code",
         "block_14": "block_func_code",
         "block_15": "block_const_code",
@@ -267,10 +273,18 @@ ANSWER_FIXES: dict[str, dict[str, str]] = {
         "q1": "c",
         "q9": "d",
         "q10": "d",
+        "q18": "a",
+        "q22": "c",
+        "q29": "b",
+        "q31": "b",
+        "q32": "a",
+        "q41": "a",
+        "q49": "c",
         "q53": "c",
         "q54": "c",
         "q55": "c",
         "q60": "d",
+        "q64": "c",
         "q74": "d",
         "q79": "d",
         "q80": "c",
@@ -279,7 +293,15 @@ ANSWER_FIXES: dict[str, dict[str, str]] = {
     },
     "2021": {
         "q3": "d",
+        "q13": "c",
+        "q19": "a",
+        "q20": "b",
+        "q32": "c",
+        "q35": "a",
+        "q58": "c",
         "q61": "c",
+        "q63": "a",
+        "q64": "a",
         "q65": "c",
         "q66": "c",
         "q67": "c",
@@ -295,7 +317,8 @@ ANSWER_FIXES: dict[str, dict[str, str]] = {
     "2025": {
         "q53": "c",
         "q65": "c",
-        "q76": "a",
+        "q76": "d",
+        "q79": "d",
     },
 }
 
@@ -304,10 +327,18 @@ EXPLANATION_FIXES: dict[str, dict[str, str]] = {
         "q1": "Django uses the MVT (Model-View-Template) pattern, matching option c.",
         "q9": "The `innerHTML` property sets or returns the HTML content inside an element.",
         "q10": "`makemigrations` only creates migration files; applying them requires `migrate`, which is not listed.",
+        "q18": "`10 + 20` is `30`, then `30 + \"5\"` concatenates to `\"305\"`.",
+        "q22": "`reduce` with subtraction gives `170 - 50 - 25 = 95`.",
+        "q29": "`cars.company` is `undefined` after delete; `cars[\"color\"]` is `\"white\"`.",
+        "q31": "`filter()` returns an array; `typeof` an array is `\"object\"`.",
+        "q32": "`lastIndexOf(10)` is 2, `indexOf(30)` is 3, sum is 5.",
+        "q41": "Use `<del>` for deleted text and `<ins>` for inserted text; `<cut>` is not valid HTML.",
+        "q49": "`index(3)` returns the first occurrence at index 2.",
         "q53": "`dict.keys()` reflects live changes; after adding `color`, there are four keys.",
         "q54": "Sets use `update()`; lists use `extend()` when adding from another collection.",
         "q55": "Both `copy()` and `dict()` can shallow-copy a dictionary.",
         "q60": "With string operands, `+` concatenates to `2010` and `-` coerces to numbers giving `10`.",
+        "q64": "Valid arrow syntax; `f(4, 5)` returns `14`.",
         "q74": "Division in Python 3 returns a float: `100 / 20` is `5.0`.",
         "q79": "Accessing the text node uses `firstChild.nodeValue`; the listed shortcuts are incorrect.",
         "q80": "The script writes the paragraph count (6) into the `h2` element.",
@@ -316,7 +347,16 @@ EXPLANATION_FIXES: dict[str, dict[str, str]] = {
     },
     "2021": {
         "q3": "HTTP 304 is Not Modified; Not Found is 404, so 304 - Not Found is the odd pair.",
+        "q13": "The deprecated `<center>` tag maps to the `text-align` CSS property. The exam option misspelled it as `align`.",
+        "q19": "With `x = 20`, `x < 10` is false immediately, so the loop never runs and nothing is printed.",
+        "q20": "With `x = 5`, the loop prints once, then `x` becomes 10 and the condition fails.",
+        "q22": "The printed exam snippet is truncated, but the complete function returns the numeric counter `ct`.",
+        "q32": "`forloop.counter` is valid in Django templates; attributes are not called with parentheses.",
+        "q35": "Create a project with `django-admin startproject <name>`, not the bare word `Project`.",
+        "q58": "The unindented `print` runs once; the `if` body is skipped because `2 < 1` is false.",
         "q61": "`100 / 20` evaluates to `5`.",
+        "q63": "Inside the block, `var X` becomes `X*` and inner `let Y` is `Y*`, so the log is `X*, Y*`.",
+        "q64": "After the block, `X` remains `X*` while outer `Y` is restored, so the logs are `X*` then `Y`.",
         "q65": "`typeof` reports `number` for the first argument and `arguments.length` is 2.",
         "q66": "The first argument is a string, so `typeof` is `string` with one argument.",
         "q67": "Four arguments are supplied, so `arguments.length` is 4.",
@@ -328,6 +368,20 @@ EXPLANATION_FIXES: dict[str, dict[str, str]] = {
         "q78": "Sets are unordered and unindexed, not indexed.",
         "q79": "`pop()` on a set removes an arbitrary element; for `{1,2,3}` the removed item is not guaranteed to be 3 (sets are unordered). The statement as written about list behavior is false for sets — exam answer is False.",
         "q80": "Parentheses define a tuple, not a list.",
+    },
+    "2025": {
+        "q76": "Duplicates are removed, so the values are `{1, 2, 3, 5}`, but Python 3 prints sets with curly braces, not `set([1,2,3,5])`.",
+        "q79": "`.flat(2)` yields `[1, 2, 3, 4, 5, 6, 7, 8]`, and `console.log` prints brackets; option c omits them.",
+    },
+}
+
+OPTION_FIXES: dict[str, dict[str, dict[str, str]]] = {
+    "2021": {
+        "q13": {"c": "text-align"},
+        "q32": {"c": "forloop.counter"},
+        "q35": {"a": "django-admin startproject"},
+        "q63": {"a": "X*, Y*"},
+        "q64": {"a": "X*, Y"},
     },
 }
 
@@ -392,6 +446,7 @@ def sync_year(year: str) -> int:
     changes = 0
     answer_fixes = ANSWER_FIXES.get(year, {})
     expl_fixes = EXPLANATION_FIXES.get(year, {})
+    option_fixes = OPTION_FIXES.get(year, {})
 
     for block in data:
         apply_context(year, block)
@@ -428,6 +483,12 @@ def sync_year(year: str) -> int:
                 if remapped and remapped != question.get("correctAnswerId"):
                     question["correctAnswerId"] = remapped
                     changes += 1
+
+            for letter, content in option_fixes.get(qid, {}).items():
+                for opt in question["options"]:
+                    if opt["id"] == letter and opt["content"] != content:
+                        opt["content"] = content
+                        changes += 1
 
             if qid in answer_fixes:
                 question["correctAnswerId"] = answer_fixes[qid]

@@ -22,84 +22,118 @@ Part One: For each of the following statements please write down your answer in 
 Question One: Write True or False [17 Marks]
 1. We use the put method in the HTTP request message for doing partial updates.
 ANSWER: False
+EXPLANATION: The PUT method is designed to completely replace a target resource. For partial updates, the PATCH method is the correct standard.
 2. To determine the type of an object, we can use the "typeof" function in JavaScript.
 ANSWER: True
+EXPLANATION: While technically `typeof` is an operator rather than a function (often written without parentheses like `typeof x`), it is widely accepted in basic web technology contexts as the primary way to determine a variable's type. Note: for specific object types, `instanceof` is more accurate, but `typeof` returns 'object'.
 3. CSS can be defined externally in a separate file by adding the <style> element inside the <head>.
 ANSWER: False
+EXPLANATION: External CSS is linked using the `<link rel="stylesheet" href="...">` element. The `<style>` element is used exclusively for internal (embedded) CSS.
 4. var colors = (1:"red", 2:"green", 3:"blue") is one of the ways of defining an array in JavaScript.
 ANSWER: False
+EXPLANATION: This syntax is entirely invalid in JavaScript. Arrays are defined using square brackets `[]` (e.g., `["red", "green", "blue"]`), and objects are defined using curly braces `{}`.
 5. Django views represents the presentation layer of Django.
 ANSWER: False
+EXPLANATION: In Django's MVT (Model-View-Template) architecture, the View represents the business logic/controller layer. The Template represents the presentation layer.
 6. In Python, format function is used to format the datatypes of the output.
 ANSWER: False
+EXPLANATION: The `format()` string method is used to control the string presentation and insert variables into string placeholders, not to change or format underlying data types themselves.
 7. In Python, A set is a collection which is both unordered and indexed.
 ANSWER: False
+EXPLANATION: A set in Python is unordered and unindexed. You cannot access set items by referring to an index or a key.
 8. We can register models in the admin.py file to view it in the administration site of Django.
 ANSWER: True
+EXPLANATION: Using `admin.site.register(ModelName)` inside `admin.py` is the standard way to make models visible and editable in the Django admin interface.
 9. "Post.Objects.all()" will retrieve all objects in the Post table.
 ANSWER: False
+EXPLANATION: Python is case-sensitive. The correct syntax uses a lowercase 'o': `Post.objects.all()`.
 10. The super() function in python enables a class to have unlimited number of attributes.
 ANSWER: False
+EXPLANATION: The `super()` function is used to return a proxy object that delegates method calls to a parent or sibling class, allowing inheritance. It has nothing to do with enabling an unlimited number of attributes.
 11. "migrate" command in Django is used to show the changes happened in the database.
 ANSWER: False
+EXPLANATION: The `migrate` command applies the migrations to the database. To show changes or view migrations, commands like `showmigrations` or checking the output of `makemigrations` are used.
 12. In Python, to append elements from another list to the current list, use the update() method.
 ANSWER: False
+EXPLANATION: Lists use the `extend()` method to append elements from an iterable. The `update()` method is used for sets and dictionaries.
 13. In Python, to add items from another set into the current set, use the extend() method.
 ANSWER: False
+EXPLANATION: Sets use the `update()` method to add items from another set (or any iterable). `extend()` is used for lists.
 14. Tags and texts that are not directly displayed on the HTML page are written in title section.
 ANSWER: False
+EXPLANATION: These tags are written in the `<head>` section, not the title section. The `<title>` is merely one element inside the head.
 15. If an application is running on Web Server Gateway Interface (WSGI), then it will handle client requests in a sequential manner.
 ANSWER: True
+EXPLANATION: WSGI is generally synchronous and handles requests sequentially per worker. For asynchronous, non-blocking handling, ASGI is used.
 16. For a model to be visible in the admin interface it has to be registered in the settings.py file.
 ANSWER: False
+EXPLANATION: Models must be registered in the `admin.py` file, not `settings.py`.
 17. In DOM, ChildNodes property returns elements and ignores text and comments.
 ANSWER: False
+EXPLANATION: `childNodes` returns all node types, including text nodes (like whitespace) and comment nodes. The `children` property is what returns only element nodes.
 18. In python, a set is a collection which is unordered and unindexed.
 ANSWER: True
+EXPLANATION: This is the precise definition of a standard Python set.
 19. In python, to create a class that inherits from another class we use inherits keyword.
 ANSWER: False
+EXPLANATION: Python does not have an `inherits` keyword. Inheritance is achieved by passing the parent class as a parameter in parentheses: `class ChildClass(ParentClass):`.
 20. In Python, when using the super () function, the child class will not inherit the methods and properties from the parent class.
 ANSWER: False
+EXPLANATION: This statement is the exact opposite of reality. `super()` is used precisely to access and inherit methods and properties from the parent class.
 21. In the following statement: myNumbers =[1,2,3]
 x = myNumbers.pop()
 The removed item will be 1.
 ANSWER: False
+EXPLANATION: By default, the `pop()` method in Python removes and returns the *last* item in the list, which would be 3, not 1.
 22. In the following statement: myNumbers =[1,2,3]
 x = myNumbers.pop()
 The removed item will be 3.
 ANSWER: True
+EXPLANATION: `pop()` removes the last element of the list, which is 3.
 23. x = ("apple", "banana", "cherry") is a definition of a list.
 ANSWER: False
+EXPLANATION: This defines a tuple, as it uses parentheses `()`. A list uses square brackets `[]`.
 24. my-var is an incorrect variable name in Python.
 ANSWER: True
+EXPLANATION: Hyphens are not allowed in Python variable names because they are interpreted as the minus operator. Variable names can only contain letters, numbers, and underscores.
 25. The CSS property background-attachment is used to specify whether the image is attached to the document or not.
 ANSWER: True
+EXPLANATION: Yes, `background-attachment` sets whether a background image scrolls with the rest of the page, or if it is fixed (attached).
 26. The output of the following statements is Hello, My
 b= "Hello, My Friend"
 Print (b [:8])
 ANSWER: False
+EXPLANATION: The slice `b[:8]` extracts characters from index 0 to 7. Counting from 0: 'H'(0), 'e'(1), 'l'(2), 'l'(3), 'o'(4), ','(5), ' '(6), 'M'(7). The output is 'Hello, M', which is 8 characters long. 'Hello, My' would require `[:9]`.
 27. Strip() function is used to remove whitespaces from the beginning and end of a string in Python.
 ANSWER: True
+EXPLANATION: `strip()` safely removes leading and trailing characters (whitespace by default).
 28. The output of the following Python statements is ['a', 'b', 'C']
 X=['C','b','a']
 X.sort()
 Print(X)
 ANSWER: False
+EXPLANATION: In Python, default sorting uses ASCII values. Uppercase letters have lower ASCII values than lowercase ones. Therefore, 'C' comes before 'a' and 'b'. The output will be `['C', 'a', 'b']`.
 29. When you create a Django project on your computer, you will get a folder for your project with a specific content including templates file.
 ANSWER: False
+EXPLANATION: By default, the `django-admin startproject` command does not generate a `templates` folder or file. The developer must create it manually.
 30. Django comes with a built-in user interface that allows you to administrate your data. To access this interface you have to create a user name and password. To create this such user, you write python mange.py createuser.
 ANSWER: False
+EXPLANATION: The correct command to create an administrative user is `python manage.py createsuperuser`, not `createuser` (and manage.py is misspelled in the prompt).
 31. AJAX is used for refreshing the page content by sending a request to the server and updating the whole HTML page from the response.
 ANSWER: False
+EXPLANATION: The primary purpose of AJAX is asynchronous updating, allowing *parts* of a web page to be updated without needing to reload the *whole* HTML page.
 32. The output of the following Python statements is ['a', 'b', 'c']
 X=['C','b','A']
 X.sort(key = str.lower)
 Print(X)
 ANSWER: False
+EXPLANATION: The `key=str.lower` argument tells the sort function to ignore case during comparisons, but it preserves the original elements. The output will be `['A', 'b', 'C']`.
 33. <br> tag is used to force the browser to display the next text or element on a new line.
 ANSWER: True
+EXPLANATION: The `<br>` tag inserts a single line break.
 34. y= ("apple",) is a tuple.
 ANSWER: True
+EXPLANATION: In Python, a single-element tuple requires a trailing comma. `("apple",)` correctly creates a tuple.
 
 Question Two: Choose the correct answer [23 Marks]
 35. An HTTP response content type denotes
@@ -108,6 +142,7 @@ b. The image size of the content
 c. The text size of the content
 d. None of the answers!
 ANSWER: A
+EXPLANATION: The `Content-Type` entity header is used to indicate the media type (MIME type) of the resource.
 
 36. Using authorization, having a response of status 200 means that
 a. User is not authorized to see the response
@@ -115,6 +150,7 @@ b. User is authorized to see the response
 c. Content cannot be displayed after authorization
 d. None of the answers!
 ANSWER: B
+EXPLANATION: HTTP 200 OK implies the request was successful. In the context of authorization, it implies the server accepted the credentials and fulfilled the request.
 
 37. Using authorization, having a response of status 403 means that
 a. Server is reachable but the user is not authorized to see the response
@@ -122,6 +158,7 @@ b. Server is not reachable, and the user is not authorized to see the response
 c. Server is reachable and no content available to show the user
 d. None of the answers!
 ANSWER: A
+EXPLANATION: HTTP 403 is the 'Forbidden' status code. The client must authenticate itself to get the requested response, or lacks permissions even with authentication.
 
 38. In the following function:
 function multiply(...myNumbers) {
@@ -134,6 +171,7 @@ b. allow the function to change the arguments to an array.
 c. allow the function to distribute the arguments to separate numbers to be multiplied.
 d. None of the answers.
 ANSWER: B
+EXPLANATION: The rest parameter syntax `...` allows a function to accept an indefinite number of arguments as an array.
 
 39. Which of the following is true about JavaScript syntax?
 a. It is case-insensitive.
@@ -141,6 +179,7 @@ b. Semicolons are mandatory at the end of every statement.
 c. It is case-sensitive.
 d. White spaces are not allowed.
 ANSWER: C
+EXPLANATION: JavaScript is case-sensitive (e.g., `myVar` is different from `myvar`). Semicolons are technically optional due to automatic semicolon insertion.
 
 40. What does 'use strict' do in JavaScript?
 a. Prevents errors in the code
@@ -148,6 +187,7 @@ b. Enforces stricter parsing and error-handling rules
 c. Allows use of old JavaScript syntax
 d. Removes debugging restrictions
 ANSWER: B
+EXPLANATION: `'use strict';` switches the JavaScript engine to strict mode, throwing errors for bad practices (like using undeclared variables).
 
 41. What is the result of running the following code in strict mode?
 x=10;
@@ -157,6 +197,7 @@ b. Error: x is not defined
 c. undefined
 d. NaN
 ANSWER: B
+EXPLANATION: In strict mode, assigning a value to an undeclared variable throws a ReferenceError.
 
 42. What is the difference between var, let, and const?
 a. var is block-scoped, let and const are function-scoped.
@@ -164,6 +205,7 @@ b. var is function-scoped, let and const are block-scoped.
 c. var and let are block-scoped, const is function-scoped.
 d. All are block-scoped.
 ANSWER: B
+EXPLANATION: `var` binds to the nearest enclosing function wrapper, whereas `let` and `const` bind to the nearest enclosing block (`{ ... }`).
 
 43. What is the purpose of the prototype property in JavaScript objects?
 a. To create new properties in an object
@@ -171,6 +213,7 @@ b. To define methods and properties for inheritance
 c. To store the type of the object
 d. To delete existing properties
 ANSWER: B
+EXPLANATION: Prototypes are the mechanism by which JavaScript objects inherit features from one another.
 
 44. In JavaScript, which of the following is a valid getter in an object?
 a. get name() { return this._name; }
@@ -178,6 +221,7 @@ b. getter name() { return this._name; }
 c. get: function() { return this.name;}
 d. name.get {return this._name; }
 ANSWER: A
+EXPLANATION: The `get` syntax binds an object property to a function that will be called when that property is looked up.
 
 45. What will the following JavaScript code log?
 const obj = {a: 1, b: 2 };
@@ -188,6 +232,7 @@ b. {a: null, b: 2}
 c. {a: undefined, b: 2}
 d. Error
 ANSWER: A
+EXPLANATION: `delete obj.a` removes property `a` from the object. `console.log(obj)` then shows only `{ b: 2 }`. `delete` does not set the value to `null` or `undefined` — the key is gone.
 
 46. In JavaScript, What is the purpose of the constructor method in a class?
 a. To define static properties of a class
@@ -195,6 +240,7 @@ b. To initialize object properties
 c. To inherit methods from another class
 d. To execute a class directly
 ANSWER: B
+EXPLANATION: The `constructor` method is a special method of a class for creating and initializing an object instance of that class.
 
 47. In JavaScript, What does the super keyword do?
 a. Creates a new object in the class
@@ -202,6 +248,7 @@ b. Defines a static method
 c. Calls the parent class's constructor
 d. Overrides the parent class methods
 ANSWER: C
+EXPLANATION: The `super` keyword is used to access properties on an object literal or class's [[Prototype]], or invoke the superclass's constructor.
 
 48. How many ways are there with which we can declare a variable in javascript?
 a. Only one
@@ -209,6 +256,7 @@ b. Three
 c. Infinitely many
 d. None of the above
 ANSWER: B
+EXPLANATION: There are primarily three variable declaration keywords in JavaScript: `var`, `let`, and `const`.
 
 49. What does document.querySelectorAll() return?
 a. An array of elements
@@ -216,6 +264,7 @@ b. A single element
 c. A NodeList
 d. Undefined
 ANSWER: C
+EXPLANATION: `document.querySelectorAll()` returns a static (not live) NodeList representing a list of the document's elements that match the specified group of selectors.
 
 50. What does window.location.href return?
 a. The browser's name
@@ -223,6 +272,7 @@ b. The URL of the current page
 c. The history of visited pages
 d. The cookies of the website
 ANSWER: B
+EXPLANATION: The `href` property of the `Location` interface returns a string containing the entire URL of the current document.
 
 51. What is the purpose of window.history.back()?
 a. To reload the current page
@@ -230,6 +280,7 @@ b. To navigate to the previous page in history
 c. To clear the browser's history
 d. None of the above.
 ANSWER: B
+EXPLANATION: This method loads the previous URL in the history list, functionally identical to the user clicking their browser's "Back" button.
 
 52. How do you remove an element from the DOM?
 a. element.delete();
@@ -237,6 +288,7 @@ b. element.destroy();
 c. element.remove();
 d. element.clear();
 ANSWER: C
+EXPLANATION: The `Element.remove()` method removes the element from the DOM tree it belongs to.
 
 Based on the following HTML page, answer questions from (53-58)
 <html>
@@ -265,6 +317,7 @@ b. 2
 c. #text
 d. None of the previous
 ANSWER: C
+EXPLANATION: The `firstChild` of `<h2 id="id1">` is the text node containing "Welcome to my page". For a text node, `nodeName` returns `#text`.
 
 54. By using this CSS selector p.center {color: blue;}, the number of elements that will be styled is
 a. 1
@@ -272,6 +325,7 @@ b. 2
 c. 3
 d. None of the previous
 ANSWER: A
+EXPLANATION: The selector targets `<p>` tags with the class `center`. Looking at the HTML, only `<p class="center">Paragraph 5</p>` matches. The `<h1>` also has class center, but is not a `<p>` tag. Thus, 1 element.
 
 55. By using this CSS selector p:first-child { color: blue;}, how many elements will be styled?
 a. 5
@@ -279,6 +333,7 @@ b. 6
 c. 1
 d. None of the previous
 ANSWER: D
+EXPLANATION: This selector targets `<p>` tags that are the very first child of their parent. The matches are: `<p>Paragraph 1</p>` (first child of `<div>`) and `<p>Paragraph 3</p>` (first child of `<section>`). That is 2 elements. 2 is not an option in the list (a=5, b=6, c=1), so 'None of the previous'.
 
 56. By using this CSS selector div + p { color: red;}, how many p elements will be styled?
 a. 3
@@ -286,6 +341,7 @@ b. 2
 c. 4
 d. None of the previous
 ANSWER: D
+EXPLANATION: The `+` is the adjacent sibling combinator. It selects the `<p>` immediately following the `<div>`. The only one is `<p class="center">Paragraph 5</p>`. Since the answer is 1, and the options are 3, 2, 4, it is None of the previous.
 
 57. By using this CSS selector p:empty {color:red;}, how many elements will be styled?
 a. 3
@@ -293,6 +349,7 @@ b. 2
 c. 7
 d. None of the previous
 ANSWER: D
+EXPLANATION: There are no empty `<p></p>` tags in the given HTML. All of them contain text. So 0 elements are styled. None of the options matches.
 
 58. If we wrote "var x=document.getElementsByTagName('p')" inside a script tag, then the length of x will be:
 a. 5
@@ -300,6 +357,7 @@ b. 6
 c. 4
 d. None of the previous
 ANSWER: D
+EXPLANATION: Counting the `<p>` elements in the HTML page: Welcome, Paragraph 1, Paragraph 2, Paragraph 3, Paragraph 4, Paragraph 5, and Paragraph 6 gives 7 tags. Since 7 is not listed in options a, b, or c, the answer is None of the previous.
 
 Based on the following HTML page, answer questions from (59-61)
 <html>
@@ -319,6 +377,7 @@ b. Collection of elements
 c. null
 d. None of the previous
 ANSWER: B
+EXPLANATION: The `.children` property always returns an `HTMLCollection` (a collection of elements), even if it only contains one element (in this case, the `<ol>`).
 
 60. If we wrote this code, "y=x[0].children" then y will contain:
 a. Element nodes only
@@ -326,6 +385,7 @@ b. Element nodes and text nodes
 c. null
 d. None of the previous
 ANSWER: A
+EXPLANATION: The `.children` property is strictly for element nodes. (Conversely, `.childNodes` would return element nodes AND text nodes like whitespace).
 
 61. If we wrote this code, "z=y[0].children; M=z[0].firstChild.nodeValue;" Then the value of M will be:
 a. Text node
@@ -333,6 +393,7 @@ b. List 1
 c. null
 d. None of the previous
 ANSWER: B
+EXPLANATION: `y[0]` is `<li id="1">`. Its `.children` (`z`) contains the `<p>` tag. `z[0]` is `<p>List 1</p>`. The `.firstChild` of that `<p>` tag is a text node with the content. Its `.nodeValue` accesses the string content, which is "List 1".
 
 62. What is a correct syntax for creating a Django project?
 a. django start my_tennis_club
@@ -340,6 +401,7 @@ b. py manage.py start-django my_tennis_club
 c. django-admin startproject my_tennis_club
 d. None of the previous
 ANSWER: C
+EXPLANATION: `django-admin startproject project_name` is the standard terminal command to bootstrap a new Django project.
 
 63. If you have a Django application named members, and a model named Member, what is a correct syntax to import the model?
 a. from members.models import Member
@@ -347,6 +409,7 @@ b. import Member from members
 c. import members.Member
 d. None of the previous
 ANSWER: A
+EXPLANATION: Django stores app models inside `models.py`. Standard Python import syntax extracts a specific class from that module via `from app_name.models import ClassName`.
 
 64. When you have done changes in a model in Django, which command has to be executed in order to make the changes take effect in the database?
 a. python manage.py runmigrations
@@ -354,6 +417,7 @@ b. python manage.py executemigrations
 c. python manage.py makemigrations
 d. None of the previous
 ANSWER: D
+EXPLANATION: The `makemigrations` command (option c) creates the Python instructions, but to *make the changes take effect* in the database, the `python manage.py migrate` command must be run. Since it is missing, D is the answer.
 
 65. In the following Python Statements:
 Y={1,1,2,3,3,5}
@@ -364,6 +428,7 @@ b. tuple(1,2,3,5)
 c. {1,2,3,5}
 d. None of the answers!
 ANSWER: C
+EXPLANATION: `Y` is a set, so duplicate values are removed. `print(Y)` outputs `{1, 2, 3, 5}` (spacing may vary), which matches option c.
 
 66. What does {{ name }} this mean in Django Templates?
 a. {{name}} will be the output.
@@ -371,6 +436,7 @@ b. It will be displayed as name in HTML.
 c. The name will be replaced with values of Python variable.
 d. None of the above.
 ANSWER: C
+EXPLANATION: In Django's template language, double curly braces evaluate the variable inside and output its value into the template.
 
 67. What will be the output of the following Python code?
 car= {
@@ -385,6 +451,7 @@ b. 6
 c. 4
 d. 8
 ANSWER: A
+EXPLANATION: `car.get("color", "red")` returns the default string `"red"` because `color` is not in the dictionary. `len("red")` is 3.
 
 68. What will be the output of the following Java Script code snippet?
 function test(...args) {
@@ -396,6 +463,7 @@ b. number
 c. object
 d. array
 ANSWER: C
+EXPLANATION: The rest parameter `...args` gathers arguments into a JavaScript Array. In JavaScript, arrays are technically objects, so `typeof(args)` evaluates to 'object'.
 
 69. Which method can be used to combine two arrays in JavaScript?
 a. merge()
@@ -403,6 +471,7 @@ b. join()
 c. concat()
 d. append()
 ANSWER: C
+EXPLANATION: The `concat()` method is used to merge two or more arrays without altering the existing ones.
 
 70. What will be the output of the following python code?
 newtuple = (1,2,3,4)
@@ -413,6 +482,7 @@ b. [2,3,4]
 c. 1,2,3
 d. None of the previous
 ANSWER: D
+EXPLANATION: The unpacking assignment `(*k,) = newtuple` collects all items of the tuple into a list `k`. So `k` evaluates to `[1, 2, 3, 4]`. Since this isn't listed (b is `[2,3,4]`), the answer is None of the previous.
 
 71. What will be the output of the following Python code?
 newtuple=(1,2,3)
@@ -423,6 +493,7 @@ b. [2,3]
 c. Python Error
 d. []
 ANSWER: C
+EXPLANATION: The unpacking requires at least 4 items (for `x, y, z, m`). The tuple only has 3 items. This results in a `ValueError: not enough values to unpack`.
 
 72. Identify the error in this CSS code:
 .class { color: blue; font-weight; bold; }
@@ -431,6 +502,7 @@ b. Syntax error in property declaration
 c. Incorrect property value
 d. No error
 ANSWER: B
+EXPLANATION: The property-value pair uses a semicolon instead of a colon. It should be `font-weight: bold;`.
 
 73. Why might the CSS rule .container p {color: green;} not apply to a paragraph inside a div with class "container"?
 a. The div does not have the "container" class
@@ -438,6 +510,7 @@ b. The paragraph is not a direct child
 c. There is a more specific rule overriding this
 d. The CSS file is not linked properly
 ANSWER: C
+EXPLANATION: CSS resolution depends heavily on specificity. If another rule with a higher specificity (e.g., `#id p` or an inline style) targets the same element, it will override `.container p`.
 
 74. If an element has margin: 10px; and padding: 20px;, what is the space between the element and its neighboring element?
 a. 20px
@@ -445,6 +518,7 @@ b. 10px
 c. 30px
 d. 40px
 ANSWER: B
+EXPLANATION: Margin controls the space *outside* an element (between it and its neighbors). Padding controls the space *inside* (between the border and the content). Therefore, 10px.
 
 75. In the following Python statements:
 Y=set(("a","b","c"))
@@ -455,6 +529,7 @@ b. set(['a','b','c'])
 c. set([a,b,c])
 d. None of the answers
 ANSWER: D
+EXPLANATION: In Python 3, printing a set of strings outputs curly braces like `{'a', 'b', 'c'}` (order may vary). None of the options match this exact syntax.
 
 76. In the following Python Statements:
 Y={1,1,2,3,3,5}
@@ -464,7 +539,8 @@ a. set([1,2,3,5])
 b. tuple(1,2,3,5)
 c. dictionary(1:1,2:2,3:3,5:5)
 d. None of the answers
-ANSWER: A
+ANSWER: D
+EXPLANATION: Duplicates are removed, so the values are `{1, 2, 3, 5}`, but Python 3 prints sets with curly braces (e.g. `{1, 2, 3, 5}`), not `set([1,2,3,5])`. None of the listed formats match exactly.
 
 77. x={
 "name": "Ahmed",
@@ -479,6 +555,7 @@ b. {'name': 'Ahmed', 'id': '1', 'mobile': 123456789}.
 c. {'name': 'Ahmed', 'id': '1', 'mobile': 987654321}.
 d. Error! As you cannot have duplicates in a dictionary
 ANSWER: C
+EXPLANATION: Dictionaries in Python cannot have duplicate keys. If you assign to the same key twice during initialization, the last assignment overwrites the previous one.
 
 78. What is the output of the following JavaScript snippet?
 var writeMe="console.log('document.writeln(x);')"
@@ -489,6 +566,7 @@ b. Writes 13 to the body of the document
 c. Writes "document.writeln(x);" to the body of the document
 d. prints "document.writeln(x);" in the console
 ANSWER: D
+EXPLANATION: `eval()` executes the string as JavaScript. The string is a `console.log()` command printing a literal string. The value of `x` is never actually evaluated inside that inner string.
 
 79. What will be the output of this JavaScript code?
 const myArr =[1, 2, [3, [4, 5, 6, 7], 8]];
@@ -498,7 +576,8 @@ a. 1,2,3, [4,5,6],7,8
 b. 1,2, [3,4,5,6],7,8
 c. 1,2,3,4,5,6,7,8
 d. None of the previous
-ANSWER: C
+ANSWER: D
+EXPLANATION: `.flat(2)` yields `[1, 2, 3, 4, 5, 6, 7, 8]`, and `console.log` prints array brackets and spaces. Option c omits brackets, so it does not match the actual console output.
 
 80. Consider the following async function and its output. What will be displayed to the console when calling the f() function?
 async function f() {
@@ -516,6 +595,7 @@ b. done!
 c. JavaScript error
 d. Something else
 ANSWER: D
+EXPLANATION: `f()` starts the async function, then `console.log('first!')` runs immediately. After about one second the awaited promise resolves and `done!` is logged. Because both strings appear, the answer is Something else.
 
 Part Two: Answer the following questions in the determined space
 Question 3 - [8 Marks]
@@ -525,4 +605,15 @@ Given a paragraph element in an HTML file, write a complete snippet to:
 Font color to green [1 mark]
 Font size to 14px [1 mark]
 Font family to Arial [1 mark]
-Answer:
+ANSWER:
+<p id="myPara">My favorite subject is <s>English</s> <u>Arabic</u></p>
+<button onclick="changeStyle()">Style</button>
+<script>
+function changeStyle() {
+  let p = document.getElementById("myPara");
+  p.style.color = "green";
+  p.style.fontSize = "14px";
+  p.style.fontFamily = "Arial";
+}
+</script>
+EXPLANATION: Your snippet should render the sentence with strike-through on "English" and underline on "Arabic", include a button labeled "Style", and apply green 14px Arial styling to the paragraph when clicked. Any valid HTML/CSS/JS approach works as long as the outcome matches. See the model answer below.

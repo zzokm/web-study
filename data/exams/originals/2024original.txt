@@ -16,6 +16,7 @@ b. MVVM
 c. MVT Model View Template
 d. None of the previous
 ANSWER: C
+EXPLANATION: Django uses the MVT (Model-View-Template) pattern, matching option c.
 
 2. For a model to be visible in the admin interface it has to be registered in which file?
 a. settings.py
@@ -23,6 +24,7 @@ b. admin.py using admin.site.register(Model_name)
 c. views.py
 d. None of the previous
 ANSWER: B
+EXPLANATION: Models are registered using `admin.site.register()` within the `admin.py` file of a Django app to make them accessible via the Django admin panel.
 
 3. Which of the following statement(s) is true about the JavaScript?
 a. It is a scripting language used to make the website interactive
@@ -30,6 +32,7 @@ b. It is an advanced version of Java for Desktop and Mobile application developm
 c. It is a markup language of Java to develop the webpages
 d. All of the above
 ANSWER: A
+EXPLANATION: JavaScript is a lightweight, interpreted scripting language primarily known for adding interactivity to web pages. It is entirely distinct from Java.
 
 4. To perform programming logic in Django templates, you can use 'template tags', what is a correct syntax to start a 'for' loop?
 a. (for x in y)
@@ -37,6 +40,7 @@ b. <% for x in y %>
 c. {% for x in y %}
 d. None of the previous
 ANSWER: C
+EXPLANATION: Django template tags use `{% %}`. A `for` loop starts with `{% for x in y %}`. Python-style parentheses, ASP-style `<% %>`, and "none of the previous" are not valid Django template syntax.
 
 5. What is a correct syntax for creating a Django project?
 a. django start my_tennis_club
@@ -44,6 +48,7 @@ b. py manage.py start-django my_tennis_club
 c. django-admin startproject my_tennis_club
 d. None of the previous
 ANSWER: C
+EXPLANATION: The standard CLI command to initialize a new Django project is `django-admin startproject <projectname>`.
 
 6. If you have a Django application named members, and a model named Member, what is a correct syntax to import the model?
 a. from members.models import Member
@@ -51,6 +56,7 @@ b. import Member from members
 c. import members.Member
 d. None of the previous
 ANSWER: A
+EXPLANATION: In Python and Django, models are stored in the `models.py` file within the app directory. The correct relative import is `from <appname>.models import <ModelName>`.
 
 7. Which is the correct syntax to call an external JavaScript file in the current HTML document?
 a. <script src="jsfile.js"></script>
@@ -58,6 +64,7 @@ b. <script href=" jsfile.js"></script>
 c. <import src=" jsfile.js"></import>
 d. <script link=" jsfile.js"></script>
 ANSWER: A
+EXPLANATION: External JavaScript files are linked using the HTML `<script>` tag with the `src` (source) attribute pointing to the file path.
 
 8. Which JavaScript method is used to access an HTML element by id?
 a. getElementById()
@@ -65,6 +72,7 @@ b. getElement(id)
 c. getElementById(id)
 d. elementById(id)
 ANSWER: C
+EXPLANATION: While 'a' represents the raw method name, 'c' explicitly shows the method signature with the required parameter, which is typically the expected answer in academic contexts. Technically, it is a method of the `document` object.
 
 9. Which property is used to define the HTML content to an HTML element with a specific id?
 a. innerText
@@ -72,6 +80,7 @@ b. innerContent
 c. element Text
 d. innerHTML a is wrong because we want to define the HTML content
 ANSWER: D
+EXPLANATION: The `innerHTML` property sets or returns the HTML content inside an element.
 
 10. When you have done changes in a model in Django, which command has to be executed in order to make the changes take effect in the database?
 a. python manage.py runmigrations
@@ -79,6 +88,7 @@ b. python manage.py executemigrations
 c. python manage.py makemigrations
 d. None of the previous
 ANSWER: D
+EXPLANATION: `makemigrations` only creates migration files; applying them requires `migrate`, which is not listed.
 
 11. Which JavaScript method is used to write on browser's console?
 a. console.write()
@@ -86,6 +96,7 @@ b. console.output()
 c. console.log()
 d. console.writeHTML()
 ANSWER: C
+EXPLANATION: `console.log()` is the standard JavaScript method used to print information to the web browser's developer console for debugging.
 
 12. Which JavaScript method is used to write into an alert box?
 a. window.alertHTML()
@@ -93,6 +104,7 @@ b. window.alert()
 c. window.alertBox()
 d. window.alertContent()
 ANSWER: B
+EXPLANATION: `window.alert()` (or simply `alert()`) instructs the browser to display a dialog box with an optional message, and waits until the user dismisses it.
 
 13. In HTML DOM, which of the following properties are read-only? In midterm April 2023
 a. nodeName
@@ -100,6 +112,7 @@ b. nodeValue
 c. nodeName and nodeValue
 d. None of the previous
 ANSWER: A
+EXPLANATION: The `nodeName` property is strictly read-only (it returns the tag name like 'DIV' or '#text'). The `nodeValue` property is read-write for Text, Comment, and CDATA nodes.
 
 14. Which is the correct syntax to declare a constant in JavaScript?
 a. const constant_name;
@@ -107,9 +120,11 @@ b. constant name const;
 c. constant name const = value;
 d. const constant_name = value; You have to initialize any const
 ANSWER: D
+EXPLANATION: When declaring a constant using the `const` keyword, you must initialize it with a value at the time of declaration.
 
 15. What will be the output of this code?
 ANSWER: D
+EXPLANATION: Attempting to reassign a new value to a constant variable declared with `const` throws a `TypeError: Assignment to constant variable.`
 <script>
 const VALUE=10;
 VALUE=20;
@@ -123,9 +138,11 @@ d. TypeError Can't overwrite a const
 a. Yes
 b. No
 ANSWER: A
+EXPLANATION: Yes. In JavaScript, functions are first-class citizens, meaning they can be assigned to variables, passed as arguments, and returned from other functions.
 
 17. What will be the value of X?
 ANSWER: B
+EXPLANATION: JavaScript is case-sensitive. `X` (uppercase) refers to the global variable `10`. `x` (lowercase) is a separate local variable `20`. The function specifically writes `X`, which is `10`.
 <script>
 var X=10;
 function myfunc()
@@ -141,7 +158,8 @@ c. ValueError
 d. TypeError
 
 18. What is the output of the following JavaScript code?
-ANSWER: B
+ANSWER: A
+EXPLANATION: JavaScript evaluates left to right: `10 + 20` is `30`, then `30 + "5"` coerces to string concatenation, giving `"305"`.
 <script>
 var a=10+20+"5";
 document.getElementById("demo").innerHTML = a;
@@ -154,6 +172,7 @@ d. ValueError
 
 19. What will be the output of the following JavaScript code?
 ANSWER: D
+EXPLANATION: JavaScript only has one numerical type: `number`. It does not differentiate between integers and floats in the `typeof` evaluation.
 <script>
 var x = 1234;
 document.getElementById("test").innerHTML = typeof(x);
@@ -169,9 +188,11 @@ b. objectName[propertyName]
 c. objectName["propertyName"]
 d. None of the previous
 ANSWER: C
+EXPLANATION: Bracket notation with a string literal — `objectName["propertyName"]` — reads a property in JavaScript. Dot notation (`objectName.propertyName`) works too but is not listed. Option A (`objectName:propertyName`) is object-creation syntax, not access. Option B (`objectName[propertyName]`) only works when `propertyName` is a variable holding the key; without that context, C is correct.
 
 21. What will be the output of the following JavaScript code?
 ANSWER: D
+EXPLANATION: The `reduce` function starts with an initial value of 2. It iterates through the array: 2+1=3, 3+2=5, 5+3=8, 8+4=12. Since 12 is not listed in options A, B, or C, the correct choice is D.
 <script>
 var numbers = [1, 2, 3, 4];
 function myfunc(total, value) {
@@ -185,7 +206,8 @@ c. 9
 d. None of the previous Output is 12
 
 22. What will be the output of the following JavaScript code?
-ANSWER: B
+ANSWER: C
+EXPLANATION: `reduce` subtracts left to right: `170 - 50 = 120`, then `120 - 25 = 95`.
 <script>
 var numbers = [170, 50, 25];
 function myfunc(total, value) {
@@ -205,9 +227,11 @@ b. response, content-based caching
 c. request, content-type caching
 d. response, time-based caching
 ANSWER: D
+EXPLANATION: The `Expires` header is an HTTP response header that contains the date/time after which the response is considered stale, denoting time-based caching.
 
 24. What will be the output of the following JavaScript code?
 ANSWER: B
+EXPLANATION: `forEach` calls `myFunction` for each element. Each call adds the value to `result` (`result += value`), so the total is 10 + 20 + 30 = 60. The output is `Result: 60`.
 <script>
 const arr = [10, 20, 30];
 let result = 0;
@@ -224,6 +248,7 @@ d. ValueError
 
 25. What will be the output of the following JavaScript code?
 ANSWER: C
+EXPLANATION: The `map` function creates a new array by executing the provided function on each element. It squares each value, returning `[100, 400, 900]`. When an array is coerced to a string for `document.write`, it joins elements with commas, yielding `Result: 100,400,900`.
 <script>
 const values = [10, 20, 30];
 const result = values.map(myFunction);
@@ -243,6 +268,7 @@ b. convert()
 c. stringify()
 d. None of the previous
 ANSWER: C
+EXPLANATION: The correct global object method is `JSON.stringify()`. (Option C specifies `stringify()`, which is the core method name).
 
 27. In Python, ____ defines a block of statements.
 a. Block
@@ -250,6 +276,7 @@ b. Loop
 c. Indentation
 d. None of the previous
 ANSWER: C
+EXPLANATION: Unlike languages that use curly braces `{}` to define scope, Python relies entirely on leading whitespace (indentation) to group blocks of statements.
 
 28. What will be the output of this JavaScript code?
 var numbers = [10, 20, 30];
@@ -263,9 +290,11 @@ b. [20,30]
 c. 20
 d. None of the previous
 ANSWER: C
+EXPLANATION: The `find()` method returns the value of the *first* element in the provided array that satisfies the testing function. The first value greater than 10 is 20.
 
 29. What will be the output of the following JavaScript code?
-ANSWER: C
+ANSWER: B
+EXPLANATION: After `delete cars.company`, `cars.company` is `undefined`. With `x = "color"`, `cars[x]` is `cars["color"]` → `"white"`, so the output is `undefined white`.
 <script>
 try {
 const cars = {
@@ -287,6 +316,7 @@ d. TypeError
 
 30. What will be the output of the following JavaScript code?
 ANSWER: B
+EXPLANATION: The `eval()` function evaluates JavaScript code represented as a string. It accesses the scope variables `x` and `y`, calculating `10 * 20`, which is `200`.
 <body>
 <p id="demo"></p>
 <script>
@@ -304,7 +334,8 @@ c. ValueError Should be int
 d. 200
 
 31. What will be the output of this JavaScript code?
-ANSWER: C
+ANSWER: B
+EXPLANATION: `filter()` returns an array, and `typeof` an array in JavaScript is `"object"`.
 <script>
 var numbers = [10, 20, 30];
 function myFunction(value, index, array) {
@@ -319,7 +350,8 @@ c. number
 d. None of the previous
 
 32. What will be the output of this JavaScript code?
-ANSWER: D
+ANSWER: A
+EXPLANATION: `lastIndexOf(10)` is `2`, `indexOf(30)` is `3`, and `2 + 3 = 5` (option a).
 <script>
 var numbers = [10, 20, 10, 30];
 var y = numbers.lastIndexOf(10);
@@ -334,6 +366,7 @@ d. None of the previous
 
 33. What will be the output of the following JavaScript code snippet?
 ANSWER: C
+EXPLANATION: The rest parameter syntax `...args` gathers arguments into a real array. Since arrays in JavaScript are objects, `typeof(args)` evaluates to `"object"`.
 <script>
 document.write(typeof(NaN));
 </script>
@@ -351,6 +384,7 @@ b. [1,2,3,6,7,8]
 c. array
 d. None of the previous
 ANSWER: A
+EXPLANATION: `concat` merges the array with the new elements, creating `[1, 2, 3, 6, 7, 8]`. When `document.write` coerces this array to a string for display, it outputs the elements separated by commas: `1,2,3,6,7,8`.
 
 35. What will be the output of the following JavaScript code?
 var a = 0;
@@ -361,6 +395,7 @@ b. 0
 c. Error
 d. 5
 ANSWER: A
+EXPLANATION: The loop runs 5 times, printing the loop counter `x` on each iteration without any spaces or line breaks. The output is a continuous string `01234`.
 
 36. What will be the output of the following Python code?
 newtuple = (1, 2, 3, 4)
@@ -371,6 +406,7 @@ b. [1, 2, 3, 4]
 c. 2, 3, 4
 d. None of the previous
 ANSWER: D
+EXPLANATION: The asterisk `*` unpacking operator gathers all elements from the tuple into a list. `k` becomes `[1, 2, 3, 4]`. None of the provided options accurately reflect this output.
 
 37. What will be the output of the following Python code?
 newtuple = (1, 2, 3, 4)
@@ -381,6 +417,7 @@ b. [2, 3, 4]
 c. [2, 3]
 d. None of the previous
 ANSWER: B
+EXPLANATION: The unpacking syntax assigns the first element to `x` (1), the last element to `y` (4), and packs all remaining intermediate elements into a list `k`. Therefore, `k` is `[2, 3]`.
 
 38. Which is the correct HTML statement to define the red color of the paragraph text?
 a. <p style="color: #ff0000;">
@@ -388,6 +425,7 @@ b. <p style="color: red;">
 c. Both a and b. Assuming the missing < was not intended
 d. None of the previous
 ANSWER: C
+EXPLANATION: CSS allows color definition using predefined color names (like "red") or hexadecimal codes (like "#ff0000"). Both syntaxes are valid.
 
 39. Which HTML tag is used to define highlighted text?
 a. <highlight>
@@ -395,6 +433,7 @@ b. <mark>
 c. <m>
 d. None of the previous
 ANSWER: B
+EXPLANATION: The `<mark>` tag is the standard HTML5 element used to represent text that has been highlighted or marked for reference purposes.
 
 40. Which is the correct HTML statement to display H2O in a paragraph?
 a. <p>H<sup>2</sup>O</p>
@@ -402,13 +441,15 @@ b. <p>H<sub>2</sub>O</p>
 c. <p>H<ins>2</ins>O</p>
 d. <p>H<below>2</below>O</p>
 ANSWER: D
+EXPLANATION: The subscript 2 in H₂O uses `<sub>`. Option D — `<p>H<sub>2</sub>O</p>` — is correct. Option A wrongly uses `<sup>`, B uses `<ins>`, and C uses the invalid `<below>` tag.
 
 41. Which is the correct HTML statement to display Hello Hi in a paragraph?
 a. <p><del>Hello</del> <ins>Hi</ins></p>
 b. <p><cut>Hello</cut> <ins>Hi</ins></p>
 c. <p><del>Hello</del> <mark>Hi</mark></p>
 d. None of the above
-ANSWER: B
+ANSWER: A
+EXPLANATION: Deleted text uses `<del>` and inserted text uses `<ins>`. There is no standard `<cut>` element.
 
 42. Which attribute specifies the path to the image?
 a. href
@@ -416,11 +457,13 @@ b. src
 c. link
 d. All of the above
 ANSWER: C
+EXPLANATION: The `src` (source) attribute is used in the `<img>` tag to specify the URL or path to the image file.
 
 43. Can we use class name with multiple HTML elements?
 a. Yes
 b. No
 ANSWER: A
+EXPLANATION: Yes. Unlike the `id` attribute, which must be unique per document, `class` attributes are specifically designed to be reused across multiple elements.
 
 44. The ____ property is used in the positioning of the background image.
 a. background-image
@@ -428,6 +471,7 @@ b. background-position
 c. padding
 d. All of the above
 ANSWER: B
+EXPLANATION: The `background-position` CSS property sets the initial position for a background image.
 
 45. Which of the following selectors selects the specified elements of type E with a particular class value?
 a. E-F
@@ -435,6 +479,7 @@ b. E.class
 c. E#class
 d. Class(E)
 ANSWER: B
+EXPLANATION: The CSS syntax for selecting an element `E` that possesses a specific class name is `E.classname`.
 
 46. Which of the following selectors selects all elements of E that have the attribute (attr) that ends with a given (value)?
 a. E[attr$=value]
@@ -442,6 +487,7 @@ b. E[attr=value]
 c. E[attr*=value]
 d. None of the above
 ANSWER: A
+EXPLANATION: The `$=` operator in a CSS attribute selector strictly matches elements whose attribute value ends with the specified string.
 
 47. Which of the following selectors selects an element that has no children?
 a. :nochild
@@ -449,6 +495,7 @@ b. :empty
 c. :no-child
 d. None of the above
 ANSWER: B
+EXPLANATION: The `:empty` pseudo-class represents any element that has no children (including text nodes).
 
 48. What will be the output of the following Python code?
 b = "Hello, World!"
@@ -458,6 +505,7 @@ b. or
 c. Wor
 d. None of the above
 ANSWER: A
+EXPLANATION: Negative indexing in Python starts from the end (-1 is '!'). The slice `[-5:-2]` starts at the 5th character from the end ('o') and stops before the 2nd character from the end ('d'). The characters are 'o', 'r', 'l', giving "orl".
 
 49. What will be the output of the following Python code?
 thistuple = (1, 2, 3, 3, 4, 5)
@@ -467,17 +515,20 @@ a. 3
 b. 4
 c. 2
 d. None of the previous
-ANSWER: B
+ANSWER: C
+EXPLANATION: `index(3)` returns the index of the first `3`, which is `2` (0-based indexing).
 
 50. If an application is running on Asynchronous Server Gateway Interface (ASGI), then it will handle client requests in a sequential manner?
 a. True
 b. False
 ANSWER: False
+EXPLANATION: False. ASGI is specifically designed to handle requests asynchronously and concurrently, unlike WSGI, which is synchronous/sequential.
 
 51. Can you play audios in HTML?
 a. Yes
 b. No
 ANSWER: A
+EXPLANATION: Yes, HTML5 introduced the native `<audio>` element for embedding sound content.
 
 52. What will be the output of the following Python code?
 fruits = {"apple", "banana", "cherry"} Sets don't allow duplicates
@@ -489,6 +540,7 @@ b. 3
 c. 2
 d. None of the previous
 ANSWER: A
+EXPLANATION: Sets in Python do not allow duplicate values. Adding "apple" when it already exists has no effect. The length remains 3.
 
 53. What will be the output of the following Python code?
 car = {
@@ -504,6 +556,7 @@ b. 6
 c. 4
 d. None of the previous
 ANSWER: C
+EXPLANATION: `dict.keys()` reflects live changes; after adding `color`, there are four keys.
 
 54. To add items from another set to the current set we use ____ method, while to append items from another list to the current list we use ____ method.
 a. Extend(), append()
@@ -511,6 +564,7 @@ b. Extend(), update()
 c. Update(), extend()
 d. Update(), append()
 ANSWER: C
+EXPLANATION: Sets use `update()`; lists use `extend()` when adding from another collection.
 
 55. To make a copy of a dictionary, we can use ____ method.
 a. Copy()
@@ -518,6 +572,7 @@ b. dict()
 c. a. and b.
 d. makecopy()
 ANSWER: C
+EXPLANATION: Both `copy()` and `dict()` can shallow-copy a dictionary.
 Note: Copy() should be copy() because Python is case-sensitive. dict() is just using the copy constructor. It is assumed that Copy() is just a typo and should be copy()
 
 56. In CSS, "color:red" can be called as
@@ -526,12 +581,14 @@ b. Declaration
 c. Rule
 d. Value
 ANSWER: B
+EXPLANATION: In CSS terminology, the combination of a property (`color`) and its value (`red`) separated by a colon is formally known as a Declaration.
 
 57. External CSS style has the highest priority
 a. True
 b. False
 Inline > Internal > External > Browser Default
 ANSWER: False
+EXPLANATION: False. Inline styles (using the `style` attribute directly on an HTML element) have the highest specificity and priority, overriding external stylesheets.
 
 58. The ____ HTTP request header specifies information about the software (browser) making the request.
 a. Referrer
@@ -539,6 +596,7 @@ b. User-Agent
 c. cookie
 d. None of the above
 ANSWER: B
+EXPLANATION: The `User-Agent` string allows network protocol peers to identify the application type, operating system, software vendor, or software version of the requesting user agent.
 
 59. What does {{ name }} this mean in Django Templates?
 a. {{ name }} will be the output.
@@ -546,6 +604,7 @@ b. It will be displayed as name in HTML.
 c. The name will be replaced with values of Python variable.
 d. None of the above.
 ANSWER: C
+EXPLANATION: Double curly braces `{{ }}` constitute a template variable in Django; the engine interpolates this and outputs the value of the backend Python variable passed through the context.
 
 60. What is the output of the following JavaScript snippet?
 x = "20";
@@ -558,6 +617,7 @@ b. 30, NAN
 c. 2010, NAN
 d. 2010, 10
 ANSWER: D
+EXPLANATION: With string operands, `+` concatenates to `2010` and `-` coerces to numbers giving `10`.
 
 61. Which of the following is the correct way of creating a hyperlink in HTML?
 a. <a>www.google.com</a>
@@ -565,6 +625,7 @@ b. <a href="www.google.com" google</a>
 c. <a href="www.google.com"> google</a>
 d. <a link="www.google.com"> google </a>
 ANSWER: C
+EXPLANATION: The proper standard structure for a hyperlink utilizes the `<a>` (anchor) tag, assigning the URL destination to the `href` attribute, and wrapping the clickable text before the `</a>` closing tag.
 
 62. What is the purpose of using div tags in HTML?
 a. For creating different sections
@@ -572,6 +633,7 @@ b. For creating different styles
 c. For adding headings.
 d. For adding titles
 ANSWER: B
+EXPLANATION: The `<div>` tag operates as a generic block-level container designed to divide the HTML document into distinct structural sections or divisions.
 
 63. Which of the following is the correct way to add background color in HTML?
 a. <body color="green">
@@ -579,13 +641,15 @@ b. <body bg-color="green">
 c. <body style="background-color: green">
 d. <body style="background-color: green;">
 ANSWER: C
+EXPLANATION: Inline CSS is the correct modern approach. You utilize the `style` attribute and correctly pair the `background-color` property with the value using a colon separator.
 
 64. If you have the following JavaScript statement: const f = (a, b) => a + b + 5;
 a. f(3,4) will return 7
 b. f(4,5) will return 9
 c. f(4,5) will return 14
 d. Not a correct syntax for an arrow function
-ANSWER: D
+ANSWER: C
+EXPLANATION: `const f = (a, b) => a + b + 5` is valid arrow-function syntax; `f(4, 5)` returns `4 + 5 + 5 = 14`.
 
 65. To multiply an array of numbers (named myNumbers) with 4, the following is a correct syntax to do it:
 a. myNumbers.map((value) => value * 4); The map method takes a function as a parameter
@@ -593,6 +657,7 @@ b. myNumbers.filter((value) => value * 4);
 c. myNumbers.map(value * 4);
 d. myNumbers.filter(value * 4);
 ANSWER: A
+EXPLANATION: The `map()` method transforms every element in an array and returns a new array, requiring a callback function. Option A supplies a valid arrow function callback for the transformation.
 
 66. To keep numbers that are less than 10 from an array of numbers (named myNumbers), the following is a correct syntax to do it:
 a. myNumbers.map((value) => value < 10);
@@ -600,38 +665,45 @@ b. myNumbers.filter((value) => value < 10); The filter method takes a function a
 c. myNumbers.map(value < 10);
 d. myNumbers.filter(value < 10);
 ANSWER: B
+EXPLANATION: The `filter()` method constructs a new array compiling strictly the elements that pass the test implemented by the callback function.
 
 67. var colors = {1:"red", 2:"green", 3: "blue"} is one of the ways of defining an array in JavaScript?
 a. True
 b. False
 ANSWER: False
+EXPLANATION: This syntax is invalid. Arrays are defined using square brackets `[]` (e.g., `["red", "green", "blue"]`).
 
 68. In the following statement: myNumbers = [1, 2, 3]; x = myNumbers.pop(); Removes last element
 The removed item will be 1
 a. True
 b. False
 ANSWER: False
+EXPLANATION: The `pop()` method extracts and returns the *last* element of an array, which in this case is 3, not 1.
 
 69. In the following statement: myNumbers = [1, 2, 3]; x = myNumbers.pop();
 The removed item will be 3
 a. True
 b. False
 ANSWER: True
+EXPLANATION: The `pop()` function successfully removes the final index item from the array (3) and returns it.
 
 70. In Python, the value of [] is False?
 a. True
 b. False
 ANSWER: True
+EXPLANATION: In Python, empty data structures such as an empty list `[]` inherently evaluate to a boolean value of `False`.
 
 71. In Python, it is possible to use the set() constructor to create a set?
 a. True
 b. False
 ANSWER: True
+EXPLANATION: Yes, `set()` is the built-in constructor specifically designed for instantiating new set objects.
 
 72. In Python, A set is a collection which is both unordered and indexed?
 a. True
 b. False
 ANSWER: False
+EXPLANATION: Sets are unordered and explicitly *unindexed*. You cannot retrieve elements from a set via index positions.
 
 73. def f(**person):
 print("Person's name is " + person["name"]) kwargs are sent as a dictionary
@@ -642,6 +714,7 @@ b. Person's name is Ahmed and Age is 10
 c. Error as the function f doesn't take except one argument
 d. Error as the function f doesn't take an argument called "name"
 ANSWER: A
+EXPLANATION: The `**kwargs` syntax `**person` packages the keyword arguments into a dictionary. The print statement successfully queries `person["name"]` to fetch "Ahmed".
 
 74. y = lambda x : x / 20
 print(y(100))
@@ -651,6 +724,7 @@ b. 100/20
 c. 5
 d. 5.0 Should be 5.0 since Python type casts results of division to float by default
 ANSWER: D
+EXPLANATION: Division in Python 3 returns a float: `100 / 20` is `5.0`.
 
 75. In the following Python statements:
 if 1 < 2:
@@ -662,6 +736,7 @@ c. The output will be: One is less than Two!
 One is less than Two!
 d. The output will be an Error
 ANSWER: D
+EXPLANATION: Python mandates strict indentation for logic blocks. An `if` statement lacking an indented body directly beneath it will inherently trigger a fatal `IndentationError`.
 
 76. The output of the following statement in python is:
 Slicing won't throw Error if out of bounds
@@ -672,6 +747,7 @@ b. My Lovel
 c. ly Bird!
 d. y Bird!
 ANSWER: A
+EXPLANATION: The slice `[:7]` returns characters from index 0 up to (but not including) index 7. This extracts `M`, `y`, ` `, `L`, `o`, `v`, `e` resulting in `My Love`.
 
 77. The output of the following statement in python is:
 x = "My Lovely Bird!"
@@ -681,6 +757,7 @@ b. My Lovel
 c. ly Bird!
 d. y Bird!
 ANSWER: D
+EXPLANATION: Negative slices scan from the rear of the string. `[-7:]` queries the final 7 characters. Counting backwards from the end, the substring is exactly `y Bird!`.
 
 78. What will be the output of this JavaScript code?
 const myArr = [1, 2, [3, [4, 5, 6], 7], 8];
@@ -691,6 +768,7 @@ b. 1,2,3,4,5,6,7,8
 c. 1,2,[3,[4,5,6],7],8
 d. None of the previous
 ANSWER: B
+EXPLANATION: Without a depth argument, `flat()` defaults to a depth of `1`. The structure `[3, [4,5,6], 7]` gets its outer array stripped, injecting 3, the inner array `[4,5,6]`, and 7 directly into the master array. The output array contains the sub-array `[4,5,6]` intact.
 
 Based on the following HTML page, answer the following questions:
 
@@ -721,6 +799,7 @@ b. document.getElementById("id1").text;
 c. document.getElementById("id1").nodeValue; Any element that accepts text inside it always has a text node inside, here this node is accessed using firstChild, then nodeValue accessed the contents of this node which is the text
 d. none of the above
 ANSWER: D
+EXPLANATION: Accessing the text node uses `firstChild.nodeValue`; the listed shortcuts are incorrect.
 
 80. Based on the above html page, the content of h2 element will be presented as
 a. Hello World
@@ -728,6 +807,7 @@ b. Hello World 6
 c. 6 The answer is 6 since we have 6 p elements and we changed the contents of id1 in the script tag
 d. None of the above
 ANSWER: C
+EXPLANATION: The script writes the paragraph count (6) into the `h2` element.
 
 81. The number of objects in my variable is
 a. 4
@@ -735,6 +815,7 @@ b. 5
 c. 6
 d. 3
 ANSWER: C
+EXPLANATION: Six `<p>` elements exist in the page, so the collection length is 6.
 
 82. By using this CSS selector div > p { color: red; }, how many p elements will be styled?
 Direct Children
@@ -743,6 +824,7 @@ b. 2
 c. 5
 d. 6
 ANSWER: B
+EXPLANATION: The child combinator `>` targets only direct children. Paragraph 1 and Paragraph 2 are direct children of the `<div>`. Paragraph 3 is a child of the `<section>`, making it a descendant but not a direct child of the `<div>`.
 
 83. By using this CSS selector div ~ p { color: blue; }, the number of p elements that will be styled is
 Any sibling
@@ -751,6 +833,7 @@ b. 2
 c. 5
 d. 6
 ANSWER: B
+EXPLANATION: The general sibling combinator `~` flags all siblings that follow the specified element. Following the `<div>`, there are exactly two succeeding `<p>` elements (Paragraph 4 and Paragraph 5) resting at the identical hierarchical level.
 
 84. Using document.getElementById("id1").nodeType will return
 a. Element node
@@ -758,6 +841,7 @@ b. 1
 c. Text node
 d. 3
 ANSWER: A
+EXPLANATION: The `nodeType` property returns an integer. An element node (like the `<h2>` targeted here) structurally aligns with nodeType `1`.
 
 Based on the following HTML page, answer the following questions
 
@@ -788,6 +872,7 @@ b. anchor selector
 c. pseudo element selector
 d. none of the above
 ANSWER: A
+EXPLANATION: Square brackets `[]` encapsulate CSS attribute selectors, identifying components by the presence or explicit value of HTML attributes.
 
 86. By using p:first-child { color:red; }, the number of elements that will be styled
 a. 1
@@ -795,6 +880,7 @@ b. 2
 c. 3
 d. None of the above No p element has a child
 ANSWER: D
+EXPLANATION: No `<p>` element is the first child of its parent, so none match `:first-child`.
 
 87. To change the background color of all <a> elements to be yellow, you can use
 a. a[target] { background-color: yellow; }
@@ -802,6 +888,7 @@ b. a.all { background-color: yellow; }
 c. a[target=_blank, target=_top] { background-color: yellow; }
 d. a { background-color: yellow; }
 ANSWER: D
+EXPLANATION: Using just the plain element selector (`a`) targets all anchor tags ubiquitously across the document.
 
 88. To change the color of <a> elements to yellow when the mouse moves over it, you can use
 a. a:hover { background-color: yellow; }
@@ -809,6 +896,7 @@ b. a::hover { background-color: yellow; }
 c. a:link { background-color: yellow; }
 d. a:active { background-color: yellow; }
 ANSWER: A
+EXPLANATION: The `:hover` pseudo-class specifically manages state changes triggered by a user placing their pointing device over an element.
 
 89. href is a/an ____ while "_blank" is a ____
 a. value, attribute
@@ -816,6 +904,7 @@ b. link, value
 c. attribute, value
 d. link, text node
 ANSWER: C
+EXPLANATION: In HTML syntax rules, `href` acts as the property name (the attribute), whereas strings enclosed in quotes like `"_blank"` operate as assigned values.
 
 90. The hyperlink <a href="https://w3schools.com">...</a> is an example of a/an ____ URL, while <a href="Page2.html">...</a> is an example of a/an ____ URL.
 a. Absolute, relative
@@ -823,6 +912,7 @@ b. Relative, absolute
 c. Relative, Relative
 d. None of the above
 ANSWER: A
+EXPLANATION: An Absolute URL includes the entire operational path (protocol and domain). A Relative URL merely provides the path correlating to the currently loaded page's domain/directory.
 
 End of Question
 Good luck!

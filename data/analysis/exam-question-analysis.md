@@ -8,9 +8,9 @@ Generated: 2026-06-08
 | --- | ---: |
 | Exam finals | 2021, 2024, 2025 |
 | Total question instances | 283 |
-| Unique stems (deduped) | 259 |
+| Unique stems (deduped) | 260 |
 | Lectures mapped | 15 |
-| Repeated stems (same answer) | 20 |
+| Repeated stems (same answer) | 19 |
 
 ## Exams at a glance
 
@@ -47,7 +47,7 @@ Counts use `relatedTopics` lecture allocation — one question may count toward 
 
 ## Cross-exam repetition
 
-20 stems repeat across finals (or within a final) with the same correct answer. Drill these first.
+19 stems repeat across finals (or within a final) with the same correct answer. Drill these first.
 
 | Occurrences | Years | Lectures | Question |
 | ---: | --- | --- | --- |
@@ -68,7 +68,6 @@ Counts use `relatedTopics` lecture allocation — one question may count toward 
 | 2 | 2024, 2025 | Django IV | 10. When you have done changes in a model in Django, which command has to be executed in order to ma… |
 | 2 | 2024, 2025 | JavaScript 1 | 67. var colors = {1:"red", 2:"green", 3: "blue"} is one of the ways of defining an array in JavaScri… |
 | 2 | 2024, 2025 | Python Essentials | 69. In the following statement: myNumbers = [1, 2, 3]; x = myNumbers.pop(); |
-| 2 | 2024, 2025 | JavaScript 2 & AJAX | 78. What will be the output of this JavaScript code? |
 | 2 | 2025 | Python Essentials | 12. In Python, to append elements from another list to the current list, use the update() method. |
 | 2 | 2025 | Python Essentials | 28. The output of the following Python statements is ['a', 'b', 'C'] |
 
@@ -90,7 +89,6 @@ Counts use `relatedTopics` lecture allocation — one question may count toward 
 - **2024 + 2025** — 10. When you have done changes in a model in Django, which command has to be executed in order to make the changes take…
 - **2024 + 2025** — 67. var colors = {1:"red", 2:"green", 3: "blue"} is one of the ways of defining an array in JavaScript?
 - **2024 + 2025** — 69. In the following statement: myNumbers = [1, 2, 3]; x = myNumbers.pop();
-- **2024 + 2025** — 78. What will be the output of this JavaScript code?
 
 ## Item patterns
 
@@ -107,10 +105,10 @@ Keyword hits across stems, topics, and explanations (categories may overlap).
 
 | Theme | Total | 2021 | 2024 | 2025 |
 | --- | ---: | ---: | ---: | ---: |
-| JavaScript | 146 | 52 | 37 | 29 |
-| HTML & DOM | 114 | 27 | 42 | 24 |
+| JavaScript | 145 | 51 | 37 | 29 |
+| HTML & DOM | 113 | 27 | 41 | 24 |
 | Python | 87 | 18 | 23 | 32 |
-| HTTP & URLs | 73 | 19 | 21 | 20 |
+| HTTP & URLs | 71 | 18 | 19 | 21 |
 | CSS | 49 | 12 | 16 | 13 |
 | Django | 37 | 10 | 8 | 12 |
 | Networking | 6 | 3 | 2 | 1 |

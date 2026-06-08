@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Append ANSWER: lines to data/exams/originals/{year}original.txt."""
+"""Append ANSWER: and EXPLANATION: lines to data/exams/originals/{year}original.txt."""
 
 from __future__ import annotations
 
@@ -8,9 +8,10 @@ import re
 import sys
 from pathlib import Path
 
-from exam_original_paths import ROOT, original_txt_path, read_original_txt
+from exam_original_paths import ROOT, original_txt_path
 
 CONTEXT_MARKERS = ("Use the following", "Based on the following", "Note:")
+WRITTEN_2025_END_MARKER = "Font family to Arial [1 mark]"
 
 
 def format_answer(question: dict) -> str:
@@ -23,16 +24,52 @@ def format_answer(question: dict) -> str:
     return answer_id.upper()
 
 
-def load_answers(year: str) -> dict[int, str]:
+def load_exam_annotations(year: str) -> tuple[dict[int, str], dict[int, str]]:
     exam_path = ROOT / "data" / "exams" / f"{year}.json"
     data = json.loads(exam_path.read_text(encoding="utf-8"))
     answers: dict[int, str] = {}
+    explanations: dict[int, str] = {}
     for block in data:
         for question in block["questions"]:
             match = re.match(r"^(\d+)", question["questionText"].strip())
-            if match:
-                answers[int(match.group(1))] = format_answer(question)
-    return answers
+            if not match:
+                continue
+            num = int(match.group(1))
+            answers[num] = format_answer(question)
+            explanation = (question.get("explanation") or "").strip()
+            if explanation:
+                explanations[num] = explanation
+    return answers, explanations
+
+
+def load_2025_written_annotation() -> tuple[list[str], str] | None:
+    path = ROOT / "data" / "written-questions" / "questions.json"
+    payload = json.loads(path.read_text(encoding="utf-8"))
+    for question in payload.get("questions", []):
+        placement = question.get("examPlacement") or {}
+        if placement.get("year") == "2025":
+            answer = (question.get("expectedAnswer") or "").strip()
+            explanation = (question.get("explanation") or "").strip()
+            if answer and explanation:
+                return answer.splitlines(), explanation
+    return None
+
+
+def strip_annotation_lines(lines: list[str], year: str) -> list[str]:
+    out: list[str] = []
+    for line in lines:
+        stripped = line.strip()
+        if stripped.startswith(("ANSWER:", "EXPLANATION:")):
+            continue
+        if stripped == "Answer:":
+            continue
+        out.append(line)
+
+    if year == "2025":
+        for index, line in enumerate(out):
+            if WRITTEN_2025_END_MARKER in line:
+                return out[: index + 1]
+    return out
 
 
 def last_non_blank(lines: list[str], end: int) -> int:
@@ -156,8 +193,13 @@ def detect_insertions(year: str, lines: list[str]) -> list[tuple[int, int]]:
     raise SystemExit(f"Unsupported year: {year}")
 
 
-def apply_answers(lines: list[str], insertions: list[tuple[int, int]], answers: dict[int, str]) -> list[str]:
-    insert_map = {insert_at: answers[num] for insert_at, num in insertions}
+def apply_annotations(
+    lines: list[str],
+    insertions: list[tuple[int, int]],
+    answers: dict[int, str],
+    explanations: dict[int, str],
+) -> list[str]:
+    insert_map = {insert_at: num for insert_at, num in insertions}
     missing = sorted({num for _, num in insertions if num not in answers})
     if missing:
         raise SystemExit(f"Missing answers for questions: {missing}")
@@ -165,19 +207,39 @@ def apply_answers(lines: list[str], insertions: list[tuple[int, int]], answers: 
     output: list[str] = []
     for index, line in enumerate(lines):
         output.append(line)
-        if index in insert_map:
-            output.append(f"ANSWER: {insert_map[index]}")
+        if index not in insert_map:
+            continue
+        num = insert_map[index]
+        output.append(f"ANSWER: {answers[num]}")
+        if num in explanations:
+            output.append(f"EXPLANATION: {explanations[num]}")
+    return output
+
+
+def append_2025_written_section(output: list[str]) -> list[str]:
+    written = load_2025_written_annotation()
+    if not written:
+        return output
+    answer_lines, explanation = written
+    output.append("ANSWER:")
+    output.extend(answer_lines)
+    output.append(f"EXPLANATION: {explanation}")
     return output
 
 
 def annotate_year(year: str) -> int:
     original_path = original_txt_path(year)
-    answers = load_answers(year)
-    lines = read_original_txt(year).splitlines()
+    answers, explanations = load_exam_annotations(year)
+    lines = strip_annotation_lines(
+        original_path.read_text(encoding="utf-8").splitlines(),
+        year,
+    )
     insertions = detect_insertions(year, lines)
-    updated = apply_answers(lines, insertions, answers)
+    updated = apply_annotations(lines, insertions, answers, explanations)
+    if year == "2025":
+        updated = append_2025_written_section(updated)
     original_path.write_text("\n".join(updated) + "\n", encoding="utf-8")
-    print(f"{year}: appended {len(insertions)} answers")
+    print(f"{year}: annotated {len(insertions)} questions")
     return len(insertions)
 
 

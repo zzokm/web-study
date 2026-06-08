@@ -9,6 +9,7 @@ B. 3
 C. 5
 D. 8
 ANSWER: C
+EXPLANATION: A web page object is a discrete file requested from the server. The base HTML text document counts as 1 object, and the 4 JPEG images count as 4 separate objects. Total: 1 + 4 = 5.
 
 2. The values GET, POST, HEAD, etc., are specified in
 A. Request & Response
@@ -16,6 +17,7 @@ B. Request
 C. Response
 D. None of The Above
 ANSWER: B
+EXPLANATION: GET, POST, and HEAD are HTTP Request Methods (or verbs). They are exclusively sent by the client within the initial Request line to tell the server what action to perform.
 
 3. Find the oddly matched HTTP status codes:
 A. 200 - OK
@@ -23,6 +25,7 @@ B. 400 - Bad Request
 C. 301 - Moved Permanently
 D. 304 - Not Found
 ANSWER: D
+EXPLANATION: HTTP 304 is Not Modified; Not Found is 404, so 304 - Not Found is the odd pair.
 
 4. HTTP uses the services of ______ on well-known port 80:
 A. TCP
@@ -30,6 +33,7 @@ B. UDP
 C. SMTP
 D. HTTPS
 ANSWER: A
+EXPLANATION: HTTP (Hypertext Transfer Protocol) relies on the Transmission Control Protocol (TCP) as its underlying transport layer to ensure reliable, ordered, and error-checked delivery of a stream of bytes.
 
 5. In HTTP, the first line in a request message is called a ______ line; the first line in the response message is called the ______ line.
 A. Request, Status
@@ -37,6 +41,7 @@ B. Status, Status
 C. Response, Status
 D. None of The Above
 ANSWER: A
+EXPLANATION: The initial line of an HTTP request is explicitly named the 'Request-Line' (containing the Method, URI, and HTTP Version). The initial line of an HTTP response is the 'Status-Line' (containing the HTTP Version, Status Code, and Reason Phrase).
 
 6. An HTTP request message always contains
 A. A Header and A Body
@@ -44,6 +49,7 @@ B. A Request Line and A Header
 C. A Status Line, A Header and A Body
 D. None of The Above
 ANSWER: B
+EXPLANATION: A valid HTTP request must have a Request Line. In modern HTTP (1.1+), at least one header (the `Host` header) is mandatory. The Body is optional (e.g., standard GET requests have no body). Therefore, 'Request Line and A Header' is the most accurate minimal requirement.
 
 7. ______ is more robust and secure than ______
 A. Get, Post
@@ -51,6 +57,7 @@ B. Post, Put
 C. Post, Get
 D. None of The Above
 ANSWER: C
+EXPLANATION: POST is considered more secure and robust than GET for transmitting sensitive or large amounts of data because POST places the data in the HTTP message body, whereas GET exposes data in the visible URL string, which is logged by servers and browser history.
 
 8. Which of the following property of an anchor element signifies an element that currently has the user's mouse pointer hovering over it?
 A. :link
@@ -58,6 +65,7 @@ B. :visited
 C. :hover
 D. :active
 ANSWER: C
+EXPLANATION: The `:hover` pseudo-class applies while the user designates an element with a pointing device, but does not necessarily activate it.
 
 9. In CSS, "color:red" can be called as
 A. Selector
@@ -65,6 +73,7 @@ B. Declaration
 C. Rule
 D. Value
 ANSWER: B
+EXPLANATION: In CSS terminology, the combination of a property (`color`) and its corresponding value (`red`), separated by a colon, forms a 'Declaration'.
 
 10. In CSS, "font-size" can be called as
 A. Selector
@@ -72,6 +81,7 @@ B. Rule
 C. Property
 D. Property-Name
 ANSWER: C
+EXPLANATION: The identifier located before the colon in a CSS declaration (such as `font-size`) is known as the 'Property'.
 
 11. ______ selectors are used to specify a group of elements.
 A. id
@@ -79,6 +89,7 @@ B. class
 C. tag
 D. Both class and tag
 ANSWER: D
+EXPLANATION: Both Class selectors (e.g., `.myClass`) and Tag/Type selectors (e.g., `p`, `h1`) are designed to target and apply styles to multiple grouped elements across the DOM. In contrast, `id` selectors must be unique to a single element.
 
 12. "Font-style comes first than font-weight in font attribute." State true or false.
 A. True
@@ -86,13 +97,15 @@ B. False
 C. May be
 D. None of the above
 ANSWER: B
+EXPLANATION: False. In the CSS shorthand `font` property, the sub-properties `font-style`, `font-variant`, and `font-weight` are entirely interchangeable in their order, as long as they all appear before `font-size`.
 
 13. Which CSS property is equivalent for the attribute <center>?
 A. color
 B. margin
-C. align
+C. text-align
 D. font
 ANSWER: C
+EXPLANATION: The deprecated `<center>` tag centered inline content. The CSS equivalent is the `text-align` property (e.g. `text-align: center`). The exam option misspelled this as `align`.
 
 14. Which of the following is the correct way to apply style to a document?
 A. Use an external style sheet, either by importing it or by linking to it
@@ -100,6 +113,7 @@ B. Directly embed a document-wide style in the head element of the document
 C. Set an inline style rule using the style attribute directly on an element
 D. All the mentioned
 ANSWER: D
+EXPLANATION: CSS can be applied in three standard ways: External (via `<link>` or `@import`), Internal/Embedded (via `<style>` in the `<head>`), and Inline (via the `style=""` attribute on individual HTML tags).
 
 15. With, which tag do you write the style rules directly within the document found within the head of the document.
 A. <script>
@@ -107,6 +121,7 @@ B. <php>
 C. <style>
 D. <CSS>
 ANSWER: C
+EXPLANATION: The `<style>` HTML element contains style information (CSS) for a document, typically placed inside the `<head>` section.
 
 16. Inline style has the lowest priority.
 A. True
@@ -114,6 +129,7 @@ B. False
 C. May be
 D. Cannot say
 ANSWER: B
+EXPLANATION: False. In the standard CSS cascade specificity rules, inline styles (applied directly to the element via the `style` attribute) have the *highest* priority and will override external and internal stylesheets (unless `!important` is used elsewhere).
 
 17. When a user views a page containing a JavaScript program, which machine executes the script?
 A. The User's machine running a Web browser
@@ -121,6 +137,7 @@ B. The Web server
 C. A central machine deep within Netscape's corporate offices
 D. None of the above
 ANSWER: A
+EXPLANATION: Standard web JavaScript is a client-side scripting language. This means the code is downloaded and parsed by the user's web browser, which executes it locally on the user's own machine.
 
 18. Which of the following lines of JavaScript code will change the HTML inside of an element with the attribute id="myElement" to "CS 105"?
 A. document.getElementById("myElement").innerHTML = "CS 105";
@@ -136,6 +153,7 @@ For the next two questions, consider the following code:
 5   x *= 2;
 6 }
 ANSWER: A
+EXPLANATION: The standard DOM API method to retrieve an element by its ID is `document.getElementById()`. Modifying its `innerHTML` property securely updates the content within that element.
 
 19. If the function print() has been defined that prints the value passed in as the parameter to it, how many times is "Hello" printed?
 A. 0
@@ -143,7 +161,8 @@ B. 1
 C. 2
 D. 3
 E. Infinity (or at least until you kill the program)
-ANSWER: B
+ANSWER: A
+EXPLANATION: With `x = 20`, the condition `x < 10` is false immediately, so the `while` loop body never runs and "Hello" is printed 0 times.
 
 20. If the initial value of x (set on Line #1) is now 5 instead of 20, how many times is "Hello" printed?
 A. 0
@@ -161,7 +180,8 @@ For the next two questions, consider the following code:
 7     {
 8       ct++;
 9     }
-ANSWER: D
+ANSWER: B
+EXPLANATION: With `x = 5`, the loop runs once (`5 < 10`), prints "Hello", then `x` becomes 10. On the next check, `10 < 10` is false, so the loop stops after exactly 1 print.
 
 21. Based on its usage in the function, what type of variable x be?
 A. A string
@@ -169,6 +189,7 @@ B. A number
 C. An array of strings
 D. An array of numbers
 ANSWER: D
+EXPLANATION: The variable `x` has a `.length` property and its elements are accessed via indices (`x[i]`), indicating an array (or array-like object). The elements are then compared against the integer 70 (`x[i] >= 70`), indicating the contents are numerical. Thus, it is an array of numbers.
 
 22. Which of the following statements are true about this code?
 A. The function will always return the value 0
@@ -176,6 +197,7 @@ B. The function will never return the value 0.
 C. The function only returns if x is a number.
 D. The function will return a number.
 ANSWER: D
+EXPLANATION: The printed exam snippet is truncated, but the complete function (shown in context) increments `ct` and returns it, so the return value is always a number. It may be 0 when no element is >= 70, so A and B are false.
 
 23. In JavaScript, which one of the following is not considered as an error?
 A. Syntax error
@@ -183,12 +205,14 @@ B. Missing of semicolons
 C. Division by zero
 D. Missing of Brackets
 ANSWER: C
+EXPLANATION: Unlike many strictly typed backend languages that halt and throw an exception, JavaScript handles Division by Zero silently by yielding the special numeric values `Infinity`, `-Infinity`, or `NaN` (if dividing 0 by 0). It is technically not an execution error.
 
 24. How are objects organized in the HTML DOM?
 A. Class-wise
 B. Queue
 C. Hierarchy
 ANSWER: C
+EXPLANATION: The Document Object Model (DOM) structurally represents an HTML document as a hierarchical logical tree of nodes (parents, children, siblings).
 
 25. What is the purpose of form control elements in the HTML DOM?
 A. User Interface elements
@@ -196,6 +220,7 @@ B. All possible elements
 C. Debugging elements
 D. Collecting elements
 ANSWER: A
+EXPLANATION: Form controls (like `<input>`, `<select>`, `<button>`) function fundamentally as User Interface elements designed to capture user interactions and input.
 
 26. Which statement is correct about this Python code?
 class Name:
@@ -209,6 +234,7 @@ B. id(name1) and id(name2) will have the same value.
 C. Both name1 and name2 will have reference to two different objects of class Name.
 D. All the above
 ANSWER: B
+EXPLANATION: When assigning `name2 = name1`, Python simply creates a new reference pointing to the exact same object in memory. Because they reference the same object, the memory address retrieved by `id()` will be identical for both.
 
 27. What will the following Python code print?
 lst = []
@@ -225,6 +251,7 @@ C. [[15, 6], [10, 30, 20]]
 D. [[10, 30, 20], [15, 6]]
 E. [[10, 20, 30], [6, 15]]
 ANSWER: D
+EXPLANATION: Initially, `lst` is `[]`. First append: `lst` becomes `[[15, 6]]`. Second append: `lst` becomes `[[15, 6], [10, 30, 20]]`. The `sort()` function sorts inner lists sequentially element by element. Since the first element 10 is less than 15, the array `[10, 30, 20]` is placed before `[15, 6]`. The result is `[[10, 30, 20], [15, 6]]`.
 
 28. What is a Django App?
 A. Django app is an extended package with base package is Django.
@@ -232,6 +259,7 @@ B. Django app is a python package with its own components.
 C. Both 1 & 2
 D. All of the above.
 ANSWER: B
+EXPLANATION: In Django architecture, an 'app' is fundamentally a modular Python package containing its own specific models, views, templates, and routes designed to perform a distinct feature or functionality.
 
 29. What are Migrations in Django?
 A. They are files saved in migrations directory.
@@ -239,6 +267,7 @@ B. They are created when you run makemigrations command.
 C. Migrations are files where Django stores changes to your models.
 D. All of the above.
 ANSWER: D
+EXPLANATION: All three statements accurately describe Django's migration system. They act as version control for database schemas, generated by `makemigrations`, and stored safely in the app's `migrations/` directory.
 
 30. Django is based on which framework?
 A. MVC
@@ -246,6 +275,7 @@ B. MVVM
 C. MVT
 D. None of the Above
 ANSWER: C
+EXPLANATION: Django follows the MVT (Model-View-Template) architectural pattern, adapting the classic MVC design to better fit web development paradigms.
 
 31. What does {{ name }} mean in Django Templates?
 A. {{ name }} will be the output.
@@ -253,13 +283,15 @@ B. It will be displayed as name in HTML.
 C. The name will be replaced with values of Python variable.
 D. None of the above
 ANSWER: C
+EXPLANATION: The double curly brace `{{ }}` syntax is a Django template variable. When rendered, the engine retrieves the value of the 'name' variable passed from the view context and injects it into the HTML.
 
 32. Which of the following is a valid forloop attributes of Django Template System?
 A. forloop.reverse
 B. forloop.firstitem
-C. forloop.counter()
+C. forloop.counter
 D. forloop.lastitem
 ANSWER: C
+EXPLANATION: Inside a `{% for %}` loop, `forloop.counter` is a valid attribute (accessed without parentheses). The exam option incorrectly wrote `forloop.counter()`.
 
 33. What does the architecture of Django consist of?
 A. Views
@@ -267,6 +299,7 @@ B. Models
 C. Templates
 D. All of the Above
 ANSWER: D
+EXPLANATION: The architecture comprises Models (data structure), Views (business logic), and Templates (presentation interface), collectively known as the MVT pattern.
 
 34. Django is a type of:
 A. Programming Language
@@ -274,13 +307,15 @@ B. Software
 C. Web framework
 D. None of the above
 ANSWER: C
+EXPLANATION: Django is explicitly an open-source high-level Python Web framework designed for rapid development.
 
 35. Which command issued to create a project in Django?
-A. Project
+A. django-admin startproject
 B. manage.py
 C. __init__.py
 D. All of the above
 ANSWER: A
+EXPLANATION: A new Django project is created with `django-admin startproject <project_name>`. The exam option listed only `Project`, which is the argument name, not the command.
 
 36. In a URL, an optional ______ can be inserted between the host and the path, separated from the host by a colon.
 A. Port Number
@@ -288,6 +323,7 @@ B. Protocol
 C. Host
 D. None of Them
 ANSWER: A
+EXPLANATION: In URL architecture (e.g., `http://example.com:8080/path`), the element following the host and separated by a colon (`:`) is the Port Number.
 
 37. A cookie is created by
 A. Server
@@ -295,6 +331,7 @@ B. Client
 C. Host
 D. None of Them
 ANSWER: A
+EXPLANATION: Fundamentally, HTTP cookies are generated by the Web Server and sent to the client browser via the `Set-Cookie` HTTP response header for state management.
 
 38. The ______ of the ______ can contain parameters sent to the server.
 A. Header, response
@@ -302,6 +339,7 @@ B. Header, request
 C. Body, response
 D. Body, request
 ANSWER: D
+EXPLANATION: When transmitting form data or payloads (like in a POST or PUT method), the parameters are securely encapsulated within the body of the HTTP request message.
 
 39. In JavaScript, the statement "40" + 6 will return
 A. 46
@@ -309,6 +347,7 @@ B. "406"
 C. "40"6
 D. Error
 ANSWER: B
+EXPLANATION: When the `+` operator involves a string, JavaScript triggers type coercion and converts the integer `6` into a string. The operation becomes string concatenation: `"40" + "6"`, resulting in `"406"`.
 
 40. To determine if an object contains a certain property, we can use the ______ operator.
 A. =
@@ -316,6 +355,7 @@ B. In
 C. List
 D. []
 ANSWER: B
+EXPLANATION: The `in` operator evaluates to true if the specified property exists within the specified object or its prototype chain (e.g., `'property' in objectName`).
 
 41. Consider you have a function "funcX" that multiplies any input number by 3. And you have a list of numbers Y = [1, 3, 4]. The result of Y.map(funcX) is
 A. New array [3, 9, 12]
@@ -323,6 +363,7 @@ B. Same array updated [3, 9, 12]
 C. None of the answers
 D. Something else
 ANSWER: A
+EXPLANATION: The `map()` array method iterates over elements, applies the callback function, and importantly, returns a strictly *new* array. It never mutates the original array 'Y'.
 
 42. An HTTP Response message must contain
 A. Content coming from the server
@@ -330,6 +371,7 @@ B. Content coming from the client
 C. Status code
 D. None of them
 ANSWER: C
+EXPLANATION: Every valid HTTP Response must possess a Status-Line as its very first line. This Status-Line natively houses the HTTP Version, the Reason Phrase, and fundamentally, the 3-digit Status Code.
 
 43. "Expires: Tuesday, 17 Dec 2020 18:30 GMT" is a ______ header denoting ______
 A. Request, Time-Based Caching
@@ -337,6 +379,7 @@ B. Response, Content-Based Caching
 C. Request, Content-Type Caching
 D. Response, Time-Based Caching
 ANSWER: D
+EXPLANATION: The `Expires` HTTP header is transmitted by the server in its response. It provides an explicit date/time pointing to when the asset is considered stale, enforcing time-based caching protocols.
 
 44. To denote permission of using a resource, you must use
 A. Authentication
@@ -344,6 +387,7 @@ B. Validation
 C. Authorization
 D. None of Them
 ANSWER: C
+EXPLANATION: Authentication checks *identity* (who you are), while Authorization checks *permissions* (what you are allowed to access/use).
 
 45. Using authorization, a response with status 200 means that
 A. The user is not authorized to see the response.
@@ -351,6 +395,7 @@ B. content cannot be displayed after authorization.
 C. None of the answers
 D. User is authorized to see the response.
 ANSWER: C
+EXPLANATION: Status code 200 stands for 'OK'. When an authorization layer is present, a 200 response confirms that the server accepted the credentials and successfully authorized the request.
 
 46. A lock icon in the browser denotes ______ for ______ connection.
 A. Hypertext Transfer Protocol over TCP, secured
@@ -358,6 +403,7 @@ B. Secured Hypertext Transfer Protocol over TLS, secured
 C. Hypertext Transfer Protocol over TCP, unsecured
 D. None of the answers
 ANSWER: B
+EXPLANATION: The padlock icon in web browsers signifies an active HTTPS connection. HTTPS encrypts regular HTTP messages utilizing TLS (Transport Layer Security, formerly SSL), providing a secure connection.
 
 47. The <del> HTML element is used to
 A. deletes the text
@@ -365,6 +411,7 @@ B. removes the text from the HTML document
 C. put a strike over the text
 D. None of the answers
 ANSWER: C
+EXPLANATION: While semantically `<del>` represents deleted text, structurally and visually within a browser, its default presentation is to render a line (strikethrough) across the enclosed text.
 
 48. Cascading Style Sheets are used to
 A. Identify how elements will be displayed on paper
@@ -372,6 +419,7 @@ B. Identify how elements will be saved to the server
 C. Identify how elements will be sent to the client
 D. None of the answers
 ANSWER: D
+EXPLANATION: CSS describes how HTML elements are to be displayed on screens, paper, or other media. Because option A restrictively specifies *only* 'on paper' while omitting screen display (its primary use), 'None of the answers' is technically the safest holistic choice in a strict exam. However, an argument can be made for A as a partial truth.
 
 49. A CSS rule-set consists of ______ and ______
 A. Selector, multiple declarations
@@ -379,6 +427,7 @@ B. Selector, value
 C. Selector, property
 D. None of the answers
 ANSWER: A
+EXPLANATION: A standard CSS rule-set consists of a primary selector (pointing to the HTML element) and a declaration block encased in `{ }`, which contains one or multiple declarations (property: value pairs).
 
 50. <link rel="stylesheet" type="text/css" href="style.css"> is a declaration of
 A. Internal CSS
@@ -386,6 +435,7 @@ B. External CSS
 C. Inline CSS
 D. None of the answers
 ANSWER: B
+EXPLANATION: The `<link>` tag pointing to an external `.css` file via the `href` attribute is the standard protocol for importing an External CSS stylesheet.
 
 51. What is the correct JavaScript syntax to change the content of the HTML element <p id="demo">This is a demonstration.</p>
 A. #demo.innerHTML = "Hello World!";
@@ -393,6 +443,7 @@ B. document.getElementByName("p").innerHTML = "Hello World!";
 C. document.getElementById("demo").innerHTML = "Hello World!";
 D. document.getElement("p").innerHTML = "Hello World!";
 ANSWER: C
+EXPLANATION: The `getElementById` interface securely fetches the unique node carrying the 'demo' ID, and assigning to `.innerHTML` manipulates the text content inside that node.
 
 52. What is the output of the following JavaScript snippet?
 var writeMe = "console.log('document.writeln(x);')";
@@ -403,6 +454,7 @@ B. Writes 13 to the body of the document
 C. Writes "document.writeln(x);" to the body of the document
 D. prints "document.writeln(x);" in the console
 ANSWER: D
+EXPLANATION: `eval(writeMe)` processes the string as JavaScript code. The string is literally `console.log('document.writeln(x);')`. Thus, the console merely outputs the nested string 'document.writeln(x);' verbatim. The variable `x=13` is entirely bypassed.
 
 53. What is the output of the following JavaScript snippet?
 x = "20";
@@ -413,6 +465,7 @@ B. 30, NaN
 C. 2010, NaN
 D. 2010, 10
 ANSWER: D
+EXPLANATION: `x + y` maps to string concatenation (`"20" + 10`), yielding `"2010"`. Because minus isn't overloaded for strings, `x - y` safely converts the string to an integer (`20 - 10`), yielding `10`.
 
 54. If you have the following JavaScript statement:
 const f = (a, b) => a + b + 5;
@@ -421,6 +474,7 @@ B. f(4, 5) will return 9
 C. f(4, 5) will return 5
 D. Not a correct syntax for an arrow function
 ANSWER: A
+EXPLANATION: Passing inputs `a=3` and `b=4` evaluates mathematically as `3 + 4 + 5`, which equals `12`.
 
 55. To select numbers that are less than 10 from an array of numbers (named myNumbers), the following is a correct syntax to do it:
 A. myNumbers.map((value) => value < 10);
@@ -428,6 +482,7 @@ B. myNumbers.filter((value) => value < 10);
 C. myNumbers.map(value < 10);
 D. myNumbers.filter(value < 10);
 ANSWER: B
+EXPLANATION: The `.filter()` method tests every element in the calling array and exclusively keeps values where the callback function returns a truthy value (`value < 10`).
 
 56. In the function:
 function multiply(...myNumbers) {
@@ -441,6 +496,7 @@ B. Allow the function to change the arguments to an array
 C. allow the function to distribute the arguments to separate numbers to be multiplied
 D. None of the answers
 ANSWER: B
+EXPLANATION: The rest parameter (`...`) inherently gathers an indefinite number of isolated trailing arguments into a standard, single JavaScript Array format.
 
 57. The "..." in the previous question are called:
 A. Distribution parameter
@@ -448,6 +504,7 @@ B. Arguments parameter
 C. Rest parameter
 D. Waiting parameters
 ANSWER: C
+EXPLANATION: In JavaScript function definitions, the `...` syntax placed immediately before an identifier declares a 'rest parameter'.
 
 58. In the following Python statements:
 if 2 < 1:
@@ -459,7 +516,8 @@ A. The output will be: Two is less than one!
 B. The output will be: Two is less than one! Two is less than one!
 C. The output will be: Two is less than one!
 D. The output will be an Error.
-ANSWER: D
+ANSWER: C
+EXPLANATION: `2 < 1` is false, so the indented `print` under `if` is skipped. The second, unindented `print` still runs and outputs `Two is less than one!` once with no error.
 
 59. x = {
   "name": "Ahmed",
@@ -474,6 +532,7 @@ B. {'name': 'Ahmed', 'id': '1', 'mobile': 123456789}
 C. {'name': 'Ahmed', 'id': '1', 'mobile': 987654321}
 D. Error! As you cannot have duplicate keys in a dictionary
 ANSWER: C
+EXPLANATION: Dictionaries strictly forbid duplicate keys. When multiple keys with identical names are evaluated during initialization, the trailing value seamlessly overwrites the preceding value.
 
 60. def f(**person):
   print("Person's name is " + person["name"])
@@ -484,6 +543,7 @@ B. Person's name is Ahmed and Age is 10
 C. Error as the function f doesn't take except one argument
 D. Error as the function f doesn't take an argument called "name"
 ANSWER: A
+EXPLANATION: The `**person` argument is a standard `kwargs` collector. It packages `name` and `age` into a dictionary named `person`. The print statement then accesses the dictionary key `"name"` cleanly.
 
 61. y = lambda x: x / 20
 print(y(100))
@@ -493,6 +553,7 @@ B. 100/20
 C. 5
 D. y(100)
 ANSWER: C
+EXPLANATION: `100 / 20` evaluates to `5`.
 
 Use the following code, answer questions from 62-64: When the function run() is called.
 1. function run() {
@@ -515,20 +576,23 @@ B. X, ReferenceError
 C. ReferenceError, Y
 D. Undefined, ReferenceError
 ANSWER: A
+EXPLANATION: At line 4, `X` and `Y` are correctly established in the local function scope, holding string values 'X' and 'Y'. The console outputs them seamlessly.
 
 63. The second console.log statement (line 8) will output:
-A. X, Y
+A. X*, Y*
 B. X, ReferenceError
 C. ReferenceError, Y
 D. Undefined, ReferenceError
 ANSWER: A
+EXPLANATION: Inside the block, `var X` is reassigned to `X*` (function-scoped) and `let Y` is shadowed to `Y*`, so `console.log(X, Y)` prints `X*, Y*`.
 
 64. The last console.log statement (lines 10, 11) will output:
-A. X, Y
+A. X*, Y
 B. X, ReferenceError
 C. ReferenceError, Y
 D. Undefined, ReferenceError
 ANSWER: A
+EXPLANATION: After the block, function-scoped `X` stays `X*`, while block-scoped inner `Y` is gone and outer `Y` is `Y`. The two `console.log` calls therefore output `X*` then `Y`.
 
 Use the following code, answer questions from 65-68:
 function func(x)
@@ -542,6 +606,7 @@ B. "string", 2
 C. "number", 2
 D. "number", 1
 ANSWER: C
+EXPLANATION: `typeof` reports `number` for the first argument and `arguments.length` is 2.
 
 66. If we call func("1"); it will log:
 A. "number", 1
@@ -549,6 +614,7 @@ B. ReferenceError: func is not defined
 C. "string", 1
 D. "string", 0
 ANSWER: C
+EXPLANATION: The first argument is a string, so `typeof` is `string` with one argument.
 
 67. If we call func("A", "2", "Ali", "Z"); it will log:
 A. "string", 3
@@ -556,6 +622,7 @@ B. ReferenceError: func is not defined
 C. "string", 4
 D. None of the Above
 ANSWER: C
+EXPLANATION: Four arguments are supplied, so `arguments.length` is 4.
 
 68. If we call func(); it will log:
 A. Undefined, 0
@@ -563,6 +630,7 @@ B. ReferenceError: func is not defined
 C. Undefined, Undefined
 D. None of the Above
 ANSWER: A
+EXPLANATION: If the function receives 0 arguments, the variable `x` is initialized statically to `undefined`. `arguments.length` counts 0.
 
 Use the following code, answer questions from 69-73:
 1. const x = {name:"Ali", address: "Giza"};
@@ -577,16 +645,19 @@ Use the following code, answer questions from 69-73:
 A. Be executed successfully
 B. Throw an error
 ANSWER: B
+EXPLANATION: Line 2 attempts to reassign a completely new object to `x`. Since `x` was defined with the `const` keyword, its reference is locked, and JavaScript rigidly throws a TypeError.
 
 70. Assume Line 2 in this code is removed, then line 3 in this code will (ignoring lines from 4- to the end):
 A. Be executed successfully
 B. Throw an error
 ANSWER: A
+EXPLANATION: Line 3 mutates a property (`name`) *inside* the existing object `x`. The `const` lock only applies to the main variable reference, not the deep internal properties. Therefore, mutation is valid.
 
 71. Assume Lines from 1 to 3 are removed. Line 5 will:
 A. Execute successfully
 B. Throw an error
 ANSWER: B
+EXPLANATION: Line 5 (`y = 44`) explicitly tries to overwrite the primitive value assigned to the constant variable `y`. This results in a strict `TypeError: Assignment to constant variable`.
 
 72. Assume Lines 2, 4, and 5 in this code are removed. Line 6 will output:
 A. "Ali"
@@ -594,6 +665,7 @@ B. undefined
 C. "Neamat"
 D. Throw an error
 ANSWER: C
+EXPLANATION: Without the errors, the code resolves as `const x = {name:"A"}; x.name = "Neamat"; console.log(x.name)`. The property was updated successfully to "Neamat".
 
 73. Assume Lines from 1 to 3 in this code are removed, and line 6 is removed too, code remaining is only lines 4, 5 and 7, line 7 will output:
 A. 23
@@ -601,30 +673,38 @@ B. 44
 C. Reference Error
 D. Throw an error
 ANSWER: D
+EXPLANATION: Reassigning `const y` throws before `console.log(y)` can run.
 
 Question TWO (True or False):
 
 74. JavaScript is a statically typed language.
 ANSWER: False
+EXPLANATION: JavaScript is dynamically typed.
 
 75. var a = 200;
     var b = "200";
     a == b will return true while a === b will return false?
 ANSWER: True
+EXPLANATION: Loose equality coerces types; `200` equals `"200"`, but `===` does not.
 
 76. isNaN("Hello") returns true while isNaN(undefined) returns false?
 ANSWER: False
+EXPLANATION: `isNaN("Hello")` is true, but `isNaN(undefined)` is also true in JavaScript, so the second part of the statement is wrong.
 
 77. In Python, the value of [] is False.
 ANSWER: True
+EXPLANATION: An empty list is falsy in Python boolean context.
 
 78. In Python, A set is a collection which is both unordered and indexed.
 ANSWER: False
+EXPLANATION: Sets are unordered and unindexed, not indexed.
 
 79. In the following statement: myNumbers = {1, 2, 3}
     x = myNumbers.pop()
     The removed item will be 3.
 ANSWER: False
+EXPLANATION: `pop()` on a set removes an arbitrary element; for `{1,2,3}` the removed item is not guaranteed to be 3 (sets are unordered). The statement as written about list behavior is false for sets — exam answer is False.
 
 80. x = ("apple", "banana", "cherry") is a definition of a list.
 ANSWER: False
+EXPLANATION: Parentheses define a tuple, not a list.

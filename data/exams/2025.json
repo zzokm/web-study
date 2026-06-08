@@ -2479,9 +2479,9 @@
             "codeLanguage": null
           }
         ],
-        "correctAnswerId": "a",
+        "correctAnswerId": "d",
         "expectedAnswer": null,
-        "explanation": "Printing a set removes duplicates. The printed representation is a set of the unique values 1, 2, 3, and 5, which matches `set([1,2,3,5])` in the exam options.",
+        "explanation": "Duplicates are removed, so the values are `{1, 2, 3, 5}`, but Python 3 prints sets with curly braces (e.g. `{1, 2, 3, 5}`), not `set([1,2,3,5])`. None of the listed formats match exactly.",
         "relatedTopics": [
           "be-2"
         ]
@@ -2590,9 +2590,9 @@
             "codeLanguage": null
           }
         ],
-        "correctAnswerId": "c",
+        "correctAnswerId": "d",
         "expectedAnswer": null,
-        "explanation": "`.flat(2)` flattens nested arrays up to depth 2, producing `[1, 2, 3, 4, 5, 6, 7, 8]`.",
+        "explanation": "`.flat(2)` yields `[1, 2, 3, 4, 5, 6, 7, 8]`, and `console.log` prints array brackets and spaces. Option c omits brackets, so it does not match the actual console output.",
         "relatedTopics": [
           "fe-6"
         ]
