@@ -87,7 +87,7 @@ export function CodeExampleConsole({
   return (
     <div
       className={cn(
-        "min-h-64 overflow-auto rounded-md border bg-zinc-950 p-3 font-mono text-xs leading-relaxed",
+        "overflow-auto rounded-md border bg-zinc-950 p-3 font-mono text-xs leading-relaxed",
         className
       )}
     >

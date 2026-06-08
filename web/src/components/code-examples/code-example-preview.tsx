@@ -54,7 +54,7 @@ export function CodeExamplePreviewFrame({
       src={src}
       title={title}
       sandbox="allow-scripts allow-same-origin allow-modals"
-      className={cn("h-full min-h-64 w-full rounded-md border bg-white", className)}
+      className={cn("size-full min-h-64 w-full rounded-md border bg-white", className)}
     />
   );
 }

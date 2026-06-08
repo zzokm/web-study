@@ -176,6 +176,27 @@
   --code-ln-gap: 0.375rem;
 }
 
+.code-ide[data-fill-height="true"] {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  min-height: 0;
+}
+
+.code-ide[data-fill-height="true"] .code-ide-body {
+  display: flex;
+  min-height: 0;
+  flex: 1;
+  flex-direction: column;
+}
+
+.code-ide[data-fill-height="true"] .code-ide-scroll {
+  flex: 1;
+  min-height: 0;
+  overflow-y: auto;
+  background-color: #1e1e1e;
+}
+
 .code-ide-scroll {
   overflow-x: auto;
   overflow-y: hidden;
