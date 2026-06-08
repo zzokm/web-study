@@ -2890,7 +2890,7 @@
         ],
         "correctAnswerId": "d",
         "expectedAnswer": null,
-        "explanation": "The script sets `document.getElementById('id1').innerHTML = my.length`. The HTML contains 6 `<p>` elements (Welcome, Paragraph 1, 2, 3, 4, 5), so `my.length = 6` and the `<h2>` will display '6'. Option c (5) is incorrect; option d (None of the above) is correct because '6' is not listed.",
+        "explanation": "The script sets `document.getElementById('id1').innerHTML = my.length`. The HTML contains 6 `<p>` elements (Welcome, Paragraph 1, 2, 3, 4, 5), so `my.length = 6` and the `<h2>` displays `'6'`. Since `'6'` does not match any of the listed options (a, b, or c), the answer is d — None of the above.",
         "relatedTopics": [
           "fe-3"
         ]

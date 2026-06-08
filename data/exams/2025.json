@@ -1586,7 +1586,7 @@
           {
             "id": "c",
             "type": "text",
-            "content": "text",
+            "content": "#text",
             "codeLanguage": null
           },
           {
@@ -1596,9 +1596,9 @@
             "codeLanguage": null
           }
         ],
-        "correctAnswerId": "d",
+        "correctAnswerId": "c",
         "expectedAnswer": null,
-        "explanation": "The `firstChild` of the `<h2>` element is a text node ('Welcome to my page'). The `nodeName` of a text node is strictly `\"#text\"`. Because the option \"text\" lacks the hash, \"None of the previous\" is the most technically accurate, though a lenient exam might expect 'c'.",
+        "explanation": "The `firstChild` of the `<h2 id=\"id1\">` element is its text node ('Welcome to my page'). The `nodeName` property of a text node always returns the string `\"#text\"` (with the hash prefix). Options `a` (1) and `b` (2) are node type numbers, not names.",
         "relatedTopics": [
           "fe-3"
         ]
