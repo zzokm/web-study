@@ -155,7 +155,7 @@
         ],
         "correctAnswerId": "c",
         "expectedAnswer": null,
-        "explanation": "Django template tags for control flow (like loops and conditionals) are enclosed in `{% %}`. (Note: Option C in the source had a slight typo with `%` placement, but it represents the standard `{% ... %}` syntax).",
+        "explanation": "Django template tags use `{% %}`. A `for` loop starts with `{% for x in y %}`. Python-style parentheses, ASP-style `<% %>`, and \"none of the previous\" are not valid Django template syntax.",
         "relatedTopics": [
           "be-7"
         ]
@@ -738,7 +738,7 @@
         ],
         "correctAnswerId": "c",
         "expectedAnswer": null,
-        "explanation": "Bracket notation with a string literal — `objectName[\"propertyName\"]` — is valid JavaScript for reading a property. Dot notation (`objectName.propertyName`) works too but is not listed. Option A (`objectName:propertyName`) is object-creation syntax, not access. Option B (`objectName[propertyName]`) only works when `propertyName` is a variable holding the key; without that context, C is the intended answer. (The printed exam used curly “smart quotes” in option C; the digital version uses standard quotes.)",
+        "explanation": "Bracket notation with a string literal — `objectName[\"propertyName\"]` — reads a property in JavaScript. Dot notation (`objectName.propertyName`) works too but is not listed. Option A (`objectName:propertyName`) is object-creation syntax, not access. Option B (`objectName[propertyName]`) only works when `propertyName` is a variable holding the key; without that context, C is correct.",
         "relatedTopics": [
           "fe-5"
         ]
@@ -858,7 +858,7 @@
       {
         "id": "q24",
         "type": "multiple_choice",
-        "questionText": "24. What will be the output of the following JavaScript code?\n const arr = [10, 20, 30];\n let result = 0;\n arr.forEach(myFunction);\n document.write(\"Result: \", result);\n function myFunction(value, index, array) {\n   result + value;\n }",
+        "questionText": "24. What will be the output of the following JavaScript code?\n const arr = [10, 20, 30];\n let result = 0;\n arr.forEach(myFunction);\n document.write(\"Result: \", result);\n function myFunction(value, index, array) {\n   result += value;\n }",
         "options": [
           {
             "id": "a",
@@ -887,7 +887,7 @@
         ],
         "correctAnswerId": "b",
         "expectedAnswer": null,
-        "explanation": "Note on Exam Error: Structurally, `result + value;` does not reassign the variable (it should be `result += value;`). Consequently, running this exact code yields `Result: 0`. However, in the context of an academic exam, this is a very common typographical error where the intended answer is 'b' (10+20+30 = 60), testing knowledge of `forEach` iteration.",
+        "explanation": "`forEach` calls `myFunction` for each element. Each call adds the value to `result` (`result += value`), so the total is 10 + 20 + 30 = 60. The output is `Result: 60`.",
         "relatedTopics": [
           "fe-6"
         ]
@@ -1489,13 +1489,13 @@
           {
             "id": "d",
             "type": "text",
-            "content": "<p>11<sub>2</sub>0</p>",
+            "content": "<p>H<sub>2</sub>O</p>",
             "codeLanguage": null
           }
         ],
         "correctAnswerId": "d",
         "expectedAnswer": null,
-        "explanation": "To correctly format chemical formulas like water, the `<sub`> (subscript) tag is used. Note: Option D contains a likely typographical error in the exam's source text using '11' and '0' instead of 'H' and 'O', but it represents the correct HTML structural tag `<sub>` compared to the other invalid or incorrect tags.",
+        "explanation": "The subscript 2 in H₂O uses `<sub>`. Option D — `<p>H<sub>2</sub>O</p>` — is correct. Option A wrongly uses `<sup>`, B uses `<ins>`, and C uses the invalid `<below>` tag.",
         "relatedTopics": [
           "fe-2"
         ]
@@ -1940,9 +1940,9 @@
             "codeLanguage": null
           }
         ],
-        "correctAnswerId": "d",
+        "correctAnswerId": "a",
         "expectedAnswer": null,
-        "explanation": "In Python 3, `keys()` returns a dynamic view object. When the dictionary is modified (adding 'color'), the view updates instantly. The length becomes 4. Since 4 is not available in the given explicit options (A is listed as 3 in the exam source due to duplicate 3s), D is the technically correct safe response.",
+        "explanation": "`car.keys()` returns a live view of the dictionary keys. After `car[\"color\"] = \"red\"`, the view includes the new key, so `len(y)` is 4.",
         "relatedTopics": [
           "be-2"
         ]
@@ -2176,7 +2176,7 @@
       {
         "id": "q60",
         "type": "multiple_choice",
-        "questionText": "60. What is the output of the following JavaScript snippet?\n x = \"20\";\n Y = 10;\n document.writeln(x + y, x - y);",
+        "questionText": "60. What is the output of the following JavaScript snippet?\n x = \"20\";\n y = 10;\n document.writeln(x + y, x - y);",
         "options": [
           {
             "id": "a",
@@ -2205,7 +2205,7 @@
         ],
         "correctAnswerId": "c",
         "expectedAnswer": null,
-        "explanation": "Assuming a typographical exam error where `Y` and `y` are meant to be the same variable (otherwise it's a ReferenceError): `x + y` evaluates as string concatenation `\"20\" + 10 = \"2010\"`. `x - y` evaluates via type coercion subtraction `20 - 10 = 10`.",
+        "explanation": "`x` is the string `\"20\"`. With `+`, JavaScript concatenates: `\"20\" + 10` → `\"2010\"`. With `-`, it coerces to numbers: `20 - 10` → `10`. `document.writeln` prints both values: `2010, 10`.",
         "relatedTopics": [
           "fe-5"
         ]

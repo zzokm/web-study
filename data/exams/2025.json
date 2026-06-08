@@ -1285,7 +1285,7 @@
         ],
         "correctAnswerId": "a",
         "expectedAnswer": null,
-        "explanation": "The `delete` operator completely removes a given property from an object. Logging it afterward shows only `{b: 2}`. (Note: A syntax error missing '=' was corrected for intent).",
+        "explanation": "`delete obj.a` removes property `a` from the object. `console.log(obj)` then shows only `{ b: 2 }`. `delete` does not set the value to `null` or `undefined` — the key is gone.",
         "relatedTopics": [
           "fe-5",
           "fe-6"

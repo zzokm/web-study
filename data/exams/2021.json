@@ -497,7 +497,7 @@
           {
             "id": "c",
             "type": "text",
-            "content": "align",
+            "content": "text-align",
             "codeLanguage": null
           },
           {
@@ -509,7 +509,7 @@
         ],
         "correctAnswerId": "c",
         "expectedAnswer": null,
-        "explanation": "Note on Exam Error: The strictly correct CSS property to replicate the inline centering of the deprecated `<center>` tag is `text-align` (with the value `center`). For block elements, it's `margin: auto`. However, in many academic exams, 'align' is used interchangeably as a shorthand or legacy reference to the `text-align` property.",
+        "explanation": "The deprecated `<center>` tag centered inline content. The CSS equivalent is `text-align: center` on the parent. Option C names that property.",
         "relatedTopics": [
           "fe-4"
         ]
@@ -1393,36 +1393,36 @@
       {
         "id": "q35",
         "type": "multiple_choice",
-        "questionText": "35. Which Command issued to create a project in Django?",
+        "questionText": "35. Which command creates a new Django project?",
         "options": [
           {
             "id": "a",
             "type": "text",
-            "content": "Project",
+            "content": "django-admin startproject <name>",
             "codeLanguage": null
           },
           {
             "id": "b",
             "type": "text",
-            "content": "manage.py",
+            "content": "python manage.py startproject",
             "codeLanguage": null
           },
           {
             "id": "c",
             "type": "text",
-            "content": "_init_.py",
+            "content": "django-admin migrate",
             "codeLanguage": null
           },
           {
             "id": "d",
             "type": "text",
-            "content": "All of the above",
+            "content": "python manage.py runserver",
             "codeLanguage": null
           }
         ],
-        "correctAnswerId": "d",
+        "correctAnswerId": "a",
         "expectedAnswer": null,
-        "explanation": "Note on Exam Flaw: The actual terminal command to create a project is `django-admin startproject <name>`. The provided options (`manage.py`, `__init__.py`) are the *files that are created* as a result of that command. Assuming the question intended to ask 'Which files are created...', 'All of the above' is the standard expected answer in this flawed exam scenario.",
+        "explanation": "Run `django-admin startproject <project_name>` from the terminal to scaffold a new Django project (manage.py, settings, and app packages).",
         "relatedTopics": [
           "be-5"
         ]

@@ -31,6 +31,7 @@ Checks
 14. Written questions must have expectedAnswer and writtenRubric
 15. Written questions must have no options
 16. Written rubric must declare version 1 with a non-empty checks array
+17. Explanations that still mention exam-source typos (run find_exam_source_typos.py)
 """
 
 from __future__ import annotations
@@ -278,6 +279,26 @@ def audit_year(year_file: str, valid_ids: set[str]) -> list[Issue]:
     return issues
 
 
+def audit_exam_typo_notes() -> list[Issue]:
+    """Flag explanations that still hedge about print/source typos."""
+    from find_exam_source_typos import scan_exam_typo_notes
+
+    issues: list[Issue] = []
+    for hit in scan_exam_typo_notes():
+        issues.append(
+            Issue(
+                hit.year,
+                hit.question_id,
+                17,
+                (
+                    f"[{hit.pattern_label}] answer={hit.correct_answer_id} — "
+                    "explanation mentions a source typo; fix options and rewrite explanation"
+                ),
+            )
+        )
+    return issues
+
+
 def audit_written_questions(valid_ids: set[str]) -> list[Issue]:
     """Audit data/written-questions/questions.json referenced by the manifest."""
     if not WRITTEN_MANIFEST.exists():
@@ -366,6 +387,7 @@ def main() -> int:
     all_issues: list[Issue] = []
     for year_file in EXAM_FILES:
         all_issues.extend(audit_year(year_file, valid_ids))
+    all_issues.extend(audit_exam_typo_notes())
     all_issues.extend(audit_written_questions(valid_ids))
 
     if not all_issues:
@@ -378,7 +400,7 @@ def main() -> int:
         by_check.setdefault(iss.check, []).append(iss)
 
     # Checks 5 and 7 are warnings (informational); others are errors
-    WARNINGS = {5, 6, 7}
+    WARNINGS = {5, 6, 7, 17}
     errors = [i for i in all_issues if i.check not in WARNINGS]
     warnings = [i for i in all_issues if i.check in WARNINGS]
 
