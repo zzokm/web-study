@@ -5,6 +5,7 @@ import type {
   PracticeSessionConfig,
 } from "@/lib/practice-session-config";
 import { configStorageSuffix } from "@/lib/practice-session-config";
+import { clearPracticeSessionPointer } from "@/lib/practice-session-pointer";
 import { isAnswerCorrect, isWrittenQuestion } from "@/lib/questions";
 import type { Question } from "@/types/question";
 
@@ -240,11 +241,17 @@ export function practiceProgressCount(progress: PracticeProgress): number {
   ).length;
 }
 
-export function clearPracticeProgress(sessionKey: string): void {
+export function clearPracticeProgress(
+  sessionKey: string,
+  canonicalKey?: string
+): void {
   if (typeof window === "undefined") return;
   try {
     localStorage.removeItem(storageKey(sessionKey));
     localStorage.removeItem(displayStorageKey(sessionKey));
+    if (canonicalKey) {
+      clearPracticeSessionPointer(canonicalKey);
+    }
   } catch {
     // ignore
   }
@@ -304,15 +311,22 @@ export function resumeQuestionIndex(
   progress: PracticeProgress,
   examSimulation: boolean
 ): number {
+  if (examSimulation) {
+    let lastAnsweredUnrevealed = -1;
+    for (let i = 0; i < questions.length; i++) {
+      const q = questions[i];
+      const attempt = getAttempt(progress, q.questionKey);
+      if (!isQuestionAnswered(q, attempt)) return i;
+      if (!attempt.revealed) lastAnsweredUnrevealed = i;
+    }
+    if (lastAnsweredUnrevealed >= 0) return lastAnsweredUnrevealed;
+    return Math.max(0, questions.length - 1);
+  }
+
   for (let i = 0; i < questions.length; i++) {
     const q = questions[i];
     const attempt = getAttempt(progress, q.questionKey);
-    if (examSimulation) {
-      if (!isQuestionAnswered(q, attempt)) return i;
-      if (!attempt.revealed) return i;
-    } else if (!attempt.revealed) {
-      return i;
-    }
+    if (!attempt.revealed) return i;
   }
   return Math.max(0, questions.length - 1);
 }

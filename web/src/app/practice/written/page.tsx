@@ -34,6 +34,7 @@ export default function PracticeWrittenPage() {
       questions={questions}
       title="Written questions — Practice"
       backHref="/practice/"
+      variant="written"
     />
   );
 }

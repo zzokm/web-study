@@ -19,6 +19,32 @@ export const DEFAULT_PRACTICE_SESSION_CONFIG: PracticeSessionConfig = {
   examSimulation: false,
 };
 
+/** Fixed options for written-question practice (no shuffle / timer / exam toggles). */
+export const WRITTEN_PRACTICE_SESSION_CONFIG: PracticeSessionConfig = {
+  shuffleQuestions: false,
+  shuffleMcqOptions: false,
+  showSessionTimer: false,
+  examSimulation: false,
+};
+
+export function configFromSessionKey(
+  sessionKey: string,
+  canonicalKey: string
+): PracticeSessionConfig | null {
+  if (sessionKey === canonicalKey) {
+    return { ...DEFAULT_PRACTICE_SESSION_CONFIG };
+  }
+  if (!sessionKey.startsWith(`${canonicalKey}:s`)) return null;
+  const flags = sessionKey.slice(canonicalKey.length + 2);
+  if (!/^[01]{4}$/.test(flags)) return null;
+  return {
+    shuffleQuestions: flags[0] === "1",
+    shuffleMcqOptions: flags[1] === "1",
+    showSessionTimer: flags[2] === "1",
+    examSimulation: flags[3] === "1",
+  };
+}
+
 /** Stable suffix for localStorage keyed by config flags. */
 export function configStorageSuffix(config: PracticeSessionConfig): string {
   const flags = [

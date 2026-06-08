@@ -30,6 +30,7 @@ import {
 import { RegenerateMockExamButton } from "@/components/practice/regenerate-mock-exam-button";
 import {
   allQuestionsAnswered,
+  canonicalPracticeSessionKey,
   clearPracticeProgress,
   computePracticeScore,
   getAttempt,
@@ -48,6 +49,7 @@ import {
   type PracticeProgress,
   type QuestionAttempt,
 } from "@/lib/practice-progress";
+import { touchPracticeSessionPointer } from "@/lib/practice-session-pointer";
 import { computePracticeTimingStats } from "@/lib/practice-timing";
 import { ResetPracticeProgressButton } from "@/components/practice/reset-practice-progress-button";
 import { savePracticeResult } from "@/lib/practice-results";
@@ -82,6 +84,8 @@ interface PracticeSessionProps {
   mockExamSpec?: MockExamSpec;
   onReturnToSetup?: () => void;
   onRegenerateExam?: () => void;
+  canonicalKey?: string;
+  onSessionFinished?: () => void;
 }
 
 export function PracticeSession({
@@ -93,6 +97,8 @@ export function PracticeSession({
   mockExamSpec,
   onReturnToSetup,
   onRegenerateExam,
+  canonicalKey,
+  onSessionFinished,
 }: PracticeSessionProps) {
   return (
     <PracticeSessionInner
@@ -105,6 +111,8 @@ export function PracticeSession({
       mockExamSpec={mockExamSpec}
       onReturnToSetup={onReturnToSetup}
       onRegenerateExam={onRegenerateExam}
+      canonicalKey={canonicalKey}
+      onSessionFinished={onSessionFinished}
     />
   );
 }
@@ -118,8 +126,12 @@ function PracticeSessionInner({
   mockExamSpec,
   onReturnToSetup,
   onRegenerateExam,
+  canonicalKey: canonicalKeyProp,
+  onSessionFinished,
 }: PracticeSessionProps) {
   const router = useRouter();
+  const canonicalKey =
+    canonicalKeyProp ?? canonicalPracticeSessionKey(questions);
   const pathname = usePathname();
   const practiceMode = practiceModeFromPathname(pathname);
   const examYear = examYearFromPathname(pathname);
@@ -149,10 +161,16 @@ function PracticeSessionInner({
       setProgress((prev) => {
         const next = updater(prev);
         savePracticeProgress(sessionKey, next);
+        touchPracticeSessionPointer({
+          questions,
+          sessionKey,
+          config,
+          status: "in_progress",
+        });
         return next;
       });
     },
-    [sessionKey]
+    [sessionKey, questions, config]
   );
 
   const question = questions[index];
@@ -531,10 +549,28 @@ function PracticeSessionInner({
         mockExamSpec,
         returnHref: practiceReturnHrefFromPathname(pathname),
       });
-      clearPracticeProgress(sessionKey);
+      touchPracticeSessionPointer({
+        questions,
+        sessionKey,
+        config,
+        status: "completed",
+        resultId: id,
+      });
+      clearPracticeProgress(sessionKey, canonicalKey);
+      onSessionFinished?.();
       router.push(`/practice/results/?id=${id}`);
     },
-    [sessionKey, title, questions, router, pathname, config, mockExamSpec]
+    [
+      sessionKey,
+      title,
+      questions,
+      router,
+      pathname,
+      config,
+      mockExamSpec,
+      canonicalKey,
+      onSessionFinished,
+    ]
   );
 
   const handleFinish = useCallback(() => {
@@ -580,7 +616,7 @@ function PracticeSessionInner({
       ...practiceContextFromPath(pathname, title),
       saved_answers_count: savedCount,
     });
-    clearPracticeProgress(sessionKey);
+    clearPracticeProgress(sessionKey, canonicalKey);
     setProgress({});
     setIndex(0);
     viewedQuestionsRef.current = new Set();
@@ -598,7 +634,15 @@ function PracticeSessionInner({
         totalPausedMs: 0,
       });
     }
-  }, [sessionKey, pathname, title, progress, showTimer, setPracticeHeader]);
+  }, [
+    sessionKey,
+    canonicalKey,
+    pathname,
+    title,
+    progress,
+    showTimer,
+    setPracticeHeader,
+  ]);
 
   const savedCount = practiceProgressCount(progress);
 
