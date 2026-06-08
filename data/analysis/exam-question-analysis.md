@@ -8,9 +8,9 @@ Generated: 2026-06-08
 | --- | ---: |
 | Exam finals | 2021, 2024, 2025 |
 | Total question instances | 283 |
-| Unique stems (deduped) | 260 |
+| Unique stems (deduped) | 259 |
 | Lectures mapped | 15 |
-| Repeated stems (same answer) | 19 |
+| Repeated stems (same answer) | 20 |
 
 ## Exams at a glance
 
@@ -47,7 +47,7 @@ Counts use `relatedTopics` lecture allocation — one question may count toward 
 
 ## Cross-exam repetition
 
-19 stems repeat across finals (or within a final) with the same correct answer. Drill these first.
+20 stems repeat across finals (or within a final) with the same correct answer. Drill these first.
 
 | Occurrences | Years | Lectures | Question |
 | ---: | --- | --- | --- |
@@ -57,6 +57,7 @@ Counts use `relatedTopics` lecture allocation — one question may count toward 
 | 3 | 2021 | JavaScript 1, JavaScript 2 & AJAX | 62. The first console.log statement (line 4) will output: |
 | 2 | 2021, 2024 | CSS | 9. In CSS, "color:red" can be called as |
 | 2 | 2021, 2024 | Internet Protocols | 43. "Expires: Tuesday, 17 Dec 2020 18:30 GMT" is a ______ header denoting ______ |
+| 2 | 2021, 2025 | Internet Protocols, Web Basics, HTTP, URLs, and Status Codes | 45. Using authorization, a response with status 200 means that |
 | 2 | 2021, 2025 | JavaScript 1 | 52. What is the output of the following JavaScript snippet? |
 | 2 | 2021, 2025 | JavaScript 2 & AJAX | 56. In the function: |
 | 2 | 2021, 2025 | Python Essentials | 59. x = { |
@@ -78,6 +79,7 @@ Counts use `relatedTopics` lecture allocation — one question may count toward 
 - **2021 + 2024 + 2025** — 79. In the following statement: myNumbers = {1, 2, 3}
 - **2021 + 2024** — 9. In CSS, "color:red" can be called as
 - **2021 + 2024** — 43. "Expires: Tuesday, 17 Dec 2020 18:30 GMT" is a ______ header denoting ______
+- **2021 + 2025** — 45. Using authorization, a response with status 200 means that
 - **2021 + 2025** — 52. What is the output of the following JavaScript snippet?
 - **2021 + 2025** — 56. In the function:
 - **2021 + 2025** — 59. x = {

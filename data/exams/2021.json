@@ -1824,9 +1824,9 @@
             "codeLanguage": null
           }
         ],
-        "correctAnswerId": "c",
+        "correctAnswerId": "d",
         "expectedAnswer": null,
-        "explanation": "Status code 200 stands for 'OK'. When an authorization layer is present, a 200 response confirms that the server accepted the credentials and successfully authorized the request.",
+        "explanation": "HTTP 200 means OK. With authorization in play, a 200 response indicates the credentials were accepted and the user is authorized to see the response.",
         "relatedTopics": [
           "fe-1",
           "be-4"
@@ -2744,7 +2744,7 @@
         ],
         "correctAnswerId": "a",
         "expectedAnswer": null,
-        "explanation": "If the function receives 0 arguments, the variable `x` is initialized statically to `undefined`. `arguments.length` counts 0.",
+        "explanation": "With no arguments, `x` is `undefined` and `arguments.length` is 0. `typeof undefined` returns the lowercase string `\"undefined\"` (option A uses capital U for readability).",
         "relatedTopics": [
           "fe-5"
         ]

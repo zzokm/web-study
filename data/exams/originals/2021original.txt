@@ -394,8 +394,8 @@ A. The user is not authorized to see the response.
 B. content cannot be displayed after authorization.
 C. None of the answers
 D. User is authorized to see the response.
-ANSWER: C
-EXPLANATION: Status code 200 stands for 'OK'. When an authorization layer is present, a 200 response confirms that the server accepted the credentials and successfully authorized the request.
+ANSWER: D
+EXPLANATION: HTTP 200 means OK. With authorization in play, a 200 response indicates the credentials were accepted and the user is authorized to see the response.
 
 46. A lock icon in the browser denotes ______ for ______ connection.
 A. Hypertext Transfer Protocol over TCP, secured
@@ -630,7 +630,7 @@ B. ReferenceError: func is not defined
 C. Undefined, Undefined
 D. None of the Above
 ANSWER: A
-EXPLANATION: If the function receives 0 arguments, the variable `x` is initialized statically to `undefined`. `arguments.length` counts 0.
+EXPLANATION: With no arguments, `x` is `undefined` and `arguments.length` is 0. `typeof undefined` returns the lowercase string `"undefined"` (option A uses capital U for readability).
 
 Use the following code, answer questions from 69-73:
 1. const x = {name:"Ali", address: "Giza"};
