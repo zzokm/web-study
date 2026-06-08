@@ -1,9 +1,20 @@
 /** Keep in sync with src/lib/stem-match.ts */
 
-export const FUZZY_STEM_RATIO = 0.97;
+export const CONTENT_MATCH_WEIGHTS = { stem: 0.55, options: 0.45 };
+export const CONTENT_MATCH_THRESHOLD = 0.85;
+export const ANSWER_MATCH_THRESHOLD = 0.95;
+export const MATCH_THRESHOLD = CONTENT_MATCH_THRESHOLD;
+
+/** @deprecated Use MATCH_THRESHOLD — kept for callers that referenced the old constant */
+export const FUZZY_STEM_RATIO = MATCH_THRESHOLD;
+
+/** Remove leading exam question numbers (e.g. "45.", "36)"). */
+export function stripQuestionNumber(text) {
+  return text.replace(/^\s*\d+\s*[.)]\s*/, "").trim();
+}
 
 export function normQuestionText(text) {
-  return text
+  return stripQuestionNumber(text)
     .toLowerCase()
     .trim()
     .replace(/_+/g, " ")
@@ -21,6 +32,140 @@ export function normCorrectAnswerContent(question) {
   return normQuestionText(option?.content ?? correctId);
 }
 
+export function normalizedOptionSet(question) {
+  return question.options
+    .map((o) => normQuestionText(o.content))
+    .filter(Boolean)
+    .sort();
+}
+
+export function tokenJaccard(a, b) {
+  const tokensA = new Set(a.split(/\s+/).filter(Boolean));
+  const tokensB = new Set(b.split(/\s+/).filter(Boolean));
+  if (!tokensA.size && !tokensB.size) return 1;
+  if (!tokensA.size || !tokensB.size) return 0;
+  let intersection = 0;
+  for (const token of tokensA) {
+    if (tokensB.has(token)) intersection++;
+  }
+  const union = tokensA.size + tokensB.size - intersection;
+  return union ? intersection / union : 0;
+}
+
+export function levenshteinDistance(a, b) {
+  if (a === b) return 0;
+  if (!a.length) return b.length;
+  if (!b.length) return a.length;
+
+  const prev = Array.from({ length: b.length + 1 }, (_, i) => i);
+  const curr = new Array(b.length + 1);
+
+  for (let i = 1; i <= a.length; i++) {
+    curr[0] = i;
+    for (let j = 1; j <= b.length; j++) {
+      const cost = a[i - 1] === b[j - 1] ? 0 : 1;
+      curr[j] = Math.min(
+        prev[j] + 1,
+        curr[j - 1] + 1,
+        prev[j - 1] + cost
+      );
+    }
+    for (let j = 0; j <= b.length; j++) prev[j] = curr[j];
+  }
+
+  return prev[b.length];
+}
+
+export function levenshteinRatio(a, b) {
+  if (a === b) return 1;
+  if (!a.length || !b.length) return 0;
+  const distance = levenshteinDistance(a, b);
+  return 1 - distance / Math.max(a.length, b.length);
+}
+
+export function textSimilarity(a, b) {
+  if (a === b) return 1;
+  if (!a.length || !b.length) return 0;
+
+  const maxLen = Math.max(a.length, b.length);
+  const minLen = Math.min(a.length, b.length);
+  const longer = a.length >= b.length ? a : b;
+  const shorter = a.length < b.length ? a : b;
+
+  let containment = 0;
+  if (longer.includes(shorter)) {
+    containment = shorter.length / maxLen;
+  }
+
+  return Math.max(
+    tokenJaccard(a, b),
+    levenshteinRatio(a, b),
+    containment
+  );
+}
+
+export function optionsSimilarity(questionA, questionB) {
+  const optsA = normalizedOptionSet(questionA);
+  const optsB = normalizedOptionSet(questionB);
+  if (!optsA.length && !optsB.length) return 1;
+  if (!optsA.length || !optsB.length) return 0;
+
+  const used = new Set();
+  let total = 0;
+
+  for (const optionA of optsA) {
+    let best = 0;
+    let bestIndex = -1;
+    for (let j = 0; j < optsB.length; j++) {
+      if (used.has(j)) continue;
+      const score = textSimilarity(optionA, optsB[j]);
+      if (score > best) {
+        best = score;
+        bestIndex = j;
+      }
+    }
+    if (bestIndex >= 0 && best >= 0.75) {
+      used.add(bestIndex);
+      total += best;
+    }
+  }
+
+  return total / Math.max(optsA.length, optsB.length);
+}
+
+export function answerMatchScore(questionA, questionB) {
+  return textSimilarity(
+    normCorrectAnswerContent(questionA),
+    normCorrectAnswerContent(questionB)
+  );
+}
+
+export function contentMatchScore(questionA, questionB) {
+  const stemSim = textSimilarity(
+    normQuestionText(questionA.questionText),
+    normQuestionText(questionB.questionText)
+  );
+  const optionsSim = optionsSimilarity(questionA, questionB);
+  return (
+    CONTENT_MATCH_WEIGHTS.stem * stemSim +
+    CONTENT_MATCH_WEIGHTS.options * optionsSim
+  );
+}
+
+/** Weighted score for investigation output (answer required separately). */
+export function questionMatchScore(questionA, questionB) {
+  const answerSim = answerMatchScore(questionA, questionB);
+  const contentSim = contentMatchScore(questionA, questionB);
+  return 0.55 * contentSim + 0.45 * answerSim;
+}
+
+export function questionsEquivalent(questionA, questionB) {
+  if (answerMatchScore(questionA, questionB) < ANSWER_MATCH_THRESHOLD) {
+    return false;
+  }
+  return contentMatchScore(questionA, questionB) >= CONTENT_MATCH_THRESHOLD;
+}
+
 const EXAM_YEARS = new Set(["2021", "2024", "2025"]);
 
 export function isRepetitionEligible(question) {
@@ -33,59 +178,45 @@ export function repetitionKey(question) {
   return `${stem}|${normCorrectAnswerContent(question)}`;
 }
 
-function stemSimilarity(a, b) {
-  if (a === b) return 1;
-  if (!a.length || !b.length) return 0;
-  const maxLen = Math.max(a.length, b.length);
-  const minLen = Math.min(a.length, b.length);
-  if (minLen / maxLen < FUZZY_STEM_RATIO) return 0;
-  const longer = a.length >= b.length ? a : b;
-  const shorter = a.length < b.length ? a : b;
-  if (longer.includes(shorter) && shorter.length / longer.length >= FUZZY_STEM_RATIO) {
-    return FUZZY_STEM_RATIO;
-  }
-  let matches = 0;
-  for (let i = 0; i < minLen; i++) {
-    if (a[i] === b[i]) matches++;
-  }
-  return matches / maxLen;
-}
-
-function stemsEquivalent(stemA, stemB) {
-  return stemA === stemB || stemSimilarity(stemA, stemB) >= FUZZY_STEM_RATIO;
-}
-
 function splitRepetitionKey(key) {
   const idx = key.lastIndexOf("|");
   if (idx <= 0) return [key, ""];
   return [key.slice(0, idx), key.slice(idx + 1)];
 }
 
-function mergeFuzzyStemGroups(buckets, keys) {
-  const used = new Set();
-  const groups = [];
+function unionFindGroups(items, equivalent) {
+  const parent = items.map((_, index) => index);
 
-  for (let i = 0; i < keys.length; i++) {
-    const keyI = keys[i];
-    if (used.has(keyI)) continue;
-    const [stemI] = splitRepetitionKey(keyI);
-    const group = [...(buckets.get(keyI) ?? [])];
-    used.add(keyI);
-
-    for (let j = i + 1; j < keys.length; j++) {
-      const keyJ = keys[j];
-      if (used.has(keyJ)) continue;
-      const [stemJ] = splitRepetitionKey(keyJ);
-      if (stemsEquivalent(stemI, stemJ)) {
-        group.push(...(buckets.get(keyJ) ?? []));
-        used.add(keyJ);
-      }
+  function find(index) {
+    let root = index;
+    while (parent[root] !== root) {
+      parent[root] = parent[parent[root]];
+      root = parent[root];
     }
-
-    groups.push(group);
+    return root;
   }
 
-  return groups;
+  function union(left, right) {
+    const rootLeft = find(left);
+    const rootRight = find(right);
+    if (rootLeft !== rootRight) parent[rootLeft] = rootRight;
+  }
+
+  for (let i = 0; i < items.length; i++) {
+    for (let j = i + 1; j < items.length; j++) {
+      if (equivalent(items[i], items[j])) union(i, j);
+    }
+  }
+
+  const groups = new Map();
+  for (let i = 0; i < items.length; i++) {
+    const root = find(i);
+    const list = groups.get(root) ?? [];
+    list.push(items[i]);
+    groups.set(root, list);
+  }
+
+  return [...groups.values()];
 }
 
 export function groupByRepetitionKey(questions) {
@@ -93,30 +224,8 @@ export function groupByRepetitionKey(questions) {
 }
 
 function groupByRepetitionKeyForPool(questions) {
-  const buckets = new Map();
-  const keysByAnswer = new Map();
-
-  for (const q of questions) {
-    const key = repetitionKey(q);
-    if (!key) continue;
-    const list = buckets.get(key) ?? [];
-    list.push(q);
-    buckets.set(key, list);
-
-    const [, answer] = splitRepetitionKey(key);
-    const answerKeys = keysByAnswer.get(answer) ?? [];
-    if (!answerKeys.includes(key)) answerKeys.push(key);
-    keysByAnswer.set(answer, answerKeys);
-  }
-
-  const groups = [];
-  for (const answerKeys of keysByAnswer.values()) {
-    for (const group of mergeFuzzyStemGroups(buckets, answerKeys)) {
-      if (group.length >= 2) groups.push(group);
-    }
-  }
-
-  return groups;
+  const groups = unionFindGroups(questions, questionsEquivalent);
+  return groups.filter((group) => group.length >= 2);
 }
 
 function appearanceKey(origin, sourceQuestionId) {
@@ -170,4 +279,17 @@ export function buildRepetitiveCatalog(questions) {
     uniqueRepeatedStems: groups.length,
     repetitiveKeys: groups.map((q) => q.questionKey),
   };
+}
+
+/** @deprecated Use textSimilarity */
+export function stemSimilarity(a, b) {
+  return textSimilarity(a, b);
+}
+
+/** Cluster by equivalent stem + answer (exact or fuzzy). */
+export function clusterByRepetitionKey(questions) {
+  const written = questions.filter((q) => q.questionType === "written");
+  const pool = questions.filter((q) => q.questionType !== "written");
+  const clusters = unionFindGroups(pool, questionsEquivalent);
+  return [...clusters, ...written.map((q) => [q])];
 }

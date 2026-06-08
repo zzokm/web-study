@@ -736,9 +736,9 @@
             "codeLanguage": null
           }
         ],
-        "correctAnswerId": "b",
+        "correctAnswerId": "c",
         "expectedAnswer": null,
-        "explanation": "Both dot notation (`objectName.propertyName`) and bracket notation (`objectName[\"propertyName\"]`) are valid. Option 'b' is valid if `propertyName` is a variable storing the key string. (Note: The exam source contained typos in the strings for option C, making B the closest logically correct standard syntax if treated as a variable).",
+        "explanation": "Bracket notation with a string literal — `objectName[\"propertyName\"]` — is valid JavaScript for reading a property. Dot notation (`objectName.propertyName`) works too but is not listed. Option A (`objectName:propertyName`) is object-creation syntax, not access. Option B (`objectName[propertyName]`) only works when `propertyName` is a variable holding the key; without that context, C is the intended answer. (The printed exam used curly “smart quotes” in option C; the digital version uses standard quotes.)",
         "relatedTopics": [
           "fe-5"
         ]
