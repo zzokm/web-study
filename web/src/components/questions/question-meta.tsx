@@ -33,7 +33,11 @@ export function QuestionMeta({ question }: QuestionMetaProps) {
           </Badge>
         ) : null}
         <Badge variant="outline">
-          {question.questionType === "true_false" ? "T/F" : "MCQ"}
+          {question.questionType === "true_false"
+            ? "T/F"
+            : question.questionType === "written"
+              ? "Written"
+              : "MCQ"}
         </Badge>
         {question.instanceCount != null && question.instanceCount > 1 ? (
           <Badge className="tabular-nums">

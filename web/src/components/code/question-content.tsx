@@ -56,7 +56,7 @@ function SegmentList({
           <p
             key={`text-${index}`}
             className={cn(
-              "leading-relaxed",
+              "leading-relaxed whitespace-pre-wrap",
               compact
                 ? "text-sm text-foreground"
                 : "text-lg text-foreground",
