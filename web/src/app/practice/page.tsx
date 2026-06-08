@@ -10,6 +10,7 @@ import {
 import { LectureQuestionLinkList } from "@/components/questions/lecture-question-link-list";
 import { ExamYearLinkGrid } from "@/components/questions/exam-year-link-grid";
 import { PracticeRepetitiveSetCard } from "@/components/practice/practice-repetitive-set-card";
+import { PracticeResetAllButton } from "@/components/practice/practice-reset-all-button";
 import { PracticeWrittenHubCard } from "@/components/practice/practice-written-hub-card";
 import { Card, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 
@@ -75,6 +76,10 @@ export default function PracticeIndexPage() {
         questions={repetitiveQuestions}
         count={repetitiveCount}
       />
+
+      <div className="flex justify-end border-t pt-6">
+        <PracticeResetAllButton />
+      </div>
     </div>
   );
 }
