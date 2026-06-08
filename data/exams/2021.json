@@ -1037,7 +1037,7 @@
       {
         "id": "q26",
         "type": "multiple_choice",
-        "questionText": "26. Which of the following statements is correct in this python code?",
+        "questionText": "26. Which of the following statements is correct in this python code?\nclass Name:\n    def __init__(javatpoint):\n        javatjavatpoint = java\nname1 = Name('ABC')\nname2 = name1",
         "options": [
           {
             "id": "a",
@@ -1068,13 +1068,14 @@
         "expectedAnswer": null,
         "explanation": "When assigning `name2 = name1`, Python simply creates a new reference pointing to the exact same object in memory. Because they reference the same object, the memory address retrieved by `id()` will be identical for both.",
         "relatedTopics": [
-          "be-2"
+          "be-2",
+          "be-3"
         ]
       },
       {
         "id": "q27",
         "type": "multiple_choice",
-        "questionText": "27. What will the following python code print?",
+        "questionText": "27. What will the following python code print?\nlst = []\nlst.append([15, 6])\nlst.append([10, 30, 20])\nlst.sort()\nprint(lst)",
         "options": [
           {
             "id": "a",
