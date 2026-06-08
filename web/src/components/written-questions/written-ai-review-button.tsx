@@ -61,30 +61,32 @@ export function WrittenAiReviewButton({
         left: "auto",
       }}
     >
-      <ShinyButton
-        type="button"
-        size="compact"
-        disabled={copying}
-        onClick={() => void handleCopy()}
-        aria-label="Review with AI — copy prompt to clipboard"
-        className="pointer-events-auto min-w-[11.5rem] shadow-lg"
-      >
-        <div className="grid w-full grid-cols-[1.125rem_1fr_1.125rem] items-center gap-x-3">
-          <Sparkles
-            className="col-start-1 size-3.5 shrink-0 self-center"
-            aria-hidden
-          />
-          <span className="col-start-2 flex flex-col items-center gap-0.5 text-center leading-tight">
-            <span className="text-xs font-semibold">
-              {copying ? "Copying…" : "Review with AI"}
+      <div className="pointer-events-auto rounded-full shadow-[0_4px_20px_rgba(0,0,0,0.32),0_0_28px_rgba(124,58,237,0.28)]">
+        <ShinyButton
+          type="button"
+          size="compact"
+          disabled={copying}
+          onClick={() => void handleCopy()}
+          aria-label="Review with AI — copy prompt to clipboard"
+          className="min-w-[11.5rem]"
+        >
+          <div className="grid w-full grid-cols-[1.125rem_1fr_1.125rem] items-center gap-x-3">
+            <Sparkles
+              className="col-start-1 size-3.5 shrink-0 self-center"
+              aria-hidden
+            />
+            <span className="col-start-2 flex flex-col items-center gap-0.5 text-center leading-tight">
+              <span className="text-xs font-semibold">
+                {copying ? "Copying…" : "Review with AI"}
+              </span>
+              <span className="text-[10px] font-normal text-violet-100/85">
+                Copies AI prompt
+              </span>
             </span>
-            <span className="text-[10px] font-normal text-violet-100/85">
-              Copies AI prompt
-            </span>
-          </span>
-          <span className="col-start-3 size-3.5 shrink-0" aria-hidden />
-        </div>
-      </ShinyButton>
+            <span className="col-start-3 size-3.5 shrink-0" aria-hidden />
+          </div>
+        </ShinyButton>
+      </div>
     </div>
   );
 }
