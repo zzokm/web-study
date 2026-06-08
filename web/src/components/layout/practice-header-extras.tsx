@@ -53,7 +53,7 @@ function PracticeTimer({ className }: { className?: string }) {
     return () => window.clearInterval(interval);
   }, [state, paused]);
 
-  if (!state) return null;
+  if (!state?.showTimer) return null;
 
   const elapsed = getElapsedMs(state, now);
   const timeLabel = formatTimer(elapsed, elapsed >= 3600000);
@@ -122,7 +122,7 @@ function PracticeTimer({ className }: { className?: string }) {
 
 function KeyboardHints() {
   const state = usePracticeHeaderState();
-  if (!state) return null;
+  if (!state?.showKeyboardHints) return null;
 
   return (
     <>
@@ -167,7 +167,7 @@ function KeyboardHints() {
 
 export function PracticeFloatingTimer() {
   const state = usePracticeHeaderState();
-  if (!state) return null;
+  if (!state?.showTimer) return null;
 
   return (
     <div
@@ -183,7 +183,7 @@ export function PracticeFloatingTimer() {
 
 export function PracticeHeaderShortcuts() {
   const state = usePracticeHeaderState();
-  if (!state) return null;
+  if (!state?.showKeyboardHints) return null;
 
   return (
     <div className="flex shrink-0 items-center gap-2">

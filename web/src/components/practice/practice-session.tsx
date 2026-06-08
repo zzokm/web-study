@@ -213,21 +213,21 @@ function PracticeSessionInner({
     [question, patchProgress]
   );
 
+  const showKeyboardHints = practiceMode !== "written";
+
   useEffect(() => {
     const startedAt = Date.now();
     sessionStartedAtRef.current = new Date(startedAt).toISOString();
-    if (showTimer) {
-      setPracticeHeader({
-        mode: "elapsed",
-        startedAt,
-        paused: false,
-        totalPausedMs: 0,
-      });
-    } else {
-      setPracticeHeader(null);
-    }
+    setPracticeHeader({
+      mode: "elapsed",
+      startedAt,
+      paused: false,
+      totalPausedMs: 0,
+      showTimer,
+      showKeyboardHints,
+    });
     return () => setPracticeHeader(null);
-  }, [practiceMode, setPracticeHeader, showTimer]);
+  }, [practiceMode, setPracticeHeader, showTimer, showKeyboardHints]);
 
   useEffect(() => {
     if (!question) return;
@@ -672,14 +672,14 @@ function PracticeSessionInner({
     pauseStartedAtRef.current = null;
     prevPausedRef.current = false;
 
-    if (showTimer) {
-      setPracticeHeader({
-        mode: "elapsed",
-        startedAt,
-        paused: false,
-        totalPausedMs: 0,
-      });
-    }
+    setPracticeHeader({
+      mode: "elapsed",
+      startedAt,
+      paused: false,
+      totalPausedMs: 0,
+      showTimer,
+      showKeyboardHints,
+    });
   }, [
     sessionKey,
     canonicalKey,
@@ -687,6 +687,7 @@ function PracticeSessionInner({
     title,
     progress,
     showTimer,
+    showKeyboardHints,
     setPracticeHeader,
   ]);
 

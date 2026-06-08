@@ -21,6 +21,10 @@ export type PracticeHeaderState = {
   pausedAt?: number;
   /** Accumulated pause duration across resume cycles. */
   totalPausedMs: number;
+  /** When false, timer UI is hidden but session chrome may still be active. */
+  showTimer: boolean;
+  /** Header keyboard shortcut badges (MCQ/T-F practice only). */
+  showKeyboardHints: boolean;
 };
 
 type PracticeHeaderContextValue = {
