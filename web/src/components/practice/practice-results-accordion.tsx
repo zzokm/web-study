@@ -78,9 +78,15 @@ export function PracticeResultsAccordion({
   mistakesOnly,
   mockExamSpec,
 }: PracticeResultsAccordionProps) {
-  const visible = mistakesOnly
-    ? questions.filter((q) => isAttemptWrong(q, getAttempt(progress, q.questionKey)))
-    : questions;
+  const visible = useMemo(
+    () =>
+      mistakesOnly
+        ? questions.filter((q) =>
+            isAttemptWrong(q, getAttempt(progress, q.questionKey))
+          )
+        : questions,
+    [questions, progress, mistakesOnly]
+  );
 
   const [openValues, setOpenValues] = useState<string[]>([]);
   const prevOpenRef = useRef<string[]>([]);
@@ -134,8 +140,15 @@ export function PracticeResultsAccordion({
     visibleKeys.length > 0 && visibleKeys.every((key) => openValues.includes(key));
 
   useEffect(() => {
+    const visibleSet = new Set(visibleKeys);
     setOpenValues((prev) => {
-      const next = prev.filter((key) => visibleKeys.includes(key));
+      const next = prev.filter((key) => visibleSet.has(key));
+      if (
+        next.length === prev.length &&
+        next.every((key, index) => key === prev[index])
+      ) {
+        return prev;
+      }
       prevOpenRef.current = next;
       return next;
     });
