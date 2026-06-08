@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { HubTrackedLink } from "@/components/analytics/hub-tracked-link";
 import { metadataTitle } from "@/lib/analytics-page-titles";
-import { getExamYears, getRepetitiveStats } from "@/lib/questions";
+import { countWrittenQuestions, getExamYears, getRepetitiveStats } from "@/lib/questions";
 import { LectureQuestionLinkList } from "@/components/questions/lecture-question-link-list";
 
 export const metadata: Metadata = {
@@ -12,6 +12,7 @@ import { Card, CardDescription, CardHeader, CardTitle } from "@/components/ui/ca
 export default function PracticeIndexPage() {
   const years = getExamYears();
   const repetitiveCount = getRepetitiveStats();
+  const writtenCount = countWrittenQuestions();
 
   return (
     <div className="mx-auto flex max-w-3xl flex-col gap-6">
@@ -40,6 +41,25 @@ export default function PracticeIndexPage() {
           </Card>
         </HubTrackedLink>
       </div>
+
+      {writtenCount > 0 ? (
+        <HubTrackedLink
+          href="/practice/written/"
+          hubType="practice"
+          label="Written questions"
+        >
+          <Card className="mb-6 transition-colors hover:bg-muted/50">
+            <CardHeader>
+              <CardTitle className="text-base">Written questions</CardTitle>
+              <CardDescription>
+                {writtenCount === 1
+                  ? "1 HTML coding question"
+                  : `${writtenCount} HTML coding questions`}
+              </CardDescription>
+            </CardHeader>
+          </Card>
+        </HubTrackedLink>
+      ) : null}
 
       <div>
         <h2 className="mb-3 text-sm font-medium text-muted-foreground">By exam year</h2>

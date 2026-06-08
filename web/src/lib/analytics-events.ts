@@ -21,4 +21,5 @@ export type PracticeMode =
   | "exam"
   | "repetitive"
   | "saved"
-  | "mock_exam";
+  | "mock_exam"
+  | "written";

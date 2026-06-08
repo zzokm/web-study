@@ -78,6 +78,7 @@ export function getPageTitle(
       return `Practice · ${segments[2]} Final · ${SITE}`;
     }
     if (segments[1] === "mock-exam") return `Practice · Mock exam · ${SITE}`;
+    if (segments[1] === "written") return `Practice · Written questions · ${SITE}`;
     if (segments[1] === "repetitive") return `Practice · Repetitive · ${SITE}`;
     if (segments[1] === "saved") return `Practice · Saved · ${SITE}`;
     if (segments[1] === "results") {
