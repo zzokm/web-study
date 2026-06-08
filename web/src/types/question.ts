@@ -1,4 +1,38 @@
-export type QuestionType = "true_false" | "mcq" | "other";
+export type QuestionType = "true_false" | "mcq" | "written" | "other";
+
+export type WrittenDecoration = "strikethrough" | "underline";
+
+export type WrittenRubricCheck =
+  | {
+      id: string;
+      type: "element_text_includes";
+      selector: string;
+      text: string;
+    }
+  | {
+      id: string;
+      type: "text_has_decoration";
+      text: string;
+      decoration: WrittenDecoration;
+    }
+  | {
+      id: string;
+      type: "control_labeled";
+      role: "button" | "input";
+      label: string;
+    }
+  | {
+      id: string;
+      type: "click_applies_computed_styles";
+      triggerLabel: string;
+      targetSelector: string;
+      styles: Record<string, string[]>;
+    };
+
+export interface WrittenRubric {
+  version: 1;
+  checks: WrittenRubricCheck[];
+}
 
 export interface QuestionContext {
   text: string | null;
@@ -38,6 +72,10 @@ export interface Question {
   blockId?: string;
   /** Lecture IDs from topic allocation (e.g. fe-1, be-4). */
   relatedTopics?: string[];
+  /** Model answer for written questions. */
+  expectedAnswer?: string | null;
+  /** Outcome-based grading rubric for written questions. */
+  writtenRubric?: WrittenRubric | null;
   instanceCount?: number;
   appearances?: Array<{
     origin: string;

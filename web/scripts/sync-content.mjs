@@ -62,11 +62,19 @@ const QuestionSchema = z.object({
   origin: z.string(),
   sourceFile: z.string(),
   sourceQuestionId: z.string(),
-  questionType: z.enum(["true_false", "mcq", "other"]),
+  questionType: z.enum(["true_false", "mcq", "written", "other"]),
   lectureSlug: z.string(),
   examOrder: z.number(),
   blockId: z.string().optional(),
   relatedTopics: z.array(z.string()).optional(),
+  expectedAnswer: z.string().nullable().optional(),
+  writtenRubric: z
+    .object({
+      version: z.literal(1),
+      checks: z.array(z.record(z.string(), z.unknown())),
+    })
+    .nullable()
+    .optional(),
 });
 
 function ensureDir(p) {
@@ -88,6 +96,7 @@ function slugFromTopic(topic) {
 }
 
 function classifyQuestionType(q) {
+  if (q.type === "written") return "written";
   const opts = q.options || [];
   if (
     opts.length === 2 &&
@@ -247,6 +256,8 @@ function flattenExamBlocks(raw, year, sourceFile) {
         examOrder: order,
         blockId: block.id,
         relatedTopics: q.relatedTopics ?? [],
+        expectedAnswer: q.expectedAnswer ?? null,
+        writtenRubric: q.writtenRubric ?? null,
       };
       QuestionSchema.parse(entry);
       questions.push(entry);
