@@ -1586,7 +1586,7 @@
           {
             "id": "c",
             "type": "text",
-            "content": "#text",
+            "content": "text",
             "codeLanguage": null
           },
           {
@@ -1596,9 +1596,9 @@
             "codeLanguage": null
           }
         ],
-        "correctAnswerId": "c",
+        "correctAnswerId": "d",
         "expectedAnswer": null,
-        "explanation": "The `firstChild` of the `<h2 id=\"id1\">` element is its text node ('Welcome to my page'). The `nodeName` property of a text node always returns the string `\"#text\"` (with the hash prefix). Options `a` (1) and `b` (2) are node type numbers, not names.",
+        "explanation": "The `firstChild` of `<h2 id=\"id1\">` is the text node for \"Welcome to my page\". In the DOM, `nodeName` on a text node returns `\"#text\"` (with a `#` prefix). The exam option listed `text` without that `#`, which is not the same as the actual output. Options `a` (1) and `b` (2) are node-type numbers, not names. None of the listed answers match.",
         "relatedTopics": [
           "fe-3"
         ]
