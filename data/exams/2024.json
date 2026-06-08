@@ -26,13 +26,13 @@
           {
             "id": "b",
             "type": "text",
-            "content": "MVT",
+            "content": "MVVM",
             "codeLanguage": null
           },
           {
             "id": "c",
             "type": "text",
-            "content": "MVVM",
+            "content": "MVT Model View Template",
             "codeLanguage": null
           },
           {
@@ -42,9 +42,9 @@
             "codeLanguage": null
           }
         ],
-        "correctAnswerId": "b",
+        "correctAnswerId": "c",
         "expectedAnswer": null,
-        "explanation": "Django follows the MVT (Model-View-Template) architectural pattern, which is a slight variation of the traditional MVC (Model-View-Controller) pattern.",
+        "explanation": "Django uses the MVT (Model-View-Template) pattern, matching option c.",
         "relatedTopics": [
           "be-5"
         ]
@@ -63,7 +63,7 @@
           {
             "id": "b",
             "type": "text",
-            "content": "admin.py",
+            "content": "admin.py using admin.site.register(Model_name)",
             "codeLanguage": null
           },
           {
@@ -174,7 +174,7 @@
           {
             "id": "b",
             "type": "text",
-            "content": "py manage, py start-django my_tennis_club",
+            "content": "py manage.py start-django my_tennis_club",
             "codeLanguage": null
           },
           {
@@ -248,19 +248,19 @@
           {
             "id": "b",
             "type": "text",
-            "content": "<script href=\"jsfile.js\"></script>",
+            "content": "<script href=\" jsfile.js\"></script>",
             "codeLanguage": null
           },
           {
             "id": "c",
             "type": "text",
-            "content": "<import src=\"jsfile.js\"></import>",
+            "content": "<import src=\" jsfile.js\"></import>",
             "codeLanguage": null
           },
           {
             "id": "d",
             "type": "text",
-            "content": "<script link=\"jsfile.js\"></script>",
+            "content": "<script link=\" jsfile.js\"></script>",
             "codeLanguage": null
           }
         ],
@@ -328,19 +328,19 @@
           {
             "id": "c",
             "type": "text",
-            "content": "elementText",
+            "content": "element Text",
             "codeLanguage": null
           },
           {
             "id": "d",
             "type": "text",
-            "content": "innerHTML",
+            "content": "innerHTML a is wrong because we want to define the HTML content",
             "codeLanguage": null
           }
         ],
         "correctAnswerId": "d",
         "expectedAnswer": null,
-        "explanation": "The `innerHTML` property allows you to get or set the HTML markup contained within the element. `innerText` only deals with the rendered text content.",
+        "explanation": "The `innerHTML` property sets or returns the HTML content inside an element.",
         "relatedTopics": [
           "fe-3"
         ]
@@ -377,7 +377,7 @@
         ],
         "correctAnswerId": "d",
         "expectedAnswer": null,
-        "explanation": "To make changes *take effect* in the database, you must run `python manage.py migrate`. `makemigrations` (option c) only generates the migration files; it does not apply them. Since `migrate` is missing, D is the correct answer.",
+        "explanation": "`makemigrations` only creates migration files; applying them requires `migrate`, which is not listed.",
         "relatedTopics": [
           "be-8"
         ]
@@ -459,7 +459,7 @@
       {
         "id": "q13",
         "type": "multiple_choice",
-        "questionText": "13. In HTML DOM, which of the following properties are read-only?",
+        "questionText": "13. In HTML DOM, which of the following properties are read-only? In midterm April 2023",
         "options": [
           {
             "id": "a",
@@ -519,7 +519,7 @@
           {
             "id": "d",
             "type": "text",
-            "content": "const constant_name = value;",
+            "content": "const constant_name = value; You have to initialize any const",
             "codeLanguage": null
           }
         ],
@@ -534,7 +534,7 @@
       {
         "id": "q15",
         "type": "multiple_choice",
-        "questionText": "15. What will be the output of this code?\n const VALUE=10;\n VALUE=20;",
+        "questionText": "15. What will be the output of this code?",
         "options": [
           {
             "id": "a",
@@ -557,7 +557,7 @@
           {
             "id": "d",
             "type": "text",
-            "content": "TypeError",
+            "content": "TypeError Can't overwrite a const",
             "codeLanguage": null
           }
         ],
@@ -597,7 +597,7 @@
       {
         "id": "q17",
         "type": "multiple_choice",
-        "questionText": "17. What will be the value of X printed?\n var X=10;\n function myfunc() {\n   let x=20;\n   document.write(X);\n }",
+        "questionText": "17. What will be the value of X?",
         "options": [
           {
             "id": "a",
@@ -635,18 +635,18 @@
       {
         "id": "q18",
         "type": "multiple_choice",
-        "questionText": "18. What is the output of the following JavaScript code?\n var a = 10 + 20 + \"5\";\n document.getElementById(\"demo\").innerHTML = a;",
+        "questionText": "18. What is the output of the following JavaScript code?",
         "options": [
           {
             "id": "a",
             "type": "text",
-            "content": "35",
+            "content": "305",
             "codeLanguage": null
           },
           {
             "id": "b",
             "type": "text",
-            "content": "305",
+            "content": "35",
             "codeLanguage": null
           },
           {
@@ -672,7 +672,7 @@
       {
         "id": "q19",
         "type": "multiple_choice",
-        "questionText": "19. What will be the output of the following JavaScript code?\n var x = 12.34;\n document.getElementById(\"test\").innerHTML = typeof(x);",
+        "questionText": "19. What will be the output of the following JavaScript code?",
         "options": [
           {
             "id": "a",
@@ -746,7 +746,7 @@
       {
         "id": "q21",
         "type": "multiple_choice",
-        "questionText": "21. What will be the output of the following JavaScript code?\n var numbers = [1, 2, 3, 4];\n function myfunc(total, value) {\n   return total + value;\n }\n var sum = numbers.reduce(myfunc, 2);\n document.write(sum);",
+        "questionText": "21. What will be the output of the following JavaScript code?",
         "options": [
           {
             "id": "a",
@@ -757,19 +757,19 @@
           {
             "id": "b",
             "type": "text",
-            "content": "9",
+            "content": "7",
             "codeLanguage": null
           },
           {
             "id": "c",
             "type": "text",
-            "content": "7",
+            "content": "9",
             "codeLanguage": null
           },
           {
             "id": "d",
             "type": "text",
-            "content": "None of the previous",
+            "content": "None of the previous Output is 12",
             "codeLanguage": null
           }
         ],
@@ -783,7 +783,7 @@
       {
         "id": "q22",
         "type": "multiple_choice",
-        "questionText": "22. What will be the output of the following JavaScript code?\n var numbers = [170, 50, 25];\n function myfunc(total, value) {\n   return total - value;\n }\n var x = numbers.reduce(myfunc);\n document.write(x);",
+        "questionText": "22. What will be the output of the following JavaScript code?",
         "options": [
           {
             "id": "a",
@@ -794,13 +794,13 @@
           {
             "id": "b",
             "type": "text",
-            "content": "95",
+            "content": "245",
             "codeLanguage": null
           },
           {
             "id": "c",
             "type": "text",
-            "content": "245",
+            "content": "95",
             "codeLanguage": null
           },
           {
@@ -820,7 +820,7 @@
       {
         "id": "q23",
         "type": "multiple_choice",
-        "questionText": "23. \"Expires: Tuesday, 17 Dec 2020 18:30 GMT\" is a ______ header denoting ______.",
+        "questionText": "23. \"Expires: Tuesday, 17 Dec 2020 18:30 GMT\" is a header denoting",
         "options": [
           {
             "id": "a",
@@ -831,13 +831,13 @@
           {
             "id": "b",
             "type": "text",
-            "content": "request, content-type caching",
+            "content": "response, content-based caching",
             "codeLanguage": null
           },
           {
             "id": "c",
             "type": "text",
-            "content": "response, content-based caching",
+            "content": "request, content-type caching",
             "codeLanguage": null
           },
           {
@@ -858,7 +858,7 @@
       {
         "id": "q24",
         "type": "multiple_choice",
-        "questionText": "24. What will be the output of the following JavaScript code?\n const arr = [10, 20, 30];\n let result = 0;\n arr.forEach(myFunction);\n document.write(\"Result: \", result);\n function myFunction(value, index, array) {\n   result += value;\n }",
+        "questionText": "24. What will be the output of the following JavaScript code?",
         "options": [
           {
             "id": "a",
@@ -895,7 +895,7 @@
       {
         "id": "q25",
         "type": "multiple_choice",
-        "questionText": "25. What will be the output of the following JavaScript code?\n const values = [10, 20, 30];\n const result = values.map(myFunction);\n document.write(\"Result: \", result);\n function myFunction(value, index, array) {\n   return value * value;\n }",
+        "questionText": "25. What will be the output of the following JavaScript code?",
         "options": [
           {
             "id": "a",
@@ -969,7 +969,7 @@
       {
         "id": "q27",
         "type": "multiple_choice",
-        "questionText": "27. In Python, ______ defines a block of statements.",
+        "questionText": "27. In Python, ____ defines a block of statements.",
         "options": [
           {
             "id": "a",
@@ -1006,18 +1006,18 @@
       {
         "id": "q28",
         "type": "multiple_choice",
-        "questionText": "28. What will be the output of this JavaScript code?\n var x = [10, 20, 30];\n function myFunction(value, index, array) {\n   return value > 10;\n }\n var y = x.find(myFunction);\n document.write(y);",
+        "questionText": "28. What will be the output of this JavaScript code?\nvar numbers = [10, 20, 30];\nfunction myFunction(value, index, array) {\nreturn value > 10;\n}\nvar y = numbers.find(myFunction);\ndocument.write(y);",
         "options": [
           {
             "id": "a",
             "type": "text",
-            "content": "20, 30",
+            "content": "20,30",
             "codeLanguage": null
           },
           {
             "id": "b",
             "type": "text",
-            "content": "[20, 30]",
+            "content": "[20,30]",
             "codeLanguage": null
           },
           {
@@ -1043,24 +1043,24 @@
       {
         "id": "q29",
         "type": "multiple_choice",
-        "questionText": "29. What will be the output of the following JavaScript code?\n try {\n   const cars = {\n     company: \"Honda\",\n     color: \"white\"\n   };\n   var x = \"color\";\n   delete cars.company;\n   document.write(cars.company);\n   document.write(cars[x]);\n } catch (err) {\n   document.write(err.message);\n }",
+        "questionText": "29. What will be the output of the following JavaScript code?",
         "options": [
           {
             "id": "a",
             "type": "text",
-            "content": "Hondaundefined",
+            "content": "Honda undefined",
             "codeLanguage": null
           },
           {
             "id": "b",
             "type": "text",
-            "content": "undefinedcolor",
+            "content": "undefined white",
             "codeLanguage": null
           },
           {
             "id": "c",
             "type": "text",
-            "content": "undefinedwhite",
+            "content": "undefined color",
             "codeLanguage": null
           },
           {
@@ -1080,7 +1080,7 @@
       {
         "id": "q30",
         "type": "multiple_choice",
-        "questionText": "30. What will be the output of the following JavaScript code?\n let x = 10;\n let y = 20;\n let text = \"x * y\";\n let result = eval(text);\n document.getElementById(\"demo\").innerHTML = result;",
+        "questionText": "30. What will be the output of the following JavaScript code?",
         "options": [
           {
             "id": "a",
@@ -1091,19 +1091,19 @@
           {
             "id": "b",
             "type": "text",
-            "content": "200",
+            "content": "\"200\"",
             "codeLanguage": null
           },
           {
             "id": "c",
             "type": "text",
-            "content": "ValueError",
+            "content": "ValueError Should be int",
             "codeLanguage": null
           },
           {
             "id": "d",
             "type": "text",
-            "content": "None of the previous",
+            "content": "200",
             "codeLanguage": null
           }
         ],
@@ -1118,7 +1118,7 @@
       {
         "id": "q31",
         "type": "multiple_choice",
-        "questionText": "31. What will be the output of this JavaScript code?\n var numbers = [10, 20, 30];\n function myFunction(value, index, array) {\n   return value > 10;\n }\n var y = numbers.filter(myFunction);\n document.write(typeof(y));",
+        "questionText": "31. What will be the output of this JavaScript code?",
         "options": [
           {
             "id": "a",
@@ -1129,13 +1129,13 @@
           {
             "id": "b",
             "type": "text",
-            "content": "number",
+            "content": "object",
             "codeLanguage": null
           },
           {
             "id": "c",
             "type": "text",
-            "content": "object",
+            "content": "number",
             "codeLanguage": null
           },
           {
@@ -1155,12 +1155,12 @@
       {
         "id": "q32",
         "type": "multiple_choice",
-        "questionText": "32. What will be the output of this JavaScript code?\n var numbers = [10, 20, 10, 30];\n var y = numbers.lastIndexOf(10);\n var z = numbers.indexOf(30);\n document.write(y + z);",
+        "questionText": "32. What will be the output of this JavaScript code?",
         "options": [
           {
             "id": "a",
             "type": "text",
-            "content": "23",
+            "content": "5",
             "codeLanguage": null
           },
           {
@@ -1172,7 +1172,7 @@
           {
             "id": "c",
             "type": "text",
-            "content": "5",
+            "content": "2",
             "codeLanguage": null
           },
           {
@@ -1192,7 +1192,7 @@
       {
         "id": "q33",
         "type": "multiple_choice",
-        "questionText": "33. What will be the output of the following JavaScript code snippet?\n function test(...args) {\n   document.write(typeof(args));\n }\n test(12);",
+        "questionText": "33. What will be the output of the following JavaScript code snippet?",
         "options": [
           {
             "id": "a",
@@ -1215,7 +1215,7 @@
           {
             "id": "d",
             "type": "text",
-            "content": "array",
+            "content": "None of the previous",
             "codeLanguage": null
           }
         ],
@@ -1229,7 +1229,7 @@
       {
         "id": "q34",
         "type": "multiple_choice",
-        "questionText": "34. What will be the output of the following JavaScript code?\n var quiz = [1, 2, 3];\n var result = quiz.concat(6, 7, 8);\n document.write(result);",
+        "questionText": "34. What will be the output of the following JavaScript code?\nvar quiz = [1, 2, 3];\nvar result = quiz.concat(6, 7, 8);\ndocument.write(result);",
         "options": [
           {
             "id": "a",
@@ -1246,7 +1246,7 @@
           {
             "id": "c",
             "type": "text",
-            "content": "Error",
+            "content": "array",
             "codeLanguage": null
           },
           {
@@ -1281,7 +1281,7 @@
       {
         "id": "q35",
         "type": "multiple_choice",
-        "questionText": "35. What will be the output of the following JavaScript code?\n var x;\n for(x = 0; x < 5; x++) {\n   document.write(x);\n }",
+        "questionText": "35. What will be the output of the following JavaScript code?\nvar a = 0;\nfor (a=0; a<5; a++);\ndocument.write(a); Note the ; after the for loop",
         "options": [
           {
             "id": "a",
@@ -1304,7 +1304,7 @@
           {
             "id": "d",
             "type": "text",
-            "content": "None of the previous",
+            "content": "5",
             "codeLanguage": null
           }
         ],
@@ -1318,24 +1318,24 @@
       {
         "id": "q36",
         "type": "multiple_choice",
-        "questionText": "36. What will be the output of the following python code?\n newtuple = (1, 2, 3, 4)\n (*k,) = newtuple\n print(k)",
+        "questionText": "36. What will be the output of the following Python code?\nnewtuple = (1, 2, 3, 4)\n(*k, ) = newtuple\nprint(k)",
         "options": [
           {
             "id": "a",
             "type": "text",
-            "content": "2,3,4",
+            "content": "1, 2, 3",
             "codeLanguage": null
           },
           {
             "id": "b",
             "type": "text",
-            "content": "[2,3,4]",
+            "content": "[1, 2, 3, 4]",
             "codeLanguage": null
           },
           {
             "id": "c",
             "type": "text",
-            "content": "1,2,3",
+            "content": "2, 3, 4",
             "codeLanguage": null
           },
           {
@@ -1355,24 +1355,24 @@
       {
         "id": "q37",
         "type": "multiple_choice",
-        "questionText": "37. What will be the output of the following Python code?\n newtuple = (1, 2, 3, 4)\n (x, *k, y) = newtuple\n print(k)",
+        "questionText": "37. What will be the output of the following Python code?\nnewtuple = (1, 2, 3, 4)\n(x, *k, y) = newtuple\nprint(k) This unpack method sets x to index 0 and y to index -1 and the rest to k",
         "options": [
           {
             "id": "a",
             "type": "text",
-            "content": "2,3",
+            "content": "2, 3",
             "codeLanguage": null
           },
           {
             "id": "b",
             "type": "text",
-            "content": "[2,3]",
+            "content": "[2, 3, 4]",
             "codeLanguage": null
           },
           {
             "id": "c",
             "type": "text",
-            "content": "Python Error",
+            "content": "[2, 3]",
             "codeLanguage": null
           },
           {
@@ -1409,7 +1409,7 @@
           {
             "id": "c",
             "type": "text",
-            "content": "Both a and b",
+            "content": "Both a and b. Assuming the missing < was not intended",
             "codeLanguage": null
           },
           {
@@ -1446,7 +1446,7 @@
           {
             "id": "c",
             "type": "text",
-            "content": "Both a and b",
+            "content": "<m>",
             "codeLanguage": null
           },
           {
@@ -1477,19 +1477,19 @@
           {
             "id": "b",
             "type": "text",
-            "content": "<p>H<ins>2</ins>O</p>",
+            "content": "<p>H<sub>2</sub>O</p>",
             "codeLanguage": null
           },
           {
             "id": "c",
             "type": "text",
-            "content": "<p>H<below>2</below>O</p>",
+            "content": "<p>H<ins>2</ins>O</p>",
             "codeLanguage": null
           },
           {
             "id": "d",
             "type": "text",
-            "content": "<p>H<sub>2</sub>O</p>",
+            "content": "<p>H<below>2</below>O</p>",
             "codeLanguage": null
           }
         ],
@@ -1503,24 +1503,24 @@
       {
         "id": "q41",
         "type": "multiple_choice",
-        "questionText": "41. Which is the correct HTML statement to display Hello(strikethrough) Hi(underlined) in a paragraph?",
+        "questionText": "41. Which is the correct HTML statement to display Hello Hi in a paragraph?",
         "options": [
           {
             "id": "a",
-            "type": "text",
-            "content": "<p><cut>Hello</cut> <ins>Hi</ins></p>",
-            "codeLanguage": null
-          },
-          {
-            "id": "b",
             "type": "text",
             "content": "<p><del>Hello</del> <ins>Hi</ins></p>",
             "codeLanguage": null
           },
           {
+            "id": "b",
+            "type": "text",
+            "content": "<p><cut>Hello</cut> <ins>Hi</ins></p>",
+            "codeLanguage": null
+          },
+          {
             "id": "c",
             "type": "text",
-            "content": "<p><del>Hello</del><ins>Hi</ins></p>",
+            "content": "<p><del>Hello</del> <mark>Hi</mark></p>",
             "codeLanguage": null
           },
           {
@@ -1552,13 +1552,13 @@
           {
             "id": "b",
             "type": "text",
-            "content": "link",
+            "content": "src",
             "codeLanguage": null
           },
           {
             "id": "c",
             "type": "text",
-            "content": "src",
+            "content": "link",
             "codeLanguage": null
           },
           {
@@ -1603,7 +1603,7 @@
       {
         "id": "q44",
         "type": "multiple_choice",
-        "questionText": "44. The ______ property is used in the positioning of the background image.",
+        "questionText": "44. The ____ property is used in the positioning of the background image.",
         "options": [
           {
             "id": "a",
@@ -1663,7 +1663,7 @@
           {
             "id": "d",
             "type": "text",
-            "content": "Class (E)",
+            "content": "Class(E)",
             "codeLanguage": null
           }
         ],
@@ -1682,19 +1682,19 @@
           {
             "id": "a",
             "type": "text",
-            "content": "E[attr$=\"value\"]",
+            "content": "E[attr$=value]",
             "codeLanguage": null
           },
           {
             "id": "b",
             "type": "text",
-            "content": "E[attr^=\"value\"]",
+            "content": "E[attr=value]",
             "codeLanguage": null
           },
           {
             "id": "c",
             "type": "text",
-            "content": "E[attr*=\"value\"]",
+            "content": "E[attr*=value]",
             "codeLanguage": null
           },
           {
@@ -1751,7 +1751,7 @@
       {
         "id": "q48",
         "type": "multiple_choice",
-        "questionText": "48. What will be the output of the following Python code?\n b = \"Hello, World!\"\n print(b[-5:-2])",
+        "questionText": "48. What will be the output of the following Python code?\nb = \"Hello, World!\"\nprint(b[-5:-2])",
         "options": [
           {
             "id": "a",
@@ -1762,13 +1762,13 @@
           {
             "id": "b",
             "type": "text",
-            "content": "rld",
+            "content": "or",
             "codeLanguage": null
           },
           {
             "id": "c",
             "type": "text",
-            "content": "Wo",
+            "content": "Wor",
             "codeLanguage": null
           },
           {
@@ -1788,7 +1788,7 @@
       {
         "id": "q49",
         "type": "multiple_choice",
-        "questionText": "49. What will be the output of the following Python code?\n thistuple = (1, 2, 3, 3, 4, 5)\n x = thistuple.index(3)\n print(x)",
+        "questionText": "49. What will be the output of the following Python code?\nthistuple = (1, 2, 3, 3, 4, 5)\nx = thistuple.index(3)\nprint(x)",
         "options": [
           {
             "id": "a",
@@ -1799,13 +1799,13 @@
           {
             "id": "b",
             "type": "text",
-            "content": "2",
+            "content": "4",
             "codeLanguage": null
           },
           {
             "id": "c",
             "type": "text",
-            "content": "4",
+            "content": "2",
             "codeLanguage": null
           },
           {
@@ -1876,18 +1876,18 @@
       {
         "id": "q52",
         "type": "multiple_choice",
-        "questionText": "52. What will be the output of the following Python code?\n fruits = {\"apple\", \"banana\", \"cherry\"}\n fruits.add(\"apple\")\n x = len(fruits)\n print(x)",
+        "questionText": "52. What will be the output of the following Python code?\nfruits = {\"apple\", \"banana\", \"cherry\"} Sets don't allow duplicates\nfruits.add(\"apple\")\nx = len(fruits)\nprint(x)",
         "options": [
           {
             "id": "a",
             "type": "text",
-            "content": "3",
+            "content": "4",
             "codeLanguage": null
           },
           {
             "id": "b",
             "type": "text",
-            "content": "4",
+            "content": "3",
             "codeLanguage": null
           },
           {
@@ -1913,24 +1913,24 @@
       {
         "id": "q53",
         "type": "multiple_choice",
-        "questionText": "53. What will be the output of the following Python code?\n car = {\n   \"brand\": \"Ford\",\n   \"model\": \"Mustang\",\n   \"year\": 1964\n }\n y = car.keys()\n car[\"color\"] = \"red\"\n print(len(y))",
+        "questionText": "53. What will be the output of the following Python code?\ncar = {\n\"brand\": \"Ford\",\n\"model\": \"Mustang\",\n\"year\": 1964\n}\ny = car.keys()\ncar[\"color\"] = \"red\" y sees the dict changes\nprint(len(y))",
         "options": [
           {
             "id": "a",
-            "type": "text",
-            "content": "4",
-            "codeLanguage": null
-          },
-          {
-            "id": "b",
             "type": "text",
             "content": "3",
             "codeLanguage": null
           },
           {
-            "id": "c",
+            "id": "b",
             "type": "text",
             "content": "6",
+            "codeLanguage": null
+          },
+          {
+            "id": "c",
+            "type": "text",
+            "content": "4",
             "codeLanguage": null
           },
           {
@@ -1940,9 +1940,9 @@
             "codeLanguage": null
           }
         ],
-        "correctAnswerId": "a",
+        "correctAnswerId": "c",
         "expectedAnswer": null,
-        "explanation": "`car.keys()` returns a live view of the dictionary keys. After `car[\"color\"] = \"red\"`, the view includes the new key, so `len(y)` is 4.",
+        "explanation": "`dict.keys()` reflects live changes; after adding `color`, there are four keys.",
         "relatedTopics": [
           "be-2"
         ]
@@ -1950,7 +1950,7 @@
       {
         "id": "q54",
         "type": "multiple_choice",
-        "questionText": "54. To add items from another set to the current set we use ______ method, while to append items from another list to the current list we use ______.",
+        "questionText": "54. To add items from another set to the current set we use ____ method, while to append items from another list to the current list we use ____ method.",
         "options": [
           {
             "id": "a",
@@ -1979,7 +1979,7 @@
         ],
         "correctAnswerId": "c",
         "expectedAnswer": null,
-        "explanation": "Sets use the `update()` method to absorb elements from an iterable, whereas lists use the `extend()` method to append elements from another iterable.",
+        "explanation": "Sets use `update()`; lists use `extend()` when adding from another collection.",
         "relatedTopics": [
           "be-2"
         ]
@@ -1987,12 +1987,12 @@
       {
         "id": "q55",
         "type": "multiple_choice",
-        "questionText": "55. To make a copy of a dictionary, we can use",
+        "questionText": "55. To make a copy of a dictionary, we can use ____ method.",
         "options": [
           {
             "id": "a",
             "type": "text",
-            "content": "copy()",
+            "content": "Copy()",
             "codeLanguage": null
           },
           {
@@ -2004,7 +2004,7 @@
           {
             "id": "c",
             "type": "text",
-            "content": "Both a and b",
+            "content": "a. and b.",
             "codeLanguage": null
           },
           {
@@ -2016,7 +2016,7 @@
         ],
         "correctAnswerId": "c",
         "expectedAnswer": null,
-        "explanation": "You can duplicate a dictionary safely either by using its built-in `.copy()` method or by passing it to the `dict()` constructor.",
+        "explanation": "Both `copy()` and `dict()` can shallow-copy a dictionary.",
         "relatedTopics": [
           "be-2"
         ]
@@ -2061,7 +2061,7 @@
       {
         "id": "q57",
         "type": "multiple_choice",
-        "questionText": "57. External CSS style has the highest priority",
+        "questionText": "57. External CSS style has the highest priority\nInline > Internal > External > Browser Default",
         "options": [
           {
             "id": "a",
@@ -2101,7 +2101,7 @@
       {
         "id": "q58",
         "type": "multiple_choice",
-        "questionText": "58. The ______ HTTP request header specifies information about the software (browser) making the request.",
+        "questionText": "58. The ____ HTTP request header specifies information about the software (browser) making the request.",
         "options": [
           {
             "id": "a",
@@ -2144,7 +2144,7 @@
           {
             "id": "a",
             "type": "text",
-            "content": "{{name}} will be the output.",
+            "content": "{{ name }} will be the output.",
             "codeLanguage": null
           },
           {
@@ -2176,7 +2176,7 @@
       {
         "id": "q60",
         "type": "multiple_choice",
-        "questionText": "60. What is the output of the following JavaScript snippet?\n x = \"20\";\n y = 10;\n document.writeln(x + y, x - y);",
+        "questionText": "60. What is the output of the following JavaScript snippet?\nx = \"20\";\ny = \"10\";\ndocument.writeln(x+y, x-y);\nIn Addition strs are type casted into strs\nIn Subtraction strs are type casted into ints",
         "options": [
           {
             "id": "a",
@@ -2193,19 +2193,19 @@
           {
             "id": "c",
             "type": "text",
-            "content": "2010, 10",
+            "content": "2010, NAN",
             "codeLanguage": null
           },
           {
             "id": "d",
             "type": "text",
-            "content": "201010",
+            "content": "2010, 10",
             "codeLanguage": null
           }
         ],
-        "correctAnswerId": "c",
+        "correctAnswerId": "d",
         "expectedAnswer": null,
-        "explanation": "`x` is the string `\"20\"`. With `+`, JavaScript concatenates: `\"20\" + 10` → `\"2010\"`. With `-`, it coerces to numbers: `20 - 10` → `10`. `document.writeln` prints both values: `2010, 10`.",
+        "explanation": "With string operands, `+` concatenates to `2010` and `-` coerces to numbers giving `10`.",
         "relatedTopics": [
           "fe-5"
         ]
@@ -2218,25 +2218,25 @@
           {
             "id": "a",
             "type": "text",
-            "content": "<a>www.google.com<google/a>",
+            "content": "<a>www.google.com</a>",
             "codeLanguage": null
           },
           {
             "id": "b",
             "type": "text",
-            "content": "<a href=\"www.google.com\" google />a>",
+            "content": "<a href=\"www.google.com\" google</a>",
             "codeLanguage": null
           },
           {
             "id": "c",
             "type": "text",
-            "content": "<a href=\"www.google.com\"> google </a>",
+            "content": "<a href=\"www.google.com\"> google</a>",
             "codeLanguage": null
           },
           {
             "id": "d",
             "type": "text",
-            "content": "<a link=\"www.google.com\" google </a>",
+            "content": "<a link=\"www.google.com\"> google </a>",
             "codeLanguage": null
           }
         ],
@@ -2255,13 +2255,13 @@
           {
             "id": "a",
             "type": "text",
-            "content": "For creating different styles",
+            "content": "For creating different sections",
             "codeLanguage": null
           },
           {
             "id": "b",
             "type": "text",
-            "content": "For creating different sections",
+            "content": "For creating different styles",
             "codeLanguage": null
           },
           {
@@ -2310,7 +2310,7 @@
           {
             "id": "d",
             "type": "text",
-            "content": "<body style=\"background-color green\">",
+            "content": "<body style=\"background-color: green;\">",
             "codeLanguage": null
           }
         ],
@@ -2325,24 +2325,24 @@
       {
         "id": "q64",
         "type": "multiple_choice",
-        "questionText": "64. If you have the following JavaScript statement:\nconst f = (a, b) a + b + 5;",
+        "questionText": "64. If you have the following JavaScript statement: const f = (a, b) => a + b + 5;",
         "options": [
           {
             "id": "a",
             "type": "text",
-            "content": "(4,5) will return 9",
+            "content": "f(3,4) will return 7",
             "codeLanguage": null
           },
           {
             "id": "b",
             "type": "text",
-            "content": "(3,4) will return 75",
+            "content": "f(4,5) will return 9",
             "codeLanguage": null
           },
           {
             "id": "c",
             "type": "text",
-            "content": "(4,5) will return 14",
+            "content": "f(4,5) will return 14",
             "codeLanguage": null
           },
           {
@@ -2368,7 +2368,7 @@
           {
             "id": "a",
             "type": "text",
-            "content": "myNumbers.map((value) => value * 4);",
+            "content": "myNumbers.map((value) => value * 4); The map method takes a function as a parameter",
             "codeLanguage": null
           },
           {
@@ -2400,7 +2400,7 @@
       {
         "id": "q66",
         "type": "multiple_choice",
-        "questionText": "66. To select items that are less than 10 from an array of numbers (named myNumbers), the following is a correct syntax to do it:",
+        "questionText": "66. To keep numbers that are less than 10 from an array of numbers (named myNumbers), the following is a correct syntax to do it:",
         "options": [
           {
             "id": "a",
@@ -2411,7 +2411,7 @@
           {
             "id": "b",
             "type": "text",
-            "content": "myNumbers.filter((value) => value < 10);",
+            "content": "myNumbers.filter((value) => value < 10); The filter method takes a function as a parameter",
             "codeLanguage": null
           },
           {
@@ -2437,7 +2437,7 @@
       {
         "id": "q67",
         "type": "multiple_choice",
-        "questionText": "67. var colors = (1:\"red\", 2:\"green\", 3:\"blue\") is one of the ways of defining an array in JavaScript?",
+        "questionText": "67. var colors = {1:\"red\", 2:\"green\", 3: \"blue\"} is one of the ways of defining an array in JavaScript?",
         "options": [
           {
             "id": "a",
@@ -2462,7 +2462,7 @@
       {
         "id": "q68",
         "type": "multiple_choice",
-        "questionText": "68. In the following statement: myNumbers = [1, 2, 3]\n x = myNumbers.pop()\n The removed item will be 1",
+        "questionText": "68. In the following statement: myNumbers = [1, 2, 3]; x = myNumbers.pop(); Removes last element\nThe removed item will be 1",
         "options": [
           {
             "id": "a",
@@ -2487,7 +2487,7 @@
       {
         "id": "q69",
         "type": "multiple_choice",
-        "questionText": "69. In the following statement: myNumbers = [1, 2, 3]\n x = myNumbers.pop()\n The removed item will be 3",
+        "questionText": "69. In the following statement: myNumbers = [1, 2, 3]; x = myNumbers.pop();\nThe removed item will be 3",
         "options": [
           {
             "id": "a",
@@ -2512,7 +2512,7 @@
       {
         "id": "q70",
         "type": "multiple_choice",
-        "questionText": "70. In Python, the value of bool([]) is False?",
+        "questionText": "70. In Python, the value of [] is False?",
         "options": [
           {
             "id": "a",
@@ -2587,7 +2587,7 @@
       {
         "id": "q73",
         "type": "multiple_choice",
-        "questionText": "73. def f(**person):\n print(\"Person's name is \" + person[\"name\"])\n f(name=\"Ahmed\", age=10)\n The above statement will return:",
+        "questionText": "73. def f(**person):\nprint(\"Person's name is \" + person[\"name\"]) kwargs are sent as a dictionary\nf(name=\"Ahmed\", age=10)\nThe above statement will return:",
         "options": [
           {
             "id": "a",
@@ -2624,7 +2624,7 @@
       {
         "id": "q74",
         "type": "multiple_choice",
-        "questionText": "74. y = lambda x: x / 20\n print(y(100))\n The above statement will return:",
+        "questionText": "74. y = lambda x : x / 20\nprint(y(100))\nThe above statement will return:",
         "options": [
           {
             "id": "a",
@@ -2647,13 +2647,13 @@
           {
             "id": "d",
             "type": "text",
-            "content": "y(100)",
+            "content": "5.0 Should be 5.0 since Python type casts results of division to float by default",
             "codeLanguage": null
           }
         ],
-        "correctAnswerId": "c",
+        "correctAnswerId": "d",
         "expectedAnswer": null,
-        "explanation": "The lambda expression binds an anonymous function to `y`. Passing 100 sets `x = 100`. The calculation `100 / 20` outputs `5.0` (which generally matches option C representing 5).",
+        "explanation": "Division in Python 3 returns a float: `100 / 20` is `5.0`.",
         "relatedTopics": [
           "be-2"
         ]
@@ -2661,7 +2661,7 @@
       {
         "id": "q75",
         "type": "multiple_choice",
-        "questionText": "75. In the following Python statements:\n if 1>2:\n print(\"One is less than Two!\")\n print(\"One is less than Two!\")",
+        "questionText": "75. In the following Python statements:\nif 1 < 2:\nprint(\"One is less than Two!\") Notice the incorrect indentation between the 2 print functions\nprint(\"One is less than Two!\")\nOne is less than Two!",
         "options": [
           {
             "id": "a",
@@ -2678,7 +2678,7 @@
           {
             "id": "c",
             "type": "text",
-            "content": "The output will be: One is less than Two! One is less than Two!",
+            "content": "The output will be: One is less than Two!",
             "codeLanguage": null
           },
           {
@@ -2698,7 +2698,7 @@
       {
         "id": "q76",
         "type": "multiple_choice",
-        "questionText": "76. The output of the following statement in python is:\n x = \"My Lovely Bird!\"\n print(x[:7])",
+        "questionText": "76. The output of the following statement in python is:\nSlicing won't throw Error if out of bounds\nx = \"My Lovely Bird!\"\nprint(x[:7])",
         "options": [
           {
             "id": "a",
@@ -2735,7 +2735,7 @@
       {
         "id": "q77",
         "type": "multiple_choice",
-        "questionText": "77. The output of the following statement in python is:\n x = \"My Lovely Bird!\"\n print(x[-7:])",
+        "questionText": "77. The output of the following statement in python is:\nx = \"My Lovely Bird!\"\nprint(x[7:])",
         "options": [
           {
             "id": "a",
@@ -2772,24 +2772,24 @@
       {
         "id": "q78",
         "type": "multiple_choice",
-        "questionText": "78. What will be the output of this JavaScript code?\n const myArr = [1, 2, [3, [4, 5, 6], 7], 8];\n const newArr = myArr.flat();\n document.writeln(newArr);",
+        "questionText": "78. What will be the output of this JavaScript code?\nconst myArr = [1, 2, [3, [4, 5, 6], 7], 8];\nconst newArr = myArr.flat();\ndocument.writeln(newArr);",
         "options": [
           {
             "id": "a",
-            "type": "text",
-            "content": "1,2,3,14,5,61,7,8",
-            "codeLanguage": null
-          },
-          {
-            "id": "b",
             "type": "text",
             "content": "1,2,3,[4,5,6],7,8",
             "codeLanguage": null
           },
           {
-            "id": "c",
+            "id": "b",
             "type": "text",
             "content": "1,2,3,4,5,6,7,8",
+            "codeLanguage": null
+          },
+          {
+            "id": "c",
+            "type": "text",
+            "content": "1,2,[3,[4,5,6],7],8",
             "codeLanguage": null
           },
           {
@@ -2813,7 +2813,7 @@
     "topic": "HTML Document Parsing - Snippet 1",
     "context": {
       "text": "Based on the following HTML page, answer the following questions:",
-      "code": "<!DOCTYPE html>\n<html>\n<head>\n</head>\n<body>\n<h2 id=\"id1\">Hello World</h2>\n<p>Welcome</p>\n<div>\n<p>Paragraph 1.</p>\n<p>Paragraph 2.</p>\n<section><p>Paragraph 3.</p></section>\n</div>\n<p>Paragraph 4.</p>\n<p>Paragraph 5.</p>\n<script>\nconst my=document.getElementsByTagName(\"p\");\ndocument.getElementById(\"id1\").innerHTML = my.length;\n</script>\n</body>\n</html>",
+      "code": "<!DOCTYPE html>\n<html>\n<head>\n</head>\n<body>\n<h2 id=\"id1\">Hello World</h2>\n<p>Welcome</p>\n<div>\n<p>Paragraph 1.</p>\n<p>Paragraph 2.</p>\n<section><p>Paragraph 3.</p></section>\n</div>\n<p>Paragraph 4.</p>\n<p>Paragraph 5.</p>\n<script>\nconst my = document.getElementsByTagName(\"p\");\ndocument.getElementById(\"id1\").innerHTML = my.length;\n</script>\n</body>\n</html>",
       "codeLanguage": "html",
       "image": {
         "url": null,
@@ -2824,24 +2824,24 @@
       {
         "id": "q79",
         "type": "multiple_choice",
-        "questionText": "79. To get the value of the text node of the h2 element node, you can use document.getElementById(\"id1\").innerHTML which is equivalent to",
+        "questionText": "79. To get the value of the text node of the h2 element node, you can use",
         "options": [
           {
             "id": "a",
             "type": "text",
-            "content": "document.getElementById(\"id1\").text",
+            "content": "document.getElementById(\"id1\").innerHTML which is equivalent to document.getElementById(\"id1\").firstChild.nodeValue;",
             "codeLanguage": null
           },
           {
             "id": "b",
             "type": "text",
-            "content": "document.getElementById(\"id1\").firstChild.nodeValue",
+            "content": "document.getElementById(\"id1\").text;",
             "codeLanguage": null
           },
           {
             "id": "c",
             "type": "text",
-            "content": "document.getElementById(\"id1\").nodeValue",
+            "content": "document.getElementById(\"id1\").nodeValue; Any element that accepts text inside it always has a text node inside, here this node is accessed using firstChild, then nodeValue accessed the contents of this node which is the text",
             "codeLanguage": null
           },
           {
@@ -2851,9 +2851,9 @@
             "codeLanguage": null
           }
         ],
-        "correctAnswerId": "b",
+        "correctAnswerId": "d",
         "expectedAnswer": null,
-        "explanation": "Because `<h2>` strictly encapsulates text, the immediate `firstChild` is the underlying Text Node itself. Targeting `.nodeValue` directly on the text node retrieves the same string as `innerHTML`.",
+        "explanation": "Accessing the text node uses `firstChild.nodeValue`; the listed shortcuts are incorrect.",
         "relatedTopics": [
           "fe-3"
         ]
@@ -2878,7 +2878,7 @@
           {
             "id": "c",
             "type": "text",
-            "content": "5",
+            "content": "6 The answer is 6 since we have 6 p elements and we changed the contents of id1 in the script tag",
             "codeLanguage": null
           },
           {
@@ -2888,9 +2888,9 @@
             "codeLanguage": null
           }
         ],
-        "correctAnswerId": "d",
+        "correctAnswerId": "c",
         "expectedAnswer": null,
-        "explanation": "The script sets `document.getElementById('id1').innerHTML = my.length`. The HTML contains 6 `<p>` elements (Welcome, Paragraph 1, 2, 3, 4, 5), so `my.length = 6` and the `<h2>` displays `'6'`. Since `'6'` does not match any of the listed options (a, b, or c), the answer is d — None of the above.",
+        "explanation": "The script writes the paragraph count (6) into the `h2` element.",
         "relatedTopics": [
           "fe-3"
         ]
@@ -2927,7 +2927,7 @@
         ],
         "correctAnswerId": "c",
         "expectedAnswer": null,
-        "explanation": "Extracting elements by tag name `p` queries the entire DOM. Based on the HTML markup, there are precisely six `<p>` elements: one introductory, two in the div, one in the section, and two trailing.",
+        "explanation": "Six `<p>` elements exist in the page, so the collection length is 6.",
         "relatedTopics": [
           "fe-3"
         ]
@@ -2935,7 +2935,7 @@
       {
         "id": "q82",
         "type": "multiple_choice",
-        "questionText": "82. By using this CSS selector div > p { color: red; }, how many p elements will be styled?",
+        "questionText": "82. By using this CSS selector div > p { color: red; }, how many p elements will be styled?\nDirect Children",
         "options": [
           {
             "id": "a",
@@ -2973,7 +2973,7 @@
       {
         "id": "q83",
         "type": "multiple_choice",
-        "questionText": "83. By using this CSS selector div ~ p { color: blue; }, the number of p elements that will be styled is",
+        "questionText": "83. By using this CSS selector div ~ p { color: blue; }, the number of p elements that will be styled is\nAny sibling",
         "options": [
           {
             "id": "a",
@@ -3015,25 +3015,25 @@
           {
             "id": "a",
             "type": "text",
-            "content": "1",
+            "content": "Element node",
             "codeLanguage": null
           },
           {
             "id": "b",
             "type": "text",
-            "content": "3",
+            "content": "1",
             "codeLanguage": null
           },
           {
             "id": "c",
             "type": "text",
-            "content": "Element node",
+            "content": "Text node",
             "codeLanguage": null
           },
           {
             "id": "d",
             "type": "text",
-            "content": "Text node",
+            "content": "3",
             "codeLanguage": null
           }
         ],
@@ -3051,7 +3051,7 @@
     "topic": "CSS Selectors and HTML Parsing - Snippet 2",
     "context": {
       "text": "Based on the following HTML page, answer the following questions",
-      "code": "<!DOCTYPE html>\n<html>\n<head>\n<style>\na[target=_blank] {\nbackground-color: yellow;\n}\np:first-child {color: red;}\n</style>\n</head>\n<body>\n<h2>CSS Selector</h2>\n<p>Hello I am Here:</p>\n<p>Hello I am Here: Paragraph 2</p>\n<p> Hello I am Here: P3</p>\n<a href=\"https://www.w3schools.com\">w3schools.com</a>\n<a href=\"http://www.disney.com\" target=\"_blank\">disney.com</a>\n<a href=\"http://www.wikipedia.org\" target=\"_top\">wikipedia.org</a>\n</body>\n</html>",
+      "code": "<!DOCTYPE html>\n<html>\n<head>\n<style>\na[target=_blank] {\nbackground-color: yellow;\n}\np:first-child { color: red; }\n</style>\n</head>\n<body>\n<h2>CSS Selector</h2>\n<p>Hello I am Here: P1</p>\n<p>Hello I am Here: Paragraph 2</p>\n<p>Hello I am Here: P3</p>\n<a href=\"https://www.w3schools.com\">w3schools.com</a>\n<a href=\"http://www.disney.com\" target=\"_blank\">disney.com</a>\n<a href=\"http://www.wikipedia.org\" target=\"_top\">wikipedia.org</a>\n</body>\n</html>",
       "codeLanguage": "html",
       "image": {
         "url": null,
@@ -3099,7 +3099,7 @@
       {
         "id": "q86",
         "type": "multiple_choice",
-        "questionText": "86. By using p:first-child {color:red;}, the number of elements that will be styled",
+        "questionText": "86. By using p:first-child { color:red; }, the number of elements that will be styled",
         "options": [
           {
             "id": "a",
@@ -3122,13 +3122,13 @@
           {
             "id": "d",
             "type": "text",
-            "content": "None of the above",
+            "content": "None of the above No p element has a child",
             "codeLanguage": null
           }
         ],
         "correctAnswerId": "d",
         "expectedAnswer": null,
-        "explanation": "The `:first-child` selector strictly highlights the `<p>` ONLY if it is the absolute first child of its parent. Under the `<body>`, the first child is actually the `<h2>` tag. Since no `<p>` is positioned as a first child anywhere, 0 elements are styled.",
+        "explanation": "No `<p>` element is the first child of its parent, so none match `:first-child`.",
         "relatedTopics": [
           "fe-4"
         ]
@@ -3141,25 +3141,25 @@
           {
             "id": "a",
             "type": "text",
-            "content": "a[target] {background-color: yellow;}",
+            "content": "a[target] { background-color: yellow; }",
             "codeLanguage": null
           },
           {
             "id": "b",
             "type": "text",
-            "content": "a.all{background-color: yellow;}",
+            "content": "a.all { background-color: yellow; }",
             "codeLanguage": null
           },
           {
             "id": "c",
             "type": "text",
-            "content": "a[target=_blank, target=_top] { background-color: yellow }",
+            "content": "a[target=_blank, target=_top] { background-color: yellow; }",
             "codeLanguage": null
           },
           {
             "id": "d",
             "type": "text",
-            "content": "a {background-color: yellow;}",
+            "content": "a { background-color: yellow; }",
             "codeLanguage": null
           }
         ],
@@ -3178,25 +3178,25 @@
           {
             "id": "a",
             "type": "text",
-            "content": "a:hover {background-color: yellow;}",
+            "content": "a:hover { background-color: yellow; }",
             "codeLanguage": null
           },
           {
             "id": "b",
             "type": "text",
-            "content": "a::hover {background-color: yellow;}",
+            "content": "a::hover { background-color: yellow; }",
             "codeLanguage": null
           },
           {
             "id": "c",
             "type": "text",
-            "content": "a:link {background-color: yellow;}",
+            "content": "a:link { background-color: yellow; }",
             "codeLanguage": null
           },
           {
             "id": "d",
             "type": "text",
-            "content": "a:active {background-color: yellow;}",
+            "content": "a:active { background-color: yellow; }",
             "codeLanguage": null
           }
         ],
@@ -3210,7 +3210,7 @@
       {
         "id": "q89",
         "type": "multiple_choice",
-        "questionText": "89. href is a/an ________ while \"_blank\" is a ________",
+        "questionText": "89. href is a/an ____ while \"_blank\" is a ____",
         "options": [
           {
             "id": "a",
@@ -3248,7 +3248,7 @@
       {
         "id": "q90",
         "type": "multiple_choice",
-        "questionText": "90. The hyperlink <a href=\"https://w3schools.com\"> is an example of a/an ________ URL, while <a href=\"Page2.html\"> is an example of a/an ________ URL.",
+        "questionText": "90. The hyperlink <a href=\"https://w3schools.com\">...</a> is an example of a/an ____ URL, while <a href=\"Page2.html\">...</a> is an example of a/an ____ URL.",
         "options": [
           {
             "id": "a",

@@ -517,7 +517,7 @@
       {
         "id": "q21",
         "type": "multiple_choice",
-        "questionText": "21. In the following statement: myNumbers = [1,2,3]\n x = myNumbers.pop()\n The removed item will be 1.",
+        "questionText": "21. In the following statement: myNumbers =[1,2,3]\nx = myNumbers.pop()\nThe removed item will be 1.",
         "options": [
           {
             "id": "true",
@@ -542,7 +542,7 @@
       {
         "id": "q22_23a",
         "type": "multiple_choice",
-        "questionText": "22. In the following statement: myNumbers = [1,2,3]\n x = myNumbers.pop()\n The removed item will be 3.",
+        "questionText": "22. In the following statement: myNumbers =[1,2,3]\nx = myNumbers.pop()\nThe removed item will be 3.",
         "options": [
           {
             "id": "true",
@@ -642,7 +642,7 @@
       {
         "id": "q26",
         "type": "multiple_choice",
-        "questionText": "26. The output of the following statements is Hello, My\n b= \"Hello, My Friend\"\n Print (b [:8])",
+        "questionText": "26. The output of the following statements is Hello, My\nb= \"Hello, My Friend\"\nPrint (b [:8])",
         "options": [
           {
             "id": "true",
@@ -692,7 +692,7 @@
       {
         "id": "q28",
         "type": "multiple_choice",
-        "questionText": "28. The output of the following Python statements is ['a', 'b', 'C']\n X=['C','b','a']\n X.sort()\n Print(X)",
+        "questionText": "28. The output of the following Python statements is ['a', 'b', 'C']\nX=['C','b','a']\nX.sort()\nPrint(X)",
         "options": [
           {
             "id": "true",
@@ -793,7 +793,7 @@
       {
         "id": "q32",
         "type": "multiple_choice",
-        "questionText": "32. The output of the following Python statements is ['a', 'b', 'c']\n X=['C','b','A']\n X.sort(key=str.lower)\n Print(X)",
+        "questionText": "32. The output of the following Python statements is ['a', 'b', 'c']\nX=['C','b','A']\nX.sort(key = str.lower)\nPrint(X)",
         "options": [
           {
             "id": "true",
@@ -997,7 +997,7 @@
       {
         "id": "q38",
         "type": "multiple_choice",
-        "questionText": "38. In the following function:\n function multiply(...myNumbers) {\n let total = 1\n for (let myNumber of myNumbers) total *= myNumber;\n return total; }\n The \"...\" will:",
+        "questionText": "38. In the following function:\nfunction multiply(...myNumbers) {\nlet total = 1;\nfor (let myNumber of myNumbers) total *= myNumber;\nreturn total; }\nThe \"...\" will:",
         "options": [
           {
             "id": "a",
@@ -1108,7 +1108,7 @@
       {
         "id": "q41",
         "type": "multiple_choice",
-        "questionText": "41. What is the result of running the following code in strict mode?\n x=10;\n console.log(x);",
+        "questionText": "41. What is the result of running the following code in strict mode?\nx=10;\nconsole.log(x);",
         "options": [
           {
             "id": "a",
@@ -1256,12 +1256,12 @@
       {
         "id": "q45",
         "type": "multiple_choice",
-        "questionText": "45. What will the following JavaScript code log?\n const obj = {a: 1, b: 2 };\n delete obj.a;\n console.log(obj)",
+        "questionText": "45. What will the following JavaScript code log?\nconst obj = {a: 1, b: 2 };\ndelete obj.a;\nconsole.log(obj)",
         "options": [
           {
             "id": "a",
             "type": "text",
-            "content": "{b:2}",
+            "content": "{b: 2}",
             "codeLanguage": null
           },
           {
@@ -1558,7 +1558,7 @@
     "topic": "DOM and CSS Selectors Analysis",
     "context": {
       "text": "Based on the following HTML page, answer questions from (53-58)",
-      "code": "<html>\n<head>\n</head>\n<body>\n<h2 id=\"id1\">Welcome to my page</h2>\n<p>Wel.come</p>\n<div>\n<p>Paragraph 1 </p>\n<p>Paragraph 2 </p>\n<section>\n<p>Paragraph 3 </p>\n</section>\n<p>Paragraph 4 </p>\n</div>\n<p class=\"center\">Paragraph 5</p>\n<h1 class=\"center\"> Hello Again </h1>\n<p class=\"large\">Paragraph 6. </p>\n</body>\n</html>",
+      "code": "<html>\n<head>\n</head>\n<body>\n<h2 id=\"id1\">Welcome to my page</h2>\n<p>Welcome</p>\n<div>\n<p>Paragraph 1 </p>\n<p>Paragraph 2 </p>\n<section>\n<p>Paragraph 3 </p>\n</section>\n<p>Paragraph 4 </p>\n</div>\n<p class=\"center\">Paragraph 5</p>\n<h1 class=\"center\"> Hello Again </h1>\n<p class=\"large\">Paragraph 6. </p>\n</body>\n</html>",
       "codeLanguage": "html",
       "image": {
         "url": null,
@@ -1586,7 +1586,7 @@
           {
             "id": "c",
             "type": "text",
-            "content": "text",
+            "content": "#text",
             "codeLanguage": null
           },
           {
@@ -1596,9 +1596,9 @@
             "codeLanguage": null
           }
         ],
-        "correctAnswerId": "d",
+        "correctAnswerId": "c",
         "expectedAnswer": null,
-        "explanation": "The `firstChild` of `<h2 id=\"id1\">` is the text node for \"Welcome to my page\". In the DOM, `nodeName` on a text node returns `\"#text\"` (with a `#` prefix). The exam option listed `text` without that `#`, which is not the same as the actual output. Options `a` (1) and `b` (2) are node-type numbers, not names. None of the listed answers match.",
+        "explanation": "The `firstChild` of `<h2 id=\"id1\">` is the text node containing \"Welcome to my page\". For a text node, `nodeName` returns `#text`.",
         "relatedTopics": [
           "fe-3"
         ]
@@ -1754,7 +1754,7 @@
       {
         "id": "q58",
         "type": "multiple_choice",
-        "questionText": "58. If we wrote \"var x=document.getElementsByTagName(\"p\")\" inside a script tag, then the length of x will be:",
+        "questionText": "58. If we wrote \"var x=document.getElementsByTagName('p')\" inside a script tag, then the length of x will be:",
         "options": [
           {
             "id": "a",
@@ -1783,7 +1783,7 @@
         ],
         "correctAnswerId": "d",
         "expectedAnswer": null,
-        "explanation": "Let's count the `<p>` tags: 'Wel.come', 'Paragraph 1', 'Paragraph 2', 'Paragraph 3', 'Paragraph 4', 'Paragraph 5', 'Paragraph 6'. That makes 7 `<p>` tags. Since 7 is not listed in options a, b, or c, the answer is None of the previous.",
+        "explanation": "Counting the `<p>` elements in the HTML page: Welcome, Paragraph 1, Paragraph 2, Paragraph 3, Paragraph 4, Paragraph 5, and Paragraph 6 gives 7 tags. Since 7 is not listed in options a, b, or c, the answer is None of the previous.",
         "relatedTopics": [
           "fe-3"
         ]
@@ -1943,7 +1943,7 @@
           {
             "id": "b",
             "type": "text",
-            "content": "py manage, py start-django my_tennis_club",
+            "content": "py manage.py start-django my_tennis_club",
             "codeLanguage": null
           },
           {
@@ -2043,12 +2043,12 @@
       {
         "id": "q65",
         "type": "multiple_choice",
-        "questionText": "65. In the following Python Statements:\n Y={1,1,2,3,3,5}\n print(Y)\n The output will be:",
+        "questionText": "65. In the following Python Statements:\nY={1,1,2,3,3,5}\nprint(Y)\nThe output will be:",
         "options": [
           {
             "id": "a",
             "type": "text",
-            "content": "1,1,2,3,3,5)",
+            "content": "{1,1,2,3,3,5}",
             "codeLanguage": null
           },
           {
@@ -2060,7 +2060,7 @@
           {
             "id": "c",
             "type": "text",
-            "content": "1,2,3,5)",
+            "content": "{1,2,3,5}",
             "codeLanguage": null
           },
           {
@@ -2070,9 +2070,9 @@
             "codeLanguage": null
           }
         ],
-        "correctAnswerId": "d",
+        "correctAnswerId": "c",
         "expectedAnswer": null,
-        "explanation": "The output of printing that set will be strictly formatted as `{1, 2, 3, 5}` in Python. Since sets eliminate duplicates, it resolves to 1,2,3,5. None of the formatted strings in options A, B, or C exactly match Python's output syntax.",
+        "explanation": "`Y` is a set, so duplicate values are removed. `print(Y)` outputs `{1, 2, 3, 5}` (spacing may vary), which matches option c.",
         "relatedTopics": [
           "be-2"
         ]
@@ -2117,7 +2117,7 @@
       {
         "id": "q67",
         "type": "multiple_choice",
-        "questionText": "67. What will be the output of the following Python code?\n car= {\n \"brand\": \"Ford\",\n \"model\": \"Mustang\",\n \"year\": 1964\n }\n y= car[\"color\"] = \"red\"\n print(len(y))",
+        "questionText": "67. What will be the output of the following Python code?\ncar= {\n\"brand\": \"Ford\",\n\"model\": \"Mustang\",\n\"year\": 1964\n}\ny= car.get(\"color\", \"red\")\nprint(len(y))",
         "options": [
           {
             "id": "a",
@@ -2146,7 +2146,7 @@
         ],
         "correctAnswerId": "a",
         "expectedAnswer": null,
-        "explanation": "The chained assignment `y = car[\"color\"] = \"red\"` creates a new key 'color' with value 'red' and assigns the string 'red' to `y`. The length of the string 'red' is 3.",
+        "explanation": "`car.get(\"color\", \"red\")` returns the default string `\"red\"` because `color` is not in the dictionary. `len(\"red\")` is 3.",
         "relatedTopics": [
           "be-2"
         ]
@@ -2154,7 +2154,7 @@
       {
         "id": "q68",
         "type": "multiple_choice",
-        "questionText": "68. What will be the output of the following Java Script code snippet?\n function test(...args) {\n document.write(typeof(args));\n }\n test(12);",
+        "questionText": "68. What will be the output of the following Java Script code snippet?\nfunction test(...args) {\ndocument.write(typeof(args));\n}\ntest(12);",
         "options": [
           {
             "id": "a",
@@ -2230,7 +2230,7 @@
       {
         "id": "q70",
         "type": "multiple_choice",
-        "questionText": "70. What will be the output of the following python code?\n newtuple = (1,2,3,4)\n (*k,) = newtuple\n Print(k)",
+        "questionText": "70. What will be the output of the following python code?\nnewtuple = (1,2,3,4)\n(*k,) = newtuple\nPrint(k)",
         "options": [
           {
             "id": "a",
@@ -2267,7 +2267,7 @@
       {
         "id": "q71",
         "type": "multiple_choice",
-        "questionText": "71. What will be the output of the following Python code?\n newtuple=(1,2,3)\n (x, *k, y, z, m) = newtuple\n Print(k)",
+        "questionText": "71. What will be the output of the following Python code?\nnewtuple=(1,2,3)\n(x, *k, y, z, m) = newtuple\nPrint(k)",
         "options": [
           {
             "id": "a",
@@ -2304,7 +2304,7 @@
       {
         "id": "q72",
         "type": "multiple_choice",
-        "questionText": "72. Identify the error in this CSS code:\n .class { color: blue; font-weight; bold; }",
+        "questionText": "72. Identify the error in this CSS code:\n.class { color: blue; font-weight; bold; }",
         "options": [
           {
             "id": "a",
@@ -2415,7 +2415,7 @@
       {
         "id": "q75",
         "type": "multiple_choice",
-        "questionText": "75. In the following Python statements:\n Y=set((\"a\",\"b\",\"c\"))\n Print(y)\n The output will be:",
+        "questionText": "75. In the following Python statements:\nY=set((\"a\",\"b\",\"c\"))\nPrint(y)\nThe output will be:",
         "options": [
           {
             "id": "a",
@@ -2452,7 +2452,7 @@
       {
         "id": "q76",
         "type": "multiple_choice",
-        "questionText": "76. In the following Python Statements:\n Y={1,1,2,3,3,5}\n print(Y)\n The output will be:",
+        "questionText": "76. In the following Python Statements:\nY={1,1,2,3,3,5}\nprint(Y)\nThe output will be:",
         "options": [
           {
             "id": "a",
@@ -2479,9 +2479,9 @@
             "codeLanguage": null
           }
         ],
-        "correctAnswerId": "d",
+        "correctAnswerId": "a",
         "expectedAnswer": null,
-        "explanation": "Python prints sets directly as `{1, 2, 3, 5}`. The older python 2 representation `set([1, 2, 3, 5])` is not completely standard in modern outputs. Regardless of syntax strictness, D is the safest choice given that the exact literal string output is just curly brackets.",
+        "explanation": "Printing a set removes duplicates. The printed representation is a set of the unique values 1, 2, 3, and 5, which matches `set([1,2,3,5])` in the exam options.",
         "relatedTopics": [
           "be-2"
         ]
@@ -2489,12 +2489,12 @@
       {
         "id": "q77",
         "type": "multiple_choice",
-        "questionText": "77. x = { \"name\": \"Ahmed\", \"id\": \"1\", \"mobile\": 123456789, \"mobile\": 987654321 }\n print(x)\n The above print will return:",
+        "questionText": "77. x={\n\"name\": \"Ahmed\",\n\"id\": \"1\",\n\"mobile\": 123456789,\n\"mobile\": 987654321\n}\nprint(x)\nThe above print will return:",
         "options": [
           {
             "id": "a",
             "type": "text",
-            "content": "{'name': 'Ahmed', 'id': '1', 'mobile': 123456789, 'mobile': 987654321 }.",
+            "content": "{'name': 'Ahmed', 'id': '1', 'mobile': 123456789, 'mobile': 987654321}.",
             "codeLanguage": null
           },
           {
@@ -2526,7 +2526,7 @@
       {
         "id": "q78",
         "type": "multiple_choice",
-        "questionText": "78. What is the output of the following JavaScript snippet?\n var writeMe=\"console.log('document.writeln(x);')\"\n var x=13\n eval(writeMe);",
+        "questionText": "78. What is the output of the following JavaScript snippet?\nvar writeMe=\"console.log('document.writeln(x);')\"\nvar x=13\neval(writeMe);",
         "options": [
           {
             "id": "a",
@@ -2563,7 +2563,7 @@
       {
         "id": "q79",
         "type": "multiple_choice",
-        "questionText": "79. What will be the output of this JavaScript code?\n const myArr =[1,2, [3, [4, 5, 6, 7], 8]];\n const newArr = myArr.flat (2);\n console.log(newArr);",
+        "questionText": "79. What will be the output of this JavaScript code?\nconst myArr =[1, 2, [3, [4, 5, 6, 7], 8]];\nconst newArr = myArr.flat(2);\nconsole.log(newArr);",
         "options": [
           {
             "id": "a",
@@ -2592,7 +2592,7 @@
         ],
         "correctAnswerId": "c",
         "expectedAnswer": null,
-        "explanation": "The `.flat(2)` method flattens an array up to a depth of 2. `[3, [4,5,6,7], 8]` is depth 1, `[4,5,6,7]` is depth 2. Everything flattens cleanly into `[1, 2, 3, 4, 5, 6, 7, 8]`. (Note: Array brackets corrected in question representation based on obvious intent).",
+        "explanation": "`.flat(2)` flattens nested arrays up to depth 2, producing `[1, 2, 3, 4, 5, 6, 7, 8]`.",
         "relatedTopics": [
           "fe-6"
         ]
@@ -2600,7 +2600,7 @@
       {
         "id": "q80",
         "type": "multiple_choice",
-        "questionText": "80. Consider the following async function and its output. What will be displayed to the console when calling the f() function?\n async function f() {\n let promise = new Promise((resolve, reject) => {\n console.log('first!');\n setTimeout(() => resolve('done!'), 1000);\n });\n let result = await promise;\n console.log(result);\n }\n f();",
+        "questionText": "80. Consider the following async function and its output. What will be displayed to the console when calling the f() function?\nasync function f() {\nlet promise = new Promise((resolve, reject) => {\nsetTimeout(() => resolve('done!'), 1000);\n});\nlet result = await promise;\nconsole.log(result);\n}\nf();\nconsole.log('first!');",
         "options": [
           {
             "id": "a",
@@ -2629,7 +2629,7 @@
         ],
         "correctAnswerId": "d",
         "expectedAnswer": null,
-        "explanation": "The function executes synchronously up to the await: it logs 'first!'. Then it pauses for 1 second, the promise resolves, and it logs the result 'done!'. Because it logs *both* strings in sequence and neither A nor B represents the complete console output, D is correct.",
+        "explanation": "`f()` starts the async function, then `console.log('first!')` runs immediately. After about one second the awaited promise resolves and `done!` is logged. Because both strings appear, the answer is Something else.",
         "relatedTopics": [
           "fe-6"
         ]

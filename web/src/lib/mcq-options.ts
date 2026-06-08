@@ -23,10 +23,11 @@ const PINNED_MCQ_PATTERNS: RegExp[] = [
 
 /** Options that refer to other choices by number or letter (e.g. "Both 1&2", "Both a and b"). */
 const POSITION_DEPENDENT_MCQ_PATTERNS: RegExp[] = [
-  /^both\s+[12]\s*(?:&|and)\s*[12]\s*\.?$/,
-  /^both\s+[ab]\s*(?:&|and)\s*[ab]\s*\.?$/,
+  /^both\s+[12]\s*(?:&|and)\s*[12]\b/,
+  /^both\s+[ab]\s+and\s+[ab]\b/,
   /^[12]\s*(?:&|and)\s*[12]\s*(?:only)?\.?$/,
   /^[ab]\s*(?:&|and)\s*[ab]\s*(?:only)?\.?$/,
+  /^[ab]\.\s+and\s+[ab]\.?$/,
 ];
 
 function normalizedOptionText(content: string): string {

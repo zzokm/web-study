@@ -16,7 +16,9 @@ function opt(content: string, id = "a"): QuestionOption {
 describe("isPositionDependentMcqOption", () => {
   it("detects numeric and letter combo options", () => {
     expect(isPositionDependentMcqOption(opt("Both 1&2"))).toBe(true);
+    expect(isPositionDependentMcqOption(opt("Both 1 & 2"))).toBe(true);
     expect(isPositionDependentMcqOption(opt("Both 1&2/"))).toBe(true);
+    expect(isPositionDependentMcqOption(opt("a. and b."))).toBe(true);
     expect(isPositionDependentMcqOption(opt("Both a and b"))).toBe(true);
     expect(isPositionDependentMcqOption(opt("Both A and B"))).toBe(true);
   });
@@ -42,7 +44,6 @@ describe("catalog position-dependent MCQ questions", () => {
     expect(affected).toEqual([
       "2021:block_8:q28",
       "2024:block_2:q38",
-      "2024:block_2:q39",
       "2024:block_2:q55",
     ]);
   });
@@ -72,7 +73,7 @@ describe("preparePracticeQuestions", () => {
       createSeededRandom(99)
     );
     expect(prepared.options.map((o) => o.id)).toEqual(["a", "b", "c", "d"]);
-    expect(prepared.options[2]?.content).toBe("Both 1&2");
+    expect(prepared.options[2]?.content).toBe("Both 1 & 2");
   });
 });
 

@@ -1,0 +1,738 @@
+Course Name: Web Technology
+Course Code: IS231
+Date: 06-June-2024
+Instructor(s): Dr. Neamat El-Tazi & Dr. Laila Esheiba
+Exam Duration: 2 Hours
+Total Marks: 60
+
+Final Exam
+
+PLEASE DELIVER THE EXAM PAPER WITH THE BUBBLE SHEET.
+For each of the following statements, choose the right answer and copy your answer in the bubble sheet:
+
+1. Django is based on which framework?
+a. MVC
+b. MVVM
+c. MVT Model View Template
+d. None of the previous
+
+2. For a model to be visible in the admin interface it has to be registered in which file?
+a. settings.py
+b. admin.py using admin.site.register(Model_name)
+c. views.py
+d. None of the previous
+
+3. Which of the following statement(s) is true about the JavaScript?
+a. It is a scripting language used to make the website interactive
+b. It is an advanced version of Java for Desktop and Mobile application development
+c. It is a markup language of Java to develop the webpages
+d. All of the above
+
+4. To perform programming logic in Django templates, you can use 'template tags', what is a correct syntax to start a 'for' loop?
+a. (for x in y)
+b. <% for x in y %>
+c. {% for x in y %}
+d. None of the previous
+
+5. What is a correct syntax for creating a Django project?
+a. django start my_tennis_club
+b. py manage.py start-django my_tennis_club
+c. django-admin startproject my_tennis_club
+d. None of the previous
+
+6. If you have a Django application named members, and a model named Member, what is a correct syntax to import the model?
+a. from members.models import Member
+b. import Member from members
+c. import members.Member
+d. None of the previous
+
+7. Which is the correct syntax to call an external JavaScript file in the current HTML document?
+a. <script src="jsfile.js"></script>
+b. <script href=" jsfile.js"></script>
+c. <import src=" jsfile.js"></import>
+d. <script link=" jsfile.js"></script>
+
+8. Which JavaScript method is used to access an HTML element by id?
+a. getElementById()
+b. getElement(id)
+c. getElementById(id)
+d. elementById(id)
+
+9. Which property is used to define the HTML content to an HTML element with a specific id?
+a. innerText
+b. innerContent
+c. element Text
+d. innerHTML a is wrong because we want to define the HTML content
+
+10. When you have done changes in a model in Django, which command has to be executed in order to make the changes take effect in the database?
+a. python manage.py runmigrations
+b. python manage.py executemigrations
+c. python manage.py makemigrations
+d. None of the previous
+
+11. Which JavaScript method is used to write on browser's console?
+a. console.write()
+b. console.output()
+c. console.log()
+d. console.writeHTML()
+
+12. Which JavaScript method is used to write into an alert box?
+a. window.alertHTML()
+b. window.alert()
+c. window.alertBox()
+d. window.alertContent()
+
+13. In HTML DOM, which of the following properties are read-only? In midterm April 2023
+a. nodeName
+b. nodeValue
+c. nodeName and nodeValue
+d. None of the previous
+
+14. Which is the correct syntax to declare a constant in JavaScript?
+a. const constant_name;
+b. constant name const;
+c. constant name const = value;
+d. const constant_name = value; You have to initialize any const
+
+15. What will be the output of this code?
+<script>
+const VALUE=10;
+VALUE=20;
+</script>
+a. 10
+b. 20
+c. ValueError
+d. TypeError Can't overwrite a const
+
+16. Can we use a function as a variable value?
+a. Yes
+b. No
+
+17. What will be the value of X?
+<script>
+var X=10;
+function myfunc()
+{
+let x=20;
+}
+document.write(X);
+</script>
+The function uses x not X. The function was never called. let is block scoped
+a. 20
+b. 10
+c. ValueError
+d. TypeError
+
+18. What is the output of the following JavaScript code?
+<script>
+var a=10+20+"5";
+document.getElementById("demo").innerHTML = a;
+</script>
+int + str results in conversion of the int to str then concatenating. Evaluate from left to write.
+a. 305
+b. 35
+c. TypeError
+d. ValueError
+
+19. What will be the output of the following JavaScript code?
+<script>
+var x = 1234;
+document.getElementById("test").innerHTML = typeof(x);
+</script>
+a. int
+b. float
+c. long
+d. number
+
+20. Which is the correct syntax to access an object property in JavaScript?
+a. objectName:propertyName
+b. objectName[propertyName]
+c. objectName["propertyName"]
+d. None of the previous
+
+21. What will be the output of the following JavaScript code?
+<script>
+var numbers = [1, 2, 3, 4];
+function myfunc(total, value) {
+return total + value;
+}
+var sum = numbers.reduce(myfunc, 2);
+</script>
+a. 10
+b. 7
+c. 9
+d. None of the previous Output is 12
+
+22. What will be the output of the following JavaScript code?
+<script>
+var numbers = [170, 50, 25];
+function myfunc(total, value) {
+return total - value;
+}
+var x = numbers.reduce(myfunc);
+document.write(x);
+</script>
+a. 100
+b. 245
+c. 95
+d. None of the previous
+
+23. "Expires: Tuesday, 17 Dec 2020 18:30 GMT" is a header denoting
+a. request, time-based caching
+b. response, content-based caching
+c. request, content-type caching
+d. response, time-based caching
+
+24. What will be the output of the following JavaScript code?
+<script>
+const arr = [10, 20, 30];
+let result = 0;
+arr.forEach(myFunction);
+document.write("Result: ", result);
+function myFunction(value, index, array) {
+result += value;
+}
+</script>
+a. Result: 102030
+b. Result: 60
+c. Result: 10,20,30
+d. ValueError
+
+25. What will be the output of the following JavaScript code?
+<script>
+const values = [10, 20, 30];
+const result = values.map(myFunction);
+document.write("Result: ", result);
+function myFunction(value, index, array) {
+return value * value;
+}
+</script>
+a. Result: 10,20,30
+b. Result: 10*10,20*20,30*30
+c. Result: 100,400,900
+d. Result: 100400900
+
+26. Which function is used to serialize an object into a JSON string in JavaScript?
+a. parse()
+b. convert()
+c. stringify()
+d. None of the previous
+
+27. In Python, ____ defines a block of statements.
+a. Block
+b. Loop
+c. Indentation
+d. None of the previous
+
+28. What will be the output of this JavaScript code?
+var numbers = [10, 20, 30];
+function myFunction(value, index, array) {
+return value > 10;
+}
+var y = numbers.find(myFunction);
+document.write(y);
+a. 20,30
+b. [20,30]
+c. 20
+d. None of the previous
+
+29. What will be the output of the following JavaScript code?
+<script>
+try {
+const cars = {
+company: "Honda",
+color: "white"
+};
+var x = "color";
+delete cars.company;
+document.write(cars.company);
+document.write(cars[x]);
+} catch (err){
+document.write(err.message);
+}
+</script>
+a. Honda undefined
+b. undefined white
+c. undefined color
+d. TypeError
+
+30. What will be the output of the following JavaScript code?
+<body>
+<p id="demo"></p>
+<script>
+let x = 10;
+let y = 20;
+let text = "x * y";
+let result = eval(text);
+document.getElementById("demo").innerHTML = result;
+</script>
+</body>
+</html>
+a. x * y
+b. "200"
+c. ValueError Should be int
+d. 200
+
+31. What will be the output of this JavaScript code?
+<script>
+var numbers = [10, 20, 30];
+function myFunction(value, index, array) {
+return value > 10;
+}
+var y = numbers.filter(myFunction);
+document.write(typeof(y));
+</script>
+a. array
+b. object
+c. number
+d. None of the previous
+
+32. What will be the output of this JavaScript code?
+<script>
+var numbers = [10, 20, 10, 30];
+var y = numbers.lastIndexOf(10);
+var z = numbers.indexOf(30);
+document.write(y + z);
+</script>
+y and z are ints and are added normally. The answer is 5
+a. 5
+b. 3
+c. 2
+d. None of the previous
+
+33. What will be the output of the following JavaScript code snippet?
+<script>
+document.write(typeof(NaN));
+</script>
+a. NaN
+b. number
+c. object
+d. None of the previous
+
+34. What will be the output of the following JavaScript code?
+var quiz = [1, 2, 3];
+var result = quiz.concat(6, 7, 8);
+document.write(result);
+a. 1,2,3,6,7,8
+b. [1,2,3,6,7,8]
+c. array
+d. None of the previous
+
+35. What will be the output of the following JavaScript code?
+var a = 0;
+for (a=0; a<5; a++);
+document.write(a); Note the ; after the for loop
+a. 01234
+b. 0
+c. Error
+d. 5
+
+36. What will be the output of the following Python code?
+newtuple = (1, 2, 3, 4)
+(*k, ) = newtuple
+print(k)
+a. 1, 2, 3
+b. [1, 2, 3, 4]
+c. 2, 3, 4
+d. None of the previous
+
+37. What will be the output of the following Python code?
+newtuple = (1, 2, 3, 4)
+(x, *k, y) = newtuple
+print(k) This unpack method sets x to index 0 and y to index -1 and the rest to k
+a. 2, 3
+b. [2, 3, 4]
+c. [2, 3]
+d. None of the previous
+
+38. Which is the correct HTML statement to define the red color of the paragraph text?
+a. <p style="color: #ff0000;">
+b. <p style="color: red;">
+c. Both a and b. Assuming the missing < was not intended
+d. None of the previous
+
+39. Which HTML tag is used to define highlighted text?
+a. <highlight>
+b. <mark>
+c. <m>
+d. None of the previous
+
+40. Which is the correct HTML statement to display H2O in a paragraph?
+a. <p>H<sup>2</sup>O</p>
+b. <p>H<sub>2</sub>O</p>
+c. <p>H<ins>2</ins>O</p>
+d. <p>H<below>2</below>O</p>
+
+41. Which is the correct HTML statement to display Hello Hi in a paragraph?
+a. <p><del>Hello</del> <ins>Hi</ins></p>
+b. <p><cut>Hello</cut> <ins>Hi</ins></p>
+c. <p><del>Hello</del> <mark>Hi</mark></p>
+d. None of the above
+
+42. Which attribute specifies the path to the image?
+a. href
+b. src
+c. link
+d. All of the above
+
+43. Can we use class name with multiple HTML elements?
+a. Yes
+b. No
+
+44. The ____ property is used in the positioning of the background image.
+a. background-image
+b. background-position
+c. padding
+d. All of the above
+
+45. Which of the following selectors selects the specified elements of type E with a particular class value?
+a. E-F
+b. E.class
+c. E#class
+d. Class(E)
+
+46. Which of the following selectors selects all elements of E that have the attribute (attr) that ends with a given (value)?
+a. E[attr$=value]
+b. E[attr=value]
+c. E[attr*=value]
+d. None of the above
+
+47. Which of the following selectors selects an element that has no children?
+a. :nochild
+b. :empty
+c. :no-child
+d. None of the above
+
+48. What will be the output of the following Python code?
+b = "Hello, World!"
+print(b[-5:-2])
+a. orl
+b. or
+c. Wor
+d. None of the above
+
+49. What will be the output of the following Python code?
+thistuple = (1, 2, 3, 3, 4, 5)
+x = thistuple.index(3)
+print(x)
+a. 3
+b. 4
+c. 2
+d. None of the previous
+
+50. If an application is running on Asynchronous Server Gateway Interface (ASGI), then it will handle client requests in a sequential manner?
+a. True
+b. False
+
+51. Can you play audios in HTML?
+a. Yes
+b. No
+
+52. What will be the output of the following Python code?
+fruits = {"apple", "banana", "cherry"} Sets don't allow duplicates
+fruits.add("apple")
+x = len(fruits)
+print(x)
+a. 4
+b. 3
+c. 2
+d. None of the previous
+
+53. What will be the output of the following Python code?
+car = {
+"brand": "Ford",
+"model": "Mustang",
+"year": 1964
+}
+y = car.keys()
+car["color"] = "red" y sees the dict changes
+print(len(y))
+a. 3
+b. 6
+c. 4
+d. None of the previous
+
+54. To add items from another set to the current set we use ____ method, while to append items from another list to the current list we use ____ method.
+a. Extend(), append()
+b. Extend(), update()
+c. Update(), extend()
+d. Update(), append()
+
+55. To make a copy of a dictionary, we can use ____ method.
+a. Copy()
+b. dict()
+c. a. and b.
+d. makecopy()
+Note: Copy() should be copy() because Python is case-sensitive. dict() is just using the copy constructor. It is assumed that Copy() is just a typo and should be copy()
+
+56. In CSS, "color:red" can be called as
+a. Selector
+b. Declaration
+c. Rule
+d. Value
+
+57. External CSS style has the highest priority
+a. True
+b. False
+Inline > Internal > External > Browser Default
+
+58. The ____ HTTP request header specifies information about the software (browser) making the request.
+a. Referrer
+b. User-Agent
+c. cookie
+d. None of the above
+
+59. What does {{ name }} this mean in Django Templates?
+a. {{ name }} will be the output.
+b. It will be displayed as name in HTML.
+c. The name will be replaced with values of Python variable.
+d. None of the above.
+
+60. What is the output of the following JavaScript snippet?
+x = "20";
+y = "10";
+document.writeln(x+y, x-y);
+In Addition strs are type casted into strs
+In Subtraction strs are type casted into ints
+a. 30, 10
+b. 30, NAN
+c. 2010, NAN
+d. 2010, 10
+
+61. Which of the following is the correct way of creating a hyperlink in HTML?
+a. <a>www.google.com</a>
+b. <a href="www.google.com" google</a>
+c. <a href="www.google.com"> google</a>
+d. <a link="www.google.com"> google </a>
+
+62. What is the purpose of using div tags in HTML?
+a. For creating different sections
+b. For creating different styles
+c. For adding headings.
+d. For adding titles
+
+63. Which of the following is the correct way to add background color in HTML?
+a. <body color="green">
+b. <body bg-color="green">
+c. <body style="background-color: green">
+d. <body style="background-color: green;">
+
+64. If you have the following JavaScript statement: const f = (a, b) => a + b + 5;
+a. f(3,4) will return 7
+b. f(4,5) will return 9
+c. f(4,5) will return 14
+d. Not a correct syntax for an arrow function
+
+65. To multiply an array of numbers (named myNumbers) with 4, the following is a correct syntax to do it:
+a. myNumbers.map((value) => value * 4); The map method takes a function as a parameter
+b. myNumbers.filter((value) => value * 4);
+c. myNumbers.map(value * 4);
+d. myNumbers.filter(value * 4);
+
+66. To keep numbers that are less than 10 from an array of numbers (named myNumbers), the following is a correct syntax to do it:
+a. myNumbers.map((value) => value < 10);
+b. myNumbers.filter((value) => value < 10); The filter method takes a function as a parameter
+c. myNumbers.map(value < 10);
+d. myNumbers.filter(value < 10);
+
+67. var colors = {1:"red", 2:"green", 3: "blue"} is one of the ways of defining an array in JavaScript?
+a. True
+b. False
+
+68. In the following statement: myNumbers = [1, 2, 3]; x = myNumbers.pop(); Removes last element
+The removed item will be 1
+a. True
+b. False
+
+69. In the following statement: myNumbers = [1, 2, 3]; x = myNumbers.pop();
+The removed item will be 3
+a. True
+b. False
+
+70. In Python, the value of [] is False?
+a. True
+b. False
+
+71. In Python, it is possible to use the set() constructor to create a set?
+a. True
+b. False
+
+72. In Python, A set is a collection which is both unordered and indexed?
+a. True
+b. False
+
+73. def f(**person):
+print("Person's name is " + person["name"]) kwargs are sent as a dictionary
+f(name="Ahmed", age=10)
+The above statement will return:
+a. Person's name is Ahmed
+b. Person's name is Ahmed and Age is 10
+c. Error as the function f doesn't take except one argument
+d. Error as the function f doesn't take an argument called "name"
+
+74. y = lambda x : x / 20
+print(y(100))
+The above statement will return:
+a. Error as there is no function called y
+b. 100/20
+c. 5
+d. 5.0 Should be 5.0 since Python type casts results of division to float by default
+
+75. In the following Python statements:
+if 1 < 2:
+print("One is less than Two!") Notice the incorrect indentation between the 2 print functions
+print("One is less than Two!")
+a. The output will be: One is less than Two! One is less than Two!
+b. The output will be: One is less than Two!
+c. The output will be: One is less than Two!
+One is less than Two!
+d. The output will be an Error
+
+76. The output of the following statement in python is:
+Slicing won't throw Error if out of bounds
+x = "My Lovely Bird!"
+print(x[:7])
+a. My Love
+b. My Lovel
+c. ly Bird!
+d. y Bird!
+
+77. The output of the following statement in python is:
+x = "My Lovely Bird!"
+print(x[7:])
+a. My Love
+b. My Lovel
+c. ly Bird!
+d. y Bird!
+
+78. What will be the output of this JavaScript code?
+const myArr = [1, 2, [3, [4, 5, 6], 7], 8];
+const newArr = myArr.flat();
+document.writeln(newArr);
+a. 1,2,3,[4,5,6],7,8
+b. 1,2,3,4,5,6,7,8
+c. 1,2,[3,[4,5,6],7],8
+d. None of the previous
+
+Based on the following HTML page, answer the following questions:
+
+<!DOCTYPE html>
+<html>
+<head>
+</head>
+<body>
+<h2 id="id1">Hello World</h2>
+<p>Welcome</p>
+<div>
+<p>Paragraph 1.</p>
+<p>Paragraph 2.</p>
+<section><p>Paragraph 3.</p></section>
+</div>
+<p>Paragraph 4.</p>
+<p>Paragraph 5.</p>
+<script>
+const my = document.getElementsByTagName("p");
+document.getElementById("id1").innerHTML = my.length;
+</script>
+</body>
+</html>
+
+79. To get the value of the text node of the h2 element node, you can use
+a. document.getElementById("id1").innerHTML which is equivalent to document.getElementById("id1").firstChild.nodeValue;
+b. document.getElementById("id1").text;
+c. document.getElementById("id1").nodeValue; Any element that accepts text inside it always has a text node inside, here this node is accessed using firstChild, then nodeValue accessed the contents of this node which is the text
+d. none of the above
+
+80. Based on the above html page, the content of h2 element will be presented as
+a. Hello World
+b. Hello World 6
+c. 6 The answer is 6 since we have 6 p elements and we changed the contents of id1 in the script tag
+d. None of the above
+
+81. The number of objects in my variable is
+a. 4
+b. 5
+c. 6
+d. 3
+
+82. By using this CSS selector div > p { color: red; }, how many p elements will be styled?
+Direct Children
+a. 3
+b. 2
+c. 5
+d. 6
+
+83. By using this CSS selector div ~ p { color: blue; }, the number of p elements that will be styled is
+Any sibling
+a. 3
+b. 2
+c. 5
+d. 6
+
+84. Using document.getElementById("id1").nodeType will return
+a. Element node
+b. 1
+c. Text node
+d. 3
+
+Based on the following HTML page, answer the following questions
+
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+a[target=_blank] {
+background-color: yellow;
+}
+p:first-child { color: red; }
+</style>
+</head>
+<body>
+<h2>CSS Selector</h2>
+<p>Hello I am Here: P1</p>
+<p>Hello I am Here: Paragraph 2</p>
+<p>Hello I am Here: P3</p>
+<a href="https://www.w3schools.com">w3schools.com</a>
+<a href="http://www.disney.com" target="_blank">disney.com</a>
+<a href="http://www.wikipedia.org" target="_top">wikipedia.org</a>
+</body>
+</html>
+
+85. In a[target=_blank], the [target=_blank] is called
+a. attribute selector
+b. anchor selector
+c. pseudo element selector
+d. none of the above
+
+86. By using p:first-child { color:red; }, the number of elements that will be styled
+a. 1
+b. 2
+c. 3
+d. None of the above No p element has a child
+
+87. To change the background color of all <a> elements to be yellow, you can use
+a. a[target] { background-color: yellow; }
+b. a.all { background-color: yellow; }
+c. a[target=_blank, target=_top] { background-color: yellow; }
+d. a { background-color: yellow; }
+
+88. To change the color of <a> elements to yellow when the mouse moves over it, you can use
+a. a:hover { background-color: yellow; }
+b. a::hover { background-color: yellow; }
+c. a:link { background-color: yellow; }
+d. a:active { background-color: yellow; }
+
+89. href is a/an ____ while "_blank" is a ____
+a. value, attribute
+b. link, value
+c. attribute, value
+d. link, text node
+
+90. The hyperlink <a href="https://w3schools.com">...</a> is an example of a/an ____ URL, while <a href="Page2.html">...</a> is an example of a/an ____ URL.
+a. Absolute, relative
+b. Relative, absolute
+c. Relative, Relative
+d. None of the above
+
+End of Question
+Good luck!

@@ -52,12 +52,12 @@
       {
         "id": "q2",
         "type": "multiple_choice",
-        "questionText": "2. The values GET, POST, HEAD, etc... are specified in",
+        "questionText": "2. The values GET, POST, HEAD, etc., are specified in",
         "options": [
           {
             "id": "a",
             "type": "text",
-            "content": "Request & Response.",
+            "content": "Request & Response",
             "codeLanguage": null
           },
           {
@@ -95,31 +95,31 @@
           {
             "id": "a",
             "type": "text",
-            "content": "200-OK",
+            "content": "200 - OK",
             "codeLanguage": null
           },
           {
             "id": "b",
             "type": "text",
-            "content": "400-Bad Request.",
+            "content": "400 - Bad Request",
             "codeLanguage": null
           },
           {
             "id": "c",
             "type": "text",
-            "content": "301-Moved Permanently.",
+            "content": "301 - Moved Permanently",
             "codeLanguage": null
           },
           {
             "id": "d",
             "type": "text",
-            "content": "304 Not Found.",
+            "content": "304 - Not Found",
             "codeLanguage": null
           }
         ],
         "correctAnswerId": "d",
         "expectedAnswer": null,
-        "explanation": "HTTP status code 304 corresponds to 'Not Modified' (used for caching), whereas 'Not Found' is the famous 404 status code.",
+        "explanation": "HTTP 304 is Not Modified; Not Found is 404, so 304 - Not Found is the odd pair.",
         "relatedTopics": [
           "fe-1",
           "be-4"
@@ -128,7 +128,7 @@
       {
         "id": "q4",
         "type": "multiple_choice",
-        "questionText": "4. HTTP uses the services of _______ on well-known port 80:",
+        "questionText": "4. HTTP uses the services of ______ on well-known port 80:",
         "options": [
           {
             "id": "a",
@@ -139,19 +139,19 @@
           {
             "id": "b",
             "type": "text",
-            "content": "HTTPS",
+            "content": "UDP",
             "codeLanguage": null
           },
           {
             "id": "c",
             "type": "text",
-            "content": "UDP",
+            "content": "SMTP",
             "codeLanguage": null
           },
           {
             "id": "d",
             "type": "text",
-            "content": "SMTP",
+            "content": "HTTPS",
             "codeLanguage": null
           }
         ],
@@ -166,7 +166,7 @@
       {
         "id": "q5",
         "type": "multiple_choice",
-        "questionText": "5. In HTTP, the first line in a request message is called a _______ line; the first line in the response message is called the _______ line.",
+        "questionText": "5. In HTTP, the first line in a request message is called a ______ line; the first line in the response message is called the ______ line.",
         "options": [
           {
             "id": "a",
@@ -189,7 +189,7 @@
           {
             "id": "d",
             "type": "text",
-            "content": "None of The Above.",
+            "content": "None of The Above",
             "codeLanguage": null
           }
         ],
@@ -209,25 +209,25 @@
           {
             "id": "a",
             "type": "text",
-            "content": "A Header and A Body.",
+            "content": "A Header and A Body",
             "codeLanguage": null
           },
           {
             "id": "b",
             "type": "text",
-            "content": "A Request Line and A Header.",
+            "content": "A Request Line and A Header",
             "codeLanguage": null
           },
           {
             "id": "c",
             "type": "text",
-            "content": "A Status Line, A Header and A Body.",
+            "content": "A Status Line, A Header and A Body",
             "codeLanguage": null
           },
           {
             "id": "d",
             "type": "text",
-            "content": "None of The Above.",
+            "content": "None of The Above",
             "codeLanguage": null
           }
         ],
@@ -242,12 +242,12 @@
       {
         "id": "q7",
         "type": "multiple_choice",
-        "questionText": "7. _______ is more robust and secure than _______",
+        "questionText": "7. ______ is more robust and secure than ______",
         "options": [
           {
             "id": "a",
             "type": "text",
-            "content": "Get, Post.",
+            "content": "Get, Post",
             "codeLanguage": null
           },
           {
@@ -265,7 +265,7 @@
           {
             "id": "d",
             "type": "text",
-            "content": "None of The Above.",
+            "content": "None of The Above",
             "codeLanguage": null
           }
         ],
@@ -332,7 +332,7 @@
       {
         "id": "q9",
         "type": "multiple_choice",
-        "questionText": "9. In css, \"color:red\" can be called as",
+        "questionText": "9. In CSS, \"color:red\" can be called as",
         "options": [
           {
             "id": "a",
@@ -406,7 +406,7 @@
       {
         "id": "q11",
         "type": "multiple_choice",
-        "questionText": "11. _______ selectors are used to specify a group of elements.",
+        "questionText": "11. ______ selectors are used to specify a group of elements.",
         "options": [
           {
             "id": "a",
@@ -429,7 +429,7 @@
           {
             "id": "d",
             "type": "text",
-            "content": "both class and tag",
+            "content": "Both class and tag",
             "codeLanguage": null
           }
         ],
@@ -443,7 +443,7 @@
       {
         "id": "q12",
         "type": "multiple_choice",
-        "questionText": "12. \"font-style comes first than font-weight in font attribute\", State true or false.",
+        "questionText": "12. \"Font-style comes first than font-weight in font attribute.\" State true or false.",
         "options": [
           {
             "id": "a",
@@ -497,7 +497,7 @@
           {
             "id": "c",
             "type": "text",
-            "content": "text-align",
+            "content": "align",
             "codeLanguage": null
           },
           {
@@ -517,7 +517,7 @@
       {
         "id": "q14",
         "type": "multiple_choice",
-        "questionText": "14. Which of the following is the correct way to applying style to a document?",
+        "questionText": "14. Which of the following is the correct way to apply style to a document?",
         "options": [
           {
             "id": "a",
@@ -534,13 +534,13 @@
           {
             "id": "c",
             "type": "text",
-            "content": "Set an inline style rule using the style attribute directly on an element.",
+            "content": "Set an inline style rule using the style attribute directly on an element",
             "codeLanguage": null
           },
           {
             "id": "d",
             "type": "text",
-            "content": "All the mentioned.",
+            "content": "All the mentioned",
             "codeLanguage": null
           }
         ],
@@ -554,7 +554,7 @@
       {
         "id": "q15",
         "type": "multiple_choice",
-        "questionText": "15. With, which tag you write the style rules directly within the document found within the head of the document.",
+        "questionText": "15. With, which tag do you write the style rules directly within the document found within the head of the document.",
         "options": [
           {
             "id": "a",
@@ -608,13 +608,13 @@
           {
             "id": "c",
             "type": "text",
-            "content": "May be.",
+            "content": "May be",
             "codeLanguage": null
           },
           {
             "id": "d",
             "type": "text",
-            "content": "Cannot say.",
+            "content": "Cannot say",
             "codeLanguage": null
           }
         ],
@@ -648,7 +648,7 @@
           {
             "id": "a",
             "type": "text",
-            "content": "The User's machine running a Web browser.",
+            "content": "The User's machine running a Web browser",
             "codeLanguage": null
           },
           {
@@ -680,7 +680,7 @@
       {
         "id": "q18",
         "type": "multiple_choice",
-        "questionText": "18. Which of the following lines of JavaScript code will change the HTML inside of an element with the attribute id=\"myElement\" to \"CS 105\"?",
+        "questionText": "18. Which of the following lines of JavaScript code will change the HTML inside of an element with the attribute id=\"myElement\" to \"CS 105\"?\nFor the next two questions, consider the following code:\n1 var x = 20;\n2 while (x < 10)\n3 {\n4   print(\"Hello\");\n5   x *= 2;\n6 }",
         "options": [
           {
             "id": "a",
@@ -733,7 +733,7 @@
       {
         "id": "q19",
         "type": "multiple_choice",
-        "questionText": "19. If the function print() has been defined that prints the value passed in as the parameter to it, how many times is \"Hello\" printed?",
+        "questionText": "19. If the function print() has been defined that prints the value passed in as the parameter to it, how many times is \"Hello\" printed?\nE. Infinity (or at least until you kill the program)",
         "options": [
           {
             "id": "a",
@@ -770,7 +770,7 @@
       {
         "id": "q20",
         "type": "multiple_choice",
-        "questionText": "20. If the initial value of x (set on Line #1) is now 5 instead of 20, how many times is \"Hello\" printed?",
+        "questionText": "20. If the initial value of x (set on Line #1) is now 5 instead of 20, how many times is \"Hello\" printed?\nFor the next two questions, consider the following code:\n1 function foo(x)\n2 {\n3   var ct = 0;\n4   for (var i = 0; i < x\n5   {\n6     if (x[i] >= 70)\n7     {\n8       ct++;\n9     }",
         "options": [
           {
             "id": "a",
@@ -864,7 +864,7 @@
           {
             "id": "a",
             "type": "text",
-            "content": "The function will always return the value 0.",
+            "content": "The function will always return the value 0",
             "codeLanguage": null
           },
           {
@@ -882,7 +882,7 @@
           {
             "id": "d",
             "type": "text",
-            "content": "The function will return a number",
+            "content": "The function will return a number.",
             "codeLanguage": null
           }
         ],
@@ -911,7 +911,7 @@
       {
         "id": "q23",
         "type": "multiple_choice",
-        "questionText": "23. In the JavaScript, which one of the following is not considered as an error:",
+        "questionText": "23. In JavaScript, which one of the following is not considered as an error?",
         "options": [
           {
             "id": "a",
@@ -934,7 +934,7 @@
           {
             "id": "d",
             "type": "text",
-            "content": "Missing of Bracket",
+            "content": "Missing of Brackets",
             "codeLanguage": null
           }
         ],
@@ -948,7 +948,7 @@
       {
         "id": "q24",
         "type": "multiple_choice",
-        "questionText": "24. How are the objects organized in the HTML DOM?",
+        "questionText": "24. How are objects organized in the HTML DOM?",
         "options": [
           {
             "id": "a",
@@ -985,7 +985,7 @@
       {
         "id": "q25",
         "type": "multiple_choice",
-        "questionText": "25. What is the work of the form control elements in the HTML DOM?",
+        "questionText": "25. What is the purpose of form control elements in the HTML DOM?",
         "options": [
           {
             "id": "a",
@@ -996,7 +996,7 @@
           {
             "id": "b",
             "type": "text",
-            "content": "All the possible elements",
+            "content": "All possible elements",
             "codeLanguage": null
           },
           {
@@ -1037,24 +1037,24 @@
       {
         "id": "q26",
         "type": "multiple_choice",
-        "questionText": "26. Which of the following statements is correct in this python code?\nclass Name:\n    def __init__(javatpoint):\n        javatjavatpoint = java\nname1 = Name('ABC')\nname2 = name1",
+        "questionText": "26. Which statement is correct about this Python code?\nclass Name:\n  def __init__(javatpoint):\n    javatjavatpoint = java\nname1 = Name('ABC')\nname2 = name1",
         "options": [
           {
             "id": "a",
             "type": "text",
-            "content": "It will throw the error as multiple references to the same object is not possible.",
+            "content": "It will throw an error as multiple references to the same object is not possible.",
             "codeLanguage": null
           },
           {
             "id": "b",
             "type": "text",
-            "content": "id(name1) and id(name2) will have same value.",
+            "content": "id(name1) and id(name2) will have the same value.",
             "codeLanguage": null
           },
           {
             "id": "c",
             "type": "text",
-            "content": "Both name1 and name2 will have references to two different objects of class Name",
+            "content": "Both name1 and name2 will have reference to two different objects of class Name.",
             "codeLanguage": null
           },
           {
@@ -1075,7 +1075,7 @@
       {
         "id": "q27",
         "type": "multiple_choice",
-        "questionText": "27. What will the following python code print?\nlst = []\nnums = [15, 6]\nlst.append(nums)\nnums = [10, 30, 20]\nlst.append(nums)\nlst.sort()\nprint(lst)",
+        "questionText": "27. What will the following Python code print?\nlst = []\nnums = [15, 6]\nlst.append(nums)\nnums = [10, 30, 20]\nlst.append(nums)\nlst.sort()\nprint(lst)\nE. [[10, 20, 30], [6, 15]]",
         "options": [
           {
             "id": "a",
@@ -1150,13 +1150,13 @@
           {
             "id": "c",
             "type": "text",
-            "content": "Both 1&2",
+            "content": "Both 1 & 2",
             "codeLanguage": null
           },
           {
             "id": "d",
             "type": "text",
-            "content": "All the above",
+            "content": "All of the above.",
             "codeLanguage": null
           }
         ],
@@ -1193,7 +1193,7 @@
           {
             "id": "d",
             "type": "text",
-            "content": "All of the above",
+            "content": "All of the above.",
             "codeLanguage": null
           }
         ],
@@ -1230,7 +1230,7 @@
           {
             "id": "d",
             "type": "text",
-            "content": "None of the Above.",
+            "content": "None of the Above",
             "codeLanguage": null
           }
         ],
@@ -1244,12 +1244,12 @@
       {
         "id": "q31",
         "type": "multiple_choice",
-        "questionText": "31. What does {{name}} mean in Django Templates?",
+        "questionText": "31. What does {{ name }} mean in Django Templates?",
         "options": [
           {
             "id": "a",
             "type": "text",
-            "content": "{{name}} will be the output.",
+            "content": "{{ name }} will be the output.",
             "codeLanguage": null
           },
           {
@@ -1298,7 +1298,7 @@
           {
             "id": "c",
             "type": "text",
-            "content": "forloop.counter",
+            "content": "forloop.counter()",
             "codeLanguage": null
           },
           {
@@ -1356,7 +1356,7 @@
       {
         "id": "q34",
         "type": "multiple_choice",
-        "questionText": "34. Django is a type of",
+        "questionText": "34. Django is a type of:",
         "options": [
           {
             "id": "a",
@@ -1379,7 +1379,7 @@
           {
             "id": "d",
             "type": "text",
-            "content": "None of above",
+            "content": "None of the above",
             "codeLanguage": null
           }
         ],
@@ -1393,30 +1393,30 @@
       {
         "id": "q35",
         "type": "multiple_choice",
-        "questionText": "35. Which command creates a new Django project?",
+        "questionText": "35. Which command issued to create a project in Django?",
         "options": [
           {
             "id": "a",
             "type": "text",
-            "content": "django-admin startproject <name>",
+            "content": "Project",
             "codeLanguage": null
           },
           {
             "id": "b",
             "type": "text",
-            "content": "python manage.py startproject",
+            "content": "manage.py",
             "codeLanguage": null
           },
           {
             "id": "c",
             "type": "text",
-            "content": "django-admin migrate",
+            "content": "__init__.py",
             "codeLanguage": null
           },
           {
             "id": "d",
             "type": "text",
-            "content": "python manage.py runserver",
+            "content": "All of the above",
             "codeLanguage": null
           }
         ],
@@ -1445,7 +1445,7 @@
       {
         "id": "q36",
         "type": "multiple_choice",
-        "questionText": "36. In a URL, an optional _______ can be inserted between the host and the path, and it is separated from the host by a colon.",
+        "questionText": "36. In a URL, an optional ______ can be inserted between the host and the path, separated from the host by a colon.",
         "options": [
           {
             "id": "a",
@@ -1521,7 +1521,7 @@
       {
         "id": "q38",
         "type": "multiple_choice",
-        "questionText": "38. The _______ of the _______ can contain parameters sent to the server.",
+        "questionText": "38. The ______ of the ______ can contain parameters sent to the server.",
         "options": [
           {
             "id": "a",
@@ -1532,7 +1532,7 @@
           {
             "id": "b",
             "type": "text",
-            "content": "header, request",
+            "content": "Header, request",
             "codeLanguage": null
           },
           {
@@ -1544,7 +1544,7 @@
           {
             "id": "d",
             "type": "text",
-            "content": "body, request",
+            "content": "Body, request",
             "codeLanguage": null
           }
         ],
@@ -1611,7 +1611,7 @@
       {
         "id": "q40",
         "type": "multiple_choice",
-        "questionText": "40. To determine if an object contains a certain property, we can use the _______ operator.",
+        "questionText": "40. To determine if an object contains a certain property, we can use the ______ operator.",
         "options": [
           {
             "id": "a",
@@ -1634,7 +1634,7 @@
           {
             "id": "d",
             "type": "text",
-            "content": "Error",
+            "content": "[]",
             "codeLanguage": null
           }
         ],
@@ -1648,18 +1648,18 @@
       {
         "id": "q41",
         "type": "multiple_choice",
-        "questionText": "41. Consider you have a function \"funcX\" that multiplies any input number by 3. And you have a list of numbers Y=[1,3,4]. The result of the statement Y.map(funcX) is",
+        "questionText": "41. Consider you have a function \"funcX\" that multiplies any input number by 3. And you have a list of numbers Y = [1, 3, 4]. The result of Y.map(funcX) is",
         "options": [
           {
             "id": "a",
             "type": "text",
-            "content": "New array [3,9,12]",
+            "content": "New array [3, 9, 12]",
             "codeLanguage": null
           },
           {
             "id": "b",
             "type": "text",
-            "content": "Same array updated [3,9,12]",
+            "content": "Same array updated [3, 9, 12]",
             "codeLanguage": null
           },
           {
@@ -1671,7 +1671,7 @@
           {
             "id": "d",
             "type": "text",
-            "content": "Something else.",
+            "content": "Something else",
             "codeLanguage": null
           }
         ],
@@ -1690,25 +1690,25 @@
           {
             "id": "a",
             "type": "text",
-            "content": "Content Coming from Server",
+            "content": "Content coming from the server",
             "codeLanguage": null
           },
           {
             "id": "b",
             "type": "text",
-            "content": "Content Coming from Client",
+            "content": "Content coming from the client",
             "codeLanguage": null
           },
           {
             "id": "c",
             "type": "text",
-            "content": "Status Code",
+            "content": "Status code",
             "codeLanguage": null
           },
           {
             "id": "d",
             "type": "text",
-            "content": "None Of Them.",
+            "content": "None of them",
             "codeLanguage": null
           }
         ],
@@ -1723,7 +1723,7 @@
       {
         "id": "q43",
         "type": "multiple_choice",
-        "questionText": "43. \"Expires: Tuesday, 17 Dec 2020 18:30 GMT\" is a _______ header denoting _______",
+        "questionText": "43. \"Expires: Tuesday, 17 Dec 2020 18:30 GMT\" is a ______ header denoting ______",
         "options": [
           {
             "id": "a",
@@ -1760,7 +1760,7 @@
       {
         "id": "q44",
         "type": "multiple_choice",
-        "questionText": "44. To denote a permission of using a resource, you must use",
+        "questionText": "44. To denote permission of using a resource, you must use",
         "options": [
           {
             "id": "a",
@@ -1783,7 +1783,7 @@
           {
             "id": "d",
             "type": "text",
-            "content": "None of the answers",
+            "content": "None of Them",
             "codeLanguage": null
           }
         ],
@@ -1797,12 +1797,12 @@
       {
         "id": "q45",
         "type": "multiple_choice",
-        "questionText": "45. Using authorization, have a response of status 200 means that",
+        "questionText": "45. Using authorization, a response with status 200 means that",
         "options": [
           {
             "id": "a",
             "type": "text",
-            "content": "User is not authorized to see the response.",
+            "content": "The user is not authorized to see the response.",
             "codeLanguage": null
           },
           {
@@ -1814,13 +1814,13 @@
           {
             "id": "c",
             "type": "text",
-            "content": "User is authorized to see the response.",
+            "content": "None of the answers",
             "codeLanguage": null
           },
           {
             "id": "d",
             "type": "text",
-            "content": "None of the answers.",
+            "content": "User is authorized to see the response.",
             "codeLanguage": null
           }
         ],
@@ -1835,30 +1835,30 @@
       {
         "id": "q46",
         "type": "multiple_choice",
-        "questionText": "46. A lock icon in the browser denotes",
+        "questionText": "46. A lock icon in the browser denotes ______ for ______ connection.",
         "options": [
           {
             "id": "a",
             "type": "text",
-            "content": "Hypertext transfer protocol over TCP, secured",
+            "content": "Hypertext Transfer Protocol over TCP, secured",
             "codeLanguage": null
           },
           {
             "id": "b",
             "type": "text",
-            "content": "Secured Hypertext transfer protocol over TLS, secured",
+            "content": "Secured Hypertext Transfer Protocol over TLS, secured",
             "codeLanguage": null
           },
           {
             "id": "c",
             "type": "text",
-            "content": "Hypertext transfer protocol over UDP, unsecured",
+            "content": "Hypertext Transfer Protocol over TCP, unsecured",
             "codeLanguage": null
           },
           {
             "id": "d",
             "type": "text",
-            "content": "None of the answers.",
+            "content": "None of the answers",
             "codeLanguage": null
           }
         ],
@@ -1873,30 +1873,30 @@
       {
         "id": "q47",
         "type": "multiple_choice",
-        "questionText": "47. <del> HTML element is used to",
+        "questionText": "47. The <del> HTML element is used to",
         "options": [
           {
             "id": "a",
             "type": "text",
-            "content": "deletes the text.",
+            "content": "deletes the text",
             "codeLanguage": null
           },
           {
             "id": "b",
             "type": "text",
-            "content": "removes the text from the HTML document.",
+            "content": "removes the text from the HTML document",
             "codeLanguage": null
           },
           {
             "id": "c",
             "type": "text",
-            "content": "put a strike over the text.",
+            "content": "put a strike over the text",
             "codeLanguage": null
           },
           {
             "id": "d",
             "type": "text",
-            "content": "None of the answers.",
+            "content": "None of the answers",
             "codeLanguage": null
           }
         ],
@@ -1910,30 +1910,30 @@
       {
         "id": "q48",
         "type": "multiple_choice",
-        "questionText": "48. Cascading style sheets are used to",
+        "questionText": "48. Cascading Style Sheets are used to",
         "options": [
           {
             "id": "a",
             "type": "text",
-            "content": "identifying how elements will be displayed on paper.",
+            "content": "Identify how elements will be displayed on paper",
             "codeLanguage": null
           },
           {
             "id": "b",
             "type": "text",
-            "content": "identifying how elements will be saved to the server.",
+            "content": "Identify how elements will be saved to the server",
             "codeLanguage": null
           },
           {
             "id": "c",
             "type": "text",
-            "content": "identifying how elements will be sent to the client.",
+            "content": "Identify how elements will be sent to the client",
             "codeLanguage": null
           },
           {
             "id": "d",
             "type": "text",
-            "content": "None of the answers.",
+            "content": "None of the answers",
             "codeLanguage": null
           }
         ],
@@ -1947,24 +1947,24 @@
       {
         "id": "q49",
         "type": "multiple_choice",
-        "questionText": "49. A CSS rule-set consists of",
+        "questionText": "49. A CSS rule-set consists of ______ and ______",
         "options": [
           {
             "id": "a",
             "type": "text",
-            "content": "selector, multiple declarations",
+            "content": "Selector, multiple declarations",
             "codeLanguage": null
           },
           {
             "id": "b",
             "type": "text",
-            "content": "selector, value",
+            "content": "Selector, value",
             "codeLanguage": null
           },
           {
             "id": "c",
             "type": "text",
-            "content": "selector, property",
+            "content": "Selector, property",
             "codeLanguage": null
           },
           {
@@ -1984,7 +1984,7 @@
       {
         "id": "q50",
         "type": "multiple_choice",
-        "questionText": "50.<link rel=\"stylesheet\" type=\"text/css\" href=\"style.css\"> is a declaration of",
+        "questionText": "50. <link rel=\"stylesheet\" type=\"text/css\" href=\"style.css\"> is a declaration of",
         "options": [
           {
             "id": "a",
@@ -2036,7 +2036,7 @@
       {
         "id": "q51",
         "type": "multiple_choice",
-        "questionText": "51. What is the correct JavaScript syntax to change the content of the HTML element <P id=\"demo\">This is a demonstration.</p>",
+        "questionText": "51. What is the correct JavaScript syntax to change the content of the HTML element <p id=\"demo\">This is a demonstration.</p>",
         "options": [
           {
             "id": "a",
@@ -2074,12 +2074,12 @@
       {
         "id": "q52",
         "type": "multiple_choice",
-        "questionText": "52. What is the output of the following JavaScript snippet?\n var writeMe=\"console.log('document.writeln(x);')\"\n var x=13\n eval(writeMe);",
+        "questionText": "52. What is the output of the following JavaScript snippet?\nvar writeMe = \"console.log('document.writeln(x);')\";\nvar x = 13;\neval(writeMe);",
         "options": [
           {
             "id": "a",
             "type": "text",
-            "content": "prints 13 in the console",
+            "content": "Prints 13 in the console",
             "codeLanguage": null
           },
           {
@@ -2111,7 +2111,7 @@
       {
         "id": "q53",
         "type": "multiple_choice",
-        "questionText": "53. What is the output of the following JavaScript snippet?\n x=\"20\"\n y=10\n document.writeln(x+y, x-y)",
+        "questionText": "53. What is the output of the following JavaScript snippet?\nx = \"20\";\ny = 10;\ndocument.writeln(x + y, x - y)",
         "options": [
           {
             "id": "a",
@@ -2122,13 +2122,13 @@
           {
             "id": "b",
             "type": "text",
-            "content": "30, NAN",
+            "content": "30, NaN",
             "codeLanguage": null
           },
           {
             "id": "c",
             "type": "text",
-            "content": "2010,NAN",
+            "content": "2010, NaN",
             "codeLanguage": null
           },
           {
@@ -2148,24 +2148,24 @@
       {
         "id": "q54",
         "type": "multiple_choice",
-        "questionText": "54. If you have the following JavaScript statement:\nconst f = (a,b)=>a+b+5;",
+        "questionText": "54. If you have the following JavaScript statement:\nconst f = (a, b) => a + b + 5;",
         "options": [
           {
             "id": "a",
             "type": "text",
-            "content": "f(3,4) will return 12",
+            "content": "f(3, 4) will return 12",
             "codeLanguage": null
           },
           {
             "id": "b",
             "type": "text",
-            "content": "f(4,5) will return 9",
+            "content": "f(4, 5) will return 9",
             "codeLanguage": null
           },
           {
             "id": "c",
             "type": "text",
-            "content": "f(4,5) will return 5",
+            "content": "f(4, 5) will return 5",
             "codeLanguage": null
           },
           {
@@ -2191,25 +2191,25 @@
           {
             "id": "a",
             "type": "code",
-            "content": "myNumbers.map((value)=>value<10);",
+            "content": "myNumbers.map((value) => value < 10);",
             "codeLanguage": "javascript"
           },
           {
             "id": "b",
             "type": "code",
-            "content": "myNumbers.filter((value)=>value<10);",
+            "content": "myNumbers.filter((value) => value < 10);",
             "codeLanguage": "javascript"
           },
           {
             "id": "c",
             "type": "code",
-            "content": "myNumbers.map(value<10);",
+            "content": "myNumbers.map(value < 10);",
             "codeLanguage": "javascript"
           },
           {
             "id": "d",
             "type": "code",
-            "content": "myNumbers.filter(value<10);",
+            "content": "myNumbers.filter(value < 10);",
             "codeLanguage": "javascript"
           }
         ],
@@ -2223,30 +2223,30 @@
       {
         "id": "q56",
         "type": "multiple_choice",
-        "questionText": "56. In the following function:\n function multiply(...myNumbers) {\n let total = 1\n for (let myNumber of myNumbers) total *= myNumber;\n return total; } \n The \"...\" will:",
+        "questionText": "56. In the function:\nfunction multiply(...myNumbers) {\n  let total = 1;\n  for (let myNumber of myNumbers) total *= myNumber;\n  return total;\n}\nThe \"...\" will:",
         "options": [
           {
             "id": "a",
             "type": "text",
-            "content": "allow the function to be waiting for more arguments to be sent.",
+            "content": "Allow the function to be waiting for more arguments to be sent",
             "codeLanguage": null
           },
           {
             "id": "b",
             "type": "text",
-            "content": "allow the function to change the arguments to an array.",
+            "content": "Allow the function to change the arguments to an array",
             "codeLanguage": null
           },
           {
             "id": "c",
             "type": "text",
-            "content": "allow the function to distribute arguments to separate numbers multiplied.",
+            "content": "allow the function to distribute the arguments to separate numbers to be multiplied",
             "codeLanguage": null
           },
           {
             "id": "d",
             "type": "text",
-            "content": "None of the answers.",
+            "content": "None of the answers",
             "codeLanguage": null
           }
         ],
@@ -2283,7 +2283,7 @@
           {
             "id": "d",
             "type": "text",
-            "content": "Waiting parameter",
+            "content": "Waiting parameters",
             "codeLanguage": null
           }
         ],
@@ -2312,24 +2312,24 @@
       {
         "id": "q58",
         "type": "multiple_choice",
-        "questionText": "58. In the following Python statements:\n if2<1:\n print(\"Two is less than one!\")\n print(\"Two is less than one!\")",
+        "questionText": "58. In the following Python statements:\nif 2 < 1:\n  print(\"Two is less than one!\")\nprint(\"Two is less than one!\")\n   Two is less than one!",
         "options": [
           {
             "id": "a",
-            "type": "text",
-            "content": "The output will be: Two is less than one! Two is less than one!",
-            "codeLanguage": null
-          },
-          {
-            "id": "b",
             "type": "text",
             "content": "The output will be: Two is less than one!",
             "codeLanguage": null
           },
           {
+            "id": "b",
+            "type": "text",
+            "content": "The output will be: Two is less than one! Two is less than one!",
+            "codeLanguage": null
+          },
+          {
             "id": "c",
             "type": "text",
-            "content": "The output will be: Two is less than one",
+            "content": "The output will be: Two is less than one!",
             "codeLanguage": null
           },
           {
@@ -2349,30 +2349,30 @@
       {
         "id": "q59",
         "type": "multiple_choice",
-        "questionText": "59. x = { \"name\": \"Ahmed\", \"id\": \"1\", \"mobile\": 123456789, \"mobile\": 987654321 }\n print(x)\n The above print will return:",
+        "questionText": "59. x = {\n  \"name\": \"Ahmed\",\n  \"id\": \"1\",\n  \"mobile\": 123456789,\n  \"mobile\": 987654321\n}\nprint(x)\nThe above print will return:",
         "options": [
           {
             "id": "a",
             "type": "text",
-            "content": "{'name': 'Ahmed', 'id': '1' , 'mobile': 123456789, 'mobile': 987654321}.",
+            "content": "{'name': 'Ahmed', 'id': '1', 'mobile': 123456789, 'mobile': 987654321}",
             "codeLanguage": null
           },
           {
             "id": "b",
             "type": "text",
-            "content": "{'name': 'Ahmed', 'id': '1' , 'mobile': 123456789}.",
+            "content": "{'name': 'Ahmed', 'id': '1', 'mobile': 123456789}",
             "codeLanguage": null
           },
           {
             "id": "c",
             "type": "text",
-            "content": "{'name': 'Ahmed', 'id': '1', 'mobile': 987654321}.",
+            "content": "{'name': 'Ahmed', 'id': '1', 'mobile': 987654321}",
             "codeLanguage": null
           },
           {
             "id": "d",
             "type": "text",
-            "content": "Error! As you cannot have duplicate a dictionary",
+            "content": "Error! As you cannot have duplicate keys in a dictionary",
             "codeLanguage": null
           }
         ],
@@ -2386,7 +2386,7 @@
       {
         "id": "q60",
         "type": "multiple_choice",
-        "questionText": "60. def f (**person):\n f (name= \"Ahmed\", age=10)\n print(\"Person's name is \" + person[\"name\"])\n The above statement will return:",
+        "questionText": "60. def f(**person):\n  print(\"Person's name is \" + person[\"name\"])\nf(name=\"Ahmed\", age=10)\nThe above statement will return:",
         "options": [
           {
             "id": "a",
@@ -2409,7 +2409,7 @@
           {
             "id": "d",
             "type": "text",
-            "content": "Error as the function f doesn't argument called \"name\"",
+            "content": "Error as the function f doesn't take an argument called \"name\"",
             "codeLanguage": null
           }
         ],
@@ -2423,7 +2423,7 @@
       {
         "id": "q61",
         "type": "multiple_choice",
-        "questionText": "61. y = lambda x: x/20\n print(y(100))\n The above statement will return:",
+        "questionText": "61. y = lambda x: x / 20\nprint(y(100))\nThe above statement will return:",
         "options": [
           {
             "id": "a",
@@ -2452,7 +2452,7 @@
         ],
         "correctAnswerId": "c",
         "expectedAnswer": null,
-        "explanation": "Lambda bindings assign the anonymous function to the variable `y`. Passing 100 correctly triggers execution `100 / 20`, resolving to `5.0` (typically represented as option 5).",
+        "explanation": "`100 / 20` evaluates to `5`.",
         "relatedTopics": [
           "be-2"
         ]
@@ -2464,7 +2464,7 @@
     "topic": "JavaScript Block Scope and Hoisting",
     "context": {
       "text": "Use the following code, answer questions from 62-64: When the function run() is called.",
-      "code": "1. function run() {\n2.   var X=\"X\"\n3.   let Y=\"Y\"\n4.   console.log (X, Y);\n5.   {\n6.     var X=42\n7.     let Y=\"Y*\"\n8.     console.log (X, Y);\n9.   }\n10.  console.log(X);\n11.  console.log(Y);\n12. } \n13. run()",
+      "code": "function run() {\n  var X = \"X\";\n  let Y = \"Y\";\n  console.log (X, Y);\n  {\n    var X = \"X*\";\n    let Y = \"Y*\";\n  console.log (X, Y);\n  }\n  console.log(X);\n  console.log(Y);\n}\nrun();",
       "codeLanguage": "javascript",
       "image": {
         "url": null,
@@ -2475,7 +2475,7 @@
       {
         "id": "q62",
         "type": "multiple_choice",
-        "questionText": "62. The first console.log statement (line 4), will output:",
+        "questionText": "62. The first console.log statement (line 4) will output:",
         "options": [
           {
             "id": "a",
@@ -2513,7 +2513,7 @@
       {
         "id": "q63",
         "type": "multiple_choice",
-        "questionText": "63. The second console.log statement (line 8), will output:",
+        "questionText": "63. The second console.log statement (line 8) will output:",
         "options": [
           {
             "id": "a",
@@ -2551,7 +2551,7 @@
       {
         "id": "q64",
         "type": "multiple_choice",
-        "questionText": "64. The last console.log statement (lines 10, 11), will output:",
+        "questionText": "64. The last console.log statement (lines 10, 11) will output:",
         "options": [
           {
             "id": "a",
@@ -2604,12 +2604,12 @@
       {
         "id": "q65",
         "type": "multiple_choice",
-        "questionText": "65. If we called func(1, \"1\"); it will log:",
+        "questionText": "65. If we call func(1, \"1\"); it will log:",
         "options": [
           {
             "id": "a",
             "type": "text",
-            "content": "Reference Error: func is not defined.",
+            "content": "ReferenceError: func is not defined",
             "codeLanguage": null
           },
           {
@@ -2633,7 +2633,7 @@
         ],
         "correctAnswerId": "c",
         "expectedAnswer": null,
-        "explanation": "The parameter `x` securely grabs the initial argument `1` (which is a number). The native `arguments.length` property counts *all* passed arguments, outputting 2.",
+        "explanation": "`typeof` reports `number` for the first argument and `arguments.length` is 2.",
         "relatedTopics": [
           "fe-5"
         ]
@@ -2641,7 +2641,7 @@
       {
         "id": "q66",
         "type": "multiple_choice",
-        "questionText": "66. If we called func(\"1\"); it will log:",
+        "questionText": "66. If we call func(\"1\"); it will log:",
         "options": [
           {
             "id": "a",
@@ -2652,7 +2652,7 @@
           {
             "id": "b",
             "type": "text",
-            "content": "Reference Error: func is not defined.",
+            "content": "ReferenceError: func is not defined",
             "codeLanguage": null
           },
           {
@@ -2670,7 +2670,7 @@
         ],
         "correctAnswerId": "c",
         "expectedAnswer": null,
-        "explanation": "The isolated argument is a string `\"1\"`. `typeof` registers it successfully as 'string'. There is exactly 1 argument, resolving to `1`.",
+        "explanation": "The first argument is a string, so `typeof` is `string` with one argument.",
         "relatedTopics": [
           "fe-5"
         ]
@@ -2678,7 +2678,7 @@
       {
         "id": "q67",
         "type": "multiple_choice",
-        "questionText": "67. If we called func(\"A\", \"2\", \"Ali\", \"Z\"); it will log:",
+        "questionText": "67. If we call func(\"A\", \"2\", \"Ali\", \"Z\"); it will log:",
         "options": [
           {
             "id": "a",
@@ -2689,7 +2689,7 @@
           {
             "id": "b",
             "type": "text",
-            "content": "Reference Error: func is not defined.",
+            "content": "ReferenceError: func is not defined",
             "codeLanguage": null
           },
           {
@@ -2707,7 +2707,7 @@
         ],
         "correctAnswerId": "c",
         "expectedAnswer": null,
-        "explanation": "The first mapped parameter `x` is the string `\"A\"`. Though only 1 parameter is explicitly named in the function definition, `arguments.length` correctly counts all 4 inputs universally.",
+        "explanation": "Four arguments are supplied, so `arguments.length` is 4.",
         "relatedTopics": [
           "fe-5"
         ]
@@ -2715,7 +2715,7 @@
       {
         "id": "q68",
         "type": "multiple_choice",
-        "questionText": "68. If we called func(); it will log:",
+        "questionText": "68. If we call func(); it will log:",
         "options": [
           {
             "id": "a",
@@ -2726,7 +2726,7 @@
           {
             "id": "b",
             "type": "text",
-            "content": "Reference Error: func is not defined.",
+            "content": "ReferenceError: func is not defined",
             "codeLanguage": null
           },
           {
@@ -2756,7 +2756,7 @@
     "topic": "JavaScript Const Declarations and Mutation",
     "context": {
       "text": "Use the following code, answer questions from 69-73:",
-      "code": "1. const x = {name:\"A\"}\n2. x = {address: \"Giza\"}\n3. x.name = \"Neamat\"\n4. const y = 23\n5. y = 44;\n6. console.log(x.name)\n7. console.log(y);",
+      "code": "const x = {name:\"Ali\", address: \"Giza\"};\nx = {name:\"Neamat\"};\nx.name = \"Neamat\";\nconst y = 23;\ny = 44;\nconsole.log(x.name);\nconsole.log(y);",
       "codeLanguage": "javascript",
       "image": {
         "url": null,
@@ -2772,13 +2772,13 @@
           {
             "id": "a",
             "type": "text",
-            "content": "Be executed successfully.",
+            "content": "Be executed successfully",
             "codeLanguage": null
           },
           {
             "id": "b",
             "type": "text",
-            "content": "Throw an error.",
+            "content": "Throw an error",
             "codeLanguage": null
           }
         ],
@@ -2798,13 +2798,13 @@
           {
             "id": "a",
             "type": "text",
-            "content": "Be executed successfully.",
+            "content": "Be executed successfully",
             "codeLanguage": null
           },
           {
             "id": "b",
             "type": "text",
-            "content": "Throw an error.",
+            "content": "Throw an error",
             "codeLanguage": null
           }
         ],
@@ -2819,18 +2819,18 @@
       {
         "id": "q71",
         "type": "multiple_choice",
-        "questionText": "71. Assume Lines from 1 to 3 in this code are removed, then line 5 will:",
+        "questionText": "71. Assume Lines from 1 to 3 are removed. Line 5 will:",
         "options": [
           {
             "id": "a",
             "type": "text",
-            "content": "Be executed successfully.",
+            "content": "Execute successfully",
             "codeLanguage": null
           },
           {
             "id": "b",
             "type": "text",
-            "content": "Throw an error.",
+            "content": "Throw an error",
             "codeLanguage": null
           }
         ],
@@ -2845,7 +2845,7 @@
       {
         "id": "q72",
         "type": "multiple_choice",
-        "questionText": "72. Assume Lines 2, 4, and 5 in this code are removed, line 6 will output:",
+        "questionText": "72. Assume Lines 2, 4, and 5 in this code are removed. Line 6 will output:",
         "options": [
           {
             "id": "a",
@@ -2868,7 +2868,7 @@
           {
             "id": "d",
             "type": "text",
-            "content": "Throw an erro",
+            "content": "Throw an error",
             "codeLanguage": null
           }
         ],
@@ -2883,7 +2883,7 @@
       {
         "id": "q73",
         "type": "multiple_choice",
-        "questionText": "73. Assume Lines from 1 to 3 in this code are removed, and line 6 is removed too, code is only lines (4, 5 and 7), line 7 will output:",
+        "questionText": "73. Assume Lines from 1 to 3 in this code are removed, and line 6 is removed too, code remaining is only lines 4, 5 and 7, line 7 will output:",
         "options": [
           {
             "id": "a",
@@ -2912,7 +2912,7 @@
         ],
         "correctAnswerId": "d",
         "expectedAnswer": null,
-        "explanation": "The script execution encounters a fatal TypeError at line 5 (reassigning a `const`). Consequently, execution stops completely before it ever reaches line 7.",
+        "explanation": "Reassigning `const y` throws before `console.log(y)` can run.",
         "relatedTopics": [
           "fe-5",
           "fe-6"
@@ -2953,7 +2953,7 @@
         ],
         "correctAnswerId": "false",
         "expectedAnswer": null,
-        "explanation": "JavaScript is dynamically and loosely typed. Type checks occur at runtime, and variables can seamlessly switch types.",
+        "explanation": "JavaScript is dynamically typed.",
         "relatedTopics": [
           "fe-5"
         ]
@@ -2961,7 +2961,7 @@
       {
         "id": "q75",
         "type": "multiple_choice",
-        "questionText": "75. var a=200; var b=\"200\"; a===b will return true while a==b will return false?",
+        "questionText": "75. var a = 200;\n    var b = \"200\";\n    a == b will return true while a === b will return false?",
         "options": [
           {
             "id": "true",
@@ -2976,9 +2976,9 @@
             "codeLanguage": null
           }
         ],
-        "correctAnswerId": "false",
+        "correctAnswerId": "true",
         "expectedAnswer": null,
-        "explanation": "The statement claims the opposite of reality. `a == b` (loose equality) triggers coercion and returns true. `a === b` (strict equality) prevents coercion, evaluates that a Number is not a String, and returns false.",
+        "explanation": "Loose equality coerces types; `200` equals `\"200\"`, but `===` does not.",
         "relatedTopics": [
           "fe-5"
         ]
@@ -3003,7 +3003,7 @@
         ],
         "correctAnswerId": "false",
         "expectedAnswer": null,
-        "explanation": "`isNaN(\"Hello\")` returns true. However, `isNaN(undefined)` coerces undefined into a Number (which becomes NaN), therefore it also returns true.",
+        "explanation": "`isNaN(\"Hello\")` is true, but `isNaN(undefined)` is also true in JavaScript, so the second part of the statement is wrong.",
         "relatedTopics": [
           "fe-5"
         ]
@@ -3028,7 +3028,7 @@
         ],
         "correctAnswerId": "true",
         "expectedAnswer": null,
-        "explanation": "In Python, empty standard data structures (like lists `[]`, tuples `()`, or dictionaries `{}`) inherently evaluate to a boolean value of `False`.",
+        "explanation": "An empty list is falsy in Python boolean context.",
         "relatedTopics": [
           "be-2"
         ]
@@ -3036,7 +3036,7 @@
       {
         "id": "q78",
         "type": "multiple_choice",
-        "questionText": "78. In Python. A set is a collection which is both unordered and indexed.",
+        "questionText": "78. In Python, A set is a collection which is both unordered and indexed.",
         "options": [
           {
             "id": "true",
@@ -3053,7 +3053,7 @@
         ],
         "correctAnswerId": "false",
         "expectedAnswer": null,
-        "explanation": "Sets are explicitly unordered and *unindexed*. You cannot retrieve set elements by referring to index keys or integers.",
+        "explanation": "Sets are unordered and unindexed, not indexed.",
         "relatedTopics": [
           "be-2"
         ]
@@ -3061,32 +3061,7 @@
       {
         "id": "q79",
         "type": "multiple_choice",
-        "questionText": "79. In the following statement: myNumbers = {1, 2, 3}\n x = myNumbers.pop()\n The removed item will be 3.",
-        "options": [
-          {
-            "id": "true",
-            "type": "text",
-            "content": "True",
-            "codeLanguage": null
-          },
-          {
-            "id": "false",
-            "type": "text",
-            "content": "False",
-            "codeLanguage": null
-          }
-        ],
-        "correctAnswerId": "true",
-        "expectedAnswer": null,
-        "explanation": "Note on text processing: Depending on language semantics—in JS arrays (`[1,2,3]`), `.pop()` reliably targets the last chronological index, extracting 3. This resolves as True.",
-        "relatedTopics": [
-          "be-2"
-        ]
-      },
-      {
-        "id": "q80",
-        "type": "multiple_choice",
-        "questionText": "80. x=(\"apple\", \"banana\", \"cherry\") is a definition of a list.",
+        "questionText": "79. In the following statement: myNumbers = {1, 2, 3}\n    x = myNumbers.pop()\n    The removed item will be 3.",
         "options": [
           {
             "id": "true",
@@ -3103,7 +3078,32 @@
         ],
         "correctAnswerId": "false",
         "expectedAnswer": null,
-        "explanation": "The usage of curved parentheses `()` structurally defines a Tuple in Python. To correctly define a Python List, you strictly utilize square brackets `[]`.",
+        "explanation": "`pop()` on a set removes an arbitrary element; for `{1,2,3}` the removed item is not guaranteed to be 3 (sets are unordered). The statement as written about list behavior is false for sets — exam answer is False.",
+        "relatedTopics": [
+          "be-2"
+        ]
+      },
+      {
+        "id": "q80",
+        "type": "multiple_choice",
+        "questionText": "80. x = (\"apple\", \"banana\", \"cherry\") is a definition of a list.",
+        "options": [
+          {
+            "id": "true",
+            "type": "text",
+            "content": "True",
+            "codeLanguage": null
+          },
+          {
+            "id": "false",
+            "type": "text",
+            "content": "False",
+            "codeLanguage": null
+          }
+        ],
+        "correctAnswerId": "false",
+        "expectedAnswer": null,
+        "explanation": "Parentheses define a tuple, not a list.",
         "relatedTopics": [
           "be-2"
         ]
