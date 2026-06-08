@@ -84,17 +84,8 @@ export function PracticeLauncher({
     );
   }, [baseQuestions, config.writtenTrack, isWritten]);
 
-  const [activeSessionKey, setActiveSessionKey] = useState(() =>
-    practiceSessionKey(
-      isWritten
-        ? filterWrittenQuestionsByTrack(
-            baseQuestions,
-            defaultConfig.writtenTrack ?? "both"
-          )
-        : baseQuestions,
-      defaultConfig
-    )
-  );
+  /** Set when a session starts; only read while `phase === "session"`. */
+  const [activeSessionKey, setActiveSessionKey] = useState("");
   const [preparedSessionQuestions, setPreparedSessionQuestions] = useState<
     Question[]
   >([]);
@@ -106,11 +97,6 @@ export function PracticeLauncher({
     () => canonicalPracticeSessionKey(sessionQuestions),
     [sessionQuestions]
   );
-
-  useEffect(() => {
-    if (phase !== "setup" || !isWritten) return;
-    setActiveSessionKey(practiceSessionKey(sessionQuestions, config));
-  }, [phase, isWritten, sessionQuestions, config]);
 
   const sessionStatus = useSyncExternalStore(
     subscribePracticeStatus,
