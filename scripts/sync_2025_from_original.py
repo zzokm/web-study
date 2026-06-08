@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Sync data/exams/2025.json question text/options from 2025original.txt."""
+"""Sync data/exams/2025.json from data/exams/originals/2025original.txt."""
 
 from __future__ import annotations
 
@@ -7,8 +7,7 @@ import json
 import re
 from pathlib import Path
 
-ROOT = Path(__file__).resolve().parents[1]
-ORIGINAL_PATH = ROOT / "2025original.txt"
+from exam_original_paths import ROOT, read_original_txt
 EXAM_PATH = ROOT / "data/exams/2025.json"
 
 JSON_ID_BY_NUM: dict[int, str] = {
@@ -157,7 +156,7 @@ def format_question_text(num: int, body: str) -> str:
 
 
 def main() -> None:
-    orig_text = ORIGINAL_PATH.read_text(encoding="utf-8")
+    orig_text = read_original_txt(2025)
     tf_items = parse_true_false(orig_text)
     mcq_items = parse_mcq(orig_text)
 

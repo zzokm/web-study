@@ -8,102 +8,119 @@ A. 1
 B. 3
 C. 5
 D. 8
+ANSWER: C
 
 2. The values GET, POST, HEAD, etc., are specified in
 A. Request & Response
 B. Request
 C. Response
 D. None of The Above
+ANSWER: B
 
 3. Find the oddly matched HTTP status codes:
 A. 200 - OK
 B. 400 - Bad Request
 C. 301 - Moved Permanently
 D. 304 - Not Found
+ANSWER: D
 
 4. HTTP uses the services of ______ on well-known port 80:
 A. TCP
 B. UDP
 C. SMTP
 D. HTTPS
+ANSWER: A
 
 5. In HTTP, the first line in a request message is called a ______ line; the first line in the response message is called the ______ line.
 A. Request, Status
 B. Status, Status
 C. Response, Status
 D. None of The Above
+ANSWER: A
 
 6. An HTTP request message always contains
 A. A Header and A Body
 B. A Request Line and A Header
 C. A Status Line, A Header and A Body
 D. None of The Above
+ANSWER: B
 
 7. ______ is more robust and secure than ______
 A. Get, Post
 B. Post, Put
 C. Post, Get
 D. None of The Above
+ANSWER: C
 
 8. Which of the following property of an anchor element signifies an element that currently has the user's mouse pointer hovering over it?
 A. :link
 B. :visited
 C. :hover
 D. :active
+ANSWER: C
 
 9. In CSS, "color:red" can be called as
 A. Selector
 B. Declaration
 C. Rule
 D. Value
+ANSWER: B
 
 10. In CSS, "font-size" can be called as
 A. Selector
 B. Rule
 C. Property
 D. Property-Name
+ANSWER: C
 
 11. ______ selectors are used to specify a group of elements.
 A. id
 B. class
 C. tag
 D. Both class and tag
+ANSWER: D
 
 12. "Font-style comes first than font-weight in font attribute." State true or false.
 A. True
 B. False
 C. May be
 D. None of the above
+ANSWER: B
 
 13. Which CSS property is equivalent for the attribute <center>?
 A. color
 B. margin
 C. align
 D. font
+ANSWER: C
 
 14. Which of the following is the correct way to apply style to a document?
 A. Use an external style sheet, either by importing it or by linking to it
 B. Directly embed a document-wide style in the head element of the document
 C. Set an inline style rule using the style attribute directly on an element
 D. All the mentioned
+ANSWER: D
 
 15. With, which tag do you write the style rules directly within the document found within the head of the document.
 A. <script>
 B. <php>
 C. <style>
 D. <CSS>
+ANSWER: C
 
 16. Inline style has the lowest priority.
 A. True
 B. False
 C. May be
 D. Cannot say
+ANSWER: B
 
 17. When a user views a page containing a JavaScript program, which machine executes the script?
 A. The User's machine running a Web browser
 B. The Web server
 C. A central machine deep within Netscape's corporate offices
 D. None of the above
+ANSWER: A
 
 18. Which of the following lines of JavaScript code will change the HTML inside of an element with the attribute id="myElement" to "CS 105"?
 A. document.getElementById("myElement").innerHTML = "CS 105";
@@ -118,6 +135,7 @@ For the next two questions, consider the following code:
 4   print("Hello");
 5   x *= 2;
 6 }
+ANSWER: A
 
 19. If the function print() has been defined that prints the value passed in as the parameter to it, how many times is "Hello" printed?
 A. 0
@@ -125,6 +143,7 @@ B. 1
 C. 2
 D. 3
 E. Infinity (or at least until you kill the program)
+ANSWER: B
 
 20. If the initial value of x (set on Line #1) is now 5 instead of 20, how many times is "Hello" printed?
 A. 0
@@ -142,35 +161,41 @@ For the next two questions, consider the following code:
 7     {
 8       ct++;
 9     }
+ANSWER: D
 
 21. Based on its usage in the function, what type of variable x be?
 A. A string
 B. A number
 C. An array of strings
 D. An array of numbers
+ANSWER: D
 
 22. Which of the following statements are true about this code?
 A. The function will always return the value 0
 B. The function will never return the value 0.
 C. The function only returns if x is a number.
 D. The function will return a number.
+ANSWER: D
 
 23. In JavaScript, which one of the following is not considered as an error?
 A. Syntax error
 B. Missing of semicolons
 C. Division by zero
 D. Missing of Brackets
+ANSWER: C
 
 24. How are objects organized in the HTML DOM?
 A. Class-wise
 B. Queue
 C. Hierarchy
+ANSWER: C
 
 25. What is the purpose of form control elements in the HTML DOM?
 A. User Interface elements
 B. All possible elements
 C. Debugging elements
 D. Collecting elements
+ANSWER: A
 
 26. Which statement is correct about this Python code?
 class Name:
@@ -183,6 +208,7 @@ A. It will throw an error as multiple references to the same object is not possi
 B. id(name1) and id(name2) will have the same value.
 C. Both name1 and name2 will have reference to two different objects of class Name.
 D. All the above
+ANSWER: B
 
 27. What will the following Python code print?
 lst = []
@@ -198,150 +224,175 @@ B. [[6, 15], [10, 20, 30]]
 C. [[15, 6], [10, 30, 20]]
 D. [[10, 30, 20], [15, 6]]
 E. [[10, 20, 30], [6, 15]]
+ANSWER: D
 
 28. What is a Django App?
 A. Django app is an extended package with base package is Django.
 B. Django app is a python package with its own components.
 C. Both 1 & 2
 D. All of the above.
+ANSWER: B
 
 29. What are Migrations in Django?
 A. They are files saved in migrations directory.
 B. They are created when you run makemigrations command.
 C. Migrations are files where Django stores changes to your models.
 D. All of the above.
+ANSWER: D
 
 30. Django is based on which framework?
 A. MVC
 B. MVVM
 C. MVT
 D. None of the Above
+ANSWER: C
 
 31. What does {{ name }} mean in Django Templates?
 A. {{ name }} will be the output.
 B. It will be displayed as name in HTML.
 C. The name will be replaced with values of Python variable.
 D. None of the above
+ANSWER: C
 
 32. Which of the following is a valid forloop attributes of Django Template System?
 A. forloop.reverse
 B. forloop.firstitem
 C. forloop.counter()
 D. forloop.lastitem
+ANSWER: C
 
 33. What does the architecture of Django consist of?
 A. Views
 B. Models
 C. Templates
 D. All of the Above
+ANSWER: D
 
 34. Django is a type of:
 A. Programming Language
 B. Software
 C. Web framework
 D. None of the above
+ANSWER: C
 
 35. Which command issued to create a project in Django?
 A. Project
 B. manage.py
 C. __init__.py
 D. All of the above
+ANSWER: A
 
 36. In a URL, an optional ______ can be inserted between the host and the path, separated from the host by a colon.
 A. Port Number
 B. Protocol
 C. Host
 D. None of Them
+ANSWER: A
 
 37. A cookie is created by
 A. Server
 B. Client
 C. Host
 D. None of Them
+ANSWER: A
 
 38. The ______ of the ______ can contain parameters sent to the server.
 A. Header, response
 B. Header, request
 C. Body, response
 D. Body, request
+ANSWER: D
 
 39. In JavaScript, the statement "40" + 6 will return
 A. 46
 B. "406"
 C. "40"6
 D. Error
+ANSWER: B
 
 40. To determine if an object contains a certain property, we can use the ______ operator.
 A. =
 B. In
 C. List
 D. []
+ANSWER: B
 
 41. Consider you have a function "funcX" that multiplies any input number by 3. And you have a list of numbers Y = [1, 3, 4]. The result of Y.map(funcX) is
 A. New array [3, 9, 12]
 B. Same array updated [3, 9, 12]
 C. None of the answers
 D. Something else
+ANSWER: A
 
 42. An HTTP Response message must contain
 A. Content coming from the server
 B. Content coming from the client
 C. Status code
 D. None of them
+ANSWER: C
 
 43. "Expires: Tuesday, 17 Dec 2020 18:30 GMT" is a ______ header denoting ______
 A. Request, Time-Based Caching
 B. Response, Content-Based Caching
 C. Request, Content-Type Caching
 D. Response, Time-Based Caching
+ANSWER: D
 
 44. To denote permission of using a resource, you must use
 A. Authentication
 B. Validation
 C. Authorization
 D. None of Them
+ANSWER: C
 
 45. Using authorization, a response with status 200 means that
 A. The user is not authorized to see the response.
 B. content cannot be displayed after authorization.
 C. None of the answers
 D. User is authorized to see the response.
+ANSWER: C
 
 46. A lock icon in the browser denotes ______ for ______ connection.
 A. Hypertext Transfer Protocol over TCP, secured
 B. Secured Hypertext Transfer Protocol over TLS, secured
 C. Hypertext Transfer Protocol over TCP, unsecured
 D. None of the answers
+ANSWER: B
 
 47. The <del> HTML element is used to
 A. deletes the text
 B. removes the text from the HTML document
 C. put a strike over the text
 D. None of the answers
+ANSWER: C
 
 48. Cascading Style Sheets are used to
 A. Identify how elements will be displayed on paper
 B. Identify how elements will be saved to the server
 C. Identify how elements will be sent to the client
 D. None of the answers
+ANSWER: D
 
 49. A CSS rule-set consists of ______ and ______
 A. Selector, multiple declarations
 B. Selector, value
 C. Selector, property
 D. None of the answers
+ANSWER: A
 
 50. <link rel="stylesheet" type="text/css" href="style.css"> is a declaration of
 A. Internal CSS
 B. External CSS
 C. Inline CSS
 D. None of the answers
+ANSWER: B
 
 51. What is the correct JavaScript syntax to change the content of the HTML element <p id="demo">This is a demonstration.</p>
 A. #demo.innerHTML = "Hello World!";
 B. document.getElementByName("p").innerHTML = "Hello World!";
 C. document.getElementById("demo").innerHTML = "Hello World!";
 D. document.getElement("p").innerHTML = "Hello World!";
+ANSWER: C
 
 52. What is the output of the following JavaScript snippet?
 var writeMe = "console.log('document.writeln(x);')";
@@ -351,6 +402,7 @@ A. Prints 13 in the console
 B. Writes 13 to the body of the document
 C. Writes "document.writeln(x);" to the body of the document
 D. prints "document.writeln(x);" in the console
+ANSWER: D
 
 53. What is the output of the following JavaScript snippet?
 x = "20";
@@ -360,6 +412,7 @@ A. 30, 10
 B. 30, NaN
 C. 2010, NaN
 D. 2010, 10
+ANSWER: D
 
 54. If you have the following JavaScript statement:
 const f = (a, b) => a + b + 5;
@@ -367,12 +420,14 @@ A. f(3, 4) will return 12
 B. f(4, 5) will return 9
 C. f(4, 5) will return 5
 D. Not a correct syntax for an arrow function
+ANSWER: A
 
 55. To select numbers that are less than 10 from an array of numbers (named myNumbers), the following is a correct syntax to do it:
 A. myNumbers.map((value) => value < 10);
 B. myNumbers.filter((value) => value < 10);
 C. myNumbers.map(value < 10);
 D. myNumbers.filter(value < 10);
+ANSWER: B
 
 56. In the function:
 function multiply(...myNumbers) {
@@ -385,12 +440,14 @@ A. Allow the function to be waiting for more arguments to be sent
 B. Allow the function to change the arguments to an array
 C. allow the function to distribute the arguments to separate numbers to be multiplied
 D. None of the answers
+ANSWER: B
 
 57. The "..." in the previous question are called:
 A. Distribution parameter
 B. Arguments parameter
 C. Rest parameter
 D. Waiting parameters
+ANSWER: C
 
 58. In the following Python statements:
 if 2 < 1:
@@ -402,6 +459,7 @@ A. The output will be: Two is less than one!
 B. The output will be: Two is less than one! Two is less than one!
 C. The output will be: Two is less than one!
 D. The output will be an Error.
+ANSWER: D
 
 59. x = {
   "name": "Ahmed",
@@ -415,6 +473,7 @@ A. {'name': 'Ahmed', 'id': '1', 'mobile': 123456789, 'mobile': 987654321}
 B. {'name': 'Ahmed', 'id': '1', 'mobile': 123456789}
 C. {'name': 'Ahmed', 'id': '1', 'mobile': 987654321}
 D. Error! As you cannot have duplicate keys in a dictionary
+ANSWER: C
 
 60. def f(**person):
   print("Person's name is " + person["name"])
@@ -424,6 +483,7 @@ A. Person's name is Ahmed
 B. Person's name is Ahmed and Age is 10
 C. Error as the function f doesn't take except one argument
 D. Error as the function f doesn't take an argument called "name"
+ANSWER: A
 
 61. y = lambda x: x / 20
 print(y(100))
@@ -432,6 +492,7 @@ A. Error as there is no function called y
 B. 100/20
 C. 5
 D. y(100)
+ANSWER: C
 
 Use the following code, answer questions from 62-64: When the function run() is called.
 1. function run() {
@@ -453,18 +514,21 @@ A. X, Y
 B. X, ReferenceError
 C. ReferenceError, Y
 D. Undefined, ReferenceError
+ANSWER: A
 
 63. The second console.log statement (line 8) will output:
 A. X, Y
 B. X, ReferenceError
 C. ReferenceError, Y
 D. Undefined, ReferenceError
+ANSWER: A
 
 64. The last console.log statement (lines 10, 11) will output:
 A. X, Y
 B. X, ReferenceError
 C. ReferenceError, Y
 D. Undefined, ReferenceError
+ANSWER: A
 
 Use the following code, answer questions from 65-68:
 function func(x)
@@ -477,24 +541,28 @@ A. ReferenceError: func is not defined
 B. "string", 2
 C. "number", 2
 D. "number", 1
+ANSWER: C
 
 66. If we call func("1"); it will log:
 A. "number", 1
 B. ReferenceError: func is not defined
 C. "string", 1
 D. "string", 0
+ANSWER: C
 
 67. If we call func("A", "2", "Ali", "Z"); it will log:
 A. "string", 3
 B. ReferenceError: func is not defined
 C. "string", 4
 D. None of the Above
+ANSWER: C
 
 68. If we call func(); it will log:
 A. Undefined, 0
 B. ReferenceError: func is not defined
 C. Undefined, Undefined
 D. None of the Above
+ANSWER: A
 
 Use the following code, answer questions from 69-73:
 1. const x = {name:"Ali", address: "Giza"};
@@ -508,43 +576,55 @@ Use the following code, answer questions from 69-73:
 69. Line 2 in this code will (ignoring lines from 3- to the end):
 A. Be executed successfully
 B. Throw an error
+ANSWER: B
 
 70. Assume Line 2 in this code is removed, then line 3 in this code will (ignoring lines from 4- to the end):
 A. Be executed successfully
 B. Throw an error
+ANSWER: A
 
 71. Assume Lines from 1 to 3 are removed. Line 5 will:
 A. Execute successfully
 B. Throw an error
+ANSWER: B
 
 72. Assume Lines 2, 4, and 5 in this code are removed. Line 6 will output:
 A. "Ali"
 B. undefined
 C. "Neamat"
 D. Throw an error
+ANSWER: C
 
 73. Assume Lines from 1 to 3 in this code are removed, and line 6 is removed too, code remaining is only lines 4, 5 and 7, line 7 will output:
 A. 23
 B. 44
 C. Reference Error
 D. Throw an error
+ANSWER: D
 
 Question TWO (True or False):
 
 74. JavaScript is a statically typed language.
+ANSWER: False
 
 75. var a = 200;
     var b = "200";
     a == b will return true while a === b will return false?
+ANSWER: True
 
 76. isNaN("Hello") returns true while isNaN(undefined) returns false?
+ANSWER: False
 
 77. In Python, the value of [] is False.
+ANSWER: True
 
 78. In Python, A set is a collection which is both unordered and indexed.
+ANSWER: False
 
 79. In the following statement: myNumbers = {1, 2, 3}
     x = myNumbers.pop()
     The removed item will be 3.
+ANSWER: False
 
 80. x = ("apple", "banana", "cherry") is a definition of a list.
+ANSWER: False

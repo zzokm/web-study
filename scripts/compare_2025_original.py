@@ -1,11 +1,11 @@
 #!/usr/bin/env python3
-"""Compare data/exams/2025.json against 2025original.txt and report differences."""
+"""Compare data/exams/2025.json against data/exams/originals/2025original.txt."""
 
 import json
 import re
 from pathlib import Path
 
-ROOT = Path(__file__).resolve().parents[1]
+from exam_original_paths import ROOT, read_original_txt
 
 
 def parse_original(orig_text: str):
@@ -48,7 +48,7 @@ def parse_options(text: str):
 
 
 def main():
-    orig_text = (ROOT / "2025original.txt").read_text(encoding="utf-8")
+    orig_text = read_original_txt(2025)
     data = json.loads((ROOT / "data/exams/2025.json").read_text(encoding="utf-8"))
 
     tf_items, mcq_items = parse_original(orig_text)

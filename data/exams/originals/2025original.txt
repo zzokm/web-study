@@ -21,51 +21,85 @@ Total Marks in Writing: 60
 Part One: For each of the following statements please write down your answer in the bubble sheet:
 Question One: Write True or False [17 Marks]
 1. We use the put method in the HTTP request message for doing partial updates.
+ANSWER: False
 2. To determine the type of an object, we can use the "typeof" function in JavaScript.
+ANSWER: True
 3. CSS can be defined externally in a separate file by adding the <style> element inside the <head>.
+ANSWER: False
 4. var colors = (1:"red", 2:"green", 3:"blue") is one of the ways of defining an array in JavaScript.
+ANSWER: False
 5. Django views represents the presentation layer of Django.
+ANSWER: False
 6. In Python, format function is used to format the datatypes of the output.
+ANSWER: False
 7. In Python, A set is a collection which is both unordered and indexed.
+ANSWER: False
 8. We can register models in the admin.py file to view it in the administration site of Django.
+ANSWER: True
 9. "Post.Objects.all()" will retrieve all objects in the Post table.
+ANSWER: False
 10. The super() function in python enables a class to have unlimited number of attributes.
+ANSWER: False
 11. "migrate" command in Django is used to show the changes happened in the database.
+ANSWER: False
 12. In Python, to append elements from another list to the current list, use the update() method.
+ANSWER: False
 13. In Python, to add items from another set into the current set, use the extend() method.
+ANSWER: False
 14. Tags and texts that are not directly displayed on the HTML page are written in title section.
+ANSWER: False
 15. If an application is running on Web Server Gateway Interface (WSGI), then it will handle client requests in a sequential manner.
+ANSWER: True
 16. For a model to be visible in the admin interface it has to be registered in the settings.py file.
+ANSWER: False
 17. In DOM, ChildNodes property returns elements and ignores text and comments.
+ANSWER: False
 18. In python, a set is a collection which is unordered and unindexed.
+ANSWER: True
 19. In python, to create a class that inherits from another class we use inherits keyword.
+ANSWER: False
 20. In Python, when using the super () function, the child class will not inherit the methods and properties from the parent class.
+ANSWER: False
 21. In the following statement: myNumbers =[1,2,3]
 x = myNumbers.pop()
 The removed item will be 1.
+ANSWER: False
 22. In the following statement: myNumbers =[1,2,3]
 x = myNumbers.pop()
 The removed item will be 3.
+ANSWER: True
 23. x = ("apple", "banana", "cherry") is a definition of a list.
+ANSWER: False
 24. my-var is an incorrect variable name in Python.
+ANSWER: True
 25. The CSS property background-attachment is used to specify whether the image is attached to the document or not.
+ANSWER: True
 26. The output of the following statements is Hello, My
 b= "Hello, My Friend"
 Print (b [:8])
+ANSWER: False
 27. Strip() function is used to remove whitespaces from the beginning and end of a string in Python.
+ANSWER: True
 28. The output of the following Python statements is ['a', 'b', 'C']
 X=['C','b','a']
 X.sort()
 Print(X)
+ANSWER: False
 29. When you create a Django project on your computer, you will get a folder for your project with a specific content including templates file.
+ANSWER: False
 30. Django comes with a built-in user interface that allows you to administrate your data. To access this interface you have to create a user name and password. To create this such user, you write python mange.py createuser.
+ANSWER: False
 31. AJAX is used for refreshing the page content by sending a request to the server and updating the whole HTML page from the response.
+ANSWER: False
 32. The output of the following Python statements is ['a', 'b', 'c']
 X=['C','b','A']
 X.sort(key = str.lower)
 Print(X)
+ANSWER: False
 33. <br> tag is used to force the browser to display the next text or element on a new line.
+ANSWER: True
 34. y= ("apple",) is a tuple.
+ANSWER: True
 
 Question Two: Choose the correct answer [23 Marks]
 35. An HTTP response content type denotes
@@ -73,18 +107,21 @@ a. The media type of the content
 b. The image size of the content
 c. The text size of the content
 d. None of the answers!
+ANSWER: A
 
 36. Using authorization, having a response of status 200 means that
 a. User is not authorized to see the response
 b. User is authorized to see the response
 c. Content cannot be displayed after authorization
 d. None of the answers!
+ANSWER: B
 
 37. Using authorization, having a response of status 403 means that
 a. Server is reachable but the user is not authorized to see the response
 b. Server is not reachable, and the user is not authorized to see the response
 c. Server is reachable and no content available to show the user
 d. None of the answers!
+ANSWER: A
 
 38. In the following function:
 function multiply(...myNumbers) {
@@ -96,18 +133,21 @@ a. allow the function to be waiting for more arguments to be sent.
 b. allow the function to change the arguments to an array.
 c. allow the function to distribute the arguments to separate numbers to be multiplied.
 d. None of the answers.
+ANSWER: B
 
 39. Which of the following is true about JavaScript syntax?
 a. It is case-insensitive.
 b. Semicolons are mandatory at the end of every statement.
 c. It is case-sensitive.
 d. White spaces are not allowed.
+ANSWER: C
 
 40. What does 'use strict' do in JavaScript?
 a. Prevents errors in the code
 b. Enforces stricter parsing and error-handling rules
 c. Allows use of old JavaScript syntax
 d. Removes debugging restrictions
+ANSWER: B
 
 41. What is the result of running the following code in strict mode?
 x=10;
@@ -116,24 +156,28 @@ a. 10
 b. Error: x is not defined
 c. undefined
 d. NaN
+ANSWER: B
 
 42. What is the difference between var, let, and const?
 a. var is block-scoped, let and const are function-scoped.
 b. var is function-scoped, let and const are block-scoped.
 c. var and let are block-scoped, const is function-scoped.
 d. All are block-scoped.
+ANSWER: B
 
 43. What is the purpose of the prototype property in JavaScript objects?
 a. To create new properties in an object
 b. To define methods and properties for inheritance
 c. To store the type of the object
 d. To delete existing properties
+ANSWER: B
 
 44. In JavaScript, which of the following is a valid getter in an object?
 a. get name() { return this._name; }
 b. getter name() { return this._name; }
 c. get: function() { return this.name;}
 d. name.get {return this._name; }
+ANSWER: A
 
 45. What will the following JavaScript code log?
 const obj = {a: 1, b: 2 };
@@ -143,48 +187,56 @@ a. {b: 2}
 b. {a: null, b: 2}
 c. {a: undefined, b: 2}
 d. Error
+ANSWER: A
 
 46. In JavaScript, What is the purpose of the constructor method in a class?
 a. To define static properties of a class
 b. To initialize object properties
 c. To inherit methods from another class
 d. To execute a class directly
+ANSWER: B
 
 47. In JavaScript, What does the super keyword do?
 a. Creates a new object in the class
 b. Defines a static method
 c. Calls the parent class's constructor
 d. Overrides the parent class methods
+ANSWER: C
 
 48. How many ways are there with which we can declare a variable in javascript?
 a. Only one
 b. Three
 c. Infinitely many
 d. None of the above
+ANSWER: B
 
 49. What does document.querySelectorAll() return?
 a. An array of elements
 b. A single element
 c. A NodeList
 d. Undefined
+ANSWER: C
 
 50. What does window.location.href return?
 a. The browser's name
 b. The URL of the current page
 c. The history of visited pages
 d. The cookies of the website
+ANSWER: B
 
 51. What is the purpose of window.history.back()?
 a. To reload the current page
 b. To navigate to the previous page in history
 c. To clear the browser's history
 d. None of the above.
+ANSWER: B
 
 52. How do you remove an element from the DOM?
 a. element.delete();
 b. element.destroy();
 c. element.remove();
 d. element.clear();
+ANSWER: C
 
 Based on the following HTML page, answer questions from (53-58)
 <html>
@@ -212,36 +264,42 @@ a. 1
 b. 2
 c. #text
 d. None of the previous
+ANSWER: C
 
 54. By using this CSS selector p.center {color: blue;}, the number of elements that will be styled is
 a. 1
 b. 2
 c. 3
 d. None of the previous
+ANSWER: A
 
 55. By using this CSS selector p:first-child { color: blue;}, how many elements will be styled?
 a. 5
 b. 6
 c. 1
 d. None of the previous
+ANSWER: D
 
 56. By using this CSS selector div + p { color: red;}, how many p elements will be styled?
 a. 3
 b. 2
 c. 4
 d. None of the previous
+ANSWER: D
 
 57. By using this CSS selector p:empty {color:red;}, how many elements will be styled?
 a. 3
 b. 2
 c. 7
 d. None of the previous
+ANSWER: D
 
 58. If we wrote "var x=document.getElementsByTagName('p')" inside a script tag, then the length of x will be:
 a. 5
 b. 6
 c. 4
 d. None of the previous
+ANSWER: D
 
 Based on the following HTML page, answer questions from (59-61)
 <html>
@@ -260,36 +318,42 @@ a. One element
 b. Collection of elements
 c. null
 d. None of the previous
+ANSWER: B
 
 60. If we wrote this code, "y=x[0].children" then y will contain:
 a. Element nodes only
 b. Element nodes and text nodes
 c. null
 d. None of the previous
+ANSWER: A
 
 61. If we wrote this code, "z=y[0].children; M=z[0].firstChild.nodeValue;" Then the value of M will be:
 a. Text node
 b. List 1
 c. null
 d. None of the previous
+ANSWER: B
 
 62. What is a correct syntax for creating a Django project?
 a. django start my_tennis_club
 b. py manage.py start-django my_tennis_club
 c. django-admin startproject my_tennis_club
 d. None of the previous
+ANSWER: C
 
 63. If you have a Django application named members, and a model named Member, what is a correct syntax to import the model?
 a. from members.models import Member
 b. import Member from members
 c. import members.Member
 d. None of the previous
+ANSWER: A
 
 64. When you have done changes in a model in Django, which command has to be executed in order to make the changes take effect in the database?
 a. python manage.py runmigrations
 b. python manage.py executemigrations
 c. python manage.py makemigrations
 d. None of the previous
+ANSWER: D
 
 65. In the following Python Statements:
 Y={1,1,2,3,3,5}
@@ -299,12 +363,14 @@ a. {1,1,2,3,3,5}
 b. tuple(1,2,3,5)
 c. {1,2,3,5}
 d. None of the answers!
+ANSWER: C
 
 66. What does {{ name }} this mean in Django Templates?
 a. {{name}} will be the output.
 b. It will be displayed as name in HTML.
 c. The name will be replaced with values of Python variable.
 d. None of the above.
+ANSWER: C
 
 67. What will be the output of the following Python code?
 car= {
@@ -318,6 +384,7 @@ a. 3
 b. 6
 c. 4
 d. 8
+ANSWER: A
 
 68. What will be the output of the following Java Script code snippet?
 function test(...args) {
@@ -328,12 +395,14 @@ a. NaN
 b. number
 c. object
 d. array
+ANSWER: C
 
 69. Which method can be used to combine two arrays in JavaScript?
 a. merge()
 b. join()
 c. concat()
 d. append()
+ANSWER: C
 
 70. What will be the output of the following python code?
 newtuple = (1,2,3,4)
@@ -343,6 +412,7 @@ a. 2,3,4
 b. [2,3,4]
 c. 1,2,3
 d. None of the previous
+ANSWER: D
 
 71. What will be the output of the following Python code?
 newtuple=(1,2,3)
@@ -352,6 +422,7 @@ a. 2,3
 b. [2,3]
 c. Python Error
 d. []
+ANSWER: C
 
 72. Identify the error in this CSS code:
 .class { color: blue; font-weight; bold; }
@@ -359,18 +430,21 @@ a. Missing class name
 b. Syntax error in property declaration
 c. Incorrect property value
 d. No error
+ANSWER: B
 
 73. Why might the CSS rule .container p {color: green;} not apply to a paragraph inside a div with class "container"?
 a. The div does not have the "container" class
 b. The paragraph is not a direct child
 c. There is a more specific rule overriding this
 d. The CSS file is not linked properly
+ANSWER: C
 
 74. If an element has margin: 10px; and padding: 20px;, what is the space between the element and its neighboring element?
 a. 20px
 b. 10px
 c. 30px
 d. 40px
+ANSWER: B
 
 75. In the following Python statements:
 Y=set(("a","b","c"))
@@ -380,6 +454,7 @@ a. list[a,b,c]
 b. set(['a','b','c'])
 c. set([a,b,c])
 d. None of the answers
+ANSWER: D
 
 76. In the following Python Statements:
 Y={1,1,2,3,3,5}
@@ -389,6 +464,7 @@ a. set([1,2,3,5])
 b. tuple(1,2,3,5)
 c. dictionary(1:1,2:2,3:3,5:5)
 d. None of the answers
+ANSWER: A
 
 77. x={
 "name": "Ahmed",
@@ -402,6 +478,7 @@ a. {'name': 'Ahmed', 'id': '1', 'mobile': 123456789, 'mobile': 987654321}.
 b. {'name': 'Ahmed', 'id': '1', 'mobile': 123456789}.
 c. {'name': 'Ahmed', 'id': '1', 'mobile': 987654321}.
 d. Error! As you cannot have duplicates in a dictionary
+ANSWER: C
 
 78. What is the output of the following JavaScript snippet?
 var writeMe="console.log('document.writeln(x);')"
@@ -411,6 +488,7 @@ a. prints 13 in the console
 b. Writes 13 to the body of the document
 c. Writes "document.writeln(x);" to the body of the document
 d. prints "document.writeln(x);" in the console
+ANSWER: D
 
 79. What will be the output of this JavaScript code?
 const myArr =[1, 2, [3, [4, 5, 6, 7], 8]];
@@ -420,6 +498,7 @@ a. 1,2,3, [4,5,6],7,8
 b. 1,2, [3,4,5,6],7,8
 c. 1,2,3,4,5,6,7,8
 d. None of the previous
+ANSWER: C
 
 80. Consider the following async function and its output. What will be displayed to the console when calling the f() function?
 async function f() {
@@ -436,6 +515,7 @@ a. first!
 b. done!
 c. JavaScript error
 d. Something else
+ANSWER: D
 
 Part Two: Answer the following questions in the determined space
 Question 3 - [8 Marks]

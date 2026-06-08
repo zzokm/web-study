@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Diff exam JSON against *original.txt sources."""
+"""Diff exam JSON against data/exams/originals/{year}original.txt."""
 
 from __future__ import annotations
 
@@ -8,7 +8,7 @@ import re
 import sys
 from pathlib import Path
 
-ROOT = Path(__file__).resolve().parents[1]
+from exam_original_paths import ROOT, read_original_txt
 
 
 def parse_2021(orig: str) -> tuple[dict[int, str], dict[int, dict]]:
@@ -143,9 +143,8 @@ def question_num(q: dict) -> int | None:
 
 
 def diff_year(year: str) -> list[tuple]:
-    orig_path = ROOT / f"{year}original.txt"
     exam_path = ROOT / "data" / "exams" / f"{year}.json"
-    orig = orig_path.read_text(encoding="utf-8")
+    orig = read_original_txt(year)
     data = json.loads(exam_path.read_text(encoding="utf-8"))
 
     tf_items: dict[int, str] = {}

@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Sync exam JSON from {year}original.txt (2021, 2024, 2025)."""
+"""Sync exam JSON from data/exams/originals/{year}original.txt."""
 
 from __future__ import annotations
 
@@ -9,7 +9,7 @@ import sys
 from dataclasses import dataclass, field
 from pathlib import Path
 
-ROOT = Path(__file__).resolve().parents[1]
+from exam_original_paths import ROOT, read_original_txt
 
 
 @dataclass
@@ -374,9 +374,8 @@ def apply_context(year: str, block: dict) -> None:
 
 
 def sync_year(year: str) -> int:
-    orig_path = ROOT / f"{year}original.txt"
     exam_path = ROOT / "data" / "exams" / f"{year}.json"
-    orig = orig_path.read_text(encoding="utf-8")
+    orig = read_original_txt(year)
     data = json.loads(exam_path.read_text(encoding="utf-8"))
 
     tf_items: dict[int, ParsedQuestion] = {}
