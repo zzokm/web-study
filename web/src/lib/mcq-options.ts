@@ -21,11 +21,37 @@ const PINNED_MCQ_PATTERNS: RegExp[] = [
   /^all\s+the\s+mentioned\.?$/,
 ];
 
+/** Options that refer to other choices by number or letter (e.g. "Both 1&2", "Both a and b"). */
+const POSITION_DEPENDENT_MCQ_PATTERNS: RegExp[] = [
+  /^both\s+[12]\s*(?:&|and)\s*[12]\s*\.?$/,
+  /^both\s+[ab]\s*(?:&|and)\s*[ab]\s*\.?$/,
+  /^[12]\s*(?:&|and)\s*[12]\s*(?:only)?\.?$/,
+  /^[ab]\s*(?:&|and)\s*[ab]\s*(?:only)?\.?$/,
+];
+
+function normalizedOptionText(content: string): string {
+  return optionPlainText(content).replace(/\/$/, "");
+}
+
 /** Catch-all answers that should stay at their original slot when shuffling. */
 export function isPinnedMcqOption(option: QuestionOption): boolean {
-  const text = optionPlainText(option.content);
+  const text = normalizedOptionText(option.content);
   if (!text) return false;
   return PINNED_MCQ_PATTERNS.some((re) => re.test(text));
+}
+
+/** Options that reference other choices by exam position (1/2 or a/b). */
+export function isPositionDependentMcqOption(option: QuestionOption): boolean {
+  const text = normalizedOptionText(option.content);
+  if (!text) return false;
+  return POSITION_DEPENDENT_MCQ_PATTERNS.some((re) => re.test(text));
+}
+
+/** When true, MCQ option order must not be shuffled for the whole question. */
+export function questionHasPositionDependentMcqOptions(
+  options: QuestionOption[]
+): boolean {
+  return options.some(isPositionDependentMcqOption);
 }
 
 export function mcqOptionDisplayLabel(index: number): string {

@@ -1,4 +1,7 @@
-import { shuffleMcqOptionOrder } from "@/lib/mcq-options";
+import {
+  questionHasPositionDependentMcqOptions,
+  shuffleMcqOptionOrder,
+} from "@/lib/mcq-options";
 import { isWrittenQuestion } from "@/lib/questions";
 import {
   seededFisherYates,
@@ -89,6 +92,9 @@ function shuffleMcqOptions(
   random?: SeededRandom
 ): Question {
   if (question.questionType === "true_false") return question;
+  if (questionHasPositionDependentMcqOptions(question.options)) {
+    return cloneQuestion(question);
+  }
   return {
     ...question,
     options: shuffleMcqOptionOrder(question.options, random),
