@@ -10,6 +10,10 @@ import {
   practiceModeFromPathname,
   practiceReturnHrefFromPathname,
 } from "@/lib/analytics-practice";
+import {
+  practiceScopeIdFromPathname,
+  type PracticeScopeId,
+} from "@/lib/practice-scope";
 import type { InteractionSource } from "@/lib/analytics-event-schemas";
 import {
   interactionSource,
@@ -103,6 +107,7 @@ interface PracticeSessionProps {
   onReturnToSetup?: () => void;
   onRegenerateExam?: () => void;
   canonicalKey?: string;
+  practiceScopeId?: PracticeScopeId;
   onSessionFinished?: () => void;
 }
 
@@ -116,6 +121,7 @@ export function PracticeSession({
   onReturnToSetup,
   onRegenerateExam,
   canonicalKey,
+  practiceScopeId,
   onSessionFinished,
 }: PracticeSessionProps) {
   return (
@@ -130,6 +136,7 @@ export function PracticeSession({
       onReturnToSetup={onReturnToSetup}
       onRegenerateExam={onRegenerateExam}
       canonicalKey={canonicalKey}
+      practiceScopeId={practiceScopeId}
       onSessionFinished={onSessionFinished}
     />
   );
@@ -145,12 +152,15 @@ function PracticeSessionInner({
   onReturnToSetup,
   onRegenerateExam,
   canonicalKey: canonicalKeyProp,
+  practiceScopeId: practiceScopeIdProp,
   onSessionFinished,
 }: PracticeSessionProps) {
   const router = useRouter();
   const canonicalKey =
     canonicalKeyProp ?? canonicalPracticeSessionKey(questions);
   const pathname = usePathname();
+  const practiceScopeId =
+    practiceScopeIdProp ?? practiceScopeIdFromPathname(pathname);
   const practiceMode = practiceModeFromPathname(pathname);
   const examYear = examYearFromPathname(pathname);
   const lectureSlug = lectureSlugFromPathname(pathname);
@@ -166,7 +176,7 @@ function PracticeSessionInner({
   const showTimer = config.showSessionTimer;
   const [index, setIndex] = useState(initialIndex);
   const [progress, setProgress] = useState<PracticeProgress>(() =>
-    loadPracticeProgress(sessionKey)
+    loadPracticeProgress(practiceScopeId, sessionKey)
   );
   const [writtenRunCounts, setWrittenRunCounts] = useState<
     Record<string, number>
@@ -197,8 +207,9 @@ function PracticeSessionInner({
     (updater: (prev: PracticeProgress) => PracticeProgress) => {
       setProgress((prev) => {
         const next = updater(prev);
-        savePracticeProgress(sessionKey, next);
+        savePracticeProgress(practiceScopeId, sessionKey, next);
         touchPracticeSessionPointer({
+          scopeId: practiceScopeId,
           questions,
           sessionKey,
           config,
@@ -208,7 +219,7 @@ function PracticeSessionInner({
         return next;
       });
     },
-    [sessionKey, questions, config]
+    [practiceScopeId, sessionKey, questions, config]
   );
 
   const question = questions[index];
@@ -593,13 +604,14 @@ function PracticeSessionInner({
         returnHref: practiceReturnHrefFromPathname(pathname),
       });
       touchPracticeSessionPointer({
+        scopeId: practiceScopeId,
         questions,
         sessionKey,
         config,
         status: "completed",
         resultId: id,
       });
-      clearPracticeProgress(sessionKey);
+      clearPracticeProgress(practiceScopeId, sessionKey);
       clearActivePracticeSession();
       bumpPracticeStatusStore();
       onSessionFinished?.();
@@ -614,6 +626,7 @@ function PracticeSessionInner({
       config,
       mockExamSpec,
       onSessionFinished,
+      practiceScopeId,
     ]
   );
 
@@ -692,7 +705,7 @@ function PracticeSessionInner({
       ...practiceContextFromPath(pathname, title),
       saved_answers_count: savedCount,
     });
-    clearPracticeProgress(sessionKey, canonicalKey);
+    clearPracticeProgress(practiceScopeId, sessionKey, canonicalKey);
     setProgress({});
     setIndex(0);
     viewedQuestionsRef.current = new Set();
@@ -711,6 +724,7 @@ function PracticeSessionInner({
       showKeyboardHints,
     });
   }, [
+    practiceScopeId,
     sessionKey,
     canonicalKey,
     pathname,

@@ -43,6 +43,7 @@ export function PracticeSavedSetCard() {
             questions.length === 1 ? "" : "s"
           }`}
           questions={questions}
+          scopeId="saved"
         />
       </Card>
     </HubTrackedLink>

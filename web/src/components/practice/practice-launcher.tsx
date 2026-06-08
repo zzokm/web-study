@@ -26,10 +26,8 @@ import {
   type PracticeSessionConfig,
 } from "@/lib/practice-session-config";
 import { filterWrittenQuestionsByTrack } from "@/lib/written-practice-filter";
-import {
-  clearActivePracticeSession,
-  loadActivePracticeSession,
-} from "@/lib/practice-active-session";
+import { clearActivePracticeSession } from "@/lib/practice-active-session";
+import { practiceScopeIdFromPathname } from "@/lib/practice-scope";
 import {
   canonicalPracticeSessionKey,
   clearPracticeProgress,
@@ -96,7 +94,11 @@ export function PracticeLauncher({
   const [initialIndex, setInitialIndex] = useState(0);
   const [startFresh, setStartFresh] = useState(false);
   const setupViewedRef = useRef(false);
-  const autoResumedRef = useRef(false);
+
+  const practiceScopeId = useMemo(
+    () => practiceScopeIdFromPathname(pathname),
+    [pathname]
+  );
 
   const canonicalKey = useMemo(
     () => canonicalPracticeSessionKey(sessionQuestions),
@@ -108,7 +110,7 @@ export function PracticeLauncher({
     (): PracticeSessionStatus | null => {
       void getPracticeStatusStoreVersion();
       if (phase !== "setup") return null;
-      return getPracticeSessionStatusSnapshot(sessionQuestions);
+      return getPracticeSessionStatusSnapshot(sessionQuestions, practiceScopeId);
     },
     (): PracticeSessionStatus | null => null
   );
@@ -134,9 +136,9 @@ export function PracticeLauncher({
 
   useEffect(() => {
     if (phase !== "setup" || sessionQuestions.length === 0) return;
-    reconcilePracticeSessionPointer(sessionQuestions);
+    reconcilePracticeSessionPointer(sessionQuestions, practiceScopeId);
     bumpPracticeStatusStore();
-  }, [phase, canonicalKey, sessionQuestions]);
+  }, [phase, canonicalKey, practiceScopeId, sessionQuestions]);
 
   const beginSession = useCallback(
     (
@@ -155,20 +157,26 @@ export function PracticeLauncher({
 
       if (fresh) {
         clearActivePracticeSession();
-        clearPracticeProgress(key, canonicalKey);
+        clearPracticeProgress(practiceScopeId, key, canonicalKey);
       }
 
       let prepared: Question[];
-      const savedDisplay = loadPracticeDisplaySnapshot(key);
+      const savedDisplay = loadPracticeDisplaySnapshot(practiceScopeId, key);
 
       if (!fresh && savedDisplay?.questionKeys.length) {
         prepared = applyDisplaySnapshot(sessionQuestions, savedDisplay);
       } else {
         prepared = preparePracticeQuestions(sessionQuestions, sessionConfig);
-        savePracticeDisplaySnapshot(key, buildDisplaySnapshot(prepared));
+        savePracticeDisplaySnapshot(
+          practiceScopeId,
+          key,
+          buildDisplaySnapshot(prepared)
+        );
       }
 
-      const progress = fresh ? {} : loadPracticeProgress(key);
+      const progress = fresh
+        ? {}
+        : loadPracticeProgress(practiceScopeId, key);
       const index =
         typeof options?.resumeIndex === "number"
           ? Math.min(
@@ -184,6 +192,7 @@ export function PracticeLauncher({
             : 0;
 
       touchPracticeSessionPointer({
+        scopeId: practiceScopeId,
         questions: sessionQuestions,
         sessionKey: key,
         config: sessionConfig,
@@ -205,30 +214,8 @@ export function PracticeLauncher({
       setInitialIndex(index);
       setPhase("session");
     },
-    [canonicalKey, config, pathname, sessionQuestions, title]
+    [canonicalKey, config, pathname, practiceScopeId, sessionQuestions, title]
   );
-
-  useEffect(() => {
-    if (autoResumedRef.current || phase !== "setup" || sessionQuestions.length === 0) {
-      return;
-    }
-
-    const active = loadActivePracticeSession();
-    if (
-      !active ||
-      active.returnPath !== pathname ||
-      active.canonicalKey !== canonicalKey
-    ) {
-      return;
-    }
-
-    autoResumedRef.current = true;
-    beginSession("continue", {
-      sessionKey: active.sessionKey,
-      config: active.config,
-      resumeIndex: active.currentIndex,
-    });
-  }, [beginSession, canonicalKey, pathname, phase, sessionQuestions.length]);
 
   const handleContinue = useCallback(() => {
     if (!sessionStatus || sessionStatus.kind !== "in_progress") return;
@@ -252,11 +239,15 @@ export function PracticeLauncher({
       return;
     }
     if (sessionStatus?.kind === "completed") {
-      clearPracticeProgress(sessionStatus.sessionKey, canonicalKey);
+      clearPracticeProgress(
+        practiceScopeId,
+        sessionStatus.sessionKey,
+        canonicalKey
+      );
       bumpPracticeStatusStore();
     }
     beginSession("fresh");
-  }, [beginSession, canonicalKey, sessionStatus]);
+  }, [beginSession, canonicalKey, practiceScopeId, sessionStatus]);
 
   if (baseQuestions.length === 0) {
     return null;
@@ -273,6 +264,7 @@ export function PracticeLauncher({
         initialIndex={initialIndex}
         startFresh={startFresh}
         canonicalKey={canonicalKey}
+        practiceScopeId={practiceScopeId}
         onSessionFinished={bumpSessionStatus}
       />
     );

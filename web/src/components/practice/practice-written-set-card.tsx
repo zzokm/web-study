@@ -29,6 +29,7 @@ export function PracticeWrittenSetCard({
               : `${count} coding questions`
           }
           questions={questions}
+          scopeId="written"
         />
       </Card>
     </HubTrackedLink>

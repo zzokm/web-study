@@ -3,6 +3,7 @@
 import { useSyncExternalStore, type ReactNode } from "react";
 import type { Question } from "@/types/question";
 import { usePracticeSessionStatus } from "@/hooks/use-practice-session-status";
+import type { PracticeScopeId } from "@/lib/practice-scope";
 import {
   derivePracticeHubProgressDisplay,
   practiceHubProgressAriaLabel,
@@ -15,6 +16,7 @@ type PracticeHubCardHeaderProps = {
   title: ReactNode;
   description?: ReactNode;
   questions: Question[];
+  scopeId: PracticeScopeId;
   compact?: boolean;
   titleClassName?: string;
 };
@@ -23,10 +25,11 @@ export function PracticeHubCardHeader({
   title,
   description,
   questions,
+  scopeId,
   compact = false,
   titleClassName,
 }: PracticeHubCardHeaderProps) {
-  const sessionStatus = usePracticeSessionStatus(questions);
+  const sessionStatus = usePracticeSessionStatus(questions, scopeId);
   const hydrated = useSyncExternalStore(
     () => () => {},
     () => true,

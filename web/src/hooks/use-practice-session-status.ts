@@ -7,16 +7,18 @@ import {
   subscribePracticeStatus,
   type PracticeSessionStatus,
 } from "@/lib/practice-session-pointer";
+import type { PracticeScopeId } from "@/lib/practice-scope";
 import type { Question } from "@/types/question";
 
 export function usePracticeSessionStatus(
-  questions: Question[]
+  questions: Question[],
+  scopeId: PracticeScopeId
 ): PracticeSessionStatus | null {
   return useSyncExternalStore(
     subscribePracticeStatus,
     () => {
       void getPracticeStatusStoreVersion();
-      return getPracticeSessionStatusSnapshot(questions);
+      return getPracticeSessionStatusSnapshot(questions, scopeId);
     },
     () => null
   );

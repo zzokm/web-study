@@ -5,6 +5,7 @@ import type { MockExamSpec } from "@/lib/mock-exam";
 import { clearPracticeProgress } from "@/lib/practice-progress";
 
 const ACTIVE_SPEC_KEY = "webstudy:mock-exam-active-v1";
+export const MOCK_EXAM_SCOPE_ID = "mock-exam" as const;
 
 export function mockExamSessionKey(spec: MockExamSpec): string {
   const payload = [
@@ -52,5 +53,5 @@ export function loadActiveMockExamSpec(): MockExamSpec | null {
 }
 
 export function clearMockExamProgress(spec: MockExamSpec): void {
-  clearPracticeProgress(mockExamSessionKey(spec));
+  clearPracticeProgress(MOCK_EXAM_SCOPE_ID, mockExamSessionKey(spec));
 }

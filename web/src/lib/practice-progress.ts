@@ -5,6 +5,7 @@ import type {
   PracticeSessionConfig,
 } from "@/lib/practice-session-config";
 import { configStorageSuffix } from "@/lib/practice-session-config";
+import { scopeStorageKey, type PracticeScopeId } from "@/lib/practice-scope";
 import { clearPracticeSessionPointer } from "@/lib/practice-session-pointer";
 import { isAnswerCorrect, isWrittenQuestion } from "@/lib/questions";
 import type { Question } from "@/types/question";
@@ -207,13 +208,15 @@ export function orderedPracticeSessionKey(
   return questions.map((q) => q.questionKey).join("\0");
 }
 
-function storageKey(sessionKey: string): string {
+function storageKey(scopeId: string, sessionKey: string): string {
+  return STORAGE_PREFIX + scopeStorageKey(scopeId, sessionKey);
+}
+
+function legacyStorageKey(sessionKey: string): string {
   return STORAGE_PREFIX + sessionKey;
 }
 
-export function loadPracticeProgress(sessionKey: string): PracticeProgress {
-  if (typeof window === "undefined") return {};
-  const key = storageKey(sessionKey);
+function readPracticeProgressFromKey(key: string): PracticeProgress {
   try {
     const raw = localStorage.getItem(key);
     if (!raw) return {};
@@ -225,13 +228,27 @@ export function loadPracticeProgress(sessionKey: string): PracticeProgress {
   }
 }
 
+export function loadPracticeProgress(
+  scopeId: PracticeScopeId,
+  sessionKey: string
+): PracticeProgress {
+  if (typeof window === "undefined") return {};
+  const scoped = readPracticeProgressFromKey(storageKey(scopeId, sessionKey));
+  if (Object.keys(scoped).length > 0) return scoped;
+  return readPracticeProgressFromKey(legacyStorageKey(sessionKey));
+}
+
 export function savePracticeProgress(
+  scopeId: PracticeScopeId,
   sessionKey: string,
   progress: PracticeProgress
 ): void {
   if (typeof window === "undefined") return;
   try {
-    localStorage.setItem(storageKey(sessionKey), JSON.stringify(progress));
+    localStorage.setItem(
+      storageKey(scopeId, sessionKey),
+      JSON.stringify(progress)
+    );
   } catch {
     // quota / private mode — in-memory state still works
   }
@@ -256,15 +273,18 @@ export function practiceProgressCount(progress: PracticeProgress): number {
 }
 
 export function clearPracticeProgress(
+  scopeId: PracticeScopeId,
   sessionKey: string,
   canonicalKey?: string
 ): void {
   if (typeof window === "undefined") return;
   try {
-    localStorage.removeItem(storageKey(sessionKey));
-    localStorage.removeItem(displayStorageKey(sessionKey));
+    localStorage.removeItem(storageKey(scopeId, sessionKey));
+    localStorage.removeItem(legacyStorageKey(sessionKey));
+    localStorage.removeItem(displayStorageKey(scopeId, sessionKey));
+    localStorage.removeItem(legacyDisplayStorageKey(sessionKey));
     if (canonicalKey) {
-      clearPracticeSessionPointer(canonicalKey);
+      clearPracticeSessionPointer(scopeId, canonicalKey);
     }
   } catch {
     // ignore
@@ -273,28 +293,19 @@ export function clearPracticeProgress(
 
 const DISPLAY_PREFIX = "webstudy:practice-display-v1:";
 
-function displayStorageKey(sessionKey: string): string {
+function displayStorageKey(scopeId: string, sessionKey: string): string {
+  return DISPLAY_PREFIX + scopeStorageKey(scopeId, sessionKey);
+}
+
+function legacyDisplayStorageKey(sessionKey: string): string {
   return DISPLAY_PREFIX + sessionKey;
 }
 
-export function savePracticeDisplaySnapshot(
-  sessionKey: string,
-  snapshot: PracticeDisplaySnapshot
-): void {
-  if (typeof window === "undefined") return;
-  try {
-    localStorage.setItem(displayStorageKey(sessionKey), JSON.stringify(snapshot));
-  } catch {
-    // ignore
-  }
-}
-
-export function loadPracticeDisplaySnapshot(
-  sessionKey: string
+function readPracticeDisplaySnapshotFromKey(
+  key: string
 ): PracticeDisplaySnapshot | null {
-  if (typeof window === "undefined") return null;
   try {
-    const raw = localStorage.getItem(displayStorageKey(sessionKey));
+    const raw = localStorage.getItem(key);
     if (!raw) return null;
     const parsed = JSON.parse(raw) as PracticeDisplaySnapshot;
     if (!parsed?.questionKeys || !parsed.optionOrderByKey) return null;
@@ -304,20 +315,52 @@ export function loadPracticeDisplaySnapshot(
   }
 }
 
+export function savePracticeDisplaySnapshot(
+  scopeId: PracticeScopeId,
+  sessionKey: string,
+  snapshot: PracticeDisplaySnapshot
+): void {
+  if (typeof window === "undefined") return;
+  try {
+    localStorage.setItem(
+      displayStorageKey(scopeId, sessionKey),
+      JSON.stringify(snapshot)
+    );
+  } catch {
+    // ignore
+  }
+}
+
+export function loadPracticeDisplaySnapshot(
+  scopeId: PracticeScopeId,
+  sessionKey: string
+): PracticeDisplaySnapshot | null {
+  if (typeof window === "undefined") return null;
+  const scoped = readPracticeDisplaySnapshotFromKey(
+    displayStorageKey(scopeId, sessionKey)
+  );
+  if (scoped) return scoped;
+  return readPracticeDisplaySnapshotFromKey(legacyDisplayStorageKey(sessionKey));
+}
+
 /** @deprecated Use savePracticeDisplaySnapshot */
 export function savePracticeQuestionOrder(
+  scopeId: PracticeScopeId,
   sessionKey: string,
   questionKeys: string[]
 ): void {
-  savePracticeDisplaySnapshot(sessionKey, {
+  savePracticeDisplaySnapshot(scopeId, sessionKey, {
     questionKeys,
     optionOrderByKey: {},
   });
 }
 
 /** @deprecated Use loadPracticeDisplaySnapshot */
-export function loadPracticeQuestionOrder(sessionKey: string): string[] | null {
-  return loadPracticeDisplaySnapshot(sessionKey)?.questionKeys ?? null;
+export function loadPracticeQuestionOrder(
+  scopeId: PracticeScopeId,
+  sessionKey: string
+): string[] | null {
+  return loadPracticeDisplaySnapshot(scopeId, sessionKey)?.questionKeys ?? null;
 }
 
 export function resumeQuestionIndex(

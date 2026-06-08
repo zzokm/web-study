@@ -55,6 +55,7 @@ export function LectureQuestionLinkList({
                           lec.count === 1 ? "" : "s"
                         }`}
                         questions={questions}
+                        scopeId={`lecture:${lec.slug}`}
                         compact={compact}
                       />
                     </Card>

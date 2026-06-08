@@ -46,6 +46,7 @@ export function ExamYearLinkGrid({
                   : `${count} question${count === 1 ? "" : "s"}`)
               }
               questions={questions}
+              scopeId={`exam:${year}`}
             />
           </Card>
         );

@@ -27,6 +27,7 @@ export function PracticeRepetitiveSetCard({
             count === 1 ? "" : "s"
           }`}
           questions={questions}
+          scopeId="repetitive"
         />
       </Card>
     </HubTrackedLink>

@@ -17,13 +17,11 @@ import {
   resolveMockExamSpecOnLoad,
   type MockExamSpec,
 } from "@/lib/mock-exam";
-import {
-  clearActivePracticeSession,
-  loadActivePracticeSession,
-} from "@/lib/practice-active-session";
+import { clearActivePracticeSession } from "@/lib/practice-active-session";
 import {
   clearMockExamProgress,
   loadActiveMockExamSpec,
+  MOCK_EXAM_SCOPE_ID,
   mockExamSessionKey,
   saveActiveMockExamSpec,
 } from "@/lib/mock-exam-storage";
@@ -67,7 +65,6 @@ export function MockExamLauncher() {
   const [initialIndex, setInitialIndex] = useState(0);
   const [startFresh, setStartFresh] = useState(false);
   const setupViewedRef = useRef(false);
-  const autoResumedRef = useRef(false);
 
   useEffect(() => {
     const nextSpec = resolveMockExamSpecOnLoad(loadActiveMockExamSpec());
@@ -86,7 +83,8 @@ export function MockExamLauncher() {
     [spec, ready]
   );
   const savedProgress = useMemo(
-    () => (ready ? loadPracticeProgress(sessionKey) : {}),
+    () =>
+      ready ? loadPracticeProgress(MOCK_EXAM_SCOPE_ID, sessionKey) : {},
     [sessionKey, ready]
   );
   const canResume = ready && hasPracticeProgress(savedProgress);
@@ -124,18 +122,24 @@ export function MockExamLauncher() {
 
       const generated = generateMockExam(normalized);
       let prepared = generated.questions;
-      const savedDisplay = loadPracticeDisplaySnapshot(sessionKey);
+      const savedDisplay = loadPracticeDisplaySnapshot(
+        MOCK_EXAM_SCOPE_ID,
+        sessionKey
+      );
 
       if (!fresh && savedDisplay?.questionKeys.length) {
         prepared = applyDisplaySnapshot(generated.questions, savedDisplay);
       } else {
         savePracticeDisplaySnapshot(
+          MOCK_EXAM_SCOPE_ID,
           sessionKey,
           buildDisplaySnapshot(prepared)
         );
       }
 
-      const progress = fresh ? {} : loadPracticeProgress(sessionKey);
+      const progress = fresh
+        ? {}
+        : loadPracticeProgress(MOCK_EXAM_SCOPE_ID, sessionKey);
       const index =
         typeof options?.resumeIndex === "number"
           ? Math.min(
@@ -176,24 +180,6 @@ export function MockExamLauncher() {
     },
     [spec, pathname, sessionKey]
   );
-
-  useEffect(() => {
-    if (!ready || autoResumedRef.current || phase !== "setup" || !sessionKey) {
-      return;
-    }
-
-    const active = loadActivePracticeSession();
-    if (
-      !active ||
-      active.returnPath !== pathname ||
-      active.sessionKey !== sessionKey
-    ) {
-      return;
-    }
-
-    autoResumedRef.current = true;
-    beginSession("resume", { resumeIndex: active.currentIndex });
-  }, [beginSession, pathname, phase, ready, sessionKey]);
 
   const handleRegenerate = useCallback(() => {
     const prevKey = mockExamSessionKey(spec);
@@ -237,6 +223,7 @@ export function MockExamLauncher() {
         mockExamSpec={spec}
         onReturnToSetup={handleReturnToSetup}
         onRegenerateExam={handleRegenerate}
+        practiceScopeId={MOCK_EXAM_SCOPE_ID}
       />
     );
   }

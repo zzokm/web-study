@@ -14,6 +14,13 @@ import {
   type PracticeProgress,
 } from "@/lib/practice-progress";
 import {
+  innerKeyFromScopedStorageKey,
+  type PracticeScopeId,
+  resultMatchesPracticeScope,
+  scopeIdFromStorageKey,
+  scopeStorageKey,
+} from "@/lib/practice-scope";
+import {
   loadPracticeResult,
   resultStorageId,
   type StoredPracticeResult,
@@ -54,47 +61,103 @@ export function getPracticeStatusStoreVersion(): number {
   return statusStoreVersion;
 }
 
-function pointerKey(canonicalKey: string): string {
+function scopedPointerKey(scopeId: string, canonicalKey: string): string {
+  return POINTER_PREFIX + scopeStorageKey(scopeId, canonicalKey);
+}
+
+function legacyPointerKey(canonicalKey: string): string {
   return POINTER_PREFIX + canonicalKey;
 }
 
+function statusCacheKey(scopeId: string, canonicalKey: string): string {
+  return `${scopeId}:${canonicalKey}`;
+}
+
+function parsePointerStorageKey(
+  storageKey: string
+): { scopeId: string | null; canonicalKey: string } {
+  const scopedScopeId = scopeIdFromStorageKey(storageKey);
+  if (scopedScopeId) {
+    const inner = innerKeyFromScopedStorageKey(storageKey);
+    return { scopeId: scopedScopeId, canonicalKey: inner ?? storageKey };
+  }
+  return { scopeId: null, canonicalKey: storageKey };
+}
+
+function pointerMatchesScope(
+  scopeId: PracticeScopeId,
+  storageCanonicalKey: string,
+  pointer: PracticeSessionPointer
+): boolean {
+  const parsed = parsePointerStorageKey(storageCanonicalKey);
+  if (parsed.scopeId === scopeId) return true;
+  if (parsed.scopeId != null) return false;
+
+  if (pointer.status !== "completed" || !pointer.resultId) return false;
+  const result = loadPracticeResult(pointer.resultId);
+  return resultMatchesPracticeScope(result?.returnHref, scopeId);
+}
+
 export function loadPracticeSessionPointer(
+  scopeId: PracticeScopeId,
   canonicalKey: string
 ): PracticeSessionPointer | null {
   if (typeof window === "undefined") return null;
   try {
-    const raw = localStorage.getItem(pointerKey(canonicalKey));
-    if (!raw) return null;
-    const parsed = JSON.parse(raw) as PracticeSessionPointer;
-    if (!parsed?.sessionKey || !parsed.config) return null;
-    return parsed;
+    const scopedRaw = localStorage.getItem(scopedPointerKey(scopeId, canonicalKey));
+    if (scopedRaw) {
+      const parsed = JSON.parse(scopedRaw) as PracticeSessionPointer;
+      if (parsed?.sessionKey && parsed.config) return parsed;
+    }
+
+    const legacyRaw = localStorage.getItem(legacyPointerKey(canonicalKey));
+    if (!legacyRaw) return null;
+    const legacy = JSON.parse(legacyRaw) as PracticeSessionPointer;
+    if (!legacy?.sessionKey || !legacy.config) return null;
+    if (!pointerMatchesScope(scopeId, canonicalKey, legacy)) return null;
+    return legacy;
   } catch {
     return null;
   }
 }
 
 export function savePracticeSessionPointer(
+  scopeId: PracticeScopeId,
   canonicalKey: string,
   pointer: PracticeSessionPointer
 ): void {
   if (typeof window === "undefined") return;
   try {
-    localStorage.setItem(pointerKey(canonicalKey), JSON.stringify(pointer));
+    localStorage.setItem(
+      scopedPointerKey(scopeId, canonicalKey),
+      JSON.stringify(pointer)
+    );
   } catch {
     // ignore
   }
 }
 
-export function clearPracticeSessionPointer(canonicalKey: string): void {
+export function clearPracticeSessionPointer(
+  scopeId: PracticeScopeId,
+  canonicalKey: string
+): void {
   if (typeof window === "undefined") return;
   try {
-    localStorage.removeItem(pointerKey(canonicalKey));
+    localStorage.removeItem(scopedPointerKey(scopeId, canonicalKey));
+    const legacyRaw = localStorage.getItem(legacyPointerKey(canonicalKey));
+    if (legacyRaw) {
+      const legacy = JSON.parse(legacyRaw) as PracticeSessionPointer;
+      if (pointerMatchesScope(scopeId, canonicalKey, legacy)) {
+        localStorage.removeItem(legacyPointerKey(canonicalKey));
+      }
+    }
   } catch {
     // ignore
   }
 }
 
 function resolveSessionConfig(
+  scopeId: PracticeScopeId,
   sessionKey: string,
   poolCanonicalKey: string
 ): PracticeSessionConfig {
@@ -110,12 +173,73 @@ function resolveSessionConfig(
   );
 }
 
-function enumeratePoolSessionKeys(
-  canonicalKey: string,
+function sessionKeyBelongsToPool(
+  scopeId: PracticeScopeId,
+  sessionKey: string,
+  canonicalKey: string
+): boolean {
+  if (sessionKey === canonicalKey || sessionKey.startsWith(`${canonicalKey}:s`)) {
+    return true;
+  }
+
+  const poolKeys = parseQuestionKeysFromSessionKey(sessionKey);
+  if (poolKeys.length === 0) return false;
+  const legacyCanonical = canonicalPracticeSessionKey(
+    poolKeys.map((questionKey) => ({ questionKey }))
+  );
+  return (
+    legacyCanonical === canonicalKey ||
+    legacyCanonical.startsWith(`${canonicalKey}:s`)
+  );
+}
+
+function progressOverlapsCurrentPool(
+  progress: PracticeProgress,
   currentQuestionKeys: Set<string>
+): boolean {
+  return Object.keys(progress).some((key) => currentQuestionKeys.has(key));
+}
+
+function legacyProgressBelongsToPool(
+  sessionKey: string,
+  progress: PracticeProgress,
+  questions: Question[],
+  currentQuestionKeys: Set<string>
+): boolean {
+  if (!progressOverlapsCurrentPool(progress, currentQuestionKeys)) return false;
+
+  const attemptedKeys = Object.keys(progress).filter(
+    (key) => progress[key]?.selectedId != null || progress[key]?.revealed
+  );
+  if (
+    attemptedKeys.length > 0 &&
+    !attemptedKeys.every((key) => currentQuestionKeys.has(key))
+  ) {
+    return false;
+  }
+
+  const poolKeys = parseQuestionKeysFromSessionKey(sessionKey);
+  if (poolKeys.length === 0) return true;
+  if (!poolKeys.every((key) => currentQuestionKeys.has(key))) return false;
+  if (poolKeys.length > questions.length) return false;
+
+  const legacyCanonical = canonicalPracticeSessionKey(
+    poolKeys.map((questionKey) => ({ questionKey }))
+  );
+  return (
+    legacyCanonical === canonicalPracticeSessionKey(questions) ||
+    poolKeys.length <= questions.length
+  );
+}
+
+function enumeratePoolSessionKeys(
+  scopeId: PracticeScopeId,
+  canonicalKey: string,
+  questions: Question[]
 ): string[] {
   const keys: string[] = [];
   const seen = new Set<string>();
+  const currentQuestionKeys = new Set(questions.map((q) => q.questionKey));
 
   const add = (sessionKey: string) => {
     if (seen.has(sessionKey)) return;
@@ -130,39 +254,64 @@ function enumeratePoolSessionKeys(
   for (let i = 0; i < localStorage.length; i++) {
     const storageKey = localStorage.key(i);
     if (!storageKey?.startsWith(PROGRESS_PREFIX)) continue;
-    const sessionKey = storageKey.slice(PROGRESS_PREFIX.length);
-    if (
-      sessionKey === canonicalKey ||
-      sessionKey.startsWith(`${canonicalKey}:s`)
-    ) {
-      add(sessionKey);
+    const rawKey = storageKey.slice(PROGRESS_PREFIX.length);
+    const scopedInner = innerKeyFromScopedStorageKey(rawKey);
+    const scopedScopeId = scopeIdFromStorageKey(rawKey);
+
+    if (scopedScopeId === scopeId && scopedInner) {
+      if (
+        scopedInner === canonicalKey ||
+        scopedInner.startsWith(`${canonicalKey}:s`) ||
+        sessionKeyBelongsToPool(scopeId, scopedInner, canonicalKey)
+      ) {
+        add(scopedInner);
+        continue;
+      }
+
+      const progress = loadPracticeProgress(scopeId, scopedInner);
+      if (
+        legacyProgressBelongsToPool(
+          scopedInner,
+          progress,
+          questions,
+          currentQuestionKeys
+        )
+      ) {
+        add(scopedInner);
+      }
       continue;
     }
 
-    const progress = loadPracticeProgress(sessionKey);
-    const hasOverlap = Object.keys(progress).some((key) =>
-      currentQuestionKeys.has(key)
-    );
-    if (!hasOverlap) continue;
+    if (scopedScopeId != null) continue;
 
-    add(sessionKey);
-
-    const poolKeys = parseQuestionKeysFromSessionKey(sessionKey);
     if (
-      poolKeys.length > 0 &&
-      poolKeys.every((key) => currentQuestionKeys.has(key))
+      rawKey === canonicalKey ||
+      rawKey.startsWith(`${canonicalKey}:s`) ||
+      sessionKeyBelongsToPool(scopeId, rawKey, canonicalKey)
     ) {
-      const legacyCanonical = canonicalPracticeSessionKey(
-        poolKeys.map((questionKey) => ({ questionKey }))
-      );
-      add(legacyCanonical);
+      add(rawKey);
+      continue;
+    }
+
+    const progress = loadPracticeProgress(scopeId, rawKey);
+    if (
+      legacyProgressBelongsToPool(
+        rawKey,
+        progress,
+        questions,
+        currentQuestionKeys
+      )
+    ) {
+      add(rawKey);
     }
   }
 
   return keys;
 }
 
-function enumerateStoredPracticePointers(): Array<{
+function enumerateStoredPracticePointers(
+  scopeId: PracticeScopeId
+): Array<{
   storageCanonicalKey: string;
   pointer: PracticeSessionPointer;
 }> {
@@ -176,16 +325,22 @@ function enumerateStoredPracticePointers(): Array<{
     const storageKey = localStorage.key(i);
     if (!storageKey?.startsWith(POINTER_PREFIX)) continue;
     const storageCanonicalKey = storageKey.slice(POINTER_PREFIX.length);
-    const pointer = loadPracticeSessionPointer(storageCanonicalKey);
-    if (pointer) {
-      entries.push({ storageCanonicalKey, pointer });
+    const parsed = parsePointerStorageKey(storageCanonicalKey);
+    const pointer = loadPracticeSessionPointer(
+      scopeId,
+      parsed.canonicalKey
+    );
+    if (pointer && pointerMatchesScope(scopeId, storageCanonicalKey, pointer)) {
+      entries.push({ storageCanonicalKey: parsed.canonicalKey, pointer });
     }
   }
 
   return entries;
 }
 
-function enumerateStoredPracticeResults(): StoredPracticeResult[] {
+function enumerateStoredPracticeResults(
+  scopeId: PracticeScopeId
+): StoredPracticeResult[] {
   const results: StoredPracticeResult[] = [];
   if (typeof window === "undefined") return results;
 
@@ -193,7 +348,12 @@ function enumerateStoredPracticeResults(): StoredPracticeResult[] {
     const storageKey = localStorage.key(i);
     if (!storageKey?.startsWith(RESULT_PREFIX)) continue;
     const result = loadPracticeResult(storageKey.slice(RESULT_PREFIX.length));
-    if (result) results.push(result);
+    if (
+      result &&
+      resultMatchesPracticeScope(result.returnHref, scopeId)
+    ) {
+      results.push(result);
+    }
   }
 
   return results;
@@ -239,6 +399,7 @@ function completedStatusFromPointer(
 
 function findLegacyCompletedStatus(
   questions: Question[],
+  scopeId: PracticeScopeId,
   canonicalKey: string,
   currentQuestionKeys: Set<string>
 ): { status: PracticeSessionStatus; pointer: PracticeSessionPointer } | null {
@@ -246,13 +407,18 @@ function findLegacyCompletedStatus(
     | { status: PracticeSessionStatus; pointer: PracticeSessionPointer }
     | null = null;
 
-  for (const { storageCanonicalKey, pointer } of enumerateStoredPracticePointers()) {
+  for (const { storageCanonicalKey, pointer } of enumerateStoredPracticePointers(
+    scopeId
+  )) {
     if (storageCanonicalKey === canonicalKey) continue;
     const status = completedStatusFromPointer(pointer);
     if (!status || status.kind !== "completed") continue;
 
     const result = loadPracticeResult(status.resultId);
-    if (!result || !isCompletedResultForPool(result, questions, currentQuestionKeys)) {
+    if (
+      !result ||
+      !isCompletedResultForPool(result, questions, currentQuestionKeys)
+    ) {
       continue;
     }
 
@@ -270,8 +436,10 @@ function findLegacyCompletedStatus(
     finishedAt: string;
   } | null = null;
 
-  for (const result of enumerateStoredPracticeResults()) {
-    if (!isCompletedResultForPool(result, questions, currentQuestionKeys)) continue;
+  for (const result of enumerateStoredPracticeResults(scopeId)) {
+    if (!isCompletedResultForPool(result, questions, currentQuestionKeys)) {
+      continue;
+    }
 
     const sessionCanonical = canonicalPracticeSessionKey(
       result.questionKeys.map((questionKey) => ({ questionKey }))
@@ -315,19 +483,20 @@ type InProgressCandidate = {
 };
 
 function findBestInProgressSession(
+  scopeId: PracticeScopeId,
   questions: Question[],
   canonicalKey: string,
-  currentQuestionKeys: Set<string>,
   preferredSessionKey?: string
 ): InProgressCandidate | null {
   let best: InProgressCandidate | null = null;
 
   for (const sessionKey of enumeratePoolSessionKeys(
+    scopeId,
     canonicalKey,
-    currentQuestionKeys
+    questions
   )) {
-    const progress = loadPracticeProgress(sessionKey);
-    const config = resolveSessionConfig(sessionKey, canonicalKey);
+    const progress = loadPracticeProgress(scopeId, sessionKey);
+    const config = resolveSessionConfig(scopeId, sessionKey, canonicalKey);
     const practiced = practicedQuestionCount(
       questions,
       progress,
@@ -382,27 +551,32 @@ export type PracticeSessionStatus =
     };
 
 function migratePracticeSessionPointer(
+  scopeId: PracticeScopeId,
   canonicalKey: string,
   pointer: PracticeSessionPointer
 ): void {
-  const existing = loadPracticeSessionPointer(canonicalKey);
+  const existing = loadPracticeSessionPointer(scopeId, canonicalKey);
   if (existing?.updatedAt && existing.updatedAt >= pointer.updatedAt) return;
-  savePracticeSessionPointer(canonicalKey, pointer);
+  savePracticeSessionPointer(scopeId, canonicalKey, pointer);
 }
 
 /** Read-only status resolution for UI subscriptions (no localStorage writes). */
 function readPracticeSessionStatus(
-  questions: Question[]
+  questions: Question[],
+  scopeId: PracticeScopeId
 ): PracticeSessionStatus | null {
   if (questions.length === 0) return null;
 
   const canonicalKey = canonicalPracticeSessionKey(questions);
   const currentQuestionKeys = new Set(questions.map((q) => q.questionKey));
-  const pointer = loadPracticeSessionPointer(canonicalKey);
+  const pointer = loadPracticeSessionPointer(scopeId, canonicalKey);
 
   if (pointer?.status === "completed" && pointer.resultId) {
     const result = loadPracticeResult(pointer.resultId);
-    if (result && isCompletedResultForPool(result, questions, currentQuestionKeys)) {
+    if (
+      result &&
+      isCompletedResultForPool(result, questions, currentQuestionKeys)
+    ) {
       return {
         kind: "completed",
         sessionKey: pointer.sessionKey,
@@ -415,18 +589,23 @@ function readPracticeSessionStatus(
 
   const legacyCompleted = findLegacyCompletedStatus(
     questions,
+    scopeId,
     canonicalKey,
     currentQuestionKeys
   );
   if (legacyCompleted) {
-    migratePracticeSessionPointer(canonicalKey, legacyCompleted.pointer);
+    migratePracticeSessionPointer(
+      scopeId,
+      canonicalKey,
+      legacyCompleted.pointer
+    );
     return legacyCompleted.status;
   }
 
   const best = findBestInProgressSession(
+    scopeId,
     questions,
     canonicalKey,
-    currentQuestionKeys,
     pointer?.status === "in_progress" ? pointer.sessionKey : undefined
   );
 
@@ -448,55 +627,62 @@ function readPracticeSessionStatus(
 
 /** Cached snapshot for useSyncExternalStore (stable reference per store version). */
 export function getPracticeSessionStatusSnapshot(
-  questions: Question[]
+  questions: Question[],
+  scopeId: PracticeScopeId
 ): PracticeSessionStatus | null {
   if (questions.length === 0) return null;
 
   const canonicalKey = canonicalPracticeSessionKey(questions);
-  const cached = statusSnapshotCache.get(canonicalKey);
+  const cacheKey = statusCacheKey(scopeId, canonicalKey);
+  const cached = statusSnapshotCache.get(cacheKey);
   if (cached && cached.version === statusStoreVersion) {
     return cached.status;
   }
 
-  const status = readPracticeSessionStatus(questions);
-  statusSnapshotCache.set(canonicalKey, { version: statusStoreVersion, status });
+  const status = readPracticeSessionStatus(questions, scopeId);
+  statusSnapshotCache.set(cacheKey, { version: statusStoreVersion, status });
   return status;
 }
 
 export function resolvePracticeSessionStatus(
-  questions: Question[]
+  questions: Question[],
+  scopeId: PracticeScopeId
 ): PracticeSessionStatus | null {
-  return getPracticeSessionStatusSnapshot(questions);
+  return getPracticeSessionStatusSnapshot(questions, scopeId);
 }
 
 /** Sync pointer storage with the best in-progress session (explicit side effects). */
-export function reconcilePracticeSessionPointer(questions: Question[]): void {
+export function reconcilePracticeSessionPointer(
+  questions: Question[],
+  scopeId: PracticeScopeId
+): void {
   if (questions.length === 0) return;
 
   const canonicalKey = canonicalPracticeSessionKey(questions);
-  const status = readPracticeSessionStatus(questions);
+  const status = readPracticeSessionStatus(questions, scopeId);
 
   if (!status) {
-    clearPracticeSessionPointer(canonicalKey);
+    clearPracticeSessionPointer(scopeId, canonicalKey);
     return;
   }
 
   if (status.kind === "completed") {
-    const pointer = loadPracticeSessionPointer(canonicalKey);
+    const pointer = loadPracticeSessionPointer(scopeId, canonicalKey);
     if (!pointer || pointer.status !== "completed") {
       const legacy = findLegacyCompletedStatus(
         questions,
+        scopeId,
         canonicalKey,
         new Set(questions.map((q) => q.questionKey))
       );
       if (legacy) {
-        savePracticeSessionPointer(canonicalKey, legacy.pointer);
+        savePracticeSessionPointer(scopeId, canonicalKey, legacy.pointer);
       }
     }
     return;
   }
 
-  const pointer = loadPracticeSessionPointer(canonicalKey);
+  const pointer = loadPracticeSessionPointer(scopeId, canonicalKey);
   if (
     pointer?.status === "completed" ||
     pointer?.sessionKey === status.sessionKey
@@ -504,7 +690,7 @@ export function reconcilePracticeSessionPointer(questions: Question[]): void {
     return;
   }
 
-  savePracticeSessionPointer(canonicalKey, {
+  savePracticeSessionPointer(scopeId, canonicalKey, {
     sessionKey: status.sessionKey,
     config: status.config,
     status: "in_progress",
@@ -513,6 +699,7 @@ export function reconcilePracticeSessionPointer(questions: Question[]): void {
 }
 
 export function touchPracticeSessionPointer(args: {
+  scopeId: PracticeScopeId;
   questions: Question[];
   sessionKey: string;
   config: PracticeSessionConfig;
@@ -520,7 +707,7 @@ export function touchPracticeSessionPointer(args: {
   resultId?: string;
 }): void {
   const canonicalKey = canonicalPracticeSessionKey(args.questions);
-  savePracticeSessionPointer(canonicalKey, {
+  savePracticeSessionPointer(args.scopeId, canonicalKey, {
     sessionKey: args.sessionKey,
     config: args.config,
     status: args.status ?? "in_progress",

@@ -27,6 +27,7 @@ export function PracticeWrittenHubCard({ count }: PracticeWrittenHubCardProps) {
               : `${count} coding questions`
           }
           questions={questions}
+          scopeId="written"
         />
       </Card>
     </HubTrackedLink>

@@ -4,6 +4,7 @@ import {
   canonicalPracticeSessionKey,
   type PracticeProgress,
 } from "@/lib/practice-progress";
+import { scopeStorageKey } from "@/lib/practice-scope";
 import { resultStorageId } from "@/lib/practice-results";
 import {
   bumpPracticeStatusStore,
@@ -14,6 +15,8 @@ import {
 const POINTER_PREFIX = "webstudy:practice-pointer-v1:";
 const PROGRESS_PREFIX = "webstudy:practice-v1:";
 const RESULT_PREFIX = "webstudy:practice-result-v1:";
+const LECTURE_SCOPE = "lecture:fe-1" as const;
+const EXAM_SCOPE = "exam:2021" as const;
 
 function mcq(questionKey: string): Question {
   return {
@@ -90,7 +93,7 @@ describe("getPracticeSessionStatusSnapshot legacy pools", () => {
         returnHref: "/practice/lecture/fe-1/",
       })
     );
-    savePracticeSessionPointer(oldCanonical, {
+    savePracticeSessionPointer(LECTURE_SCOPE, oldCanonical, {
       sessionKey,
       config: {
         shuffleQuestions: false,
@@ -103,7 +106,7 @@ describe("getPracticeSessionStatusSnapshot legacy pools", () => {
       updatedAt: "2026-06-08T21:48:50.463Z",
     });
 
-    const status = getPracticeSessionStatusSnapshot(newQuestions);
+    const status = getPracticeSessionStatusSnapshot(newQuestions, LECTURE_SCOPE);
 
     expect(status?.kind).toBe("completed");
     if (status?.kind === "completed") {
@@ -112,7 +115,10 @@ describe("getPracticeSessionStatusSnapshot legacy pools", () => {
     }
 
     const migratedPointer = store.get(
-      `${POINTER_PREFIX}${canonicalPracticeSessionKey(newQuestions)}`
+      `${POINTER_PREFIX}${scopeStorageKey(
+        LECTURE_SCOPE,
+        canonicalPracticeSessionKey(newQuestions)
+      )}`
     );
     expect(migratedPointer).toBeTruthy();
   });
@@ -131,13 +137,45 @@ describe("getPracticeSessionStatusSnapshot legacy pools", () => {
       JSON.stringify(revealedProgress(["2021:block_1:q1"]))
     );
 
-    const status = getPracticeSessionStatusSnapshot(newQuestions);
+    const status = getPracticeSessionStatusSnapshot(newQuestions, LECTURE_SCOPE);
 
     expect(status?.kind).toBe("in_progress");
     if (status?.kind === "in_progress") {
       expect(status.answered).toBe(1);
       expect(status.total).toBe(3);
       expect(status.percent).toBe(33);
+    }
+  });
+
+  it("does not count exam progress toward lecture scope", () => {
+    const sharedKey = "2021:block_1:q1";
+    const lectureQuestions = [mcq(sharedKey), mcq("2021:block_1:q2")];
+    const examQuestions = [
+      mcq(sharedKey),
+      mcq("2021:block_1:q3"),
+      mcq("2021:block_1:q4"),
+    ];
+    const examCanonical = canonicalPracticeSessionKey(examQuestions);
+    const examSessionKey = `${examCanonical}:s0000`;
+
+    store.set(
+      `${PROGRESS_PREFIX}${scopeStorageKey(EXAM_SCOPE, examSessionKey)}`,
+      JSON.stringify(revealedProgress([sharedKey, "2021:block_1:q3"]))
+    );
+
+    const lectureStatus = getPracticeSessionStatusSnapshot(
+      lectureQuestions,
+      LECTURE_SCOPE
+    );
+    const examStatus = getPracticeSessionStatusSnapshot(
+      examQuestions,
+      EXAM_SCOPE
+    );
+
+    expect(lectureStatus).toBeNull();
+    expect(examStatus?.kind).toBe("in_progress");
+    if (examStatus?.kind === "in_progress") {
+      expect(examStatus.answered).toBe(2);
     }
   });
 });
