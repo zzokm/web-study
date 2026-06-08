@@ -17,11 +17,19 @@ export function sortExamAppearances(
   );
 }
 
-export function examQuestionNumberFromId(sourceQuestionId: string): string {
-  const match =
-    sourceQuestionId.match(/:q(\d+)$/i) ??
-    sourceQuestionId.match(/(?:^|:)q(\d+)$/i);
-  return match?.[1] ?? sourceQuestionId;
+export function examQuestionNumberFromId(
+  sourceQuestionId: string,
+  questionText?: string
+): string {
+  const idMatch =
+    sourceQuestionId.match(/:q(\d+)/i) ??
+    sourceQuestionId.match(/(?:^|:)q(\d+)/i);
+  if (idMatch?.[1]) return idMatch[1];
+
+  const textMatch = questionText?.match(/^\s*(\d+)\.\s+/);
+  if (textMatch?.[1]) return textMatch[1];
+
+  return sourceQuestionId;
 }
 
 export function formatExamAppearanceLabel(appearance: ExamAppearance): string {

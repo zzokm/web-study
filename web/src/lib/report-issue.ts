@@ -415,7 +415,10 @@ export function formatReportQuestionSummary(question: Question): {
   headline: string;
   subtitle: string;
 } {
-  const qNum = examQuestionNumberFromId(question.sourceQuestionId);
+  const qNum = examQuestionNumberFromId(
+    question.sourceQuestionId,
+    question.questionText
+  );
   const examMeta = question.origin ? getExamMeta()[question.origin] : undefined;
   const examLabel =
     examMeta?.title ??

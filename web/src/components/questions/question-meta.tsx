@@ -16,7 +16,10 @@ export function QuestionMeta({ question }: QuestionMetaProps) {
   const multiExam = hasMultipleExamAppearances(question);
   const lectureMeta = getLectureMeta();
   const lectureIds = question.relatedTopics ?? [];
-  const questionNumber = examQuestionNumberFromId(question.sourceQuestionId);
+  const questionNumber = examQuestionNumberFromId(
+    question.sourceQuestionId,
+    question.questionText
+  );
 
   return (
     <div className="flex w-full items-start gap-3">
