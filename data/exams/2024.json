@@ -1111,7 +1111,8 @@
         "expectedAnswer": null,
         "explanation": "The `eval()` function evaluates JavaScript code represented as a string. It accesses the scope variables `x` and `y`, calculating `10 * 20`, which is `200`.",
         "relatedTopics": [
-          "fe-5"
+          "fe-5",
+          "fe-6"
         ]
       },
       {
@@ -2131,7 +2132,8 @@
         "expectedAnswer": null,
         "explanation": "The `User-Agent` string allows network protocol peers to identify the application type, operating system, software vendor, or software version of the requesting user agent.",
         "relatedTopics": [
-          "fe-1"
+          "fe-1",
+          "be-4"
         ]
       },
       {
@@ -3278,8 +3280,7 @@
         "explanation": "An Absolute URL includes the entire operational path (protocol and domain). A Relative URL merely provides the path correlating to the currently loaded page's domain/directory.",
         "relatedTopics": [
           "fe-2",
-          "fe-1",
-          "be-4"
+          "fe-1"
         ]
       }
     ]

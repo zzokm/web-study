@@ -1287,7 +1287,8 @@
         "expectedAnswer": null,
         "explanation": "The `delete` operator completely removes a given property from an object. Logging it afterward shows only `{b: 2}`. (Note: A syntax error missing '=' was corrected for intent).",
         "relatedTopics": [
-          "fe-5"
+          "fe-5",
+          "fe-6"
         ]
       },
       {
@@ -2184,7 +2185,8 @@
         "expectedAnswer": null,
         "explanation": "The rest parameter `...args` gathers arguments into a JavaScript Array. In JavaScript, arrays are technically objects, so `typeof(args)` evaluates to 'object'.",
         "relatedTopics": [
-          "fe-5"
+          "fe-5",
+          "fe-6"
         ]
       },
       {

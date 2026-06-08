@@ -1,0 +1,524 @@
+TOTAL: 106 issues
+
+=== Check B (81) ===
+  [2021/q2] topics=['fe-1']
+    Python code/keywords in fe-* only question
+    matched: ['\\bNone\\b']
+    Q: '2. The values GET, POST, HEAD, etc... are specified in'
+
+  [2021/q5] topics=['fe-1']
+    Python code/keywords in fe-* only question
+    matched: ['\\bNone\\b']
+    Q: '5. In HTTP, the first line in a request message is called a _______ line; the first line in the resp'
+
+  [2021/q6] topics=['fe-1']
+    Python code/keywords in fe-* only question
+    matched: ['\\bNone\\b']
+    Q: '6. An HTTP request message always contains'
+
+  [2021/q7] topics=['fe-1']
+    Python code/keywords in fe-* only question
+    matched: ['\\bNone\\b']
+    Q: '7. _______ is more robust and secure than _______'
+
+  [2021/q11] topics=['fe-4']
+    Python code/keywords in fe-* only question
+    matched: ['\\bclass\\s+\\w+\\s*[:\\(]']
+    Q: '11. _______ selectors are used to specify a group of elements.'
+
+  [2021/q12] topics=['fe-4']
+    Python code/keywords in fe-* only question
+    matched: ['\\bNone\\b', '\\bTrue\\b', '\\bFalse\\b']
+    Q: '12. "font-style comes first than font-weight in font attribute", State true or false.'
+
+  [2021/q16] topics=['fe-4']
+    Python code/keywords in fe-* only question
+    matched: ['\\bTrue\\b', '\\bFalse\\b']
+    Q: '16. Inline style has the lowest priority.'
+
+  [2021/q17] topics=['fe-5']
+    Python code/keywords in fe-* only question
+    matched: ['\\bNone\\b']
+    Q: '17. When a user views a page containing a JavaScript program, which machine executes the script?'
+
+  [2021/q19] topics=['fe-5']
+    Python code/keywords in fe-* only question
+    matched: ['\\bprint\\s*\\(']
+    Q: '19. If the function print() has been defined that prints the value passed in as the parameter to it,'
+
+  [2021/q20] topics=['fe-5']
+    Python code/keywords in fe-* only question
+    matched: ['\\bprint\\s*\\(', '\\bTrue\\b', '\\bFalse\\b']
+    Q: '20. If the initial value of x (set on Line #1) is now 5 instead of 20, how many times is "Hello" pri'
+
+  [2021/q22] topics=['fe-5']
+    Python code/keywords in fe-* only question
+    matched: ['\\bTrue\\b', '\\bFalse\\b']
+    Q: '22. Which of the following statements are true about this code?'
+
+  [2021/q37] topics=['fe-1']
+    Python code/keywords in fe-* only question
+    matched: ['\\bNone\\b']
+    Q: '37. A cookie is created by'
+
+  [2021/q40] topics=['fe-5']
+    Python code/keywords in fe-* only question
+    matched: ['\\bTrue\\b']
+    Q: '40. To determine if an object contains a certain property, we can use the _______ operator.'
+
+  [2021/q41] topics=['fe-6']
+    Python code/keywords in fe-* only question
+    matched: ['\\bNone\\b']
+    Q: '41. Consider you have a function "funcX" that multiplies any input number by 3. And you have a list '
+
+  [2021/q42] topics=['fe-1']
+    Python code/keywords in fe-* only question
+    matched: ['\\bNone\\b']
+    Q: '42. An HTTP Response message must contain'
+
+  [2021/q44] topics=['fe-1']
+    Python code/keywords in fe-* only question
+    matched: ['\\bNone\\b']
+    Q: '44. To denote a permission of using a resource, you must use'
+
+  [2021/q45] topics=['fe-1']
+    Python code/keywords in fe-* only question
+    matched: ['\\bNone\\b']
+    Q: '45. Using authorization, have a response of status 200 means that'
+
+  [2021/q46] topics=['fe-1']
+    Python code/keywords in fe-* only question
+    matched: ['\\bNone\\b']
+    Q: '46. A lock icon in the browser denotes'
+
+  [2021/q47] topics=['fe-2']
+    Python code/keywords in fe-* only question
+    matched: ['\\bNone\\b']
+    Q: '47. <del> HTML element is used to'
+
+  [2021/q48] topics=['fe-4']
+    Python code/keywords in fe-* only question
+    matched: ['\\bNone\\b']
+    Q: '48. Cascading style sheets are used to'
+
+  [2021/q49] topics=['fe-4']
+    Python code/keywords in fe-* only question
+    matched: ['\\bNone\\b']
+    Q: '49. A CSS rule-set consists of'
+
+  [2021/q50] topics=['fe-4']
+    Python code/keywords in fe-* only question
+    matched: ['\\bNone\\b']
+    Q: '50.<link rel="stylesheet" type="text/css" href="style.css"> is a declaration of'
+
+  [2021/q56] topics=['fe-6']
+    Python code/keywords in fe-* only question
+    matched: ['\\bNone\\b']
+    Q: '56. In the following function:\n function multiply(...myNumbers) {\n let total = 1\n for (let myNumber '
+
+  [2021/q67] topics=['fe-5']
+    Python code/keywords in fe-* only question
+    matched: ['\\bNone\\b']
+    Q: '67. If we called func("A", "2", "Ali", "Z"); it will log:'
+
+  [2021/q68] topics=['fe-5']
+    Python code/keywords in fe-* only question
+    matched: ['\\bNone\\b']
+    Q: '68. If we called func(); it will log:'
+
+  [2021/q74] topics=['fe-5']
+    Python code/keywords in fe-* only question
+    matched: ['\\bTrue\\b', '\\bFalse\\b']
+    Q: '74. JavaScript is a statically typed language.'
+
+  [2021/q75] topics=['fe-5']
+    Python code/keywords in fe-* only question
+    matched: ['\\bTrue\\b', '\\bFalse\\b']
+    Q: '75. var a=200; var b="200"; a===b will return true while a==b will return false?'
+
+  [2021/q76] topics=['fe-5']
+    Python code/keywords in fe-* only question
+    matched: ['\\bTrue\\b', '\\bFalse\\b']
+    Q: '76. isNaN("Hello") returns true while isNaN(undefined) returns false?'
+
+  [2024/q3] topics=['fe-5']
+    Python code/keywords in fe-* only question
+    matched: ['\\bTrue\\b']
+    Q: '3. Which of the following statement(s) is true about the JavaScript?'
+
+  [2024/q7] topics=['fe-5']
+    Python code/keywords in fe-* only question
+    matched: ['\\bimport\\s+\\w+']
+    Q: '7. Which is the correct syntax to call an external JavaScript file in the current HTML document?'
+
+  [2024/q13] topics=['fe-3']
+    Python code/keywords in fe-* only question
+    matched: ['\\bNone\\b']
+    Q: '13. In HTML DOM, which of the following properties are read-only?'
+
+  [2024/q15] topics=['fe-5', 'fe-6']
+    Python code/keywords in fe-* only question
+    matched: ['\\bValueError\\b']
+    Q: '15. What will be the output of this code?\n const VALUE=10;\n VALUE=20;'
+
+  [2024/q17] topics=['fe-5', 'fe-6']
+    Python code/keywords in fe-* only question
+    matched: ['\\bValueError\\b']
+    Q: '17. What will be the value of X printed?\n var X=10;\n function myfunc() {\n   let x=20;\n   document.wr'
+
+  [2024/q18] topics=['fe-5']
+    Python code/keywords in fe-* only question
+    matched: ['\\bValueError\\b']
+    Q: '18. What is the output of the following JavaScript code?\n var a = 10 + 20 + "5";\n document.getElemen'
+
+  [2024/q20] topics=['fe-5']
+    Python code/keywords in fe-* only question
+    matched: ['\\bNone\\b']
+    Q: '20. Which is the correct syntax to access an object property in JavaScript?'
+
+  [2024/q21] topics=['fe-6']
+    Python code/keywords in fe-* only question
+    matched: ['\\bNone\\b']
+    Q: '21. What will be the output of the following JavaScript code?\n var numbers = [1, 2, 3, 4];\n function'
+
+  [2024/q22] topics=['fe-6']
+    Python code/keywords in fe-* only question
+    matched: ['\\bNone\\b']
+    Q: '22. What will be the output of the following JavaScript code?\n var numbers = [170, 50, 25];\n functio'
+
+  [2024/q24] topics=['fe-6']
+    Python code/keywords in fe-* only question
+    matched: ['\\bValueError\\b']
+    Q: '24. What will be the output of the following JavaScript code?\n const arr = [10, 20, 30];\n let result'
+
+  [2024/q26] topics=['fe-6']
+    Python code/keywords in fe-* only question
+    matched: ['\\bNone\\b']
+    Q: '26. Which function is used to serialize an object into a JSON string in JavaScript?'
+
+  [2024/q28] topics=['fe-6']
+    Python code/keywords in fe-* only question
+    matched: ['\\bNone\\b']
+    Q: '28. What will be the output of this JavaScript code?\n var x = [10, 20, 30];\n function myFunction(val'
+
+  [2024/q30] topics=['fe-5']
+    Python code/keywords in fe-* only question
+    matched: ['\\bNone\\b', '\\bValueError\\b']
+    Q: '30. What will be the output of the following JavaScript code?\n let x = 10;\n let y = 20;\n let text = '
+
+  [2024/q31] topics=['fe-6']
+    Python code/keywords in fe-* only question
+    matched: ['\\bNone\\b']
+    Q: '31. What will be the output of this JavaScript code?\n var numbers = [10, 20, 30];\n function myFuncti'
+
+  [2024/q32] topics=['fe-6']
+    Python code/keywords in fe-* only question
+    matched: ['\\bNone\\b']
+    Q: '32. What will be the output of this JavaScript code?\n var numbers = [10, 20, 10, 30];\n var y = numbe'
+
+  [2024/q34] topics=['fe-6']
+    Python code/keywords in fe-* only question
+    matched: ['\\bNone\\b']
+    Q: '34. What will be the output of the following JavaScript code?\n var quiz = [1, 2, 3];\n var result = q'
+
+  [2024/q35] topics=['fe-5']
+    Python code/keywords in fe-* only question
+    matched: ['\\bNone\\b']
+    Q: '35. What will be the output of the following JavaScript code?\n var x;\n for(x = 0; x < 5; x++) {\n   d'
+
+  [2024/q38] topics=['fe-4']
+    Python code/keywords in fe-* only question
+    matched: ['\\bNone\\b']
+    Q: '38. Which is the correct HTML statement to define the red color of the paragraph text?'
+
+  [2024/q39] topics=['fe-2']
+    Python code/keywords in fe-* only question
+    matched: ['\\bNone\\b']
+    Q: '39. Which HTML tag is used to define highlighted text?'
+
+  [2024/q41] topics=['fe-2', 'fe-3']
+    Python code/keywords in fe-* only question
+    matched: ['\\bNone\\b']
+    Q: '41. Which is the correct HTML statement to display Hello(strikethrough) Hi(underlined) in a paragrap'
+
+  [2024/q45] topics=['fe-4']
+    Python code/keywords in fe-* only question
+    matched: ['\\bclass\\s+\\w+\\s*[:\\(]']
+    Q: '45. Which of the following selectors selects the specified elements of type E with a particular clas'
+
+  [2024/q46] topics=['fe-4']
+    Python code/keywords in fe-* only question
+    matched: ['\\bNone\\b']
+    Q: '46. Which of the following selectors selects all elements of E that have the attribute (attr) that e'
+
+  [2024/q47] topics=['fe-4']
+    Python code/keywords in fe-* only question
+    matched: ['\\bNone\\b']
+    Q: '47. Which of the following selectors selects an element that has no children?'
+
+  [2024/q57] topics=['fe-4']
+    Python code/keywords in fe-* only question
+    matched: ['\\bTrue\\b', '\\bFalse\\b']
+    Q: '57. External CSS style has the highest priority'
+
+  [2024/q58] topics=['fe-1']
+    Python code/keywords in fe-* only question
+    matched: ['\\bNone\\b']
+    Q: '58. The ______ HTTP request header specifies information about the software (browser) making the req'
+
+  [2024/q67] topics=['fe-5']
+    Python code/keywords in fe-* only question
+    matched: ['\\bTrue\\b', '\\bFalse\\b']
+    Q: '67. var colors = (1:"red", 2:"green", 3:"blue") is one of the ways of defining an array in JavaScrip'
+
+  [2024/q78] topics=['fe-6']
+    Python code/keywords in fe-* only question
+    matched: ['\\bNone\\b']
+    Q: '78. What will be the output of this JavaScript code?\n const myArr = [1, 2, [3, [4, 5, 6], 7], 8];\n c'
+
+  [2024/q79] topics=['fe-3']
+    Python code/keywords in fe-* only question
+    matched: ['\\bNone\\b']
+    Q: '79. To get the value of the text node of the h2 element node, you can use document.getElementById("i'
+
+  [2024/q80] topics=['fe-3']
+    Python code/keywords in fe-* only question
+    matched: ['\\bNone\\b']
+    Q: '80. Based on the above html page, the content of h2 element will be presented as'
+
+  [2024/q85] topics=['fe-4']
+    Python code/keywords in fe-* only question
+    matched: ['\\bNone\\b']
+    Q: '85. In a[target=_blank], the [target=_blank] is called'
+
+  [2024/q86] topics=['fe-4']
+    Python code/keywords in fe-* only question
+    matched: ['\\bNone\\b']
+    Q: '86. By using p:first-child {color:red;}, the number of elements that will be styled'
+
+  [2025/q2] topics=['fe-5']
+    Python code/keywords in fe-* only question
+    matched: ['\\bTrue\\b', '\\bFalse\\b']
+    Q: '2. To determine the type of an object, we can use the "typeof" function in JavaScript.'
+
+  [2025/q3] topics=['fe-4']
+    Python code/keywords in fe-* only question
+    matched: ['\\bTrue\\b', '\\bFalse\\b']
+    Q: '3. CSS can be defined externally in a separate file by adding the <style> element inside the <head>.'
+
+  [2025/q4] topics=['fe-5']
+    Python code/keywords in fe-* only question
+    matched: ['\\bTrue\\b', '\\bFalse\\b']
+    Q: '4. var colors = (1:"red", 2:"green", 3:"blue") is one of the ways of defining an array in JavaScript'
+
+  [2025/q14] topics=['fe-2']
+    Python code/keywords in fe-* only question
+    matched: ['\\bTrue\\b', '\\bFalse\\b']
+    Q: '14. Tags and texts that are not directly displayed on the HTML page are written in title section.'
+
+  [2025/q17] topics=['fe-3']
+    Python code/keywords in fe-* only question
+    matched: ['\\bTrue\\b', '\\bFalse\\b']
+    Q: '17. In DOM, ChildNodes property returns elements and ignores text and comments.'
+
+  [2025/q25] topics=['fe-4']
+    Python code/keywords in fe-* only question
+    matched: ['\\bTrue\\b', '\\bFalse\\b']
+    Q: '25. The CSS property background-attachment is used to specify whether the image is attached to the d'
+
+  [2025/q31] topics=['fe-6']
+    Python code/keywords in fe-* only question
+    matched: ['\\bTrue\\b', '\\bFalse\\b']
+    Q: '31. AJAX is used for refreshing the page content by sending a request to the server and updating the'
+
+  [2025/q33] topics=['fe-2']
+    Python code/keywords in fe-* only question
+    matched: ['\\bTrue\\b', '\\bFalse\\b']
+    Q: '33. <br> tag is used to force the browser to display the next text or element on a new line.'
+
+  [2025/q38] topics=['fe-6']
+    Python code/keywords in fe-* only question
+    matched: ['\\bNone\\b']
+    Q: '38. In the following function:\n function multiply(...myNumbers) {\n let total = 1\n for (let myNumber '
+
+  [2025/q39] topics=['fe-5']
+    Python code/keywords in fe-* only question
+    matched: ['\\bTrue\\b']
+    Q: '39. Which of the following is true about JavaScript syntax?'
+
+  [2025/q48] topics=['fe-5', 'fe-6']
+    Python code/keywords in fe-* only question
+    matched: ['\\bNone\\b']
+    Q: '48. How many ways are there with which we can declare a variable in javascript?'
+
+  [2025/q51] topics=['fe-3']
+    Python code/keywords in fe-* only question
+    matched: ['\\bNone\\b']
+    Q: '51. What is the purpose of window.history.back()?'
+
+  [2025/q53] topics=['fe-3']
+    Python code/keywords in fe-* only question
+    matched: ['\\bNone\\b']
+    Q: '53. What will be the output of "document.getElementById("id1").firstChild.nodeName;"?'
+
+  [2025/q54] topics=['fe-4']
+    Python code/keywords in fe-* only question
+    matched: ['\\bNone\\b']
+    Q: '54. By using this CSS selector p.center {color: blue;}, the number of elements that will be styled i'
+
+  [2025/q55] topics=['fe-4']
+    Python code/keywords in fe-* only question
+    matched: ['\\bNone\\b', '\\blist\\s*\\(']
+    Q: '55. By using this CSS selector p:first-child { color: blue;}, how many elements will be styled?'
+
+  [2025/q56] topics=['fe-4']
+    Python code/keywords in fe-* only question
+    matched: ['\\bNone\\b']
+    Q: '56. By using this CSS selector div + p { color: red;}, how many p elements will be styled?'
+
+  [2025/q57] topics=['fe-4']
+    Python code/keywords in fe-* only question
+    matched: ['\\bNone\\b']
+    Q: '57. By using this CSS selector p:empty {color:red;}, how many elements will be styled?'
+
+  [2025/q58] topics=['fe-3']
+    Python code/keywords in fe-* only question
+    matched: ['\\bNone\\b']
+    Q: '58. If we wrote "var x=document.getElementsByTagName("p")" inside a script tag, then the length of x'
+
+  [2025/q59] topics=['fe-3']
+    Python code/keywords in fe-* only question
+    matched: ['\\bNone\\b']
+    Q: '59. The value of x in this code, "x=document.body.children;" is:'
+
+  [2025/q60] topics=['fe-3']
+    Python code/keywords in fe-* only question
+    matched: ['\\bNone\\b']
+    Q: '60. If we wrote this code, "y=x[0].children" then y will contain:'
+
+  [2025/q61] topics=['fe-3']
+    Python code/keywords in fe-* only question
+    matched: ['\\bNone\\b']
+    Q: '61. If we wrote this code, "z=y[0].children; M=z[0].firstChild.nodeValue;" Then the value of M will '
+
+  [2025/q79] topics=['fe-6']
+    Python code/keywords in fe-* only question
+    matched: ['\\bNone\\b']
+    Q: '79. What will be the output of this JavaScript code?\n const myArr =[1,2, [3, [4, 5, 6, 7], 8]];\n con'
+
+=== Check C (11) ===
+  [2021/q62] topics=['fe-5']
+    ES6 feature tagged fe-5 only (missing fe-6)
+    matched: ['\\blet\\s+\\w+']
+    Q: '62. The first console.log statement (line 4), will output:'
+
+  [2021/q63] topics=['fe-5']
+    ES6 feature tagged fe-5 only (missing fe-6)
+    matched: ['\\blet\\s+\\w+']
+    Q: '63. The second console.log statement (line 8), will output:'
+
+  [2021/q64] topics=['fe-5']
+    ES6 feature tagged fe-5 only (missing fe-6)
+    matched: ['\\blet\\s+\\w+']
+    Q: '64. The last console.log statement (lines 10, 11), will output:'
+
+  [2021/q69] topics=['fe-5']
+    ES6 feature tagged fe-5 only (missing fe-6)
+    matched: ['\\bconst\\s+\\w+']
+    Q: '69. Line 2 in this code will (ignoring lines from 3- to the end):'
+
+  [2021/q70] topics=['fe-5']
+    ES6 feature tagged fe-5 only (missing fe-6)
+    matched: ['\\bconst\\s+\\w+']
+    Q: '70. Assume Line 2 in this code is removed, then line 3 in this code will (ignoring lines from 4- to '
+
+  [2021/q71] topics=['fe-5']
+    ES6 feature tagged fe-5 only (missing fe-6)
+    matched: ['\\bconst\\s+\\w+']
+    Q: '71. Assume Lines from 1 to 3 in this code are removed, then line 5 will:'
+
+  [2021/q72] topics=['fe-5']
+    ES6 feature tagged fe-5 only (missing fe-6)
+    matched: ['\\bconst\\s+\\w+']
+    Q: '72. Assume Lines 2, 4, and 5 in this code are removed, line 6 will output:'
+
+  [2021/q73] topics=['fe-5']
+    ES6 feature tagged fe-5 only (missing fe-6)
+    matched: ['\\bconst\\s+\\w+']
+    Q: '73. Assume Lines from 1 to 3 in this code are removed, and line 6 is removed too, code is only lines'
+
+  [2024/q30] topics=['fe-5']
+    ES6 feature tagged fe-5 only (missing fe-6)
+    matched: ['\\blet\\s+\\w+']
+    Q: '30. What will be the output of the following JavaScript code?\n let x = 10;\n let y = 20;\n let text = '
+
+  [2025/q45] topics=['fe-5']
+    ES6 feature tagged fe-5 only (missing fe-6)
+    matched: ['\\bconst\\s+\\w+']
+    Q: '45. What will the following JavaScript code log?\n const obj = {a: 1, b: 2 };\n delete obj.a;\n console'
+
+  [2025/q68] topics=['fe-5']
+    ES6 feature tagged fe-5 only (missing fe-6)
+    matched: ['\\.\\.\\.\\w+']
+    Q: '68. What will be the output of the following Java Script code snippet?\n function test(...args) {\n do'
+
+=== Check D (10) ===
+  [2021/q2] topics=['fe-1']
+    HTTP topic has fe-1 but possibly missing be-4
+    Q: '2. The values GET, POST, HEAD, etc... are specified in'
+
+  [2021/q5] topics=['fe-1']
+    HTTP topic has fe-1 but possibly missing be-4
+    Q: '5. In HTTP, the first line in a request message is called a _______ line; the first line in the resp'
+
+  [2021/q6] topics=['fe-1']
+    HTTP topic has fe-1 but possibly missing be-4
+    Q: '6. An HTTP request message always contains'
+
+  [2021/q7] topics=['fe-1']
+    HTTP topic has fe-1 but possibly missing be-4
+    Q: '7. _______ is more robust and secure than _______'
+
+  [2021/q37] topics=['fe-1']
+    HTTP topic has fe-1 but possibly missing be-4
+    Q: '37. A cookie is created by'
+
+  [2021/q42] topics=['fe-1']
+    HTTP topic has fe-1 but possibly missing be-4
+    Q: '42. An HTTP Response message must contain'
+
+  [2021/q43] topics=['fe-1']
+    HTTP topic has fe-1 but possibly missing be-4
+    Q: '43. "Expires: Tuesday, 17 Dec 2020 18:30 GMT" is a _______ header denoting _______'
+
+  [2021/q45] topics=['fe-1']
+    HTTP topic has fe-1 but possibly missing be-4
+    Q: '45. Using authorization, have a response of status 200 means that'
+
+  [2021/q46] topics=['fe-1']
+    HTTP topic has fe-1 but possibly missing be-4
+    Q: '46. A lock icon in the browser denotes'
+
+  [2024/q58] topics=['fe-1']
+    HTTP topic has fe-1 but possibly missing be-4
+    Q: '58. The ______ HTTP request header specifies information about the software (browser) making the req'
+
+=== Check G (1) ===
+  [2024/q31] topics=['fe-6']
+    Django model/ORM/admin/migration content missing be-8
+    Q: '31. What will be the output of this JavaScript code?\n var numbers = [10, 20, 30];\n function myFuncti'
+
+=== Check H (2) ===
+  [2024/q2] topics=['be-8']
+    Django setup/MVT content missing be-5
+    Q: '2. For a model to be visible in the admin interface it has to be registered in which file?'
+
+  [2025/q16] topics=['be-8']
+    Django setup/MVT content missing be-5
+    Q: '16. For a model to be visible in the admin interface it has to be registered in the settings.py file'
+
+=== Check J (1) ===
+  [2024/q90] topics=['fe-2', 'fe-1', 'be-4']
+    More than 2 relatedTopics (3)
+    Q: '90. The hyperlink <a href="https://w3schools.com"> is an example of a/an ________ URL, while <a href'
+
