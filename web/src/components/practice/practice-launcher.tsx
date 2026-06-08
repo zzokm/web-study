@@ -27,6 +27,10 @@ import {
 } from "@/lib/practice-session-config";
 import { filterWrittenQuestionsByTrack } from "@/lib/written-practice-filter";
 import {
+  clearActivePracticeSession,
+  loadActivePracticeSession,
+} from "@/lib/practice-active-session";
+import {
   canonicalPracticeSessionKey,
   clearPracticeProgress,
   loadPracticeDisplaySnapshot,
@@ -92,6 +96,7 @@ export function PracticeLauncher({
   const [initialIndex, setInitialIndex] = useState(0);
   const [startFresh, setStartFresh] = useState(false);
   const setupViewedRef = useRef(false);
+  const autoResumedRef = useRef(false);
 
   const canonicalKey = useMemo(
     () => canonicalPracticeSessionKey(sessionQuestions),
@@ -136,7 +141,11 @@ export function PracticeLauncher({
   const beginSession = useCallback(
     (
       mode: "start" | "continue" | "fresh",
-      options?: { sessionKey?: string; config?: PracticeSessionConfig }
+      options?: {
+        sessionKey?: string;
+        config?: PracticeSessionConfig;
+        resumeIndex?: number;
+      }
     ) => {
       const sessionConfig = options?.config ?? config;
       const key =
@@ -145,6 +154,7 @@ export function PracticeLauncher({
       const fresh = mode === "fresh";
 
       if (fresh) {
+        clearActivePracticeSession();
         clearPracticeProgress(key, canonicalKey);
       }
 
@@ -160,13 +170,18 @@ export function PracticeLauncher({
 
       const progress = fresh ? {} : loadPracticeProgress(key);
       const index =
-        mode === "continue"
-          ? resumeQuestionIndex(
-              prepared,
-              progress,
-              sessionConfig.examSimulation
+        typeof options?.resumeIndex === "number"
+          ? Math.min(
+              Math.max(0, options.resumeIndex),
+              Math.max(0, prepared.length - 1)
             )
-          : 0;
+          : mode === "continue"
+            ? resumeQuestionIndex(
+                prepared,
+                progress,
+                sessionConfig.examSimulation
+              )
+            : 0;
 
       touchPracticeSessionPointer({
         questions: sessionQuestions,
@@ -192,6 +207,28 @@ export function PracticeLauncher({
     },
     [canonicalKey, config, pathname, sessionQuestions, title]
   );
+
+  useEffect(() => {
+    if (autoResumedRef.current || phase !== "setup" || sessionQuestions.length === 0) {
+      return;
+    }
+
+    const active = loadActivePracticeSession();
+    if (
+      !active ||
+      active.returnPath !== pathname ||
+      active.canonicalKey !== canonicalKey
+    ) {
+      return;
+    }
+
+    autoResumedRef.current = true;
+    beginSession("continue", {
+      sessionKey: active.sessionKey,
+      config: active.config,
+      resumeIndex: active.currentIndex,
+    });
+  }, [beginSession, canonicalKey, pathname, phase, sessionQuestions.length]);
 
   const handleContinue = useCallback(() => {
     if (!sessionStatus || sessionStatus.kind !== "in_progress") return;
