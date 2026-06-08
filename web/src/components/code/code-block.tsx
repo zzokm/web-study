@@ -1,23 +1,8 @@
 "use client";
 
-import {
-  useEffect,
-  useMemo,
-  useRef,
-  useState,
-  type RefObject,
-} from "react";
-import type { ThemedToken } from "shiki";
-import {
-  normalizeCodeIndentation,
-  resolveHighlightLanguage,
-  type SupportedCodeLanguage,
-} from "@/lib/parse-question-content";
-
-type DisplayToken = {
-  content: string;
-  color?: string;
-};
+import { useEffect, useRef, useState, type RefObject } from "react";
+import { CodeIdeRow, useShikiLines } from "@/components/code/code-ide-shared";
+import { LANGUAGE_LABELS } from "@/lib/shiki-highlighter";
 import { cn } from "@/lib/utils";
 
 type CodeBlockProps = {
@@ -29,80 +14,6 @@ type CodeBlockProps = {
   fillHeight?: boolean;
   className?: string;
 };
-
-type HighlighterBundle = {
-  codeToTokens: (
-    code: string,
-    options: { lang: string; theme: string }
-  ) => ThemedToken[][];
-};
-
-let highlighterPromise: Promise<HighlighterBundle> | null = null;
-
-function loadHighlighter(): Promise<HighlighterBundle> {
-  if (!highlighterPromise) {
-    highlighterPromise = import("shiki").then(async ({ createHighlighter }) => {
-      const highlighter = await createHighlighter({
-        themes: ["dark-plus"],
-        langs: ["javascript", "html", "css", "python", "json"],
-      });
-
-      return {
-        codeToTokens: (source, { lang, theme }) =>
-          highlighter
-            .codeToTokens(source, {
-              lang: lang as "javascript" | "html" | "css" | "python" | "json",
-              theme,
-            })
-            .tokens,
-      };
-    });
-  }
-  return highlighterPromise;
-}
-
-const LANGUAGE_LABELS: Record<SupportedCodeLanguage, string> = {
-  javascript: "JavaScript",
-  html: "HTML",
-  css: "CSS",
-  python: "Python",
-  json: "JSON",
-};
-
-function TokenLine({ tokens }: { tokens: DisplayToken[] }) {
-  if (tokens.length === 0) {
-    return <span className="code-ide-empty-line">&nbsp;</span>;
-  }
-
-  return (
-    <>
-      {tokens.map((token, index) => (
-        <span key={index} style={{ color: token.color }}>
-          {token.content}
-        </span>
-      ))}
-    </>
-  );
-}
-
-function CodeIdeRow({
-  lineNumber,
-  tokens,
-}: {
-  lineNumber: number;
-  tokens: DisplayToken[];
-}) {
-  return (
-    <div className="code-ide-row">
-      <span className="code-ide-ln" aria-hidden>
-        {lineNumber}
-      </span>
-      <code className="code-ide-src">
-        <TokenLine tokens={tokens} />
-      </code>
-    </div>
-  );
-}
 
 function usePadLineCount(
   enabled: boolean,
@@ -156,50 +67,7 @@ export function CodeBlock({
   fillHeight = false,
   className,
 }: CodeBlockProps) {
-  const normalizedCode = useMemo(
-    () => normalizeCodeIndentation(code.replace(/\n$/, "")),
-    [code]
-  );
-  const lines = useMemo(() => normalizedCode.split("\n"), [normalizedCode]);
-  const resolvedLanguage = resolveHighlightLanguage(language, code);
-  const highlightKey = `${resolvedLanguage}:${normalizedCode}`;
-  const [highlightState, setHighlightState] = useState<{
-    key: string;
-    tokens: ThemedToken[][] | null;
-  }>({ key: "", tokens: null });
-
-  useEffect(() => {
-    let cancelled = false;
-
-    async function highlight() {
-      try {
-        const highlighter = await loadHighlighter();
-        const tokens = highlighter.codeToTokens(normalizedCode, {
-          lang: resolvedLanguage,
-          theme: "dark-plus",
-        });
-        if (!cancelled) {
-          setHighlightState({ key: highlightKey, tokens });
-        }
-      } catch {
-        if (!cancelled) {
-          setHighlightState({ key: highlightKey, tokens: null });
-        }
-      }
-    }
-
-    void highlight();
-
-    return () => {
-      cancelled = true;
-    };
-  }, [normalizedCode, resolvedLanguage, highlightKey]);
-
-  const tokenLines =
-    highlightState.key === highlightKey ? highlightState.tokens : null;
-
-  const displayLines =
-    tokenLines ?? lines.map((line) => [{ content: line, color: "#d4d4d4" }]);
+  const { lines, displayLines, resolvedLanguage } = useShikiLines(code, language);
 
   const scrollRef = useRef<HTMLDivElement>(null);
   const contentRef = useRef<HTMLDivElement>(null);

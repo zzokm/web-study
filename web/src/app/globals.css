@@ -290,6 +290,75 @@
   font-feature-settings: "tnum" 1;
 }
 
+.code-ide-editor-viewport {
+  position: relative;
+  min-height: calc(var(--code-line-height) * 12 + var(--code-pad-y) * 2);
+  max-height: min(70vh, 32rem);
+  overflow: hidden;
+  background-color: #1e1e1e;
+}
+
+.code-ide-editor-highlight {
+  position: absolute;
+  top: 0;
+  left: 0;
+  min-width: 100%;
+  padding: var(--code-pad-y) var(--code-pad-x);
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono",
+    "Courier New", monospace;
+  font-variant-ligatures: none;
+  font-feature-settings: "tnum" 1;
+  font-size: var(--code-font-size);
+  line-height: var(--code-line-height);
+  color: #d4d4d4;
+}
+
+.code-ide-editor-input {
+  position: absolute;
+  inset: 0;
+  box-sizing: border-box;
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  border: 0;
+  resize: none;
+  overflow: auto;
+  padding: var(--code-pad-y) var(--code-pad-x);
+  padding-left: calc(
+    var(--code-pad-x) + var(--code-ln-width) + var(--code-ln-gap) + 1px +
+      var(--code-ln-gap) + var(--code-src-pad-x)
+  );
+  background: transparent;
+  color: transparent;
+  caret-color: #d4d4d4;
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono",
+    "Courier New", monospace;
+  font-variant-ligatures: none;
+  font-feature-settings: "tnum" 1;
+  font-size: var(--code-font-size);
+  line-height: var(--code-line-height);
+  white-space: pre;
+  tab-size: 4;
+  -moz-tab-size: 4;
+  outline: none;
+  scrollbar-width: thin;
+  scrollbar-color: #5a5a5a #2d2d2d;
+}
+
+.code-ide-editor-input::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+.code-ide-editor-input::-webkit-scrollbar-track {
+  background: #2d2d2d;
+}
+
+.code-ide-editor-input::-webkit-scrollbar-thumb {
+  background: #5a5a5a;
+  border-radius: 9999px;
+}
+
 .app-shell-header {
   box-sizing: border-box;
   height: var(--app-shell-header-height);
