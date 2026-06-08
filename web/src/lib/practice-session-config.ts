@@ -1,4 +1,5 @@
 import { shuffleMcqOptionOrder } from "@/lib/mcq-options";
+import { isWrittenQuestion } from "@/lib/questions";
 import {
   seededFisherYates,
   type SeededRandom,
@@ -94,6 +95,25 @@ function shuffleMcqOptions(
   };
 }
 
+function partitionWrittenQuestions(questions: Question[]): {
+  nonWritten: Question[];
+  written: Question[];
+} {
+  const nonWritten: Question[] = [];
+  const written: Question[] = [];
+  for (const question of questions) {
+    if (isWrittenQuestion(question)) written.push(question);
+    else nonWritten.push(question);
+  }
+  return { nonWritten, written };
+}
+
+/** Written questions always appear after MCQ / true-false items. */
+function pinWrittenQuestionsToEnd(questions: Question[]): Question[] {
+  const { nonWritten, written } = partitionWrittenQuestions(questions);
+  return [...nonWritten, ...written];
+}
+
 /** Apply question-order and MCQ option shuffles (clones input). */
 export function preparePracticeQuestions(
   questions: Question[],
@@ -101,11 +121,17 @@ export function preparePracticeQuestions(
   random?: SeededRandom
 ): Question[] {
   let prepared = questions.map(cloneQuestion);
+  const { nonWritten, written } = partitionWrittenQuestions(prepared);
 
   if (config.shuffleQuestions) {
-    prepared = random
-      ? seededFisherYates(prepared, random)
-      : fisherYates(prepared);
+    prepared = [
+      ...(random
+        ? seededFisherYates(nonWritten, random)
+        : fisherYates(nonWritten)),
+      ...written,
+    ];
+  } else {
+    prepared = [...nonWritten, ...written];
   }
 
   if (config.shuffleMcqOptions) {
@@ -156,7 +182,7 @@ export function applyDisplaySnapshot(
   snapshot: PracticeDisplaySnapshot
 ): Question[] {
   const ordered = orderQuestionsByKeys(questions, snapshot.questionKeys);
-  return ordered.map((q) => {
+  const withOptions = ordered.map((q) => {
     const order = snapshot.optionOrderByKey[q.questionKey];
     if (!order?.length) return cloneQuestion(q);
     const optsById = new Map(q.options.map((o) => [o.id, o]));
@@ -166,6 +192,7 @@ export function applyDisplaySnapshot(
     if (reordered.length !== q.options.length) return cloneQuestion(q);
     return { ...cloneQuestion(q), options: reordered };
   });
+  return pinWrittenQuestionsToEnd(withOptions);
 }
 
 export function practiceConfigAnalyticsParams(
