@@ -234,6 +234,10 @@ export type AnalyticsEventMap = {
     report_context: string;
     has_question_key: boolean;
   };
+  written_ai_review_copy: PageContextParams &
+    QuestionParams & {
+      answer_language: string;
+    };
 };
 
 export type AnalyticsEventName = keyof AnalyticsEventMap;
@@ -276,4 +280,5 @@ export const AnalyticsEventNames = {
   lectureSlideView: "lecture_slide_view",
   issueReportOpen: "issue_report_open",
   issueReportSubmit: "issue_report_submit",
+  writtenAiReviewCopy: "written_ai_review_copy",
 } as const satisfies Record<string, AnalyticsEventName>;

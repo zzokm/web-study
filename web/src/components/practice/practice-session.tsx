@@ -794,7 +794,11 @@ function PracticeSessionInner({
             />
 
             {!examSimulation && revealed ? (
-              <AnswerReveal question={question} />
+              <AnswerReveal
+                question={question}
+                userWrittenAnswer={isWritten ? writtenAnswer : undefined}
+                showAiReview={isWritten}
+              />
             ) : null}
           </CardContent>
         </Card>
