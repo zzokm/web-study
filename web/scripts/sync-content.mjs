@@ -267,6 +267,189 @@ function flattenExamBlocks(raw, year, sourceFile) {
   return questions;
 }
 
+const WrittenSourceSchema = z.object({
+  id: z.string(),
+  type: z.literal("written"),
+  topic: z.string(),
+  questionText: z.string(),
+  context: ContextSchema,
+  expectedAnswer: z.string(),
+  writtenRubric: z.object({
+    version: z.literal(1),
+    checks: z.array(z.record(z.string(), z.unknown())),
+  }),
+  explanation: z.string(),
+  relatedTopics: z.array(z.string()).min(1),
+});
+
+const WrittenExamPlacementSchema = z.object({
+  year: z.string(),
+  blockId: z.string(),
+  questionId: z.string(),
+  questionNumber: z.number(),
+  topic: z.string().optional(),
+});
+
+const WrittenQuestionEntrySchema = WrittenSourceSchema.extend({
+  order: z.number().int().positive().optional(),
+  examPlacement: WrittenExamPlacementSchema.optional(),
+});
+
+const WRITTEN_MANIFEST_PATH = join(
+  REPO_ROOT,
+  "data",
+  "manifests",
+  "written-questions.json"
+);
+
+const WRITTEN_QUESTIONS_DIR = join(REPO_ROOT, "data", "written-questions");
+
+function loadWrittenQuestionBundle() {
+  if (!existsSync(WRITTEN_MANIFEST_PATH)) {
+    return { manifest: null, entries: [] };
+  }
+
+  const manifest = JSON.parse(readFileSync(WRITTEN_MANIFEST_PATH, "utf8"));
+  const questionsFile = manifest.file ?? "questions.json";
+  const srcPath = join(WRITTEN_QUESTIONS_DIR, questionsFile);
+  if (!existsSync(srcPath)) {
+    throw new Error(`Missing written questions file: ${srcPath}`);
+  }
+
+  const bundle = JSON.parse(readFileSync(srcPath, "utf8"));
+  const sourceFile = `data/written-questions/${questionsFile}`;
+  const entries = [];
+  const seenIds = new Set();
+
+  for (const [index, entry] of (bundle.questions ?? []).entries()) {
+    WrittenQuestionEntrySchema.parse(entry);
+    if (seenIds.has(entry.id)) {
+      throw new Error(`Duplicate written question id in ${questionsFile}: ${entry.id}`);
+    }
+    seenIds.add(entry.id);
+
+    const manifestEntry = {
+      id: entry.id,
+      order: entry.order ?? index + 1,
+      examPlacement: entry.examPlacement,
+      file: questionsFile,
+    };
+    const { order: _order, examPlacement: _placement, ...raw } = entry;
+    entries.push({ manifestEntry, raw, sourceFile });
+  }
+
+  return { manifest, entries };
+}
+
+function examStemWithNumber(questionText, questionNumber) {
+  const prefix = `${questionNumber}. `;
+  const numbered = new RegExp(`^${questionNumber}\\.\\s`);
+  if (numbered.test(questionText)) return questionText;
+  return prefix + questionText;
+}
+
+function buildWrittenHubCatalogEntry(raw, manifestEntry, sourceFile) {
+  const topic = raw.topic ?? "Written";
+  const slug = slugFromTopic(topic);
+  const catalogEntry = {
+    id: raw.id,
+    topic,
+    questionText: raw.questionText,
+    context: parseBlockContext(raw.context),
+    questionSegments: parseQuestionText(raw.questionText),
+    options: [],
+    correctAnswerId: "",
+    explanation: raw.explanation ?? "",
+    questionKey: `written:${raw.id}`,
+    origin: "written",
+    sourceFile,
+    sourceQuestionId: raw.id,
+    questionType: "written",
+    lectureSlug: slug,
+    examOrder: manifestEntry.order ?? 1,
+    blockId: "written",
+    relatedTopics: raw.relatedTopics ?? [],
+    expectedAnswer: raw.expectedAnswer,
+    writtenRubric: raw.writtenRubric,
+  };
+  QuestionSchema.parse(catalogEntry);
+  return catalogEntry;
+}
+
+function buildWrittenExamCatalogEntry(
+  raw,
+  placement,
+  year,
+  examOrder,
+  sourceFile
+) {
+  const topic = placement.topic ?? raw.topic ?? "Written";
+  const slug = slugFromTopic(topic);
+  const sourceQuestionId = `${placement.blockId}:${placement.questionId}`;
+  const questionText = examStemWithNumber(
+    raw.questionText,
+    placement.questionNumber
+  );
+  const catalogEntry = {
+    id: sourceQuestionId,
+    topic,
+    questionText,
+    context: parseBlockContext(raw.context),
+    questionSegments: parseQuestionText(questionText),
+    options: [],
+    correctAnswerId: "",
+    explanation: raw.explanation ?? "",
+    questionKey: `${year}:${sourceQuestionId}`,
+    origin: year,
+    sourceFile,
+    sourceQuestionId,
+    questionType: "written",
+    lectureSlug: slug,
+    examOrder,
+    blockId: placement.blockId,
+    relatedTopics: raw.relatedTopics ?? [],
+    expectedAnswer: raw.expectedAnswer,
+    writtenRubric: raw.writtenRubric,
+  };
+  QuestionSchema.parse(catalogEntry);
+  return catalogEntry;
+}
+
+function appendWrittenExamPlacements(flattened, year, bundle) {
+  const appended = [];
+  for (const { manifestEntry, raw, sourceFile } of bundle.entries) {
+    const placement = manifestEntry.examPlacement;
+    if (!placement || placement.year !== year) continue;
+    const examOrder = flattened.length + appended.length + 1;
+    const entry = buildWrittenExamCatalogEntry(
+      raw,
+      placement,
+      year,
+      examOrder,
+      sourceFile
+    );
+    appended.push(entry);
+  }
+  return appended;
+}
+
+function syncWrittenQuestions(bundle) {
+  if (!bundle.manifest) {
+    return { questions: [], manifest: null };
+  }
+
+  copy(
+    WRITTEN_MANIFEST_PATH,
+    join(WEB_ROOT, "public", "data", "written_questions_manifest.json")
+  );
+
+  const questions = bundle.entries.map(({ manifestEntry, raw, sourceFile }) =>
+    buildWrittenHubCatalogEntry(raw, manifestEntry, sourceFile)
+  );
+
+  return { questions, manifest: bundle.manifest };
+}
+
 function main() {
   const publicData = join(WEB_ROOT, "public", "data");
   const publicLectures = join(WEB_ROOT, "public", "lectures");
@@ -311,6 +494,7 @@ function main() {
     };
   }
 
+  const writtenBundle = loadWrittenQuestionBundle();
   const questions = [];
   const byExamYear = { 2021: [], 2024: [], 2025: [] };
   const byLectureSlug = Object.fromEntries(
@@ -318,27 +502,53 @@ function main() {
   );
   const questionByKey = {};
 
+  function indexQuestion(entry) {
+    questions.push(entry);
+    questionByKey[entry.questionKey] = entry;
+    for (const lectureId of entry.relatedTopics ?? []) {
+      if (!byLectureSlug[lectureId]) {
+        byLectureSlug[lectureId] = [];
+      }
+      byLectureSlug[lectureId].push(entry.questionKey);
+    }
+  }
+
   for (const [file, year] of Object.entries(EXAM_MAP)) {
     const src = join(REPO_ROOT, file);
     const dest = join(publicData, "exams", `${year}.json`);
     const raw = JSON.parse(readFileSync(src, "utf8"));
     const flattened = flattenExamBlocks(raw, year, file);
+    const examWritten = appendWrittenExamPlacements(
+      flattened,
+      year,
+      writtenBundle
+    );
+    const yearQuestions = [...flattened, ...examWritten];
 
     for (const entry of flattened) {
-      questions.push(entry);
       byExamYear[year].push(entry.questionKey);
-      questionByKey[entry.questionKey] = entry;
+      indexQuestion(entry);
+    }
 
-      for (const lectureId of entry.relatedTopics ?? []) {
-        if (!byLectureSlug[lectureId]) {
-          byLectureSlug[lectureId] = [];
-        }
-        byLectureSlug[lectureId].push(entry.questionKey);
-      }
+    for (const entry of examWritten) {
+      byExamYear[year].push(entry.questionKey);
+      indexQuestion(entry);
     }
 
     ensureDir(dirname(dest));
-    writeFileSync(dest, JSON.stringify(flattened, null, 2), "utf8");
+    writeFileSync(dest, JSON.stringify(yearQuestions, null, 2), "utf8");
+  }
+
+  const writtenCatalog = syncWrittenQuestions(writtenBundle);
+  for (const entry of writtenCatalog.questions) {
+    questions.push(entry);
+    questionByKey[entry.questionKey] = entry;
+    for (const lectureId of entry.relatedTopics ?? []) {
+      if (!byLectureSlug[lectureId]) {
+        byLectureSlug[lectureId] = [];
+      }
+      byLectureSlug[lectureId].push(entry.questionKey);
+    }
   }
 
   const repetitive = buildRepetitiveCatalog(questions);
@@ -406,8 +616,9 @@ function main() {
     generatedAt,
   });
 
+  const writtenCount = writtenCatalog.questions.length;
   console.log(
-    `Synced ${questions.length} questions, ${Object.keys(lectureMeta).length} lectures, ${Object.keys(examMeta).length} exam PDFs, ${codeExampleCount} code examples.`
+    `Synced ${questions.length} questions (${writtenCount} written), ${Object.keys(lectureMeta).length} lectures, ${Object.keys(examMeta).length} exam PDFs, ${codeExampleCount} code examples.`
   );
 }
 

@@ -1,0 +1,64 @@
+{
+  "version": 1,
+  "description": "HTML coding (written) questions for /practice/written/ and optional exam placement.",
+  "questions": [
+    {
+      "id": "wq-style-english-arabic",
+      "order": 1,
+      "examPlacement": {
+        "year": "2025",
+        "blockId": "block_6",
+        "questionId": "q81",
+        "questionNumber": 81,
+        "topic": "Written — HTML styling"
+      },
+      "type": "written",
+      "topic": "Written — HTML styling",
+      "questionText": "1. Display the text \"My favorite subject is English Arabic\" where \"English\" is struck-through and \"Arabic\" is underlined.\n2. Add a button labeled \"Style\" that, when clicked, changes the paragraph's:\n- Font color to green\n- Font size to 14px\n- Font family to Arial",
+      "context": null,
+      "expectedAnswer": "<p id=\"myPara\">My favorite subject is <s>English</s> <u>Arabic</u></p>\n<button onclick=\"changeStyle()\">Style</button>\n<script>\nfunction changeStyle() {\n  let p = document.getElementById(\"myPara\");\n  p.style.color = \"green\";\n  p.style.fontSize = \"14px\";\n  p.style.fontFamily = \"Arial\";\n}\n</script>",
+      "writtenRubric": {
+        "version": 1,
+        "checks": [
+          {
+            "id": "paragraph_text",
+            "type": "element_text_includes",
+            "selector": "p",
+            "text": "My favorite subject is"
+          },
+          {
+            "id": "english_struck",
+            "type": "text_has_decoration",
+            "text": "English",
+            "decoration": "strikethrough"
+          },
+          {
+            "id": "arabic_underlined",
+            "type": "text_has_decoration",
+            "text": "Arabic",
+            "decoration": "underline"
+          },
+          {
+            "id": "style_button",
+            "type": "control_labeled",
+            "role": "button",
+            "label": "Style"
+          },
+          {
+            "id": "click_styles",
+            "type": "click_applies_computed_styles",
+            "triggerLabel": "Style",
+            "targetSelector": "p",
+            "styles": {
+              "color": ["green", "rgb(0, 128, 0)", "#008000"],
+              "fontSize": ["14px"],
+              "fontFamily": ["arial"]
+            }
+          }
+        ]
+      },
+      "explanation": "Your snippet should render the sentence with strike-through on \"English\" and underline on \"Arabic\", include a button labeled \"Style\", and apply green 14px Arial styling to the paragraph when clicked. Any valid HTML/CSS/JS approach works as long as the outcome matches. See the model answer below.",
+      "relatedTopics": ["fe-3"]
+    }
+  ]
+}

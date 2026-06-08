@@ -1,0 +1,5 @@
+{
+  "version": 1,
+  "description": "Written questions for /practice/written/. All questions live in data/written-questions/questions.json.",
+  "file": "questions.json"
+}

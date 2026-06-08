@@ -43,6 +43,8 @@ from typing import NamedTuple
 
 ROOT = Path(__file__).resolve().parent.parent
 EXAMS_DIR = ROOT / "data" / "exams"
+WRITTEN_DIR = ROOT / "data" / "written-questions"
+WRITTEN_MANIFEST = ROOT / "data" / "manifests" / "written-questions.json"
 LECTURES_MANIFEST = ROOT / "data" / "manifests" / "lectures.json"
 
 EXAM_FILES = ["2021.json", "2024.json", "2025.json"]
@@ -276,6 +278,80 @@ def audit_year(year_file: str, valid_ids: set[str]) -> list[Issue]:
     return issues
 
 
+def audit_written_questions(valid_ids: set[str]) -> list[Issue]:
+    """Audit data/written-questions/questions.json referenced by the manifest."""
+    if not WRITTEN_MANIFEST.exists():
+        return []
+
+    with open(WRITTEN_MANIFEST, encoding="utf-8") as f:
+        manifest = json.load(f)
+
+    filename = manifest.get("file", "questions.json")
+    path = WRITTEN_DIR / filename
+    if not path.exists():
+        return [Issue("written", filename, 13, f"Missing written questions file {filename}")]
+
+    with open(path, encoding="utf-8") as f:
+        bundle = json.load(f)
+
+    issues: list[Issue] = []
+    seen_ids: set[str] = set()
+
+    for q in bundle.get("questions", []):
+        qid = q.get("id", "?")
+
+        if qid in seen_ids:
+            issues.append(Issue("written", qid, 11, "Duplicate written question ID"))
+        seen_ids.add(qid)
+
+        if q.get("type") != "written":
+            issues.append(Issue("written", qid, 13, f"type must be written, got {q.get('type')}"))
+
+        if not (q.get("questionText") or "").strip():
+            issues.append(Issue("written", qid, 13, "Empty questionText"))
+
+        if not (q.get("explanation") or "").strip():
+            issues.append(Issue("written", qid, 13, "Empty explanation"))
+
+        topics = q.get("relatedTopics") or []
+        if not topics:
+            issues.append(Issue("written", qid, 1, "relatedTopics is empty"))
+        else:
+            bad_ids = [t for t in topics if t not in valid_ids]
+            if bad_ids:
+                issues.append(Issue("written", qid, 2, f"Unknown lecture IDs: {bad_ids}"))
+            if len(topics) > 2:
+                issues.append(Issue("written", qid, 3, f"{len(topics)} relatedTopics (max 2): {topics}"))
+
+        if not (q.get("expectedAnswer") or "").strip():
+            issues.append(Issue("written", qid, 14, "Written question missing expectedAnswer (model answer)"))
+
+        rubric = q.get("writtenRubric")
+        if not rubric:
+            issues.append(Issue("written", qid, 14, "Written question missing writtenRubric (correction checks)"))
+        elif rubric.get("version") != 1:
+            issues.append(Issue("written", qid, 16, f"writtenRubric version must be 1, got {rubric.get('version')}"))
+        elif not rubric.get("checks"):
+            issues.append(Issue("written", qid, 16, "writtenRubric checks array is empty"))
+
+        if q.get("options"):
+            issues.append(Issue("written", qid, 15, "Written question must not have options"))
+
+        placement = q.get("examPlacement")
+        if placement is not None:
+            if not isinstance(placement, dict):
+                issues.append(Issue("written", qid, 13, "examPlacement must be an object"))
+            else:
+                for key in ("year", "blockId", "questionId", "questionNumber"):
+                    if key not in placement:
+                        issues.append(Issue(
+                            "written", qid, 13,
+                            f"examPlacement missing required field: {key}",
+                        ))
+
+    return issues
+
+
 def main() -> int:
     quiet = "--quiet" in sys.argv
     valid_ids = get_valid_lecture_ids()
@@ -283,6 +359,7 @@ def main() -> int:
     all_issues: list[Issue] = []
     for year_file in EXAM_FILES:
         all_issues.extend(audit_year(year_file, valid_ids))
+    all_issues.extend(audit_written_questions(valid_ids))
 
     if not all_issues:
         print("OK – no integrity issues found.")
