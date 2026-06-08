@@ -160,6 +160,20 @@ export function isAnswerCorrect(
   return selectedId.trim().toLowerCase() === correctAnswerId.trim().toLowerCase();
 }
 
+export function isWrittenQuestion(question: Question): boolean {
+  return question.questionType === "written";
+}
+
+export function getWrittenQuestions(): Question[] {
+  return dedupeQuestionsByStem(
+    catalog.questions.filter((q) => q.questionType === "written")
+  );
+}
+
+export function countWrittenQuestions(): number {
+  return getWrittenQuestions().length;
+}
+
 export function getCorrectAnswerDisplay(question: Question): {
   id: string;
   label: string;

@@ -5,13 +5,15 @@ import type {
   PracticeSessionConfig,
 } from "@/lib/practice-session-config";
 import { configStorageSuffix } from "@/lib/practice-session-config";
-import { isAnswerCorrect } from "@/lib/questions";
+import { isAnswerCorrect, isWrittenQuestion } from "@/lib/questions";
 import type { Question } from "@/types/question";
 
 /** Per-question practice state (selection + whether answer was checked). */
 export interface QuestionAttempt {
   selectedId: string | null;
   revealed: boolean;
+  writtenAnswer?: string | null;
+  writtenCorrect?: boolean | null;
   /** Epoch ms when the current thinking window started. */
   shownAt?: number;
   /** Epoch ms when Check answer was clicked. */
@@ -25,6 +27,18 @@ export type PracticeProgress = Record<string, QuestionAttempt>;
 const STORAGE_PREFIX = "webstudy:practice-v1:";
 
 const EMPTY_ATTEMPT: QuestionAttempt = { selectedId: null, revealed: false };
+
+export function hasWrittenResponse(attempt: QuestionAttempt): boolean {
+  return Boolean(attempt.writtenAnswer?.trim());
+}
+
+export function isQuestionAnswered(
+  question: Question,
+  attempt: QuestionAttempt
+): boolean {
+  if (isWrittenQuestion(question)) return hasWrittenResponse(attempt);
+  return Boolean(attempt.selectedId);
+}
 
 export function getAttempt(
   progress: PracticeProgress,
@@ -116,8 +130,9 @@ export function patchAllQuestionsRevealed(
   let next = progress;
   for (const q of questions) {
     const attempt = getAttempt(next, q.questionKey);
-    if (!attempt.selectedId) continue;
+    if (!isQuestionAnswered(q, attempt)) continue;
     if (attempt.revealed) continue;
+    if (isWrittenQuestion(q)) continue;
     next = patchQuestionThinkingAt(
       next,
       q.questionKey,
@@ -126,6 +141,29 @@ export function patchAllQuestionsRevealed(
     );
   }
   return next;
+}
+
+export function patchQuestionWrittenChecked(
+  progress: PracticeProgress,
+  questionKey: string,
+  writtenAnswer: string,
+  writtenCorrect: boolean,
+  now = Date.now()
+): PracticeProgress {
+  const attempt = getAttempt(progress, questionKey);
+  const shownAt = attempt.shownAt ?? now;
+  return {
+    ...progress,
+    [questionKey]: {
+      ...attempt,
+      writtenAnswer,
+      writtenCorrect,
+      selectedId: writtenCorrect ? "correct" : "incorrect",
+      revealed: true,
+      checkedAt: now,
+      thinkingMs: Math.max(0, now - shownAt),
+    },
+  };
 }
 
 /** Sorted question keys — identifies the pool regardless of display order. */
@@ -186,13 +224,19 @@ export function savePracticeProgress(
 
 export function hasPracticeProgress(progress: PracticeProgress): boolean {
   return Object.values(progress).some(
-    (attempt) => attempt.selectedId != null || attempt.revealed
+    (attempt) =>
+      attempt.selectedId != null ||
+      attempt.revealed ||
+      hasWrittenResponse(attempt)
   );
 }
 
 export function practiceProgressCount(progress: PracticeProgress): number {
   return Object.values(progress).filter(
-    (attempt) => attempt.selectedId != null || attempt.revealed
+    (attempt) =>
+      attempt.selectedId != null ||
+      attempt.revealed ||
+      hasWrittenResponse(attempt)
   ).length;
 }
 
@@ -261,9 +305,10 @@ export function resumeQuestionIndex(
   examSimulation: boolean
 ): number {
   for (let i = 0; i < questions.length; i++) {
-    const attempt = getAttempt(progress, questions[i].questionKey);
+    const q = questions[i];
+    const attempt = getAttempt(progress, q.questionKey);
     if (examSimulation) {
-      if (!attempt.selectedId) return i;
+      if (!isQuestionAnswered(q, attempt)) return i;
       if (!attempt.revealed) return i;
     } else if (!attempt.revealed) {
       return i;
@@ -276,22 +321,27 @@ export function allQuestionsAnswered(
   questions: Question[],
   progress: PracticeProgress
 ): boolean {
-  return questions.every((q) => getAttempt(progress, q.questionKey).selectedId);
+  return questions.every((q) =>
+    isQuestionAnswered(q, getAttempt(progress, q.questionKey))
+  );
 }
 
 export function answeredQuestionCount(
   questions: Question[],
   progress: PracticeProgress
 ): number {
-  return questions.filter((q) => getAttempt(progress, q.questionKey).selectedId)
-    .length;
+  return questions.filter((q) =>
+    isQuestionAnswered(q, getAttempt(progress, q.questionKey))
+  ).length;
 }
 
 export function isAttemptCorrect(
   question: Question,
   attempt: QuestionAttempt
 ): boolean {
-  if (!attempt.revealed || !attempt.selectedId) return false;
+  if (!attempt.revealed) return false;
+  if (isWrittenQuestion(question)) return attempt.writtenCorrect === true;
+  if (!attempt.selectedId) return false;
   return isAnswerCorrect(attempt.selectedId, question.correctAnswerId);
 }
 
@@ -299,7 +349,9 @@ export function isAttemptWrong(
   question: Question,
   attempt: QuestionAttempt
 ): boolean {
-  if (!attempt.revealed || !attempt.selectedId) return false;
+  if (!attempt.revealed) return false;
+  if (isWrittenQuestion(question)) return attempt.writtenCorrect === false;
+  if (!attempt.selectedId) return false;
   return !isAnswerCorrect(attempt.selectedId, question.correctAnswerId);
 }
 
@@ -313,7 +365,12 @@ export function computePracticeScore(
 
   for (const q of questions) {
     const attempt = getAttempt(progress, q.questionKey);
-    if (!attempt.revealed || !attempt.selectedId) continue;
+    if (!attempt.revealed) continue;
+    if (isWrittenQuestion(q)) {
+      if (!hasWrittenResponse(attempt)) continue;
+    } else if (!attempt.selectedId) {
+      continue;
+    }
     answered++;
     if (isAttemptCorrect(q, attempt)) correct++;
   }

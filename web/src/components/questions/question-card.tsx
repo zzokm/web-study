@@ -6,6 +6,11 @@ import { isAnswerCorrect } from "@/lib/questions";
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
+import {
+  WrittenQuestionPanel,
+  type WrittenQuestionPanelHandle,
+} from "@/components/written-questions/written-question-panel";
+import { isWrittenQuestion } from "@/lib/questions";
 import { QuestionMeta } from "./question-meta";
 import { OptionContent } from "@/components/code/question-content";
 import { QuestionStem } from "./question-stem";
@@ -17,6 +22,10 @@ interface QuestionCardProps {
   revealed: boolean;
   disabled?: boolean;
   hideMeta?: boolean;
+  writtenAnswer?: string;
+  onWrittenAnswerChange?: (value: string) => void;
+  writtenRunCount?: number;
+  writtenPanelRef?: React.RefObject<WrittenQuestionPanelHandle | null>;
 }
 
 export function QuestionCard({
@@ -26,7 +35,12 @@ export function QuestionCard({
   revealed,
   disabled,
   hideMeta = false,
+  writtenAnswer = "",
+  onWrittenAnswerChange,
+  writtenRunCount = 0,
+  writtenPanelRef,
 }: QuestionCardProps) {
+  const isWritten = isWrittenQuestion(question);
   const isTf = question.questionType === "true_false";
 
   function radioItemClass(optionId: string) {
@@ -82,6 +96,24 @@ export function QuestionCard({
       return "border-red-600 bg-red-500/15 ring-2 ring-red-600/80 text-red-950 dark:bg-red-500/20 dark:text-red-50";
     }
     return "opacity-50";
+  }
+
+  if (isWritten && onWrittenAnswerChange) {
+    return (
+      <div className="flex flex-col gap-6">
+        {hideMeta ? null : <QuestionMeta question={question} />}
+        <QuestionStem question={question} />
+        <WrittenQuestionPanel
+          ref={writtenPanelRef}
+          value={writtenAnswer}
+          onChange={onWrittenAnswerChange}
+          hasChecked={revealed}
+          runCount={writtenRunCount}
+          disabled={disabled || revealed}
+          title={question.topic}
+        />
+      </div>
+    );
   }
 
   if (isTf) {

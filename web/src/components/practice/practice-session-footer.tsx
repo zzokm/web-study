@@ -30,6 +30,10 @@ interface PracticeSessionFooterProps {
   revealed: boolean;
   correct: boolean;
   selectedId: string | null;
+  isWritten?: boolean;
+  canCheck?: boolean;
+  hasAnswered?: boolean;
+  checking?: boolean;
   paused?: boolean;
   mode?: "standard" | "exam";
   allAnswered?: boolean;
@@ -46,6 +50,10 @@ export function PracticeSessionFooter({
   revealed,
   correct,
   selectedId,
+  isWritten = false,
+  canCheck = Boolean(selectedId),
+  hasAnswered = Boolean(selectedId),
+  checking = false,
   paused = false,
   mode = "standard",
   allAnswered = false,
@@ -118,7 +126,11 @@ export function PracticeSessionFooter({
                 </Button>
               ) : (
                 <span className="px-2 text-center text-xs text-muted-foreground sm:text-sm">
-                  {selectedId ? "Next to continue" : "Select an answer"}
+                  {hasAnswered
+                    ? "Next to continue"
+                    : isWritten
+                      ? "Write your answer"
+                      : "Select an answer"}
                 </span>
               )
             ) : !revealed ? (
@@ -126,11 +138,15 @@ export function PracticeSessionFooter({
                 type="button"
                 size="lg"
                 onClick={onCheck}
-                disabled={!selectedId}
+                disabled={!canCheck || checking}
                 className={cn(PRACTICE_FOOTER_BTN_CLASS, "w-full")}
               >
-                <span className="truncate sm:hidden">Check</span>
-                <span className="hidden truncate sm:inline">Check answer</span>
+                <span className="truncate sm:hidden">
+                  {checking ? "Checking…" : "Check"}
+                </span>
+                <span className="hidden truncate sm:inline">
+                  {checking ? "Checking…" : "Check answer"}
+                </span>
               </Button>
             ) : (
               <span
@@ -162,7 +178,7 @@ export function PracticeSessionFooter({
                   variant="outline"
                   size="lg"
                   onClick={onNext}
-                  disabled={!selectedId}
+                  disabled={!hasAnswered}
                   className={PRACTICE_FOOTER_BTN_CLASS}
                   aria-label="Next question"
                 >

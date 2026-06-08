@@ -1,6 +1,6 @@
 "use client";
 
-import { useCallback, useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { usePathname, useRouter } from "next/navigation";
 import type { Question } from "@/types/question";
 import { AnalyticsEvents } from "@/lib/analytics-events";
@@ -8,6 +8,7 @@ import {
   examYearFromPathname,
   lectureSlugFromPathname,
   practiceModeFromPathname,
+  practiceReturnHrefFromPathname,
 } from "@/lib/analytics-practice";
 import type { InteractionSource } from "@/lib/analytics-event-schemas";
 import {
@@ -17,7 +18,9 @@ import {
   setUserProperties,
   trackAnalyticsEvent,
 } from "@/lib/analytics";
-import { isAnswerCorrect } from "@/lib/questions";
+import { isWrittenQuestion } from "@/lib/questions";
+import { judgeWrittenHtml } from "@/lib/written-question-judge";
+import type { WrittenQuestionPanelHandle } from "@/components/written-questions/written-question-panel";
 import { cn } from "@/lib/utils";
 import type { MockExamSpec } from "@/lib/mock-exam";
 import {
@@ -30,12 +33,16 @@ import {
   clearPracticeProgress,
   computePracticeScore,
   getAttempt,
+  hasWrittenResponse,
+  isAttemptCorrect,
+  isQuestionAnswered,
   loadPracticeProgress,
   patchAllQuestionsRevealed,
   patchQuestionChecked,
   patchQuestionShown,
   patchQuestionShownCleared,
   patchQuestionThinkingFrozen,
+  patchQuestionWrittenChecked,
   practiceProgressCount,
   savePracticeProgress,
   type PracticeProgress,
@@ -131,6 +138,11 @@ function PracticeSessionInner({
   const [progress, setProgress] = useState<PracticeProgress>(() =>
     loadPracticeProgress(sessionKey)
   );
+  const [writtenRunCounts, setWrittenRunCounts] = useState<
+    Record<string, number>
+  >({});
+  const [checkingWritten, setCheckingWritten] = useState(false);
+  const writtenPanelRef = useRef<WrittenQuestionPanelHandle>(null);
 
   const patchProgress = useCallback(
     (updater: (prev: PracticeProgress) => PracticeProgress) => {
@@ -144,10 +156,19 @@ function PracticeSessionInner({
   );
 
   const question = questions[index];
-  const attempt = question
-    ? getAttempt(progress, question.questionKey)
-    : { selectedId: null, revealed: false };
+  const attempt = useMemo(
+    () =>
+      question
+        ? getAttempt(progress, question.questionKey)
+        : { selectedId: null, revealed: false },
+    [question, progress]
+  );
   const { selectedId, revealed } = attempt;
+  const writtenAnswer = attempt.writtenAnswer ?? "";
+  const isWritten = question ? isWrittenQuestion(question) : false;
+  const writtenRunCount = question
+    ? (writtenRunCounts[question.questionKey] ?? 0)
+    : 0;
 
   const updateCurrentAttempt = useCallback(
     (patch: Partial<QuestionAttempt>) => {
@@ -312,24 +333,70 @@ function PracticeSessionInner({
   );
 
   const handleCheck = useCallback(
-    (source: InteractionSource = "click") => {
-      if (!selectedId || !question || revealed) return;
-      const isCorrect = isAnswerCorrect(selectedId, question.correctAnswerId);
+    async (source: InteractionSource = "click") => {
+      if (!question || revealed || checkingWritten) return;
+
+      if (isWrittenQuestion(question)) {
+        const answer = writtenAnswer.trim();
+        if (!answer || !question.writtenRubric) return;
+        setCheckingWritten(true);
+        try {
+          const result = await judgeWrittenHtml(answer, question.writtenRubric);
+          const now = Date.now();
+          patchProgress((prev) => {
+            const next = patchQuestionWrittenChecked(
+              prev,
+              question.questionKey,
+              answer,
+              result.passed,
+              now
+            );
+            const checked = getAttempt(next, question.questionKey);
+            trackAnalyticsEvent(AnalyticsEvents.practiceCheckAnswer, {
+              ...practiceBase(source),
+              ...questionAnalyticsParams(question),
+              selected_option_id: result.passed ? "correct" : "incorrect",
+              correct: result.passed,
+              thinking_ms: checked.thinkingMs,
+            });
+            return next;
+          });
+          setWrittenRunCounts((prev) => ({
+            ...prev,
+            [question.questionKey]: (prev[question.questionKey] ?? 0) + 1,
+          }));
+          writtenPanelRef.current?.showPreview();
+        } finally {
+          setCheckingWritten(false);
+        }
+        return;
+      }
+
+      if (!selectedId) return;
       const now = Date.now();
       patchProgress((prev) => {
         const next = patchQuestionChecked(prev, question.questionKey, now);
-        const attempt = getAttempt(next, question.questionKey);
+        const checked = getAttempt(next, question.questionKey);
+        const isCorrect = isAttemptCorrect(question, checked);
         trackAnalyticsEvent(AnalyticsEvents.practiceCheckAnswer, {
           ...practiceBase(source),
           ...questionAnalyticsParams(question),
           selected_option_id: selectedId,
           correct: isCorrect,
-          thinking_ms: attempt.thinkingMs,
+          thinking_ms: checked.thinkingMs,
         });
         return next;
       });
     },
-    [selectedId, question, revealed, patchProgress, practiceBase]
+    [
+      selectedId,
+      question,
+      revealed,
+      checkingWritten,
+      writtenAnswer,
+      patchProgress,
+      practiceBase,
+    ]
   );
 
   const handleNext = useCallback(
@@ -337,7 +404,7 @@ function PracticeSessionInner({
       if (!question || index >= questions.length - 1) return;
 
       if (examSimulation) {
-        if (!selectedId) return;
+        if (!isQuestionAnswered(question, attempt)) return;
         patchProgress((prev) =>
           patchQuestionThinkingFrozen(prev, question.questionKey)
         );
@@ -364,9 +431,17 @@ function PracticeSessionInner({
       question,
       practiceBase,
       examSimulation,
-      selectedId,
+      attempt,
       patchProgress,
     ]
+  );
+
+  const handleWrittenAnswerChange = useCallback(
+    (value: string) => {
+      if (!question) return;
+      updateCurrentAttempt({ writtenAnswer: value });
+    },
+    [question, updateCurrentAttempt]
   );
 
   const handlePrevious = useCallback(
@@ -454,6 +529,7 @@ function PracticeSessionInner({
         progress: finalProgress,
         config,
         mockExamSpec,
+        returnHref: practiceReturnHrefFromPathname(pathname),
       });
       clearPracticeProgress(sessionKey);
       router.push(`/practice/results/?id=${id}`);
@@ -465,12 +541,34 @@ function PracticeSessionInner({
     finishSession(progress);
   }, [finishSession, progress]);
 
-  const handleSubmitExam = useCallback(() => {
+  const handleSubmitExam = useCallback(async () => {
     if (!allQuestionsAnswered(questions, progress)) return;
-    const next = patchAllQuestionsRevealed(progress, questions);
-    patchProgress(() => next);
-    finishSession(next);
-  }, [questions, progress, patchProgress, finishSession]);
+    setCheckingWritten(true);
+    try {
+      let next = progress;
+      const runBumps: Record<string, number> = {};
+      for (const q of questions) {
+        if (!isWrittenQuestion(q) || !q.writtenRubric) continue;
+        const att = getAttempt(next, q.questionKey);
+        const answer = att.writtenAnswer?.trim() ?? "";
+        if (!answer) continue;
+        const result = await judgeWrittenHtml(answer, q.writtenRubric);
+        next = patchQuestionWrittenChecked(
+          next,
+          q.questionKey,
+          answer,
+          result.passed
+        );
+        runBumps[q.questionKey] = (writtenRunCounts[q.questionKey] ?? 0) + 1;
+      }
+      next = patchAllQuestionsRevealed(next, questions);
+      setWrittenRunCounts((prev) => ({ ...prev, ...runBumps }));
+      patchProgress(() => next);
+      finishSession(next);
+    } finally {
+      setCheckingWritten(false);
+    }
+  }, [questions, progress, patchProgress, finishSession, writtenRunCounts]);
 
   const handleResetProgress = useCallback(() => {
     const savedCount = practiceProgressCount(progress);
@@ -512,9 +610,10 @@ function PracticeSessionInner({
     );
   }
 
-  const correct = selectedId
-    ? isAnswerCorrect(selectedId, question.correctAnswerId)
-    : false;
+  const correct = revealed ? isAttemptCorrect(question, attempt) : false;
+  const canCheck = isWritten
+    ? hasWrittenResponse(attempt) && Boolean(question.writtenRubric)
+    : Boolean(selectedId);
 
   const progressPct =
     questions.length > 0 ? ((index + 1) / questions.length) * 100 : 0;
@@ -576,12 +675,16 @@ function PracticeSessionInner({
           >
             <CardTitle className="text-base font-medium text-muted-foreground">
               {examSimulation
-                ? "Select your answer"
+                ? isWritten
+                  ? "Write your HTML answer"
+                  : "Select your answer"
                 : revealed
                   ? correct
                     ? "Correct"
                     : "Incorrect"
-                  : "Answer the question"}
+                  : isWritten
+                    ? "Write your HTML answer"
+                    : "Answer the question"}
             </CardTitle>
           </CardHeader>
           <CardContent className="flex flex-col gap-6">
@@ -592,6 +695,12 @@ function PracticeSessionInner({
               revealed={examSimulation ? false : revealed}
               disabled={examSimulation ? false : revealed}
               hideMeta={examSimulation}
+              writtenAnswer={writtenAnswer}
+              onWrittenAnswerChange={handleWrittenAnswerChange}
+              writtenRunCount={
+                examSimulation && !revealed ? 0 : writtenRunCount
+              }
+              writtenPanelRef={writtenPanelRef}
             />
 
             {!examSimulation && revealed ? (
@@ -607,14 +716,18 @@ function PracticeSessionInner({
         revealed={revealed}
         correct={correct}
         selectedId={selectedId}
+        isWritten={isWritten}
+        canCheck={canCheck}
+        hasAnswered={isQuestionAnswered(question, attempt)}
+        checking={checkingWritten}
         paused={paused}
         mode={examSimulation ? "exam" : "standard"}
         allAnswered={everyQuestionAnswered}
         onPrevious={() => handlePrevious("click")}
         onNext={() => handleNext("click")}
-        onCheck={() => handleCheck("click")}
+        onCheck={() => void handleCheck("click")}
         onFinish={handleFinish}
-        onSubmitExam={handleSubmitExam}
+        onSubmitExam={() => void handleSubmitExam()}
       />
     </>
   );
