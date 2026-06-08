@@ -177,6 +177,20 @@ export function canonicalPracticeSessionKey(
     .join("\0");
 }
 
+const SESSION_CONFIG_SUFFIX = /:s[01]{4}(?::w[fbe])?$/;
+
+/** Strip config suffix (`:s0000`, `:s0000:wf`, …) from a practice session key. */
+export function stripPracticeSessionConfigSuffix(sessionKey: string): string {
+  return sessionKey.replace(SESSION_CONFIG_SUFFIX, "");
+}
+
+/** Question keys encoded in a canonical or config-suffixed session key. */
+export function parseQuestionKeysFromSessionKey(sessionKey: string): string[] {
+  return stripPracticeSessionConfigSuffix(sessionKey)
+    .split("\0")
+    .filter(Boolean);
+}
+
 export function practiceSessionKey(
   questions: { questionKey: string }[],
   config?: PracticeSessionConfig

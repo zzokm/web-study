@@ -7,11 +7,17 @@ import {
 } from "@/lib/practice-session-config";
 import {
   canonicalPracticeSessionKey,
+  isQuestionPracticed,
   loadPracticeProgress,
+  parseQuestionKeysFromSessionKey,
   practicedQuestionCount,
   type PracticeProgress,
 } from "@/lib/practice-progress";
-import { loadPracticeResult } from "@/lib/practice-results";
+import {
+  loadPracticeResult,
+  resultStorageId,
+  type StoredPracticeResult,
+} from "@/lib/practice-results";
 import type { Question } from "@/types/question";
 
 export type PracticeSessionPointer = {
@@ -24,6 +30,7 @@ export type PracticeSessionPointer = {
 
 const POINTER_PREFIX = "webstudy:practice-pointer-v1:";
 const PROGRESS_PREFIX = "webstudy:practice-v1:";
+const RESULT_PREFIX = "webstudy:practice-result-v1:";
 
 let statusStoreVersion = 0;
 const statusStoreListeners = new Set<() => void>();
@@ -87,7 +94,26 @@ export function clearPracticeSessionPointer(canonicalKey: string): void {
   }
 }
 
-function enumeratePoolSessionKeys(canonicalKey: string): string[] {
+function resolveSessionConfig(
+  sessionKey: string,
+  poolCanonicalKey: string
+): PracticeSessionConfig {
+  const sessionCanonical = canonicalPracticeSessionKey(
+    parseQuestionKeysFromSessionKey(sessionKey).map((questionKey) => ({
+      questionKey,
+    }))
+  );
+  return (
+    configFromSessionKey(sessionKey, poolCanonicalKey) ??
+    configFromSessionKey(sessionKey, sessionCanonical) ??
+    DEFAULT_PRACTICE_SESSION_CONFIG
+  );
+}
+
+function enumeratePoolSessionKeys(
+  canonicalKey: string,
+  currentQuestionKeys: Set<string>
+): string[] {
   const keys: string[] = [];
   const seen = new Set<string>();
 
@@ -110,10 +136,175 @@ function enumeratePoolSessionKeys(canonicalKey: string): string[] {
       sessionKey.startsWith(`${canonicalKey}:s`)
     ) {
       add(sessionKey);
+      continue;
+    }
+
+    const progress = loadPracticeProgress(sessionKey);
+    const hasOverlap = Object.keys(progress).some((key) =>
+      currentQuestionKeys.has(key)
+    );
+    if (!hasOverlap) continue;
+
+    add(sessionKey);
+
+    const poolKeys = parseQuestionKeysFromSessionKey(sessionKey);
+    if (
+      poolKeys.length > 0 &&
+      poolKeys.every((key) => currentQuestionKeys.has(key))
+    ) {
+      const legacyCanonical = canonicalPracticeSessionKey(
+        poolKeys.map((questionKey) => ({ questionKey }))
+      );
+      add(legacyCanonical);
     }
   }
 
   return keys;
+}
+
+function enumerateStoredPracticePointers(): Array<{
+  storageCanonicalKey: string;
+  pointer: PracticeSessionPointer;
+}> {
+  const entries: Array<{
+    storageCanonicalKey: string;
+    pointer: PracticeSessionPointer;
+  }> = [];
+  if (typeof window === "undefined") return entries;
+
+  for (let i = 0; i < localStorage.length; i++) {
+    const storageKey = localStorage.key(i);
+    if (!storageKey?.startsWith(POINTER_PREFIX)) continue;
+    const storageCanonicalKey = storageKey.slice(POINTER_PREFIX.length);
+    const pointer = loadPracticeSessionPointer(storageCanonicalKey);
+    if (pointer) {
+      entries.push({ storageCanonicalKey, pointer });
+    }
+  }
+
+  return entries;
+}
+
+function enumerateStoredPracticeResults(): StoredPracticeResult[] {
+  const results: StoredPracticeResult[] = [];
+  if (typeof window === "undefined") return results;
+
+  for (let i = 0; i < localStorage.length; i++) {
+    const storageKey = localStorage.key(i);
+    if (!storageKey?.startsWith(RESULT_PREFIX)) continue;
+    const result = loadPracticeResult(storageKey.slice(RESULT_PREFIX.length));
+    if (result) results.push(result);
+  }
+
+  return results;
+}
+
+function isCompletedResultForPool(
+  result: StoredPracticeResult,
+  questions: Question[],
+  currentQuestionKeys: Set<string>
+): boolean {
+  if (!result.questionKeys?.length) return false;
+  if (!result.questionKeys.every((key) => currentQuestionKeys.has(key))) {
+    return false;
+  }
+
+  const examSimulation = result.config?.examSimulation ?? false;
+  const questionByKey = new Map(
+    questions.map((question) => [question.questionKey, question])
+  );
+
+  return result.questionKeys.every((key) => {
+    const question = questionByKey.get(key);
+    const attempt = result.progress[key];
+    if (!question || !attempt) return false;
+    return isQuestionPracticed(question, attempt, examSimulation);
+  });
+}
+
+function completedStatusFromPointer(
+  pointer: PracticeSessionPointer
+): PracticeSessionStatus | null {
+  if (pointer.status !== "completed" || !pointer.resultId) return null;
+  const result = loadPracticeResult(pointer.resultId);
+  if (!result) return null;
+  return {
+    kind: "completed",
+    sessionKey: pointer.sessionKey,
+    config: pointer.config,
+    resultId: pointer.resultId,
+    percent: 100,
+  };
+}
+
+function findLegacyCompletedStatus(
+  questions: Question[],
+  canonicalKey: string,
+  currentQuestionKeys: Set<string>
+): { status: PracticeSessionStatus; pointer: PracticeSessionPointer } | null {
+  let best:
+    | { status: PracticeSessionStatus; pointer: PracticeSessionPointer }
+    | null = null;
+
+  for (const { storageCanonicalKey, pointer } of enumerateStoredPracticePointers()) {
+    if (storageCanonicalKey === canonicalKey) continue;
+    const status = completedStatusFromPointer(pointer);
+    if (!status) continue;
+
+    const result = loadPracticeResult(status.resultId);
+    if (!result || !isCompletedResultForPool(result, questions, currentQuestionKeys)) {
+      continue;
+    }
+
+    const candidate = { status, pointer };
+    if (!best || pointer.updatedAt > best.pointer.updatedAt) {
+      best = candidate;
+    }
+  }
+
+  if (best) return best;
+
+  let bestResult: {
+    status: PracticeSessionStatus;
+    pointer: PracticeSessionPointer;
+    finishedAt: string;
+  } | null = null;
+
+  for (const result of enumerateStoredPracticeResults()) {
+    if (!isCompletedResultForPool(result, questions, currentQuestionKeys)) continue;
+
+    const sessionCanonical = canonicalPracticeSessionKey(
+      result.questionKeys.map((questionKey) => ({ questionKey }))
+    );
+    if (sessionCanonical === canonicalKey) continue;
+
+    const resultId = resultStorageId(result.sessionKey);
+    if (!loadPracticeResult(resultId)) continue;
+
+    const pointer: PracticeSessionPointer = {
+      sessionKey: result.sessionKey,
+      config: result.config ?? DEFAULT_PRACTICE_SESSION_CONFIG,
+      status: "completed",
+      resultId,
+      updatedAt: result.finishedAt,
+    };
+
+    const status: PracticeSessionStatus = {
+      kind: "completed",
+      sessionKey: result.sessionKey,
+      config: pointer.config,
+      resultId,
+      percent: 100,
+    };
+
+    if (!bestResult || result.finishedAt > bestResult.finishedAt) {
+      bestResult = { status, pointer, finishedAt: result.finishedAt };
+    }
+  }
+
+  return bestResult
+    ? { status: bestResult.status, pointer: bestResult.pointer }
+    : null;
 }
 
 type InProgressCandidate = {
@@ -126,15 +317,17 @@ type InProgressCandidate = {
 function findBestInProgressSession(
   questions: Question[],
   canonicalKey: string,
+  currentQuestionKeys: Set<string>,
   preferredSessionKey?: string
 ): InProgressCandidate | null {
   let best: InProgressCandidate | null = null;
 
-  for (const sessionKey of enumeratePoolSessionKeys(canonicalKey)) {
+  for (const sessionKey of enumeratePoolSessionKeys(
+    canonicalKey,
+    currentQuestionKeys
+  )) {
     const progress = loadPracticeProgress(sessionKey);
-    const config =
-      configFromSessionKey(sessionKey, canonicalKey) ??
-      DEFAULT_PRACTICE_SESSION_CONFIG;
+    const config = resolveSessionConfig(sessionKey, canonicalKey);
     const practiced = practicedQuestionCount(
       questions,
       progress,
@@ -188,6 +381,15 @@ export type PracticeSessionStatus =
       percent: 100;
     };
 
+function migratePracticeSessionPointer(
+  canonicalKey: string,
+  pointer: PracticeSessionPointer
+): void {
+  const existing = loadPracticeSessionPointer(canonicalKey);
+  if (existing?.updatedAt && existing.updatedAt >= pointer.updatedAt) return;
+  savePracticeSessionPointer(canonicalKey, pointer);
+}
+
 /** Read-only status resolution for UI subscriptions (no localStorage writes). */
 function readPracticeSessionStatus(
   questions: Question[]
@@ -195,11 +397,12 @@ function readPracticeSessionStatus(
   if (questions.length === 0) return null;
 
   const canonicalKey = canonicalPracticeSessionKey(questions);
+  const currentQuestionKeys = new Set(questions.map((q) => q.questionKey));
   const pointer = loadPracticeSessionPointer(canonicalKey);
 
   if (pointer?.status === "completed" && pointer.resultId) {
     const result = loadPracticeResult(pointer.resultId);
-    if (result) {
+    if (result && isCompletedResultForPool(result, questions, currentQuestionKeys)) {
       return {
         kind: "completed",
         sessionKey: pointer.sessionKey,
@@ -210,9 +413,20 @@ function readPracticeSessionStatus(
     }
   }
 
+  const legacyCompleted = findLegacyCompletedStatus(
+    questions,
+    canonicalKey,
+    currentQuestionKeys
+  );
+  if (legacyCompleted) {
+    migratePracticeSessionPointer(canonicalKey, legacyCompleted.pointer);
+    return legacyCompleted.status;
+  }
+
   const best = findBestInProgressSession(
     questions,
     canonicalKey,
+    currentQuestionKeys,
     pointer?.status === "in_progress" ? pointer.sessionKey : undefined
   );
 
@@ -267,7 +481,20 @@ export function reconcilePracticeSessionPointer(questions: Question[]): void {
     return;
   }
 
-  if (status.kind === "completed") return;
+  if (status.kind === "completed") {
+    const pointer = loadPracticeSessionPointer(canonicalKey);
+    if (!pointer || pointer.status !== "completed") {
+      const legacy = findLegacyCompletedStatus(
+        questions,
+        canonicalKey,
+        new Set(questions.map((q) => q.questionKey))
+      );
+      if (legacy) {
+        savePracticeSessionPointer(canonicalKey, legacy.pointer);
+      }
+    }
+    return;
+  }
 
   const pointer = loadPracticeSessionPointer(canonicalKey);
   if (

@@ -14,7 +14,7 @@ export function CircularProgress({
   strokeWidth?: number;
   className?: string;
   label?: string;
-  /** Overrides the default percentage text in the center (e.g. "Done"). */
+  /** Overrides the default percentage text in the center. */
   centerLabel?: string;
   /** Native tooltip on hover (status detail). */
   title?: string;

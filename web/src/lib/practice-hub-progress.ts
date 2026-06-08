@@ -36,7 +36,6 @@ export function derivePracticeHubProgressDisplay(
       percent: 100,
       statusTitle: "Completed",
       statusDetail: "You finished this practice set.",
-      centerLabel: "Done",
       completed: true,
     };
   }
