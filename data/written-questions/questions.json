@@ -281,7 +281,7 @@
       "order": 10,
       "type": "written",
       "topic": "Frontend — HTML5 APIs",
-      "questionText": "Write a single JavaScript statement to save the string 'Guest' under the key 'username' in the browser's HTML5 `localStorage`.",
+      "questionText": "1. Write a single JavaScript statement to save the string 'Guest' under the key 'username' in the browser's HTML5 `localStorage`.",
       "context": null,
       "expectedAnswer": "<script>\nlocalStorage.setItem('username', 'Guest');\n</script>",
       "writtenRubric": {
@@ -302,7 +302,7 @@
       "order": 11,
       "type": "written",
       "topic": "Frontend — CSS Layouts",
-      "questionText": "Write CSS rules for a class named `.container` that uses Flexbox to perfectly center its child elements both vertically and horizontally.",
+      "questionText": "1. Write CSS rules for a class named `.container` that uses Flexbox.\n2. Center its child elements horizontally using `justify-content: center`.\n3. Center its child elements vertically using `align-items: center`.",
       "context": null,
       "expectedAnswer": "<style>\n.container {\n  display: flex;\n  justify-content: center;\n  align-items: center;\n}\n</style>",
       "writtenRubric": {
@@ -333,7 +333,7 @@
       "order": 12,
       "type": "written",
       "topic": "Frontend — JS DOM",
-      "questionText": "Write a JavaScript function `turnOn()` that finds an image element with the ID 'lightbulb' and changes its `src` attribute to 'pic_bulbon.gif'.",
+      "questionText": "1. Write a JavaScript function `turnOn()` that finds an image element with the ID 'lightbulb'.\n2. Change its `src` attribute to 'pic_bulbon.gif'.",
       "context": null,
       "expectedAnswer": "<script>\nfunction turnOn() {\n  document.getElementById('lightbulb').src = 'pic_bulbon.gif';\n}\n</script>",
       "writtenRubric": {
@@ -359,7 +359,7 @@
       "order": 13,
       "type": "written",
       "topic": "Frontend — CSS Layouts",
-      "questionText": "Write CSS to make an element with the class `.dashboard` display as a CSS Grid container featuring exactly 3 columns of equal width.",
+      "questionText": "1. Write CSS to make an element with the class `.dashboard` display as a CSS Grid container.\n2. Define exactly 3 columns of equal width using `grid-template-columns`.",
       "context": null,
       "expectedAnswer": "<style>\n.dashboard {\n  display: grid;\n  grid-template-columns: repeat(3, 1fr);\n}\n</style>",
       "writtenRubric": {
@@ -385,7 +385,7 @@
       "order": 14,
       "type": "written",
       "topic": "Frontend — JS ES6 Arrays",
-      "questionText": "Given an array `const servers = [{host: 'Alpha'}, {host: 'Beta'}];`, use the ES6 `.map()` method to create a new array called `serverNames` containing only the host strings. Assume arrow function syntax.",
+      "questionText": "1. Given an array `const servers = [{host: 'Alpha'}, {host: 'Beta'}];`, use the ES6 `.map()` method with arrow function syntax.\n2. Create a new array called `serverNames` containing only the host strings.",
       "context": null,
       "expectedAnswer": "<script>\nconst servers = [{host: 'Alpha'}, {host: 'Beta'}];\nconst serverNames = servers.map(server => server.host);\n</script>",
       "writtenRubric": {
@@ -411,7 +411,7 @@
       "order": 15,
       "type": "written",
       "topic": "Frontend — JS ES6",
-      "questionText": "Write an ES6 arrow function named `greet` that takes one parameter `name`. Set the default value of `name` to 'User'. The function should return the string 'Welcome ' concatenated with the name.",
+      "questionText": "1. Write an ES6 arrow function named `greet` that takes one parameter `name` with default value 'User'.\n2. Return the string 'Welcome ' concatenated with the name.",
       "context": null,
       "expectedAnswer": "<script>\nconst greet = (name = 'User') => 'Welcome ' + name;\n</script>",
       "writtenRubric": {
@@ -437,7 +437,7 @@
       "order": 16,
       "type": "written",
       "topic": "Frontend — DOM & CSS",
-      "questionText": "Create a button labeled 'Toggle Theme'. Write a JavaScript function that toggles a CSS class `.dark-mode` on the `<body>` element when this button is clicked. Include the `<style>` block for `.dark-mode` setting the background to black and text to white.",
+      "questionText": "1. Create a button labeled 'Toggle Theme'.\n2. Write a JavaScript function that toggles a CSS class `.dark-mode` on the `<body>` element when the button is clicked.\n3. Include a `<style>` block for `.dark-mode` setting the background to black and text to white.",
       "context": null,
       "expectedAnswer": "<style>\n.dark-mode {\n  background-color: black;\n  color: white;\n}\n</style>\n<button onclick=\"toggleTheme()\">Toggle Theme</button>\n<script>\nfunction toggleTheme() {\n  document.body.classList.toggle('dark-mode');\n}\n</script>",
       "writtenRubric": {
@@ -468,7 +468,7 @@
       "order": 17,
       "type": "written",
       "topic": "Frontend — AJAX",
-      "questionText": "Write an `XMLHttpRequest` GET request to 'api/config'. When the response loads successfully (verify `readyState` is 4 and `status` is 200), parse the `responseText` as JSON and log the resulting object to the console.",
+      "questionText": "1. Write an `XMLHttpRequest` GET request to 'api/config'.\n2. When the response loads successfully (`readyState` is 4 and `status` is 200), parse `responseText` as JSON.\n3. Log the resulting object to the console.",
       "context": null,
       "expectedAnswer": "<script>\nvar xhr = new XMLHttpRequest();\nxhr.onreadystatechange = function() {\n  if (this.readyState == 4 && this.status == 200) {\n    var data = JSON.parse(this.responseText);\n    console.log(data);\n  }\n};\nxhr.open('GET', 'api/config', true);\nxhr.send();\n</script>",
       "writtenRubric": {
@@ -499,7 +499,7 @@
       "order": 18,
       "type": "written",
       "topic": "Frontend — JS Promises",
-      "questionText": "Create a function `checkStatus()` that returns a new Promise. Inside the promise, use `setTimeout` to wait 1000 milliseconds, then call `resolve('System Operational')`. Finally, execute `checkStatus().then()` and log the resolved message to the console.",
+      "questionText": "1. Create a function `checkStatus()` that returns a new Promise.\n2. Inside the promise, use `setTimeout` to wait 1000 milliseconds, then call `resolve('System Operational')`.\n3. Execute `checkStatus().then()` and log the resolved message to the console.",
       "context": null,
       "expectedAnswer": "<script>\nfunction checkStatus() {\n  return new Promise((resolve, reject) => {\n    setTimeout(() => {\n      resolve('System Operational');\n    }, 1000);\n  });\n}\n\ncheckStatus().then(message => console.log(message));\n</script>",
       "writtenRubric": {
@@ -530,7 +530,7 @@
       "order": 19,
       "type": "written",
       "topic": "Frontend — Form Events",
-      "questionText": "Write an HTML form (id 'authForm') with a password input (id 'pwd') and a submit button. Add a JavaScript event listener for the form's 'submit' event. If the password length is less than 8 characters, prevent the default submission and show an alert.",
+      "questionText": "1. Write an HTML form (id 'authForm') with a password input (id 'pwd') and a submit button.\n2. Add a JavaScript event listener for the form's 'submit' event.\n3. If the password length is less than 8 characters, prevent the default submission and show an alert.",
       "context": null,
       "expectedAnswer": "<form id=\"authForm\">\n  <input type=\"password\" id=\"pwd\">\n  <button type=\"submit\">Login</button>\n</form>\n<script>\ndocument.getElementById('authForm').addEventListener('submit', function(event) {\n  var password = document.getElementById('pwd').value;\n  if (password.length < 8) {\n    event.preventDefault();\n    alert('Password too short');\n  }\n});\n</script>",
       "writtenRubric": {
@@ -561,7 +561,7 @@
       "order": 20,
       "type": "written",
       "topic": "Frontend — JS ES6 Arrays",
-      "questionText": "Given an array of strings `const labels = ['Secure', 'Fast', 'Scalable'];`, use the `.reduce()` method to concatenate them into a single string separated by hyphens (e.g., 'Secure-Fast-Scalable'). Assign the result to a variable `tagline`.",
+      "questionText": "1. Given an array of strings `const labels = ['Secure', 'Fast', 'Scalable'];`, use the `.reduce()` method to concatenate them into a single hyphen-separated string (e.g., 'Secure-Fast-Scalable').\n2. Assign the result to a variable `tagline`.",
       "context": null,
       "expectedAnswer": "<script>\nconst labels = ['Secure', 'Fast', 'Scalable'];\nconst tagline = labels.reduce((acc, curr) => acc + '-' + curr);\n</script>",
       "writtenRubric": {
@@ -587,7 +587,7 @@
       "order": 21,
       "type": "written",
       "topic": "Frontend — DOM Manipulation",
-      "questionText": "Write HTML with two buttons and two content divs (ids 'panel1' and 'panel2'). Write a JS function `switchTab(targetId)` that hides both panels by setting their CSS `display` to 'none', and then shows the panel matching the passed `targetId` by setting its `display` to 'block'.",
+      "questionText": "1. Write HTML with two buttons and two content divs (ids 'panel1' and 'panel2').\n2. Write a JS function `switchTab(targetId)` that hides both panels by setting their CSS `display` to 'none'.\n3. Show the panel matching `targetId` by setting its `display` to 'block'.",
       "context": null,
       "expectedAnswer": "<button onclick=\"switchTab('panel1')\">Tab 1</button>\n<button onclick=\"switchTab('panel2')\">Tab 2</button>\n<div id=\"panel1\">Content 1</div>\n<div id=\"panel2\" style=\"display:none;\">Content 2</div>\n\n<script>\nfunction switchTab(targetId) {\n  document.getElementById('panel1').style.display = 'none';\n  document.getElementById('panel2').style.display = 'none';\n  document.getElementById(targetId).style.display = 'block';\n}\n</script>",
       "writtenRubric": {
@@ -618,7 +618,7 @@
       "order": 22,
       "type": "written",
       "topic": "Frontend — JS ES6",
-      "questionText": "Write an ES6 class named `Admin`. The constructor should accept a `role` parameter. Add a method `getAccess()` that returns the string 'Access level: [role]'. Instantiate a new Admin passing 'Superuser' as the role, and log their access level.",
+      "questionText": "1. Write an ES6 class named `Admin` with a constructor that accepts a `role` parameter.\n2. Add a method `getAccess()` that returns the string 'Access level: [role]'.\n3. Instantiate a new `Admin` with role 'Superuser' and log their access level.",
       "context": null,
       "expectedAnswer": "<script>\nclass Admin {\n  constructor(role) {\n    this.role = role;\n  }\n  getAccess() {\n    return 'Access level: ' + this.role;\n  }\n}\nconst user = new Admin('Superuser');\nconsole.log(user.getAccess());\n</script>",
       "writtenRubric": {
@@ -649,7 +649,7 @@
       "order": 23,
       "type": "written",
       "topic": "Frontend — DOM Traversal",
-      "questionText": "Given the HTML `<div class='wrapper'><p id='node'>Data</p></div>`, write a JavaScript snippet that targets the element with id 'node', traverses up to find its parent node, and adds the CSS class 'highlight' to that parent.",
+      "questionText": "1. Given the HTML `<div class='wrapper'><p id='node'>Data</p></div>`, target the element with id 'node'.\n2. Traverse up to its parent node and add the CSS class 'highlight' to that parent.",
       "context": null,
       "expectedAnswer": "<script>\nconst target = document.getElementById('node');\ntarget.parentNode.classList.add('highlight');\n</script>",
       "writtenRubric": {
@@ -675,7 +675,7 @@
       "order": 24,
       "type": "written",
       "topic": "Frontend — Event Listeners",
-      "questionText": "You have a `<ul>` with the id 'nav-list' containing several `<li>` items. Using the concept of Event Delegation, add a single 'click' event listener to the `<ul>`. In the handler function, check if the clicked target is an `<li>` element, and if it is, log its `innerText`.",
+      "questionText": "1. You have a `<ul>` with the id 'nav-list' containing several `<li>` items.\n2. Using event delegation, add a single 'click' event listener to the `<ul>`.\n3. In the handler, if the clicked target is an `<li>` element, log its `innerText`.",
       "context": null,
       "expectedAnswer": "<script>\ndocument.getElementById('nav-list').addEventListener('click', function(event) {\n  if (event.target.nodeName === 'LI') {\n    console.log(event.target.innerText);\n  }\n});\n</script>",
       "writtenRubric": {
@@ -701,7 +701,7 @@
       "order": 25,
       "type": "written",
       "topic": "Frontend — DOM & CSS",
-      "questionText": "Create a `<span>` with the id 'indicator', default text 'Disconnected', and a CSS class '.err' (which makes text red). Write a JS function `establishConnection()` that changes the span's text to 'Connected', removes the '.err' class, and adds a '.success' class (which makes text green).",
+      "questionText": "1. Create a `<span>` with the id 'indicator', default text 'Disconnected', and a CSS class `.err` that makes text red.\n2. Include CSS for `.success` that makes text green.\n3. Write a JS function `establishConnection()` that sets the text to 'Connected', removes `.err`, and adds `.success`.",
       "context": null,
       "expectedAnswer": "<style>\n.err { color: red; }\n.success { color: green; }\n</style>\n<span id=\"indicator\" class=\"err\">Disconnected</span>\n\n<script>\nfunction establishConnection() {\n  let badge = document.getElementById('indicator');\n  badge.innerText = 'Connected';\n  badge.classList.remove('err');\n  badge.classList.add('success');\n}\n</script>",
       "writtenRubric": {
