@@ -1308,9 +1308,9 @@
             "codeLanguage": null
           }
         ],
-        "correctAnswerId": "a",
+        "correctAnswerId": "d",
         "expectedAnswer": null,
-        "explanation": "The loop runs 5 times, printing the loop counter `x` on each iteration without any spaces or line breaks. The output is a continuous string `01234`.",
+        "explanation": "The semicolon after `for (a=0; a<5; a++);` ends the loop with an empty body, so only `a` is incremented until it reaches 5. `document.write(a)` runs once afterward and prints `5`.",
         "relatedTopics": [
           "fe-5"
         ]
@@ -2762,9 +2762,9 @@
             "codeLanguage": null
           }
         ],
-        "correctAnswerId": "d",
+        "correctAnswerId": "c",
         "expectedAnswer": null,
-        "explanation": "Negative slices scan from the rear of the string. `[-7:]` queries the final 7 characters. Counting backwards from the end, the substring is exactly `y Bird!`.",
+        "explanation": "`x[7:]` is a positive slice from index 7 to the end. Index 7 is the first `l` in `Lovely`, so the output is `ly Bird!`.",
         "relatedTopics": [
           "be-2"
         ]

@@ -394,8 +394,8 @@ a. 01234
 b. 0
 c. Error
 d. 5
-ANSWER: A
-EXPLANATION: The loop runs 5 times, printing the loop counter `x` on each iteration without any spaces or line breaks. The output is a continuous string `01234`.
+ANSWER: D
+EXPLANATION: The semicolon after `for (a=0; a<5; a++);` ends the loop with an empty body, so only `a` is incremented until it reaches 5. `document.write(a)` runs once afterward and prints `5`.
 
 36. What will be the output of the following Python code?
 newtuple = (1, 2, 3, 4)
@@ -756,8 +756,8 @@ a. My Love
 b. My Lovel
 c. ly Bird!
 d. y Bird!
-ANSWER: D
-EXPLANATION: Negative slices scan from the rear of the string. `[-7:]` queries the final 7 characters. Counting backwards from the end, the substring is exactly `y Bird!`.
+ANSWER: C
+EXPLANATION: `x[7:]` is a positive slice from index 7 to the end. Index 7 is the first `l` in `Lovely`, so the output is `ly Bird!`.
 
 78. What will be the output of this JavaScript code?
 const myArr = [1, 2, [3, [4, 5, 6], 7], 8];
