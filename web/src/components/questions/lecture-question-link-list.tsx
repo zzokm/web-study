@@ -5,6 +5,7 @@ import { HubTrackedLink } from "@/components/analytics/hub-tracked-link";
 import { PracticeHubCardHeader } from "@/components/practice/practice-hub-card-header";
 import { getLectureSlugs, getQuestionsByLectureSlug } from "@/lib/questions";
 import { Card } from "@/components/ui/card";
+import { cn } from "@/lib/utils";
 
 type LectureQuestionLinkListProps = {
   hrefPrefix: "/practice/lecture/" | "/by-lecture/";
@@ -31,7 +32,12 @@ export function LectureQuestionLinkList({
             <h2 className="mb-3 text-sm font-medium text-muted-foreground">
               {trackLectures[0]?.trackLabel ?? trackId}
             </h2>
-            <div className={compact ? "flex flex-col gap-2" : "flex flex-col gap-3"}>
+            <div
+              className={cn(
+                "grid sm:grid-cols-2",
+                compact ? "gap-2" : "gap-3"
+              )}
+            >
               {trackLectures.map((lec) => {
                 const questions = getQuestionsByLectureSlug(lec.slug);
                 return (
@@ -40,8 +46,9 @@ export function LectureQuestionLinkList({
                     href={`${hrefPrefix}${lec.slug}/`}
                     hubType={hubType}
                     label={lec.lecture}
+                    className="block h-full"
                   >
-                    <Card className="transition-colors hover:bg-muted/50">
+                    <Card className="h-full transition-colors hover:bg-muted/50">
                       <PracticeHubCardHeader
                         title={lec.lecture}
                         description={`${lec.count} question${
