@@ -10,6 +10,7 @@ import {
   isAnswerCorrect,
   isWrittenQuestion,
 } from "@/lib/questions";
+import { inferWrittenEditorLanguage } from "@/lib/written-question-utils";
 import {
   Card,
   CardContent,
@@ -106,16 +107,17 @@ function WrittenUserAnswer({ code }: { code: string }) {
 
 function WrittenModelAnswer({ question }: { question: Question }) {
   if (!question.expectedAnswer?.trim()) return null;
+  const language = inferWrittenEditorLanguage(question);
   return (
     <Card size="sm">
       <CardHeader>
         <CardTitle>Model answer</CardTitle>
-        <CardDescription>Reference HTML solution</CardDescription>
+        <CardDescription>Reference solution</CardDescription>
       </CardHeader>
       <CardContent>
         <CodeBlock
           code={question.expectedAnswer}
-          language="html"
+          language={language}
           compact
           className="w-full"
         />

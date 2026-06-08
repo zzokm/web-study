@@ -8,12 +8,15 @@ import {
   type SeededRandom,
 } from "@/lib/seeded-random";
 import type { Question } from "@/types/question";
+import type { WrittenPracticeTrack } from "@/lib/written-practice-filter";
 
 export type PracticeSessionConfig = {
   shuffleQuestions: boolean;
   shuffleMcqOptions: boolean;
   showSessionTimer: boolean;
   examSimulation: boolean;
+  /** Written practice only: filter by frontend / backend lecture topics. */
+  writtenTrack?: WrittenPracticeTrack;
 };
 
 export const DEFAULT_PRACTICE_SESSION_CONFIG: PracticeSessionConfig = {
@@ -23,13 +26,18 @@ export const DEFAULT_PRACTICE_SESSION_CONFIG: PracticeSessionConfig = {
   examSimulation: false,
 };
 
-/** Fixed options for written-question practice (no shuffle / timer / exam toggles). */
-export const WRITTEN_PRACTICE_SESSION_CONFIG: PracticeSessionConfig = {
+/** Default options for written-question practice setup. */
+export const DEFAULT_WRITTEN_PRACTICE_SESSION_CONFIG: PracticeSessionConfig = {
   shuffleQuestions: false,
   shuffleMcqOptions: false,
   showSessionTimer: false,
   examSimulation: false,
+  writtenTrack: "both",
 };
+
+/** @deprecated Use DEFAULT_WRITTEN_PRACTICE_SESSION_CONFIG */
+export const WRITTEN_PRACTICE_SESSION_CONFIG =
+  DEFAULT_WRITTEN_PRACTICE_SESSION_CONFIG;
 
 export function configFromSessionKey(
   sessionKey: string,
@@ -39,13 +47,23 @@ export function configFromSessionKey(
     return { ...DEFAULT_PRACTICE_SESSION_CONFIG };
   }
   if (!sessionKey.startsWith(`${canonicalKey}:s`)) return null;
-  const flags = sessionKey.slice(canonicalKey.length + 2);
-  if (!/^[01]{4}$/.test(flags)) return null;
+  const rest = sessionKey.slice(canonicalKey.length + 2);
+  const match = rest.match(/^([01]{4})(?::w([fbe]))?$/);
+  if (!match) return null;
+  const flags = match[1];
+  const trackCode = match[2];
+  const writtenTrack: WrittenPracticeTrack =
+    trackCode === "f"
+      ? "frontend"
+      : trackCode === "b"
+        ? "backend"
+        : "both";
   return {
     shuffleQuestions: flags[0] === "1",
     shuffleMcqOptions: flags[1] === "1",
     showSessionTimer: flags[2] === "1",
     examSimulation: flags[3] === "1",
+    writtenTrack,
   };
 }
 
@@ -57,7 +75,11 @@ export function configStorageSuffix(config: PracticeSessionConfig): string {
     config.showSessionTimer ? "1" : "0",
     config.examSimulation ? "1" : "0",
   ].join("");
-  return `:s${flags}`;
+  let suffix = `:s${flags}`;
+  const track = config.writtenTrack ?? "both";
+  if (track === "frontend") suffix += ":wf";
+  else if (track === "backend") suffix += ":wb";
+  return suffix;
 }
 
 function fisherYates<T>(items: T[]): T[] {
@@ -130,12 +152,22 @@ export function preparePracticeQuestions(
   const { nonWritten, written } = partitionWrittenQuestions(prepared);
 
   if (config.shuffleQuestions) {
-    prepared = [
-      ...(random
+    if (nonWritten.length === 0) {
+      prepared = random
+        ? seededFisherYates(prepared, random)
+        : fisherYates(prepared);
+    } else if (written.length === 0) {
+      prepared = random
         ? seededFisherYates(nonWritten, random)
-        : fisherYates(nonWritten)),
-      ...written,
-    ];
+        : fisherYates(nonWritten);
+    } else {
+      prepared = [
+        ...(random
+          ? seededFisherYates(nonWritten, random)
+          : fisherYates(nonWritten)),
+        ...written,
+      ];
+    }
   } else {
     prepared = [...nonWritten, ...written];
   }
@@ -209,5 +241,8 @@ export function practiceConfigAnalyticsParams(
     shuffle_mcq_options: config.shuffleMcqOptions,
     show_session_timer: config.showSessionTimer,
     exam_simulation: config.examSimulation,
+    ...(config.writtenTrack && config.writtenTrack !== "both"
+      ? { written_track: config.writtenTrack }
+      : {}),
   };
 }

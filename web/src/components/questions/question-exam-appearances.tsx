@@ -20,7 +20,13 @@ export function QuestionExamAppearances({
   className,
 }: QuestionExamAppearancesProps) {
   const appearances = getSortedExamAppearances(question);
-  if (!appearances || !hasMultipleExamAppearances(question)) return null;
+  if (!appearances?.length) return null;
+
+  const showSingleWrittenExam =
+    question.origin === "written" && appearances.length === 1;
+  if (!showSingleWrittenExam && !hasMultipleExamAppearances(question)) {
+    return null;
+  }
 
   if (variant === "detailed") {
     return (

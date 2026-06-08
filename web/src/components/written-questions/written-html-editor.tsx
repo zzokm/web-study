@@ -7,21 +7,23 @@ export function WrittenHtmlEditor({
   value,
   onChange,
   disabled = false,
+  language = "html",
   className,
 }: {
   value: string;
   onChange: (value: string) => void;
   disabled?: boolean;
+  language?: string;
   className?: string;
 }) {
   return (
     <CodeIdeEditor
       value={value}
       onChange={onChange}
-      language="html"
+      language={language}
       disabled={disabled}
       className={cn(className)}
-      aria-label="HTML answer editor"
+      aria-label="Written answer editor"
     />
   );
 }

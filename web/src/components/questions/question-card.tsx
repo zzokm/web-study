@@ -11,6 +11,10 @@ import {
   type WrittenQuestionPanelHandle,
 } from "@/components/written-questions/written-question-panel";
 import { isWrittenQuestion } from "@/lib/questions";
+import {
+  inferWrittenEditorLanguage,
+  writtenQuestionShowsPreviewTabs,
+} from "@/lib/written-question-utils";
 import { QuestionMeta } from "./question-meta";
 import { OptionContent } from "@/components/code/question-content";
 import { QuestionStem } from "./question-stem";
@@ -111,6 +115,8 @@ export function QuestionCard({
           runCount={writtenRunCount}
           disabled={disabled || revealed}
           title={question.topic}
+          editorLanguage={inferWrittenEditorLanguage(question)}
+          showPreviewTabs={writtenQuestionShowsPreviewTabs(question)}
         />
       </div>
     );

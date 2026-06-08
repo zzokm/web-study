@@ -14,6 +14,7 @@ export type BrowseContext =
   | "by_exam"
   | "repetitive"
   | "saved"
+  | "written"
   | "practice_results";
 
 export type PracticeMode =

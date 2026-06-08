@@ -1,26 +1,28 @@
 "use client";
 
+import type { Question } from "@/types/question";
 import { HubTrackedLink } from "@/components/analytics/hub-tracked-link";
 import { PracticeHubCardHeader } from "@/components/practice/practice-hub-card-header";
-import { getWrittenQuestions } from "@/lib/questions";
 import { Card } from "@/components/ui/card";
 
-type PracticeWrittenHubCardProps = {
+type PracticeWrittenSetCardProps = {
+  questions: Question[];
   count: number;
 };
 
-export function PracticeWrittenHubCard({ count }: PracticeWrittenHubCardProps) {
-  const questions = getWrittenQuestions();
-
+export function PracticeWrittenSetCard({
+  questions,
+  count,
+}: PracticeWrittenSetCardProps) {
   return (
     <HubTrackedLink
       href="/practice/written/"
       hubType="practice"
-      label="Written questions"
+      label="Practice written set"
     >
-      <Card className="mb-6 transition-colors hover:bg-muted/50">
+      <Card className="transition-colors hover:bg-muted/50">
         <PracticeHubCardHeader
-          title="Written questions"
+          title="Practice written set"
           description={
             count === 1
               ? "1 coding question"

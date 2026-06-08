@@ -15,6 +15,7 @@ import {
   normalizeOption,
   parseBlockContext,
   parseQuestionText,
+  parseWrittenQuestionText,
 } from "./parse-question-content.mjs";
 import { buildRepetitiveCatalog } from "./stem-match.mjs";
 import { writeExamAnalysisMarkdown } from "./write-exam-analysis-md.mjs";
@@ -68,6 +69,16 @@ const QuestionSchema = z.object({
   blockId: z.string().optional(),
   relatedTopics: z.array(z.string()).optional(),
   expectedAnswer: z.string().nullable().optional(),
+  answerLanguage: z.string().nullable().optional(),
+  appearances: z
+    .array(
+      z.object({
+        origin: z.string(),
+        sourceFile: z.string(),
+        sourceQuestionId: z.string(),
+      })
+    )
+    .optional(),
   writtenRubric: z
     .object({
       version: z.literal(1),
@@ -280,6 +291,7 @@ const WrittenSourceSchema = z.object({
   }),
   explanation: z.string(),
   relatedTopics: z.array(z.string()).min(1),
+  answerLanguage: z.string().optional(),
 });
 
 const WrittenExamPlacementSchema = z.object({
@@ -356,7 +368,7 @@ function buildWrittenHubCatalogEntry(raw, manifestEntry, sourceFile) {
     topic,
     questionText: raw.questionText,
     context: parseBlockContext(raw.context),
-    questionSegments: parseQuestionText(raw.questionText),
+    questionSegments: parseWrittenQuestionText(raw.questionText),
     options: [],
     correctAnswerId: "",
     explanation: raw.explanation ?? "",
@@ -371,7 +383,18 @@ function buildWrittenHubCatalogEntry(raw, manifestEntry, sourceFile) {
     relatedTopics: raw.relatedTopics ?? [],
     expectedAnswer: raw.expectedAnswer,
     writtenRubric: raw.writtenRubric,
+    answerLanguage: raw.answerLanguage ?? null,
   };
+  const placement = manifestEntry.examPlacement;
+  if (placement) {
+    catalogEntry.appearances = [
+      {
+        origin: placement.year,
+        sourceFile,
+        sourceQuestionId: `${placement.blockId}:${placement.questionId}`,
+      },
+    ];
+  }
   QuestionSchema.parse(catalogEntry);
   return catalogEntry;
 }
@@ -395,7 +418,7 @@ function buildWrittenExamCatalogEntry(
     topic,
     questionText,
     context: parseBlockContext(raw.context),
-    questionSegments: parseQuestionText(questionText),
+    questionSegments: parseWrittenQuestionText(questionText),
     options: [],
     correctAnswerId: "",
     explanation: raw.explanation ?? "",
@@ -410,6 +433,7 @@ function buildWrittenExamCatalogEntry(
     relatedTopics: raw.relatedTopics ?? [],
     expectedAnswer: raw.expectedAnswer,
     writtenRubric: raw.writtenRubric,
+    answerLanguage: raw.answerLanguage ?? null,
   };
   QuestionSchema.parse(catalogEntry);
   return catalogEntry;

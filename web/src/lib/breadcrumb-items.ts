@@ -122,6 +122,11 @@ export function getBreadcrumbItems(
     return items;
   }
 
+  if (segments[0] === "written") {
+    items.push({ label: "Written questions" });
+    return items;
+  }
+
   if (segments[0] === "analysis") {
     items.push({ label: "Exam analysis" });
     return items;

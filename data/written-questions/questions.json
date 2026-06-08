@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "description": "HTML coding (written) questions for /practice/written/ and optional exam placement.",
+  "description": "HTML, JS, CSS, Python, and Django written coding questions for exam practice. Includes 16 additional AI-generated frontend questions (Q9–Q24) before backend tasks.",
   "questions": [
     {
       "id": "wq-style-english-arabic",
@@ -59,6 +59,857 @@
       },
       "explanation": "Your snippet should render the sentence with strike-through on \"English\" and underline on \"Arabic\", include a button labeled \"Style\", and apply green 14px Arial styling to the paragraph when clicked. Any valid HTML/CSS/JS approach works as long as the outcome matches. See the model answer below.",
       "relatedTopics": ["fe-3"]
+    },
+    {
+      "id": "wq-js-dom-change",
+      "order": 2,
+      "type": "written",
+      "topic": "Frontend — JS DOM",
+      "questionText": "1. Write an HTML `<div>` with the id 'status' and the text 'Pending'.\n2. Write a JavaScript function `completeTask()` that changes the text of this div to 'Completed'.\n3. Add a button that calls this function when clicked.",
+      "context": null,
+      "expectedAnswer": "<div id=\"status\">Pending</div>\n<button onclick=\"completeTask()\">Complete</button>\n<script>\nfunction completeTask() {\n  document.getElementById(\"status\").innerHTML = \"Completed\";\n}\n</script>",
+      "writtenRubric": {
+        "version": 1,
+        "checks": [
+          {
+            "id": "has_status_div",
+            "type": "element_text_includes",
+            "selector": "div#status",
+            "text": "Pending"
+          },
+          {
+            "id": "has_button",
+            "type": "control_labeled",
+            "role": "button",
+            "label": "Complete"
+          }
+        ]
+      },
+      "explanation": "This task tests basic DOM manipulation. You need an element to target by ID, a button with an `onclick` event listener, and a JavaScript function that uses `document.getElementById` and `.innerHTML` to update the text.",
+      "relatedTopics": ["fe-3"]
+    },
+    {
+      "id": "wq-js-array-filter",
+      "order": 3,
+      "type": "written",
+      "topic": "Frontend — JS Arrays",
+      "questionText": "1. Given an array `const scores = [45, 80, 89, 30, 95];`, write a JavaScript snippet using the `.filter()` method to create a new array called `passingScores` that only contains numbers greater than 50.\n2. Log the result using `console.log()`.",
+      "context": null,
+      "expectedAnswer": "<script>\nconst scores = [45, 80, 89, 30, 95];\nconst passingScores = scores.filter(score => score > 50);\nconsole.log(passingScores);\n</script>",
+      "writtenRubric": {
+        "version": 1,
+        "checks": [
+          {
+            "id": "uses_filter",
+            "type": "code_contains_string",
+            "text": ".filter"
+          },
+          {
+            "id": "uses_console_log",
+            "type": "code_contains_string",
+            "text": "console.log"
+          }
+        ]
+      },
+      "explanation": "The `.filter()` method creates a shallow copy of a portion of a given array, filtered down to just the elements from the given array that pass the test implemented by the provided callback function.",
+      "relatedTopics": ["fe-5"]
+    },
+    {
+      "id": "wq-js-async-await",
+      "order": 4,
+      "type": "written",
+      "topic": "Frontend — JS Promises",
+      "questionText": "1. Write an `async` function named `loadData()`.\n2. Inside the function, await a hypothetical promise-returning function called `fetchData()`. If it succeeds, log the result to the console.\n3. Wrap the await call in a try/catch block, and log any error in the catch block.",
+      "context": null,
+      "expectedAnswer": "<script>\nasync function loadData() {\n  try {\n    const result = await fetchData();\n    console.log(result);\n  } catch (error) {\n    console.log(error);\n  }\n}\n</script>",
+      "writtenRubric": {
+        "version": 1,
+        "checks": [
+          {
+            "id": "has_async_keyword",
+            "type": "code_contains_string",
+            "text": "async function loadData"
+          },
+          {
+            "id": "has_await_keyword",
+            "type": "code_contains_string",
+            "text": "await fetchData"
+          },
+          {
+            "id": "has_try_catch",
+            "type": "code_contains_string",
+            "text": "catch"
+          }
+        ]
+      },
+      "explanation": "Using `async/await` is modern syntax for handling JavaScript Promises. The `try/catch` block ensures that if the Promise is rejected, the application can handle the error gracefully without crashing.",
+      "relatedTopics": ["fe-6"]
+    },
+    {
+      "id": "wq-css-hover-target",
+      "order": 5,
+      "type": "written",
+      "topic": "Frontend — CSS Styling",
+      "questionText": "1. Make all `<a>` tags inside an element with the class `.nav-menu` have no text decoration.\n2. When the user hovers over these links, change their text color to `red`.",
+      "context": null,
+      "expectedAnswer": "<style>\n.nav-menu a {\n  text-decoration: none;\n}\n.nav-menu a:hover {\n  color: red;\n}\n</style>",
+      "writtenRubric": {
+        "version": 1,
+        "checks": [
+          {
+            "id": "has_text_decoration_none",
+            "type": "code_contains_string",
+            "text": "text-decoration: none"
+          },
+          {
+            "id": "has_hover_pseudo_class",
+            "type": "code_contains_string",
+            "text": "a:hover"
+          }
+        ]
+      },
+      "explanation": "Descendant selectors (like `.nav-menu a`) target specific elements within a parent class. The `:hover` pseudo-class allows you to apply styling specifically when the user interacts with the element using their cursor.",
+      "relatedTopics": ["fe-4"]
+    },
+    {
+      "id": "wq-js-object-access",
+      "order": 6,
+      "type": "written",
+      "topic": "Frontend — JS Objects",
+      "questionText": "1. Create a JavaScript object named `student` with properties `name` ('Ali') and `gpa` (3.8).\n2. Write a command using `document.writeln()` that outputs: 'Ali has a GPA of 3.8' by dynamically accessing the object's properties.",
+      "context": null,
+      "expectedAnswer": "<script>\nvar student = {\n  name: 'Ali',\n  gpa: 3.8\n};\ndocument.writeln(student.name + ' has a GPA of ' + student.gpa);\n</script>",
+      "writtenRubric": {
+        "version": 1,
+        "checks": [
+          {
+            "id": "uses_document_writeln",
+            "type": "code_contains_string",
+            "text": "document.writeln"
+          },
+          {
+            "id": "accesses_object_properties",
+            "type": "code_contains_string",
+            "text": "student.name"
+          }
+        ]
+      },
+      "explanation": "JavaScript objects store data as key-value pairs. You can access an object's values dynamically using dot notation (`object.property`) or bracket notation (`object['property']`).",
+      "relatedTopics": ["fe-5"]
+    },
+    {
+      "id": "wq-html-login-form",
+      "order": 7,
+      "type": "written",
+      "topic": "Frontend — HTML Elements",
+      "questionText": "1. Create a simple HTML login form with an `<input>` for the username.\n2. Add an `<input>` for the password (which hides the typed characters).\n3. Add a submit `<button>` labeled 'Login'.",
+      "context": null,
+      "expectedAnswer": "<form>\n  <label>Username: <input type=\"text\" name=\"username\"></label><br>\n  <label>Password: <input type=\"password\" name=\"password\"></label><br>\n  <button type=\"submit\">Login</button>\n</form>",
+      "writtenRubric": {
+        "version": 1,
+        "checks": [
+          {
+            "id": "has_password_input",
+            "type": "code_contains_string",
+            "text": "type=\"password\""
+          },
+          {
+            "id": "has_submit_button",
+            "type": "control_labeled",
+            "role": "button",
+            "label": "Login"
+          }
+        ]
+      },
+      "explanation": "Forms are structured using the `<form>` tag. Hiding characters requires setting the `<input>` type to `\"password\"`. A `<button>` with type `\"submit\"` is standard practice for triggering the form submission.",
+      "relatedTopics": ["fe-2"]
+    },
+    {
+      "id": "wq-js-ajax-get",
+      "order": 8,
+      "type": "written",
+      "topic": "Frontend — AJAX",
+      "questionText": "1. Write a vanilla JavaScript snippet using the `XMLHttpRequest` object to send a GET request to 'api/data'.\n2. If the request is successful (readyState is 4 and status is 200), update the `innerHTML` of an HTML element with the id 'result' to be the response text.",
+      "context": null,
+      "expectedAnswer": "<script>\nvar xhttp = new XMLHttpRequest();\nxhttp.onreadystatechange = function() {\n  if (this.readyState == 4 && this.status == 200) {\n    document.getElementById(\"result\").innerHTML = this.responseText;\n  }\n};\nxhttp.open(\"GET\", \"api/data\", true);\nxhttp.send();\n</script>",
+      "writtenRubric": {
+        "version": 1,
+        "checks": [
+          {
+            "id": "uses_xmlhttprequest",
+            "type": "code_contains_string",
+            "text": "new XMLHttpRequest()"
+          },
+          {
+            "id": "checks_status",
+            "type": "code_contains_string",
+            "text": "this.status == 200"
+          }
+        ]
+      },
+      "explanation": "AJAX (Asynchronous JavaScript and XML) allows web pages to be updated asynchronously. The `XMLHttpRequest` object requires opening a connection, setting a state change handler to verify HTTP 200 success, and finally sending the request.",
+      "relatedTopics": ["fe-6"]
+    },
+    {
+      "id": "wq-js-arrow-function",
+      "order": 9,
+      "type": "written",
+      "topic": "Frontend — JS ES6",
+      "questionText": "1. Convert the following traditional function to an ES6 arrow function and assign it to a const variable `multiply`: `function(a, b) { return a * b; }`",
+      "context": null,
+      "expectedAnswer": "<script>\nconst multiply = (a, b) => a * b;\n</script>",
+      "writtenRubric": {
+        "version": 1,
+        "checks": [
+          {
+            "id": "uses_arrow",
+            "type": "code_contains_string",
+            "text": "=>"
+          },
+          {
+            "id": "uses_const",
+            "type": "code_contains_string",
+            "text": "const multiply"
+          }
+        ]
+      },
+      "explanation": "ES6 arrow functions provide a more concise syntax. If the function body contains only a single return statement, the curly braces `{}` and the `return` keyword can be omitted for an implicit return.",
+      "relatedTopics": ["fe-5", "fe-6"]
+    },
+    {
+      "id": "wq-short-storage",
+      "order": 10,
+      "type": "written",
+      "topic": "Frontend — HTML5 APIs",
+      "questionText": "Write a single JavaScript statement to save the string 'Guest' under the key 'username' in the browser's HTML5 `localStorage`.",
+      "context": null,
+      "expectedAnswer": "<script>\nlocalStorage.setItem('username', 'Guest');\n</script>",
+      "writtenRubric": {
+        "version": 1,
+        "checks": [
+          {
+            "id": "uses_localstorage_set",
+            "type": "code_contains_string",
+            "text": "localStorage.setItem"
+          }
+        ]
+      },
+      "explanation": "Modern HTML5 Web Storage provides `localStorage` for persisting data across browser sessions. The `setItem` method requires a key and a value.",
+      "relatedTopics": ["fe-6"]
+    },
+    {
+      "id": "wq-short-flexbox",
+      "order": 11,
+      "type": "written",
+      "topic": "Frontend — CSS Layouts",
+      "questionText": "Write CSS rules for a class named `.container` that uses Flexbox to perfectly center its child elements both vertically and horizontally.",
+      "context": null,
+      "expectedAnswer": "<style>\n.container {\n  display: flex;\n  justify-content: center;\n  align-items: center;\n}\n</style>",
+      "writtenRubric": {
+        "version": 1,
+        "checks": [
+          {
+            "id": "has_display_flex",
+            "type": "code_contains_string",
+            "text": "display: flex"
+          },
+          {
+            "id": "has_justify_center",
+            "type": "code_contains_string",
+            "text": "justify-content: center"
+          },
+          {
+            "id": "has_align_center",
+            "type": "code_contains_string",
+            "text": "align-items: center"
+          }
+        ]
+      },
+      "explanation": "Flexbox is ideal for UI alignment. `justify-content` centers items along the main axis (horizontal by default), while `align-items` centers them along the cross axis (vertical).",
+      "relatedTopics": ["fe-4"]
+    },
+    {
+      "id": "wq-short-img-src",
+      "order": 12,
+      "type": "written",
+      "topic": "Frontend — JS DOM",
+      "questionText": "Write a JavaScript function `turnOn()` that finds an image element with the ID 'lightbulb' and changes its `src` attribute to 'pic_bulbon.gif'.",
+      "context": null,
+      "expectedAnswer": "<script>\nfunction turnOn() {\n  document.getElementById('lightbulb').src = 'pic_bulbon.gif';\n}\n</script>",
+      "writtenRubric": {
+        "version": 1,
+        "checks": [
+          {
+            "id": "targets_element",
+            "type": "code_contains_string",
+            "text": "getElementById('lightbulb')"
+          },
+          {
+            "id": "updates_src",
+            "type": "code_contains_string",
+            "text": ".src ="
+          }
+        ]
+      },
+      "explanation": "You can modify HTML attributes directly via the DOM API. Accessing the `.src` property of an Image object allows you to swap graphics dynamically.",
+      "relatedTopics": ["fe-3"]
+    },
+    {
+      "id": "wq-short-grid",
+      "order": 13,
+      "type": "written",
+      "topic": "Frontend — CSS Layouts",
+      "questionText": "Write CSS to make an element with the class `.dashboard` display as a CSS Grid container featuring exactly 3 columns of equal width.",
+      "context": null,
+      "expectedAnswer": "<style>\n.dashboard {\n  display: grid;\n  grid-template-columns: repeat(3, 1fr);\n}\n</style>",
+      "writtenRubric": {
+        "version": 1,
+        "checks": [
+          {
+            "id": "has_display_grid",
+            "type": "code_contains_string",
+            "text": "display: grid"
+          },
+          {
+            "id": "has_template_columns",
+            "type": "code_contains_string",
+            "text": "grid-template-columns:"
+          }
+        ]
+      },
+      "explanation": "CSS Grid is powerful for 2D layouts. The `repeat()` function paired with the fractional unit (`1fr`) easily distributes available space equally across columns.",
+      "relatedTopics": ["fe-4"]
+    },
+    {
+      "id": "wq-short-map",
+      "order": 14,
+      "type": "written",
+      "topic": "Frontend — JS ES6 Arrays",
+      "questionText": "Given an array `const servers = [{host: 'Alpha'}, {host: 'Beta'}];`, use the ES6 `.map()` method to create a new array called `serverNames` containing only the host strings. Assume arrow function syntax.",
+      "context": null,
+      "expectedAnswer": "<script>\nconst servers = [{host: 'Alpha'}, {host: 'Beta'}];\nconst serverNames = servers.map(server => server.host);\n</script>",
+      "writtenRubric": {
+        "version": 1,
+        "checks": [
+          {
+            "id": "uses_map",
+            "type": "code_contains_string",
+            "text": ".map("
+          },
+          {
+            "id": "extracts_property",
+            "type": "code_contains_string",
+            "text": ".host"
+          }
+        ]
+      },
+      "explanation": "The `.map()` array method iterates over a collection and applies a transformation to each item, returning a brand new array with the extracted or modified values.",
+      "relatedTopics": ["fe-5"]
+    },
+    {
+      "id": "wq-short-default-param",
+      "order": 15,
+      "type": "written",
+      "topic": "Frontend — JS ES6",
+      "questionText": "Write an ES6 arrow function named `greet` that takes one parameter `name`. Set the default value of `name` to 'User'. The function should return the string 'Welcome ' concatenated with the name.",
+      "context": null,
+      "expectedAnswer": "<script>\nconst greet = (name = 'User') => 'Welcome ' + name;\n</script>",
+      "writtenRubric": {
+        "version": 1,
+        "checks": [
+          {
+            "id": "has_arrow_syntax",
+            "type": "code_contains_string",
+            "text": "=>"
+          },
+          {
+            "id": "has_default_param",
+            "type": "code_contains_string",
+            "text": "name = 'User'"
+          }
+        ]
+      },
+      "explanation": "ES6 introduces default parameter values natively in the function signature, allowing variables to fallback gracefully if no argument is passed.",
+      "relatedTopics": ["fe-6"]
+    },
+    {
+      "id": "wq-long-dark-mode",
+      "order": 16,
+      "type": "written",
+      "topic": "Frontend — DOM & CSS",
+      "questionText": "Create a button labeled 'Toggle Theme'. Write a JavaScript function that toggles a CSS class `.dark-mode` on the `<body>` element when this button is clicked. Include the `<style>` block for `.dark-mode` setting the background to black and text to white.",
+      "context": null,
+      "expectedAnswer": "<style>\n.dark-mode {\n  background-color: black;\n  color: white;\n}\n</style>\n<button onclick=\"toggleTheme()\">Toggle Theme</button>\n<script>\nfunction toggleTheme() {\n  document.body.classList.toggle('dark-mode');\n}\n</script>",
+      "writtenRubric": {
+        "version": 1,
+        "checks": [
+          {
+            "id": "has_css_class",
+            "type": "code_contains_string",
+            "text": ".dark-mode"
+          },
+          {
+            "id": "uses_classlist_toggle",
+            "type": "code_contains_string",
+            "text": "classList.toggle"
+          },
+          {
+            "id": "targets_body",
+            "type": "code_contains_string",
+            "text": "document.body"
+          }
+        ]
+      },
+      "explanation": "The modern way to manage UI states like dark mode is using the `.classList` API. The `.toggle()` method adds the class if it's missing, and removes it if it's present.",
+      "relatedTopics": ["fe-3", "fe-4"]
+    },
+    {
+      "id": "wq-long-ajax-json",
+      "order": 17,
+      "type": "written",
+      "topic": "Frontend — AJAX",
+      "questionText": "Write an `XMLHttpRequest` GET request to 'api/config'. When the response loads successfully (verify `readyState` is 4 and `status` is 200), parse the `responseText` as JSON and log the resulting object to the console.",
+      "context": null,
+      "expectedAnswer": "<script>\nvar xhr = new XMLHttpRequest();\nxhr.onreadystatechange = function() {\n  if (this.readyState == 4 && this.status == 200) {\n    var data = JSON.parse(this.responseText);\n    console.log(data);\n  }\n};\nxhr.open('GET', 'api/config', true);\nxhr.send();\n</script>",
+      "writtenRubric": {
+        "version": 1,
+        "checks": [
+          {
+            "id": "instantiates_xhr",
+            "type": "code_contains_string",
+            "text": "new XMLHttpRequest()"
+          },
+          {
+            "id": "parses_json",
+            "type": "code_contains_string",
+            "text": "JSON.parse("
+          },
+          {
+            "id": "opens_get",
+            "type": "code_contains_string",
+            "text": "open('GET'"
+          }
+        ]
+      },
+      "explanation": "Handling JSON APIs with raw AJAX requires manually checking the ready state and status codes before parsing the raw string payload using `JSON.parse()`.",
+      "relatedTopics": ["fe-6"]
+    },
+    {
+      "id": "wq-long-promise",
+      "order": 18,
+      "type": "written",
+      "topic": "Frontend — JS Promises",
+      "questionText": "Create a function `checkStatus()` that returns a new Promise. Inside the promise, use `setTimeout` to wait 1000 milliseconds, then call `resolve('System Operational')`. Finally, execute `checkStatus().then()` and log the resolved message to the console.",
+      "context": null,
+      "expectedAnswer": "<script>\nfunction checkStatus() {\n  return new Promise((resolve, reject) => {\n    setTimeout(() => {\n      resolve('System Operational');\n    }, 1000);\n  });\n}\n\ncheckStatus().then(message => console.log(message));\n</script>",
+      "writtenRubric": {
+        "version": 1,
+        "checks": [
+          {
+            "id": "returns_promise",
+            "type": "code_contains_string",
+            "text": "new Promise"
+          },
+          {
+            "id": "uses_settimeout",
+            "type": "code_contains_string",
+            "text": "setTimeout("
+          },
+          {
+            "id": "uses_then",
+            "type": "code_contains_string",
+            "text": ".then("
+          }
+        ]
+      },
+      "explanation": "Promises represent the eventual completion of an asynchronous operation. You define the work inside the Promise constructor, invoke `resolve` when finished, and handle the outcome using `.then()`.",
+      "relatedTopics": ["fe-6"]
+    },
+    {
+      "id": "wq-long-validation",
+      "order": 19,
+      "type": "written",
+      "topic": "Frontend — Form Events",
+      "questionText": "Write an HTML form (id 'authForm') with a password input (id 'pwd') and a submit button. Add a JavaScript event listener for the form's 'submit' event. If the password length is less than 8 characters, prevent the default submission and show an alert.",
+      "context": null,
+      "expectedAnswer": "<form id=\"authForm\">\n  <input type=\"password\" id=\"pwd\">\n  <button type=\"submit\">Login</button>\n</form>\n<script>\ndocument.getElementById('authForm').addEventListener('submit', function(event) {\n  var password = document.getElementById('pwd').value;\n  if (password.length < 8) {\n    event.preventDefault();\n    alert('Password too short');\n  }\n});\n</script>",
+      "writtenRubric": {
+        "version": 1,
+        "checks": [
+          {
+            "id": "adds_submit_listener",
+            "type": "code_contains_string",
+            "text": "addEventListener('submit'"
+          },
+          {
+            "id": "prevents_default",
+            "type": "code_contains_string",
+            "text": "preventDefault()"
+          },
+          {
+            "id": "checks_length",
+            "type": "code_contains_string",
+            "text": ".length < 8"
+          }
+        ]
+      },
+      "explanation": "Client-side form validation is crucial. Catching the `submit` event allows you to run logic before a page reload happens. `event.preventDefault()` stops the browser's native submission process.",
+      "relatedTopics": ["fe-3"]
+    },
+    {
+      "id": "wq-long-reduce",
+      "order": 20,
+      "type": "written",
+      "topic": "Frontend — JS ES6 Arrays",
+      "questionText": "Given an array of strings `const labels = ['Secure', 'Fast', 'Scalable'];`, use the `.reduce()` method to concatenate them into a single string separated by hyphens (e.g., 'Secure-Fast-Scalable'). Assign the result to a variable `tagline`.",
+      "context": null,
+      "expectedAnswer": "<script>\nconst labels = ['Secure', 'Fast', 'Scalable'];\nconst tagline = labels.reduce((acc, curr) => acc + '-' + curr);\n</script>",
+      "writtenRubric": {
+        "version": 1,
+        "checks": [
+          {
+            "id": "uses_reduce",
+            "type": "code_contains_string",
+            "text": ".reduce("
+          },
+          {
+            "id": "concatenates_hyphen",
+            "type": "code_contains_string",
+            "text": "'-'"
+          }
+        ]
+      },
+      "explanation": "The `.reduce()` method executes a reducer function on each element of the array, passing in the return value from the calculation on the preceding element. It's excellent for condensing arrays into single values.",
+      "relatedTopics": ["fe-5"]
+    },
+    {
+      "id": "wq-long-tabs",
+      "order": 21,
+      "type": "written",
+      "topic": "Frontend — DOM Manipulation",
+      "questionText": "Write HTML with two buttons and two content divs (ids 'panel1' and 'panel2'). Write a JS function `switchTab(targetId)` that hides both panels by setting their CSS `display` to 'none', and then shows the panel matching the passed `targetId` by setting its `display` to 'block'.",
+      "context": null,
+      "expectedAnswer": "<button onclick=\"switchTab('panel1')\">Tab 1</button>\n<button onclick=\"switchTab('panel2')\">Tab 2</button>\n<div id=\"panel1\">Content 1</div>\n<div id=\"panel2\" style=\"display:none;\">Content 2</div>\n\n<script>\nfunction switchTab(targetId) {\n  document.getElementById('panel1').style.display = 'none';\n  document.getElementById('panel2').style.display = 'none';\n  document.getElementById(targetId).style.display = 'block';\n}\n</script>",
+      "writtenRubric": {
+        "version": 1,
+        "checks": [
+          {
+            "id": "modifies_style_display",
+            "type": "code_contains_string",
+            "text": ".style.display"
+          },
+          {
+            "id": "hides_element",
+            "type": "code_contains_string",
+            "text": "'none'"
+          },
+          {
+            "id": "shows_element",
+            "type": "code_contains_string",
+            "text": "'block'"
+          }
+        ]
+      },
+      "explanation": "Creating interactive tabs relies on manipulating the `.style.display` property of DOM elements. The logic involves resetting all related elements to a hidden state before revealing the specific target.",
+      "relatedTopics": ["fe-3"]
+    },
+    {
+      "id": "wq-long-classes",
+      "order": 22,
+      "type": "written",
+      "topic": "Frontend — JS ES6",
+      "questionText": "Write an ES6 class named `Admin`. The constructor should accept a `role` parameter. Add a method `getAccess()` that returns the string 'Access level: [role]'. Instantiate a new Admin passing 'Superuser' as the role, and log their access level.",
+      "context": null,
+      "expectedAnswer": "<script>\nclass Admin {\n  constructor(role) {\n    this.role = role;\n  }\n  getAccess() {\n    return 'Access level: ' + this.role;\n  }\n}\nconst user = new Admin('Superuser');\nconsole.log(user.getAccess());\n</script>",
+      "writtenRubric": {
+        "version": 1,
+        "checks": [
+          {
+            "id": "declares_class",
+            "type": "code_contains_string",
+            "text": "class Admin"
+          },
+          {
+            "id": "has_constructor",
+            "type": "code_contains_string",
+            "text": "constructor("
+          },
+          {
+            "id": "instantiates_object",
+            "type": "code_contains_string",
+            "text": "new Admin"
+          }
+        ]
+      },
+      "explanation": "ES6 classes provide a much cleaner syntax over traditional prototype-based inheritance. The `constructor` method is automatically called when a new instance of the class is created.",
+      "relatedTopics": ["fe-6"]
+    },
+    {
+      "id": "wq-long-traversal",
+      "order": 23,
+      "type": "written",
+      "topic": "Frontend — DOM Traversal",
+      "questionText": "Given the HTML `<div class='wrapper'><p id='node'>Data</p></div>`, write a JavaScript snippet that targets the element with id 'node', traverses up to find its parent node, and adds the CSS class 'highlight' to that parent.",
+      "context": null,
+      "expectedAnswer": "<script>\nconst target = document.getElementById('node');\ntarget.parentNode.classList.add('highlight');\n</script>",
+      "writtenRubric": {
+        "version": 1,
+        "checks": [
+          {
+            "id": "uses_parentnode",
+            "type": "code_contains_string",
+            "text": ".parentNode"
+          },
+          {
+            "id": "adds_class",
+            "type": "code_contains_string",
+            "text": ".classList.add"
+          }
+        ]
+      },
+      "explanation": "DOM traversal APIs like `.parentNode`, `.nextSibling`, or `.children` allow you to navigate the HTML tree programmatically relative to a known element, which is essential when IDs aren't present on every node.",
+      "relatedTopics": ["fe-3"]
+    },
+    {
+      "id": "wq-long-delegation",
+      "order": 24,
+      "type": "written",
+      "topic": "Frontend — Event Listeners",
+      "questionText": "You have a `<ul>` with the id 'nav-list' containing several `<li>` items. Using the concept of Event Delegation, add a single 'click' event listener to the `<ul>`. In the handler function, check if the clicked target is an `<li>` element, and if it is, log its `innerText`.",
+      "context": null,
+      "expectedAnswer": "<script>\ndocument.getElementById('nav-list').addEventListener('click', function(event) {\n  if (event.target.nodeName === 'LI') {\n    console.log(event.target.innerText);\n  }\n});\n</script>",
+      "writtenRubric": {
+        "version": 1,
+        "checks": [
+          {
+            "id": "targets_parent_ul",
+            "type": "code_contains_string",
+            "text": "getElementById('nav-list').addEventListener"
+          },
+          {
+            "id": "checks_target_node",
+            "type": "code_contains_string",
+            "text": "event.target.nodeName"
+          }
+        ]
+      },
+      "explanation": "Event delegation is a performance optimization. Instead of attaching a listener to every child element, you attach one to the parent and leverage event bubbling (`event.target`) to determine exactly what was clicked.",
+      "relatedTopics": ["fe-3"]
+    },
+    {
+      "id": "wq-long-status-badge",
+      "order": 25,
+      "type": "written",
+      "topic": "Frontend — DOM & CSS",
+      "questionText": "Create a `<span>` with the id 'indicator', default text 'Disconnected', and a CSS class '.err' (which makes text red). Write a JS function `establishConnection()` that changes the span's text to 'Connected', removes the '.err' class, and adds a '.success' class (which makes text green).",
+      "context": null,
+      "expectedAnswer": "<style>\n.err { color: red; }\n.success { color: green; }\n</style>\n<span id=\"indicator\" class=\"err\">Disconnected</span>\n\n<script>\nfunction establishConnection() {\n  let badge = document.getElementById('indicator');\n  badge.innerText = 'Connected';\n  badge.classList.remove('err');\n  badge.classList.add('success');\n}\n</script>",
+      "writtenRubric": {
+        "version": 1,
+        "checks": [
+          {
+            "id": "updates_text",
+            "type": "code_contains_string",
+            "text": ".innerText = 'Connected'"
+          },
+          {
+            "id": "removes_err_class",
+            "type": "code_contains_string",
+            "text": "classList.remove('err')"
+          },
+          {
+            "id": "adds_success_class",
+            "type": "code_contains_string",
+            "text": "classList.add('success')"
+          }
+        ]
+      },
+      "explanation": "Manipulating UI badges dynamically involves a combination of updating textual nodes (`innerText` or `textContent`) and swapping CSS classes via the `classList` API to manage the visual state.",
+      "relatedTopics": ["fe-3", "fe-4"]
+    },
+    {
+      "id": "wq-django-model-product",
+      "order": 26,
+      "type": "written",
+      "topic": "Backend — Django Models",
+      "answerLanguage": "python",
+      "questionText": "1. Write a Django Model named `Product` that inherits from `models.Model`.\n2. Add a `name` field (CharField, max length 100) and a `price` field (IntegerField).",
+      "context": null,
+      "expectedAnswer": "from django.db import models\n\nclass Product(models.Model):\n    name = models.CharField(max_length=100)\n    price = models.IntegerField()",
+      "writtenRubric": {
+        "version": 1,
+        "checks": [
+          {
+            "id": "has_class_definition",
+            "type": "code_contains_string",
+            "text": "class Product(models.Model):"
+          },
+          {
+            "id": "has_charfield",
+            "type": "code_contains_string",
+            "text": "models.CharField(max_length=100)"
+          }
+        ]
+      },
+      "explanation": "Django models translate Python classes into database tables. Attributes of the class represent database columns, defined using Django field types like `CharField` (which requires a `max_length`) and `IntegerField`.",
+      "relatedTopics": ["be-8"]
+    },
+    {
+      "id": "wq-django-view-home",
+      "order": 27,
+      "type": "written",
+      "topic": "Backend — Django Views",
+      "answerLanguage": "python",
+      "questionText": "1. Write a function-based Django view named `home_view` that takes a `request` object.\n2. Return an `HttpResponse` containing the HTML string '<h1>Welcome to Django</h1>'.",
+      "context": null,
+      "expectedAnswer": "from django.http import HttpResponse\n\ndef home_view(request):\n    return HttpResponse('<h1>Welcome to Django</h1>')",
+      "writtenRubric": {
+        "version": 1,
+        "checks": [
+          {
+            "id": "has_def_view",
+            "type": "code_contains_string",
+            "text": "def home_view(request):"
+          },
+          {
+            "id": "returns_httpresponse",
+            "type": "code_contains_string",
+            "text": "return HttpResponse"
+          }
+        ]
+      },
+      "explanation": "A Django view function takes a web request and returns a web response. The simplest response is passing a raw HTML string into an imported `HttpResponse` object.",
+      "relatedTopics": ["be-5"]
+    },
+    {
+      "id": "wq-django-template-loop",
+      "order": 28,
+      "type": "written",
+      "topic": "Backend — Django Templates",
+      "answerLanguage": "html",
+      "questionText": "1. Write a Django HTML template snippet that expects a context variable `users` (a list of names).\n2. Use a Django template loop (`{% for %}`) to iterate over the list and display each name inside an `<li>` tag within a `<ul>` container.",
+      "context": null,
+      "expectedAnswer": "<ul>\n{% for user in users %}\n  <li>{{ user }}</li>\n{% endfor %}\n</ul>",
+      "writtenRubric": {
+        "version": 1,
+        "checks": [
+          {
+            "id": "has_for_loop",
+            "type": "code_contains_string",
+            "text": "{% for user in users %}"
+          },
+          {
+            "id": "outputs_variable",
+            "type": "code_contains_string",
+            "text": "{{ user }}"
+          }
+        ]
+      },
+      "explanation": "Django templates use `{% %}` for logic (like loops and conditionals) and `{{ }}` to output variables. Every `{% for %}` loop must be explicitly closed with `{% endfor %}`.",
+      "relatedTopics": ["be-7"]
+    },
+    {
+      "id": "wq-django-url-path",
+      "order": 29,
+      "type": "written",
+      "topic": "Backend — Django URLs",
+      "answerLanguage": "python",
+      "questionText": "1. Write a Django `urls.py` snippet that imports `path` and `views`.\n2. Define a `urlpatterns` list and add a path for 'contact/' that routes to `views.contact_view` and assigns it the name 'contact'.",
+      "context": null,
+      "expectedAnswer": "from django.urls import path\nfrom . import views\n\nurlpatterns = [\n    path('contact/', views.contact_view, name='contact'),\n]",
+      "writtenRubric": {
+        "version": 1,
+        "checks": [
+          {
+            "id": "has_urlpatterns",
+            "type": "code_contains_string",
+            "text": "urlpatterns ="
+          },
+          {
+            "id": "has_path_definition",
+            "type": "code_contains_string",
+            "text": "path('contact/', views.contact_view, name='contact')"
+          }
+        ]
+      },
+      "explanation": "The `urls.py` file dictates URL routing in Django. The `path()` function takes a route string, a view function to call, and optionally a `name` argument which is highly recommended for reverse URL lookups in templates.",
+      "relatedTopics": ["be-5"]
+    },
+    {
+      "id": "wq-python-dict-lookup",
+      "order": 30,
+      "type": "written",
+      "topic": "Backend — Python Basics",
+      "answerLanguage": "python",
+      "questionText": "1. Write a Python function `get_grade(name)` that checks if a name exists in a dictionary `grades = {'Ahmed': 'A', 'Mona': 'B'}`.\n2. If the name exists, return the grade; otherwise return 'Not Found'.",
+      "context": null,
+      "expectedAnswer": "def get_grade(name):\n    grades = {'Ahmed': 'A', 'Mona': 'B'}\n    if name in grades:\n        return grades[name]\n    return 'Not Found'\n    \n# Alternatively: return grades.get(name, 'Not Found')",
+      "writtenRubric": {
+        "version": 1,
+        "checks": [
+          {
+            "id": "checks_dictionary_key",
+            "type": "code_contains_string",
+            "text": "in grades"
+          }
+        ]
+      },
+      "explanation": "Dictionary lookups are common in backend Python logic. Using the `in` keyword safely checks for key existence. Alternatively, the `.get(key, default)` method achieves this in a single line.",
+      "relatedTopics": ["be-2"]
+    },
+    {
+      "id": "wq-python-oop-class",
+      "order": 31,
+      "type": "written",
+      "topic": "Backend — Python OOP",
+      "answerLanguage": "python",
+      "questionText": "1. Write a Python class named `Car` with an `__init__` constructor that accepts and sets `make` and `year` attributes.\n2. Add a method `display()` that returns a formatted string like '2020 Toyota'.",
+      "context": null,
+      "expectedAnswer": "class Car:\n    def __init__(self, make, year):\n        self.make = make\n        self.year = year\n        \n    def display(self):\n        return f\"{self.year} {self.make}\"",
+      "writtenRubric": {
+        "version": 1,
+        "checks": [
+          {
+            "id": "has_init_method",
+            "type": "code_contains_string",
+            "text": "def __init__(self"
+          },
+          {
+            "id": "has_f_string_or_format",
+            "type": "code_contains_string",
+            "text": "self.year"
+          }
+        ]
+      },
+      "explanation": "Python Object-Oriented Programming relies on the `__init__` method to initialize an object's state. The `self` parameter is strictly required as the first argument in instance methods to access class variables.",
+      "relatedTopics": ["be-3"]
+    },
+    {
+      "id": "wq-python-try-except",
+      "order": 32,
+      "type": "written",
+      "topic": "Backend — Python Error Handling",
+      "answerLanguage": "python",
+      "questionText": "1. Write a Python snippet that attempts to divide variable `a` by `b` and print the result.\n2. Use a `try/except` block to catch a `ZeroDivisionError` specifically, and print 'Cannot divide by zero' if it occurs.",
+      "context": null,
+      "expectedAnswer": "try:\n    result = a / b\n    print(result)\nexcept ZeroDivisionError:\n    print('Cannot divide by zero')",
+      "writtenRubric": {
+        "version": 1,
+        "checks": [
+          {
+            "id": "has_try_block",
+            "type": "code_contains_string",
+            "text": "try:"
+          },
+          {
+            "id": "catches_zero_division",
+            "type": "code_contains_string",
+            "text": "except ZeroDivisionError:"
+          }
+        ]
+      },
+      "explanation": "Using `try/except` blocks is crucial in backend engineering to prevent an application from crashing during runtime errors. It is best practice to catch specific exception types rather than using a broad, empty `except:` block.",
+      "relatedTopics": ["be-2"]
     }
   ]
 }

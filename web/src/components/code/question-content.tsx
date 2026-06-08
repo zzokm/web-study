@@ -37,10 +37,12 @@ function SegmentList({
   segments,
   compact,
   textClassName,
+  preservePartNumbers = false,
 }: {
   segments: QuestionContentSegment[];
   compact?: boolean;
   textClassName?: string;
+  preservePartNumbers?: boolean;
 }) {
   return (
     <div className={cn("flex flex-col gap-3", compact && "gap-2")}>
@@ -63,7 +65,9 @@ function SegmentList({
               textClassName
             )}
           >
-            {stripLeadingQuestionNumber(segment.content)}
+            {preservePartNumbers
+              ? segment.content
+              : stripLeadingQuestionNumber(segment.content)}
           </p>
         )
       )}
@@ -100,7 +104,7 @@ export function QuestionStemContent({
   className,
 }: {
   question: Question;
-  variant?: "default" | "browse";
+  variant?: "default" | "browse" | "browse-full";
   className?: string;
 }) {
   const context =
@@ -108,9 +112,41 @@ export function QuestionStemContent({
     (question.context.text || question.context.code)
       ? question.context
       : null;
-  const segments = question.questionSegments?.length
-    ? question.questionSegments
-    : [{ type: "text" as const, content: question.questionText }];
+  const segments =
+    question.questionType === "written"
+      ? [{ type: "text" as const, content: question.questionText }]
+      : question.questionSegments?.length
+        ? question.questionSegments
+        : [{ type: "text" as const, content: question.questionText }];
+
+  if (variant === "browse-full") {
+    return (
+      <div className={cn("flex flex-col gap-2", className)}>
+        {context ? (
+          <div className="flex flex-col gap-2">
+            {context.text ? (
+              <p className="text-sm font-normal leading-relaxed whitespace-pre-wrap text-muted-foreground">
+                {context.text}
+              </p>
+            ) : null}
+            {context.code ? (
+              <CodeBlock
+                code={context.code}
+                language={context.codeLanguage}
+                compact
+              />
+            ) : null}
+          </div>
+        ) : null}
+        <SegmentList
+          segments={segments}
+          compact
+          textClassName="font-normal"
+          preservePartNumbers={question.questionType === "written"}
+        />
+      </div>
+    );
+  }
 
   if (variant === "browse") {
     return (
@@ -132,7 +168,10 @@ export function QuestionStemContent({
   return (
     <div className={cn("flex flex-col gap-4", className)}>
       {context ? <QuestionContextPanel context={context} /> : null}
-      <SegmentList segments={segments} />
+      <SegmentList
+        segments={segments}
+        preservePartNumbers={question.questionType === "written"}
+      />
     </div>
   );
 }

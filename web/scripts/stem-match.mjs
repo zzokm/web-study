@@ -21,6 +21,12 @@ export function normCorrectAnswerContent(question) {
   return normQuestionText(option?.content ?? correctId);
 }
 
+const EXAM_YEARS = new Set(["2021", "2024", "2025"]);
+
+export function isRepetitionEligible(question) {
+  return question.questionType !== "written" && EXAM_YEARS.has(question.origin);
+}
+
 export function repetitionKey(question) {
   const stem = normQuestionText(question.questionText);
   if (!stem) return "";
@@ -83,6 +89,10 @@ function mergeFuzzyStemGroups(buckets, keys) {
 }
 
 export function groupByRepetitionKey(questions) {
+  return groupByRepetitionKeyForPool(questions.filter(isRepetitionEligible));
+}
+
+function groupByRepetitionKeyForPool(questions) {
   const buckets = new Map();
   const keysByAnswer = new Map();
 
@@ -120,6 +130,7 @@ export function mergeRepetitiveGroup(group) {
   const appearanceMap = new Map();
 
   for (const q of group) {
+    if (!EXAM_YEARS.has(q.origin)) continue;
     const key = appearanceKey(q.origin, q.sourceQuestionId);
     if (!appearanceMap.has(key)) {
       appearanceMap.set(key, {
@@ -130,13 +141,18 @@ export function mergeRepetitiveGroup(group) {
     }
   }
 
-  const origins = [...new Set(group.map((q) => q.origin))];
+  const examGroup = group.filter(isRepetitionEligible);
+  const origins = [...new Set(examGroup.map((q) => q.origin))];
+
+  const appearances = [...appearanceMap.values()].filter((a) =>
+    EXAM_YEARS.has(a.origin)
+  );
 
   return {
     ...primary,
-    instanceCount: group.length,
+    instanceCount: examGroup.length,
     origins,
-    appearances: [...appearanceMap.values()],
+    appearances,
   };
 }
 

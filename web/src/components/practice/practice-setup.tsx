@@ -7,6 +7,7 @@ import {
 } from "@/lib/practice-hub-progress";
 import type { PracticeSessionConfig } from "@/lib/practice-session-config";
 import { DEFAULT_PRACTICE_SESSION_CONFIG } from "@/lib/practice-session-config";
+import type { WrittenPracticeTrack } from "@/lib/written-practice-filter";
 import { Button } from "@/components/ui/button";
 import {
   Card,
@@ -23,6 +24,7 @@ import {
   FieldLabel,
   FieldTitle,
 } from "@/components/ui/field";
+import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { Switch } from "@/components/ui/switch";
 import { LinkButton } from "@/components/ui/link-button";
 import { CircularProgress } from "@/components/practice/circular-progress";
@@ -149,6 +151,52 @@ function SetupCardHeader({
   );
 }
 
+const WRITTEN_TRACK_OPTIONS: {
+  value: WrittenPracticeTrack;
+  label: string;
+  description: string;
+}[] = [
+  {
+    value: "both",
+    label: "Frontend and backend",
+    description: "All written questions in the set.",
+  },
+  {
+    value: "frontend",
+    label: "Frontend only",
+    description: "HTML, CSS, and JavaScript questions.",
+  },
+  {
+    value: "backend",
+    label: "Backend only",
+    description: "Python and Django questions.",
+  },
+];
+
+function WrittenTrackOption({
+  id,
+  value,
+  label,
+  description,
+}: {
+  id: string;
+  value: WrittenPracticeTrack;
+  label: string;
+  description: string;
+}) {
+  return (
+    <FieldLabel htmlFor={id} className="cursor-pointer">
+      <Field orientation="horizontal" className="items-start">
+        <RadioGroupItem id={id} value={value} className="mt-0.5" />
+        <FieldContent>
+          <FieldTitle>{label}</FieldTitle>
+          <FieldDescription>{description}</FieldDescription>
+        </FieldContent>
+      </Field>
+    </FieldLabel>
+  );
+}
+
 export function PracticeSetup({
   title,
   questionCount,
@@ -208,21 +256,78 @@ export function PracticeSetup({
       ) : null}
 
       {isWritten ? (
-        <Card>
-          <SetupCardHeader
-            title="How it works"
-            description="HTML coding practice"
-            progress={progress}
-            statusHydrated={statusHydrated}
-          />
-          <CardContent>
-            <ul className="list-disc space-y-2 pl-5 text-sm leading-relaxed text-muted-foreground">
-              <li>Write your HTML in the code editor.</li>
-              <li>Check your answer to run the rubric and unlock preview.</li>
-              <li>Review the model solution and explanation after checking.</li>
-            </ul>
-          </CardContent>
-        </Card>
+        <>
+          <Card>
+            <SetupCardHeader
+              title="Session options"
+              description="Choose which questions to practice and how the session runs."
+              progress={progress}
+              statusHydrated={statusHydrated}
+            />
+            <CardContent>
+              <FieldGroup className="gap-4">
+                <Field>
+                  <FieldContent>
+                    <FieldTitle>Question track</FieldTitle>
+                    <FieldDescription>
+                      Filter by frontend or backend lecture topics.
+                    </FieldDescription>
+                  </FieldContent>
+                  <RadioGroup
+                    value={config.writtenTrack ?? "both"}
+                    onValueChange={(value) =>
+                      patch({
+                        writtenTrack: value as WrittenPracticeTrack,
+                      })
+                    }
+                    className="mt-2 gap-2"
+                  >
+                    {WRITTEN_TRACK_OPTIONS.map((option) => (
+                      <WrittenTrackOption
+                        key={option.value}
+                        id={`written-track-${option.value}`}
+                        value={option.value}
+                        label={option.label}
+                        description={option.description}
+                      />
+                    ))}
+                  </RadioGroup>
+                </Field>
+                <SetupOption
+                  id="written-shuffle-questions"
+                  label="Shuffle question order"
+                  description="Randomize the sequence of questions in this set."
+                  checked={config.shuffleQuestions}
+                  onCheckedChange={(checked) =>
+                    patch({ shuffleQuestions: checked })
+                  }
+                />
+                <SetupOption
+                  id="written-show-timer"
+                  label="Show session timer"
+                  description="Floating elapsed timer with pause. Per-question thinking time is always recorded."
+                  checked={config.showSessionTimer}
+                  onCheckedChange={(checked) =>
+                    patch({ showSessionTimer: checked })
+                  }
+                />
+              </FieldGroup>
+            </CardContent>
+          </Card>
+          <Card>
+            <CardHeader>
+              <CardTitle>How it works</CardTitle>
+              <CardDescription>Coding practice with rubric checks</CardDescription>
+            </CardHeader>
+            <CardContent>
+              <ul className="list-disc space-y-2 pl-5 text-sm leading-relaxed text-muted-foreground">
+                <li>Write your answer in the code editor.</li>
+                <li>Check your answer to run the rubric and unlock preview when available.</li>
+                <li>Review the model solution and explanation after checking.</li>
+              </ul>
+            </CardContent>
+          </Card>
+        </>
       ) : (
         <Card>
           <SetupCardHeader
@@ -274,8 +379,20 @@ export function PracticeSetup({
         </Card>
       )}
 
+      {isWritten && questionCount === 0 ? (
+        <p className="text-sm text-muted-foreground">
+          No questions match this track. Choose a different track to start
+          practicing.
+        </p>
+      ) : null}
+
       <div className="flex justify-end">
-        <Button type="button" size="lg" onClick={onStart}>
+        <Button
+          type="button"
+          size="lg"
+          onClick={onStart}
+          disabled={isWritten && questionCount === 0}
+        >
           {sessionStatus ? "Start new session" : "Start practice"}
         </Button>
       </div>

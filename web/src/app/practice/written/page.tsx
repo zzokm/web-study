@@ -22,8 +22,8 @@ export default function PracticeWrittenPage() {
             No written questions are available yet.
           </p>
         </div>
-        <LinkButton href="/practice/" variant="outline">
-          Back to practice
+        <LinkButton href="/written/" variant="outline">
+          Browse written questions
         </LinkButton>
       </div>
     );
@@ -33,7 +33,7 @@ export default function PracticeWrittenPage() {
     <PracticeLauncher
       questions={questions}
       title="Written questions — Practice"
-      backHref="/practice/"
+      backHref="/written/"
       variant="written"
     />
   );

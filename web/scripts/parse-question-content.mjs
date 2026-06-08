@@ -193,6 +193,12 @@ function findCodeStart(lines) {
   return -1;
 }
 
+/** Written coding prompts — always plain text (no code-block splitting). */
+export function parseWrittenQuestionText(questionText) {
+  if (!questionText) return [];
+  return [{ type: "text", content: questionText }];
+}
+
 export function parseQuestionText(questionText) {
   if (!questionText) return [];
 

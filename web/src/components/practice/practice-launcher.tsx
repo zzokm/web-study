@@ -20,11 +20,12 @@ import {
   applyDisplaySnapshot,
   buildDisplaySnapshot,
   DEFAULT_PRACTICE_SESSION_CONFIG,
+  DEFAULT_WRITTEN_PRACTICE_SESSION_CONFIG,
   preparePracticeQuestions,
   practiceConfigAnalyticsParams,
-  WRITTEN_PRACTICE_SESSION_CONFIG,
   type PracticeSessionConfig,
 } from "@/lib/practice-session-config";
+import { filterWrittenQuestionsByTrack } from "@/lib/written-practice-filter";
 import {
   canonicalPracticeSessionKey,
   clearPracticeProgress,
@@ -69,30 +70,54 @@ export function PracticeLauncher({
   const router = useRouter();
   const isWritten = variant === "written";
   const defaultConfig = isWritten
-    ? WRITTEN_PRACTICE_SESSION_CONFIG
+    ? DEFAULT_WRITTEN_PRACTICE_SESSION_CONFIG
     : DEFAULT_PRACTICE_SESSION_CONFIG;
 
   const [phase, setPhase] = useState<LauncherPhase>("setup");
   const [config, setConfig] = useState<PracticeSessionConfig>(defaultConfig);
+
+  const sessionQuestions = useMemo(() => {
+    if (!isWritten) return baseQuestions;
+    return filterWrittenQuestionsByTrack(
+      baseQuestions,
+      config.writtenTrack ?? "both"
+    );
+  }, [baseQuestions, config.writtenTrack, isWritten]);
+
   const [activeSessionKey, setActiveSessionKey] = useState(() =>
-    practiceSessionKey(baseQuestions, defaultConfig)
+    practiceSessionKey(
+      isWritten
+        ? filterWrittenQuestionsByTrack(
+            baseQuestions,
+            defaultConfig.writtenTrack ?? "both"
+          )
+        : baseQuestions,
+      defaultConfig
+    )
   );
-  const [sessionQuestions, setSessionQuestions] = useState<Question[]>([]);
+  const [preparedSessionQuestions, setPreparedSessionQuestions] = useState<
+    Question[]
+  >([]);
   const [initialIndex, setInitialIndex] = useState(0);
   const [startFresh, setStartFresh] = useState(false);
   const setupViewedRef = useRef(false);
 
   const canonicalKey = useMemo(
-    () => canonicalPracticeSessionKey(baseQuestions),
-    [baseQuestions]
+    () => canonicalPracticeSessionKey(sessionQuestions),
+    [sessionQuestions]
   );
+
+  useEffect(() => {
+    if (phase !== "setup" || !isWritten) return;
+    setActiveSessionKey(practiceSessionKey(sessionQuestions, config));
+  }, [phase, isWritten, sessionQuestions, config]);
 
   const sessionStatus = useSyncExternalStore(
     subscribePracticeStatus,
     (): PracticeSessionStatus | null => {
       void getPracticeStatusStoreVersion();
       if (phase !== "setup") return null;
-      return getPracticeSessionStatusSnapshot(baseQuestions);
+      return getPracticeSessionStatusSnapshot(sessionQuestions);
     },
     (): PracticeSessionStatus | null => null
   );
@@ -108,19 +133,19 @@ export function PracticeLauncher({
   }, []);
 
   useEffect(() => {
-    if (setupViewedRef.current || baseQuestions.length === 0) return;
+    if (setupViewedRef.current || sessionQuestions.length === 0) return;
     setupViewedRef.current = true;
     trackAnalyticsEvent(AnalyticsEvents.practiceSetupView, {
       ...practiceContextFromPath(pathname, title),
-      question_count: baseQuestions.length,
+      question_count: sessionQuestions.length,
     });
-  }, [baseQuestions.length, pathname, title]);
+  }, [sessionQuestions.length, pathname, title]);
 
   useEffect(() => {
-    if (phase !== "setup" || baseQuestions.length === 0) return;
-    reconcilePracticeSessionPointer(baseQuestions);
+    if (phase !== "setup" || sessionQuestions.length === 0) return;
+    reconcilePracticeSessionPointer(sessionQuestions);
     bumpPracticeStatusStore();
-  }, [phase, canonicalKey, baseQuestions]);
+  }, [phase, canonicalKey, sessionQuestions]);
 
   const beginSession = useCallback(
     (
@@ -129,7 +154,8 @@ export function PracticeLauncher({
     ) => {
       const sessionConfig = options?.config ?? config;
       const key =
-        options?.sessionKey ?? practiceSessionKey(baseQuestions, sessionConfig);
+        options?.sessionKey ??
+        practiceSessionKey(sessionQuestions, sessionConfig);
       const fresh = mode === "fresh";
 
       if (fresh) {
@@ -140,9 +166,9 @@ export function PracticeLauncher({
       const savedDisplay = loadPracticeDisplaySnapshot(key);
 
       if (!fresh && savedDisplay?.questionKeys.length) {
-        prepared = applyDisplaySnapshot(baseQuestions, savedDisplay);
+        prepared = applyDisplaySnapshot(sessionQuestions, savedDisplay);
       } else {
-        prepared = preparePracticeQuestions(baseQuestions, sessionConfig);
+        prepared = preparePracticeQuestions(sessionQuestions, sessionConfig);
         savePracticeDisplaySnapshot(key, buildDisplaySnapshot(prepared));
       }
 
@@ -157,7 +183,7 @@ export function PracticeLauncher({
           : 0;
 
       touchPracticeSessionPointer({
-        questions: baseQuestions,
+        questions: sessionQuestions,
         sessionKey: key,
         config: sessionConfig,
         status: "in_progress",
@@ -166,7 +192,7 @@ export function PracticeLauncher({
 
       trackAnalyticsEvent(AnalyticsEvents.practiceSetupStart, {
         ...practiceContextFromPath(pathname, title),
-        question_count: baseQuestions.length,
+        question_count: sessionQuestions.length,
         start_mode: mode === "continue" ? "resume" : mode === "fresh" ? "fresh" : "start",
         ...practiceConfigAnalyticsParams(sessionConfig),
       });
@@ -174,11 +200,11 @@ export function PracticeLauncher({
       setConfig(sessionConfig);
       setActiveSessionKey(key);
       setStartFresh(fresh);
-      setSessionQuestions(prepared);
+      setPreparedSessionQuestions(prepared);
       setInitialIndex(index);
       setPhase("session");
     },
-    [baseQuestions, canonicalKey, config, pathname, title]
+    [canonicalKey, config, pathname, sessionQuestions, title]
   );
 
   const handleContinue = useCallback(() => {
@@ -213,11 +239,11 @@ export function PracticeLauncher({
     return null;
   }
 
-  if (phase === "session" && sessionQuestions.length > 0) {
+  if (phase === "session" && preparedSessionQuestions.length > 0) {
     return (
       <PracticeSession
         key={`${activeSessionKey}:${startFresh ? "fresh" : "cont"}`}
-        questions={sessionQuestions}
+        questions={preparedSessionQuestions}
         title={title}
         config={config}
         sessionKey={activeSessionKey}
@@ -232,7 +258,7 @@ export function PracticeLauncher({
   return (
     <PracticeSetup
       title={title}
-      questionCount={baseQuestions.length}
+      questionCount={sessionQuestions.length}
       config={config}
       onConfigChange={setConfig}
       sessionStatus={sessionStatus}

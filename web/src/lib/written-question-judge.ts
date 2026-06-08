@@ -2,8 +2,10 @@ import { injectConsoleCapture } from "@/lib/code-example-console-capture";
 import { wrapHtmlIfNeeded } from "@/lib/written-html";
 import {
   runWrittenRubricChecks,
+  runWrittenTextRubricChecks,
   type WrittenJudgeResult,
 } from "@/lib/written-question-checks";
+import { writtenQuestionUsesHtmlRuntime } from "@/lib/written-question-utils";
 import type { WrittenRubric } from "@/types/question";
 
 const JUDGE_IFRAME_ID = "written-question-judge-frame";
@@ -72,8 +74,33 @@ export async function judgeWrittenHtml(
     };
   }
 
-  return runWrittenRubricChecks(doc, win, rubric);
+  return runWrittenRubricChecks(doc, win, rubric, source);
 }
 
-export { runWrittenRubricChecks };
+export async function judgeWrittenAnswer(
+  source: string,
+  rubric: WrittenRubric
+): Promise<WrittenJudgeResult> {
+  const trimmed = source.trim();
+  if (!trimmed) {
+    return {
+      passed: false,
+      results: [
+        {
+          id: "empty",
+          passed: false,
+          message: "Answer is empty",
+        },
+      ],
+    };
+  }
+
+  if (!writtenQuestionUsesHtmlRuntime(rubric)) {
+    return runWrittenTextRubricChecks(trimmed, rubric);
+  }
+
+  return judgeWrittenHtml(trimmed, rubric);
+}
+
+export { runWrittenRubricChecks, runWrittenTextRubricChecks };
 export type { WrittenJudgeResult, WrittenCheckResult } from "@/lib/written-question-checks";

@@ -1,6 +1,6 @@
 "use client";
 
-import type { ReactNode } from "react";
+import { Fragment, type ReactNode } from "react";
 import { useCallback, useMemo, useRef, useState } from "react";
 import type { Question } from "@/types/question";
 import type { BrowseContext } from "@/lib/analytics-events";
@@ -36,6 +36,10 @@ interface QuestionBrowseAccordionProps {
   showExpandControls?: boolean;
   /** Report control on the answer card instead of above the details */
   reportButtonInAnswer?: boolean;
+  /** Override Q badge number per row */
+  getDisplayNumber?: (question: Question, index: number) => string;
+  /** Render content after a row (e.g. disclaimer after Q81) */
+  renderAfterItem?: (question: Question) => ReactNode;
 }
 
 export function QuestionBrowseAccordion({
@@ -48,6 +52,8 @@ export function QuestionBrowseAccordion({
   scrollIdPrefix,
   showExpandControls = true,
   reportButtonInAnswer = true,
+  getDisplayNumber,
+  renderAfterItem,
 }: QuestionBrowseAccordionProps) {
   const [internalOpenValues, setInternalOpenValues] = useState<string[]>([]);
   const controlled =
@@ -146,49 +152,59 @@ export function QuestionBrowseAccordion({
         value={resolvedOpenValues}
         onValueChange={handleOpenChange}
       >
-      {questions.map((q) => (
-        <AccordionItem
-          key={q.questionKey}
-          value={q.questionKey}
-          id={
-            scrollIdPrefix
-              ? `${scrollIdPrefix}-${q.questionKey}`
-              : undefined
-          }
-          className={cn(
-            itemClassName,
-            scrollIdPrefix ? "scroll-mt-24" : undefined
-          )}
-        >
-          <AccordionTrigger className={triggerClassName}>
-            <div className="min-w-0 flex-1 text-left">
-              <div className="flex flex-col gap-2">
-                {renderTriggerPrefix?.(q)}
-                <QuestionMeta question={q} />
-                <QuestionStem question={q} variant="browse" />
-              </div>
-            </div>
-          </AccordionTrigger>
-          <AccordionContent className={contentClassName}>
-            <div className="flex flex-col gap-4 p-4">
-              {!reportButtonInAnswer || showSaveButton ? (
-                <div className="flex justify-end gap-2">
-                  {!reportButtonInAnswer ? (
-                    <ReportIssueButton question={q} />
-                  ) : null}
-                  {showSaveButton ? <SaveButton question={q} /> : null}
+      {questions.map((q, index) => (
+        <Fragment key={q.questionKey}>
+          <AccordionItem
+            value={q.questionKey}
+            id={
+              scrollIdPrefix
+                ? `${scrollIdPrefix}-${q.questionKey}`
+                : undefined
+            }
+            className={cn(
+              itemClassName,
+              scrollIdPrefix ? "scroll-mt-24" : undefined
+            )}
+          >
+            <AccordionTrigger className={triggerClassName}>
+              <div className="min-w-0 flex-1 text-left">
+                <div className="flex flex-col gap-2">
+                  {renderTriggerPrefix?.(q)}
+                  <QuestionMeta
+                    question={q}
+                    displayNumber={getDisplayNumber?.(q, index)}
+                  />
+                  <QuestionStem
+                    question={q}
+                    variant={
+                      browseContext === "written" ? "browse-full" : "browse"
+                    }
+                  />
                 </div>
-              ) : null}
-              <QuestionAccordionDetails
-                question={q}
-                showStem={false}
-                showExamAppearances={false}
-                variant="browse"
-                showReportButton={reportButtonInAnswer}
-              />
-            </div>
-          </AccordionContent>
-        </AccordionItem>
+              </div>
+            </AccordionTrigger>
+            <AccordionContent className={contentClassName}>
+              <div className="flex flex-col gap-4 p-4">
+                {!reportButtonInAnswer || showSaveButton ? (
+                  <div className="flex justify-end gap-2">
+                    {!reportButtonInAnswer ? (
+                      <ReportIssueButton question={q} />
+                    ) : null}
+                    {showSaveButton ? <SaveButton question={q} /> : null}
+                  </div>
+                ) : null}
+                <QuestionAccordionDetails
+                  question={q}
+                  showStem={false}
+                  showExamAppearances={false}
+                  variant="browse"
+                  showReportButton={reportButtonInAnswer}
+                />
+              </div>
+            </AccordionContent>
+          </AccordionItem>
+          {renderAfterItem?.(q)}
+        </Fragment>
       ))}
       </Accordion>
     </div>

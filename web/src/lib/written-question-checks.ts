@@ -22,6 +22,37 @@ function normalizeText(value: string): string {
   return value.replace(/\s+/g, " ").trim().toLowerCase();
 }
 
+function normalizeCodeFragment(value: string, caseSensitive = false): string {
+  const normalized = value.replace(/\r\n/g, "\n");
+  return caseSensitive ? normalized : normalized.toLowerCase();
+}
+
+function compactWhitespace(value: string): string {
+  return value.replace(/\s+/g, "");
+}
+
+function quoteAgnostic(value: string): string {
+  return value.replace(/['"]/g, "'");
+}
+
+export function codeContainsString(
+  haystack: string,
+  needle: string,
+  caseSensitive = false
+): boolean {
+  const h = normalizeCodeFragment(haystack, caseSensitive);
+  const n = normalizeCodeFragment(needle, caseSensitive);
+  if (!n) return false;
+
+  if (h.includes(n)) return true;
+
+  const compactHay = compactWhitespace(h);
+  const compactNeedle = compactWhitespace(n);
+  if (compactHay.includes(compactNeedle)) return true;
+
+  return quoteAgnostic(compactHay).includes(quoteAgnostic(compactNeedle));
+}
+
 function findElementsContainingText(
   doc: Document,
   text: string
@@ -133,12 +164,40 @@ function stylePropertyMatches(
   return accepted.some((a) => norm === a.toLowerCase());
 }
 
-function runCheck(
+function runTextCheck(
+  source: string,
+  check: WrittenRubricCheck
+): WrittenCheckResult {
+  if (check.type !== "code_contains_string") {
+    return {
+      id: check.id,
+      passed: false,
+      message: "Text check requires code_contains_string",
+    };
+  }
+
+  const found = codeContainsString(source, check.text, check.caseSensitive);
+  return {
+    id: check.id,
+    passed: found,
+    message: found
+      ? `Found required snippet: "${check.text}"`
+      : `Missing required snippet: "${check.text}"`,
+  };
+}
+
+function runDomCheck(
   doc: Document,
   win: Window,
   check: WrittenRubricCheck
 ): WrittenCheckResult {
   switch (check.type) {
+    case "code_contains_string":
+      return {
+        id: check.id,
+        passed: false,
+        message: "code_contains_string requires source text, not DOM",
+      };
     case "element_text_includes": {
       const els = doc.querySelectorAll(check.selector);
       const found = Array.from(els).some((el) =>
@@ -233,9 +292,26 @@ function runCheck(
 export function runWrittenRubricChecks(
   doc: Document,
   win: Window,
+  rubric: WrittenRubric,
+  source?: string
+): WrittenJudgeResult {
+  const results = rubric.checks.map((check) => {
+    if (check.type === "code_contains_string") {
+      return runTextCheck(source ?? "", check);
+    }
+    return runDomCheck(doc, win, check);
+  });
+  return {
+    passed: results.every((r) => r.passed),
+    results,
+  };
+}
+
+export function runWrittenTextRubricChecks(
+  source: string,
   rubric: WrittenRubric
 ): WrittenJudgeResult {
-  const results = rubric.checks.map((check) => runCheck(doc, win, check));
+  const results = rubric.checks.map((check) => runTextCheck(source, check));
   return {
     passed: results.every((r) => r.passed),
     results,

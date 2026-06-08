@@ -19,7 +19,8 @@ import {
   trackAnalyticsEvent,
 } from "@/lib/analytics";
 import { isWrittenQuestion } from "@/lib/questions";
-import { judgeWrittenHtml } from "@/lib/written-question-judge";
+import { judgeWrittenAnswer } from "@/lib/written-question-judge";
+import { writtenQuestionShowsPreviewTabs } from "@/lib/written-question-utils";
 import type { WrittenQuestionPanelHandle } from "@/components/written-questions/written-question-panel";
 import { cn } from "@/lib/utils";
 import type { MockExamSpec } from "@/lib/mock-exam";
@@ -363,7 +364,7 @@ function PracticeSessionInner({
         if (!answer || !question.writtenRubric) return;
         setCheckingWritten(true);
         try {
-          const result = await judgeWrittenHtml(answer, question.writtenRubric);
+          const result = await judgeWrittenAnswer(answer, question.writtenRubric);
           const now = Date.now();
           patchProgress((prev) => {
             const next = patchQuestionWrittenChecked(
@@ -387,7 +388,9 @@ function PracticeSessionInner({
             ...prev,
             [question.questionKey]: (prev[question.questionKey] ?? 0) + 1,
           }));
-          writtenPanelRef.current?.showPreview();
+          if (writtenQuestionShowsPreviewTabs(question)) {
+            writtenPanelRef.current?.showPreview();
+          }
         } finally {
           setCheckingWritten(false);
         }
@@ -592,7 +595,7 @@ function PracticeSessionInner({
         const att = getAttempt(next, q.questionKey);
         const answer = att.writtenAnswer?.trim() ?? "";
         if (!answer) continue;
-        const result = await judgeWrittenHtml(answer, q.writtenRubric);
+        const result = await judgeWrittenAnswer(answer, q.writtenRubric);
         next = patchQuestionWrittenChecked(
           next,
           q.questionKey,

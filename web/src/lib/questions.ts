@@ -1,8 +1,16 @@
 import type { Catalog, LectureMeta, Question } from "@/types/question";
 import { mcqOptionDisplayLabelForId } from "@/lib/mcq-options";
 import { formatLectureBadgeLabel } from "@/lib/lecture-label";
-import { sortExamAppearances } from "@/lib/question-appearances";
-import { clusterByRepetitionKey, groupByRepetitionKey } from "@/lib/stem-match";
+import {
+  clusterByRepetitionKey,
+  groupByRepetitionKey,
+  isRepetitionEligible,
+} from "@/lib/stem-match";
+import {
+  filterExamAppearances,
+  isExamYearOrigin,
+  sortExamAppearances,
+} from "@/lib/question-appearances";
 import catalogJson from "@/data/generated/catalog.json";
 import repetitiveJson from "../../public/data/repetitive-questions.json";
 
@@ -46,32 +54,39 @@ function mergeDuplicateStemGroup(group: Question[]): Question {
   >();
 
   for (const q of group) {
-    for (const a of q.appearances ?? []) {
+    for (const a of filterExamAppearances(q.appearances ?? [])) {
       appearanceMap.set(
         appearanceKey(a.origin, a.sourceQuestionId),
         a
       );
     }
-    const key = appearanceKey(q.origin, q.sourceQuestionId);
-    if (!appearanceMap.has(key)) {
-      appearanceMap.set(key, {
-        origin: q.origin,
-        sourceFile: q.sourceFile,
-        sourceQuestionId: q.sourceQuestionId,
-      });
+    if (isExamYearOrigin(q.origin)) {
+      const key = appearanceKey(q.origin, q.sourceQuestionId);
+      if (!appearanceMap.has(key)) {
+        appearanceMap.set(key, {
+          origin: q.origin,
+          sourceFile: q.sourceFile,
+          sourceQuestionId: q.sourceQuestionId,
+        });
+      }
     }
   }
 
   const appearances = sortExamAppearances([...appearanceMap.values()]);
+  const examGroup = group.filter(isRepetitionEligible);
   const origins = [
-    ...new Set(group.flatMap((q) => q.origins ?? [q.origin])),
+    ...new Set(
+      examGroup.flatMap((q) =>
+        (q.origins ?? [q.origin]).filter(isExamYearOrigin)
+      )
+    ),
   ];
 
   return {
     ...primary,
-    instanceCount: group.length,
-    origins,
-    appearances,
+    instanceCount: examGroup.length > 1 ? examGroup.length : undefined,
+    origins: origins.length > 0 ? origins : undefined,
+    appearances: appearances.length > 0 ? appearances : undefined,
   };
 }
 
@@ -165,9 +180,9 @@ export function isWrittenQuestion(question: Question): boolean {
 }
 
 export function getWrittenQuestions(): Question[] {
-  return dedupeQuestionsByStem(
-    catalog.questions.filter((q) => q.questionType === "written")
-  );
+  return catalog.questions
+    .filter((q) => q.origin === "written" && q.questionType === "written")
+    .sort((a, b) => a.examOrder - b.examOrder);
 }
 
 export function countWrittenQuestions(): number {

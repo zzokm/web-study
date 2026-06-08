@@ -27,6 +27,12 @@ export type WrittenRubricCheck =
       triggerLabel: string;
       targetSelector: string;
       styles: Record<string, string[]>;
+    }
+  | {
+      id: string;
+      type: "code_contains_string";
+      text: string;
+      caseSensitive?: boolean;
     };
 
 export interface WrittenRubric {
@@ -76,6 +82,8 @@ export interface Question {
   expectedAnswer?: string | null;
   /** Outcome-based grading rubric for written questions. */
   writtenRubric?: WrittenRubric | null;
+  /** Editor language for written answers (html, javascript, css, python, …). */
+  answerLanguage?: string | null;
   instanceCount?: number;
   appearances?: Array<{
     origin: string;

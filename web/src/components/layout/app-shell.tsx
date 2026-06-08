@@ -15,6 +15,7 @@ import {
   PresentationIcon,
   RepeatIcon,
   ServerIcon,
+  SquarePenIcon,
 } from "lucide-react";
 import { ExamCountdown } from "@/components/layout/exam-countdown";
 import { SidebarFeedbackPill } from "@/components/layout/sidebar-feedback-pill";
@@ -69,6 +70,7 @@ const navSections: { label: string; items: NavItem[] }[] = [
       { href: "/by-exam/", label: "By exam", icon: GraduationCapIcon },
       { href: "/repetitive/", label: "Repetitive", icon: RepeatIcon },
       { href: "/saved/", label: "Saved", icon: BookmarkIcon },
+      { href: "/written/", label: "Written questions", icon: SquarePenIcon },
     ],
   },
   {

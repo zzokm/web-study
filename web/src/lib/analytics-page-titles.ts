@@ -56,6 +56,7 @@ export function getPageTitle(
 
   if (segments[0] === "repetitive") return `Repetitive questions · ${SITE}`;
   if (segments[0] === "saved") return `Saved questions · ${SITE}`;
+  if (segments[0] === "written") return `Written questions · ${SITE}`;
   if (segments[0] === "analysis") return `Exam analysis · ${SITE}`;
   if (segments[0] === "code-examples") {
     if (segments[1]) {

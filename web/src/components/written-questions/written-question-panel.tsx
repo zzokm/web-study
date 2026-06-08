@@ -34,6 +34,8 @@ export const WrittenQuestionPanel = forwardRef<
     disabled?: boolean;
     title?: string;
     className?: string;
+    editorLanguage?: string;
+    showPreviewTabs?: boolean;
   }
 >(function WrittenQuestionPanel(
   {
@@ -44,6 +46,8 @@ export const WrittenQuestionPanel = forwardRef<
     disabled = false,
     title = "Written answer",
     className,
+    editorLanguage = "html",
+    showPreviewTabs = true,
   },
   ref
 ) {
@@ -80,6 +84,20 @@ export const WrittenQuestionPanel = forwardRef<
 
   const panelClass = "min-h-64";
 
+  if (!showPreviewTabs) {
+    return (
+      <div className={cn("flex flex-col gap-2", className)}>
+        <WrittenHtmlEditor
+          value={value}
+          onChange={onChange}
+          disabled={disabled}
+          language={editorLanguage}
+          className={panelClass}
+        />
+      </div>
+    );
+  }
+
   return (
     <div className={cn("flex flex-col gap-2", className)}>
       <CodeExampleTabBar
@@ -94,6 +112,7 @@ export const WrittenQuestionPanel = forwardRef<
               value={value}
               onChange={onChange}
               disabled={disabled}
+              language={editorLanguage}
             />
             {isRunning ? (
               <div

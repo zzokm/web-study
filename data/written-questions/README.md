@@ -80,6 +80,7 @@ After `npm run sync` (in `web/`):
 | `questionText` | yes | Stem shown in practice. Use `\n` for numbered parts. Do **not** include the exam number prefix here — sync adds it for `examPlacement`. |
 | `context` | yes | Shared block context object, or `null` for standalone coding tasks |
 | `relatedTopics` | yes | Lecture IDs (`fe-3`, `be-5`, …). **1–2 entries max.** See [Lecture IDs](#lecture-ids-relatedtopics) below. |
+| `answerLanguage` | no | Editor language (`html`, `javascript`, `css`, `python`). Defaults from topic and rubric. Python/Django/text-only tasks hide preview and console. |
 
 #### Model answer, correction checks, and explanation
 
@@ -187,6 +188,20 @@ Click a button by label, then verify **computed** styles on a target element.
 ```
 
 `styles` keys: `color`, `fontSize`, `fontFamily`. Each value is a list of accepted alternatives.
+
+#### 5. `code_contains_string`
+
+Source-text check for snippets that are not run in a browser (Python, Django, CSS-only, JS-only). Matching is case-insensitive, ignores extra whitespace, and treats `'` and `"` as equivalent.
+
+```json
+{
+  "id": "has_try_block",
+  "type": "code_contains_string",
+  "text": "except ZeroDivisionError:"
+}
+```
+
+Use **only** `code_contains_string` checks when the answer cannot be executed (Python/Django). The editor shows code only — no preview or console tabs.
 
 ---
 

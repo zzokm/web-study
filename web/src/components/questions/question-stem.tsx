@@ -4,8 +4,8 @@ import { cn } from "@/lib/utils";
 
 interface QuestionStemProps {
   question: Question;
-  /** Truncate long stems in browse accordion rows. */
-  variant?: "default" | "browse";
+  /** browse: truncated preview; browse-full: full stem, browse typography. */
+  variant?: "default" | "browse" | "browse-full";
   className?: string;
 }
 

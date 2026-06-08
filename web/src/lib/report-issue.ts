@@ -101,6 +101,7 @@ export const REPORT_HUB_LOCATIONS: ReadonlyArray<{
   { id: "lectures_be", label: "Backend lectures", pageUrl: "/lectures/backend/" },
   { id: "repetitive", label: "Repetitive questions", pageUrl: "/repetitive/" },
   { id: "saved", label: "Saved questions", pageUrl: "/saved/" },
+  { id: "written", label: "Written questions", pageUrl: "/written/" },
 ];
 
 export type CodeExampleReportTarget = {

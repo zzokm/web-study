@@ -333,6 +333,13 @@ def audit_written_questions(valid_ids: set[str]) -> list[Issue]:
             issues.append(Issue("written", qid, 16, f"writtenRubric version must be 1, got {rubric.get('version')}"))
         elif not rubric.get("checks"):
             issues.append(Issue("written", qid, 16, "writtenRubric checks array is empty"))
+        else:
+            for check in rubric.get("checks", []):
+                if check.get("type") == "code_contains_string" and not (check.get("text") or "").strip():
+                    issues.append(Issue(
+                        "written", qid, 16,
+                        f"code_contains_string check {check.get('id', '?')} missing text",
+                    ))
 
         if q.get("options"):
             issues.append(Issue("written", qid, 15, "Written question must not have options"))

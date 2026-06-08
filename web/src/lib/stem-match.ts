@@ -1,4 +1,5 @@
 import type { Question } from "@/types/question";
+import { isExamYearOrigin } from "@/lib/question-appearances";
 
 /** Must stay in sync with stem_match.py */
 export const FUZZY_STEM_RATIO = 0.97;
@@ -21,6 +22,11 @@ export function normCorrectAnswerContent(question: Question): string {
     (o) => o.id.trim().toLowerCase() === correctId
   );
   return normQuestionText(option?.content ?? correctId);
+}
+
+/** Repetitive drill sets include exam MCQ/T-F only — not written or hub entries. */
+export function isRepetitionEligible(question: Question): boolean {
+  return question.questionType !== "written" && isExamYearOrigin(question.origin);
 }
 
 /** Stem + answer — same stem with different keyed answers stay separate. */
@@ -84,6 +90,10 @@ function mergeFuzzyStemGroups<T extends Question>(
 
 /** Group questions sharing answer + equivalent stem (exact or light fuzzy). */
 export function groupByRepetitionKey(questions: Question[]): Question[][] {
+  return groupByRepetitionKeyForPool(questions.filter(isRepetitionEligible));
+}
+
+function groupByRepetitionKeyForPool(questions: Question[]): Question[][] {
   const buckets = new Map<string, Question[]>();
   const keysByAnswer = new Map<string, string[]>();
 
@@ -118,10 +128,13 @@ function splitRepetitionKey(key: string): [string, string] {
 
 /** Cluster by equivalent stem + answer (exact or light fuzzy). */
 export function clusterByRepetitionKey<T extends Question>(questions: T[]): T[][] {
+  const written = questions.filter((q) => q.questionType === "written");
+  const pool = questions.filter((q) => q.questionType !== "written");
+
   const buckets = new Map<string, T[]>();
   const keysByAnswer = new Map<string, string[]>();
 
-  for (const q of questions) {
+  for (const q of pool) {
     const key = repetitionKey(q);
     if (!key) continue;
     if (!buckets.has(key)) {
@@ -138,5 +151,5 @@ export function clusterByRepetitionKey<T extends Question>(questions: T[]): T[][
   for (const answerKeys of keysByAnswer.values()) {
     clusters.push(...mergeFuzzyStemGroups(buckets, answerKeys));
   }
-  return clusters;
+  return [...clusters, ...written.map((q) => [q])];
 }

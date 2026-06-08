@@ -4,6 +4,16 @@ export const EXAM_YEAR_ORDER = ["2021", "2024", "2025"] as const;
 
 export type ExamAppearance = NonNullable<Question["appearances"]>[number];
 
+export function isExamYearOrigin(origin: string): boolean {
+  return (EXAM_YEAR_ORDER as readonly string[]).includes(origin);
+}
+
+export function filterExamAppearances(
+  appearances: ExamAppearance[]
+): ExamAppearance[] {
+  return appearances.filter((a) => isExamYearOrigin(a.origin));
+}
+
 export function sortExamAppearances(
   appearances: ExamAppearance[]
 ): ExamAppearance[] {
@@ -33,17 +43,38 @@ export function examQuestionNumberFromId(
 }
 
 export function formatExamAppearanceLabel(appearance: ExamAppearance): string {
-  const number = examQuestionNumberFromId(appearance.sourceQuestionId);
+  const number = examQuestionNumberFromId(
+    appearance.sourceQuestionId,
+    undefined
+  );
   return `${appearance.origin} Final Q${number}`;
 }
 
+export function collectExamAppearances(question: Question): ExamAppearance[] {
+  const fromList = filterExamAppearances(question.appearances ?? []);
+  if (fromList.length > 0) return sortExamAppearances(fromList);
+
+  if (isExamYearOrigin(question.origin)) {
+    return [
+      {
+        origin: question.origin,
+        sourceFile: question.sourceFile,
+        sourceQuestionId: question.sourceQuestionId,
+      },
+    ];
+  }
+
+  return [];
+}
+
 export function hasMultipleExamAppearances(question: Question): boolean {
-  return (question.appearances?.length ?? 0) > 1;
+  return collectExamAppearances(question).length > 1;
 }
 
 export function getSortedExamAppearances(
   question: Question
 ): ExamAppearance[] | null {
-  if (!question.appearances?.length) return null;
-  return sortExamAppearances(question.appearances);
+  const appearances = collectExamAppearances(question);
+  if (!appearances.length) return null;
+  return appearances;
 }

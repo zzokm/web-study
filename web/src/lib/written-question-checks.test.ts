@@ -1,6 +1,10 @@
 import { describe, expect, it } from "vitest";
 import { JSDOM } from "jsdom";
-import { runWrittenRubricChecks } from "@/lib/written-question-checks";
+import {
+  codeContainsString,
+  runWrittenRubricChecks,
+  runWrittenTextRubricChecks,
+} from "@/lib/written-question-checks";
 import type { WrittenRubric } from "@/types/question";
 
 const Q81_RUBRIC: WrittenRubric = {
@@ -100,5 +104,33 @@ describe("written-question-checks", () => {
     expect(result.results.some((r) => r.id === "english_struck" && !r.passed)).toBe(
       true
     );
+  });
+
+  it("matches required Python snippets with whitespace leniency", () => {
+    const source = `def get_grade(name):
+    grades = {"Ahmed": "A"}
+    if name in grades:
+        return grades[name]
+    return "Not Found"`;
+
+    const result = runWrittenTextRubricChecks(source, {
+      version: 1,
+      checks: [
+        { id: "dict_lookup", type: "code_contains_string", text: "in grades" },
+      ],
+    });
+    expect(result.passed).toBe(true);
+  });
+
+  it("accepts alternate quote styles in Django paths", () => {
+    const source = `urlpatterns = [
+  path("contact/", views.contact_view, name="contact"),
+]`;
+    expect(
+      codeContainsString(
+        source,
+        "path('contact/', views.contact_view, name='contact')"
+      )
+    ).toBe(true);
   });
 });
