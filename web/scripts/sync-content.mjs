@@ -139,10 +139,12 @@ function syncCodeExamples(publicCodeExamples) {
     : {};
   copy(manifestPath, join(WEB_ROOT, "public", "data", "code_examples_manifest.json"));
 
+  const lectureSettings = manifest.lectureSettings ?? {};
   const codeExamples = {};
 
   for (const example of manifest.examples ?? []) {
     const { lectureId, file, id, title, order, language } = example;
+    const settings = lectureSettings[lectureId] ?? {};
     const srcPath = join(REPO_ROOT, "data", "code-examples", lectureId, file);
     if (!existsSync(srcPath)) {
       throw new Error(`Missing code example file: ${srcPath}`);
@@ -177,6 +179,14 @@ function syncCodeExamples(publicCodeExamples) {
         typeof example.previewAvailable === "boolean"
           ? example.previewAvailable
           : isPreviewAvailable(rawSource),
+      previewAutoRun:
+        typeof example.previewAutoRun === "boolean"
+          ? example.previewAutoRun
+          : Boolean(settings.previewAutoRun),
+      showConsoleTab:
+        typeof example.showConsoleTab === "boolean"
+          ? example.showConsoleTab
+          : settings.showConsoleTab !== false,
     };
 
     if (!codeExamples[lectureId]) {

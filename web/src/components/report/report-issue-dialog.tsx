@@ -76,6 +76,7 @@ function lectureScopeLabel(scope: "general" | "lecture"): string {
 
 function codeExamplesScopeLabel(scope: CodeExamplesScope): string {
   if (scope === "general") return "General (frontend lectures hub)";
+  if (scope === "fe-4") return "CSS (fe-4)";
   if (scope === "fe-5") return "JavaScript 1 (fe-5)";
   return "JavaScript 2 (fe-6)";
 }

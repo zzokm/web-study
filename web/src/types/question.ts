@@ -85,6 +85,8 @@ export interface CodeExample {
   source: string;
   previewUrl: string;
   previewAvailable: boolean;
+  previewAutoRun: boolean;
+  showConsoleTab: boolean;
 }
 
 export interface CodeExamplesLectureGroup {

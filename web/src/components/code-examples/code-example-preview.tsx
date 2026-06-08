@@ -37,6 +37,28 @@ export function CodeExamplePreviewUnavailable({
   );
 }
 
+export function CodeExamplePreviewFrame({
+  src,
+  title,
+  runCount,
+  className,
+}: {
+  src: string;
+  title: string;
+  runCount: number;
+  className?: string;
+}) {
+  return (
+    <iframe
+      key={runCount}
+      src={src}
+      title={title}
+      sandbox="allow-scripts allow-same-origin allow-modals"
+      className={cn("h-full min-h-64 w-full rounded-md border bg-white", className)}
+    />
+  );
+}
+
 export function CodeExamplePreviewEmpty({ className }: { className?: string }) {
   return (
     <Empty

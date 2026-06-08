@@ -1,6 +1,6 @@
 "use client";
 
-import { useCallback, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import type { CodeExample } from "@/types/question";
 import { CodeBlock } from "@/components/code/code-block";
 import { Button } from "@/components/ui/button";
@@ -17,6 +17,7 @@ import { CodeExampleExplanation } from "@/components/code-examples/code-example-
 import { CodeExampleIframeRunner } from "@/components/code-examples/code-example-iframe-runner";
 import {
   CodeExamplePreviewEmpty,
+  CodeExamplePreviewFrame,
   CodeExamplePreviewUnavailable,
 } from "@/components/code-examples/code-example-preview";
 import { ReportIssueButton } from "@/components/report/report-issue-button";
@@ -27,12 +28,15 @@ import {
 } from "@/lib/code-example-console-capture";
 
 export function CodeExampleCard({ example }: { example: CodeExample }) {
-  const [runCount, setRunCount] = useState(0);
+  const previewAutoRun = example.previewAutoRun ?? false;
+  const canPreview = example.previewAvailable;
+  const showConsoleTab = canPreview && (example.showConsoleTab ?? true);
+
+  const [runCount, setRunCount] = useState(() => (previewAutoRun && canPreview ? 1 : 0));
   const [sessionId, setSessionId] = useState(() => crypto.randomUUID());
   const [activeTab, setActiveTab] = useState("code");
   const [consoleLogs, setConsoleLogs] = useState<ConsoleLogEntry[]>([]);
   const isRunning = runCount > 0;
-  const canPreview = example.previewAvailable;
 
   const handleConsoleMessage = useCallback(
     (level: ConsoleLogLevel, messages: string[]) => {
@@ -50,6 +54,12 @@ export function CodeExampleCard({ example }: { example: CodeExample }) {
     setRunCount((count) => count + 1);
     setActiveTab("preview");
   }
+
+  useEffect(() => {
+    if (previewAutoRun && canPreview && runCount === 0) {
+      setRunCount(1);
+    }
+  }, [previewAutoRun, canPreview, runCount]);
 
   return (
     <Card className="gap-2 py-3">
@@ -73,7 +83,7 @@ export function CodeExampleCard({ example }: { example: CodeExample }) {
             pageUrl={`/code-examples/${example.lectureId}/`}
             size="icon"
           />
-          {canPreview ? (
+          {canPreview && !previewAutoRun ? (
             <Button
               type="button"
               variant="outline"
@@ -87,26 +97,26 @@ export function CodeExampleCard({ example }: { example: CodeExample }) {
           ) : null}
         </div>
       </CardHeader>
-      <CardContent className="grid grid-cols-1 gap-3 px-4 pt-2">
-        <Tabs
-          value={activeTab}
-          onValueChange={setActiveTab}
-          className="contents"
-        >
-          <TabsList className="col-start-1 row-start-1">
-            <TabsTrigger value="code">Code</TabsTrigger>
-            <TabsTrigger value="preview">Preview</TabsTrigger>
-            {canPreview ? (
-              <TabsTrigger value="console">Console</TabsTrigger>
-            ) : null}
-          </TabsList>
-          <TabsContent
-            value="code"
-            className="col-start-1 row-start-2 mt-0 flex flex-col gap-3"
+      <CardContent className="flex flex-col gap-4 px-4 pt-2">
+        <div className="grid grid-cols-1 gap-3">
+          <Tabs
+            value={activeTab}
+            onValueChange={setActiveTab}
+            className="contents"
           >
-            <CodeBlock code={example.source} language={example.language} />
-            <CodeExampleExplanation text={example.explanation} />
-          </TabsContent>
+            <TabsList className="col-start-1 row-start-1">
+              <TabsTrigger value="code">Code</TabsTrigger>
+              <TabsTrigger value="preview">Preview</TabsTrigger>
+              {showConsoleTab ? (
+                <TabsTrigger value="console">Console</TabsTrigger>
+              ) : null}
+            </TabsList>
+            <TabsContent
+              value="code"
+              className="col-start-1 row-start-2 mt-0"
+            >
+              <CodeBlock code={example.source} language={example.language} />
+            </TabsContent>
           <TabsContent
             value="preview"
             className="col-start-1 row-start-2 mt-0 min-h-64"
@@ -115,9 +125,16 @@ export function CodeExampleCard({ example }: { example: CodeExample }) {
               <CodeExamplePreviewUnavailable className="min-h-64" />
             ) : !isRunning ? (
               <CodeExamplePreviewEmpty className="min-h-64" />
-            ) : null}
+            ) : showConsoleTab ? null : (
+              <CodeExamplePreviewFrame
+                src={example.previewUrl}
+                title={example.title}
+                runCount={runCount}
+                className="min-h-64"
+              />
+            )}
           </TabsContent>
-          {canPreview ? (
+          {showConsoleTab ? (
             <TabsContent
               value="console"
               className="col-start-1 row-start-2 mt-0 min-h-64"
@@ -129,26 +146,28 @@ export function CodeExampleCard({ example }: { example: CodeExample }) {
               />
             </TabsContent>
           ) : null}
-        </Tabs>
-        {canPreview && isRunning ? (
-          <div
-            className={
-              activeTab === "preview"
-                ? "col-start-1 row-start-2 min-h-64"
-                : "pointer-events-none fixed -left-[9999px] top-0 h-96 w-full max-w-3xl opacity-0"
-            }
-            aria-hidden={activeTab !== "preview"}
-          >
-            <CodeExampleIframeRunner
-              src={example.previewUrl}
-              title={example.title}
-              runCount={runCount}
-              sessionId={sessionId}
-              onConsoleMessage={handleConsoleMessage}
-              className="min-h-64"
-            />
-          </div>
-        ) : null}
+          </Tabs>
+          {showConsoleTab && canPreview && isRunning ? (
+            <div
+              className={
+                activeTab === "preview"
+                  ? "col-start-1 row-start-2 min-h-64"
+                  : "pointer-events-none fixed -left-[9999px] top-0 h-96 w-full max-w-3xl opacity-0"
+              }
+              aria-hidden={activeTab !== "preview"}
+            >
+              <CodeExampleIframeRunner
+                src={example.previewUrl}
+                title={example.title}
+                runCount={runCount}
+                sessionId={sessionId}
+                onConsoleMessage={handleConsoleMessage}
+                className="min-h-64"
+              />
+            </div>
+          ) : null}
+        </div>
+        <CodeExampleExplanation text={example.explanation} />
       </CardContent>
     </Card>
   );

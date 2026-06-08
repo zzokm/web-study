@@ -1,15 +1,133 @@
 {
   "version": 1,
-  "sourceDescription": "Code examples from the course Google Drive (JS1 for fe-5, JS2 for fe-6).",
-  "lecturesWithExamples": ["fe-5", "fe-6"],
+  "sourceDescription": "Code examples from the course Google Drive (CSS for fe-4, JS1 for fe-5, JS2 for fe-6).",
+  "lecturesWithExamples": ["fe-4", "fe-5", "fe-6"],
   "lectureGroups": [
     {
       "id": "frontend-early",
       "label": "Earlier frontend lectures",
-      "lectureIds": ["fe-0", "fe-1", "fe-2", "fe-3", "fe-4"]
+      "lectureIds": ["fe-0", "fe-1", "fe-2", "fe-3"]
     }
   ],
+  "lectureSettings": {
+    "fe-4": {
+      "previewAutoRun": true,
+      "showConsoleTab": false
+    }
+  },
   "examples": [
+    {
+      "id": "fe-4-element-selector",
+      "lectureId": "fe-4",
+      "order": 1,
+      "title": "Element selector — styling paragraphs",
+      "file": "css_1.html",
+      "language": "html"
+    },
+    {
+      "id": "fe-4-class-center",
+      "lectureId": "fe-4",
+      "order": 2,
+      "title": "Class selector — .center",
+      "file": "css_2.html",
+      "language": "html"
+    },
+    {
+      "id": "fe-4-class-specificity",
+      "lectureId": "fe-4",
+      "order": 3,
+      "title": "Specificity — p.center vs .center",
+      "file": "css_3.html",
+      "language": "html"
+    },
+    {
+      "id": "fe-4-multiple-classes",
+      "lectureId": "fe-4",
+      "order": 4,
+      "title": "Multiple classes — .center and .large",
+      "file": "css_4.html",
+      "language": "html"
+    },
+    {
+      "id": "fe-4-universal-and-id",
+      "lectureId": "fe-4",
+      "order": 5,
+      "title": "Universal and ID selectors",
+      "file": "css_5.html",
+      "language": "html"
+    },
+    {
+      "id": "fe-4-grouped-selectors",
+      "lectureId": "fe-4",
+      "order": 6,
+      "title": "Grouped selectors — h1, h2, p",
+      "file": "css_6.html",
+      "language": "html"
+    },
+    {
+      "id": "fe-4-sibling-combinator",
+      "lectureId": "fe-4",
+      "order": 7,
+      "title": "General sibling combinator (div ~ p)",
+      "file": "css_7.html",
+      "language": "html"
+    },
+    {
+      "id": "fe-4-link-pseudo-classes",
+      "lectureId": "fe-4",
+      "order": 8,
+      "title": "Link pseudo-classes (:link, :visited, :hover, :active)",
+      "file": "css_8.html",
+      "language": "html"
+    },
+    {
+      "id": "fe-4-hover",
+      "lectureId": "fe-4",
+      "order": 9,
+      "title": ":hover pseudo-class",
+      "file": "css_9.html",
+      "language": "html"
+    },
+    {
+      "id": "fe-4-hover-child",
+      "lectureId": "fe-4",
+      "order": 10,
+      "title": "Reveal child on parent hover",
+      "file": "css_10.html",
+      "language": "html"
+    },
+    {
+      "id": "fe-4-first-line",
+      "lectureId": "fe-4",
+      "order": 11,
+      "title": "::first-line pseudo-element",
+      "file": "css_11.html",
+      "language": "html"
+    },
+    {
+      "id": "fe-4-attribute-and-box",
+      "lectureId": "fe-4",
+      "order": 12,
+      "title": "Attribute selector and box model",
+      "file": "css_12.html",
+      "language": "html"
+    },
+    {
+      "id": "fe-4-responsive-columns",
+      "lectureId": "fe-4",
+      "order": 13,
+      "title": "Responsive column layout",
+      "file": "css_13.html",
+      "language": "html"
+    },
+    {
+      "id": "fe-4-demo-stylesheets",
+      "lectureId": "fe-4",
+      "order": 14,
+      "title": "Multi-stylesheet demo (W3Schools)",
+      "file": "css_demo.html",
+      "language": "html"
+    },
     {
       "id": "fe-5-document-write",
       "lectureId": "fe-5",

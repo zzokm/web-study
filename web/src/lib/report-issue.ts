@@ -67,7 +67,7 @@ export const MOCK_EXAM_ISSUE_TYPES: ReadonlySet<IssueType> = new Set([
   "Mock Exam Generation Issue",
 ]);
 
-export const CODE_EXAMPLES_LECTURE_IDS = ["fe-5", "fe-6"] as const;
+export const CODE_EXAMPLES_LECTURE_IDS = ["fe-4", "fe-5", "fe-6"] as const;
 
 export type CodeExamplesScope = "general" | (typeof CODE_EXAMPLES_LECTURE_IDS)[number];
 
@@ -347,7 +347,7 @@ export function resolveLocationPageUrl(
 
   if (locationId === "code_examples") {
     const scope = options?.codeExamplesScope ?? "general";
-    if (scope === "fe-5" || scope === "fe-6") {
+    if (scope === "fe-4" || scope === "fe-5" || scope === "fe-6") {
       return {
         pageUrl: `/code-examples/${scope}/`,
         issueScope: "specific",
@@ -400,8 +400,14 @@ export function deriveCodeExamplesScopeFromPathname(
   pathname: string
 ): CodeExamplesScope {
   const segments = pathname.replace(/\/$/, "").split("/").filter(Boolean);
-  if (segments[0] === "code-examples" && segments[1] === "fe-5") return "fe-5";
-  if (segments[0] === "code-examples" && segments[1] === "fe-6") return "fe-6";
+  if (
+    segments[0] === "code-examples" &&
+    (segments[1] === "fe-4" ||
+      segments[1] === "fe-5" ||
+      segments[1] === "fe-6")
+  ) {
+    return segments[1] as CodeExamplesScope;
+  }
   return "general";
 }
 

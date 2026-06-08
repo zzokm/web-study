@@ -23,7 +23,8 @@ function LectureGrid({ children }: { children: ReactNode }) {
 
 export default function FrontendLecturesPage() {
   const lectures = getLecturesByTrack("frontend");
-  const earlyLectures = lectures.filter((lec) => lec.lectureNumber <= 4);
+  const earlyLectures = lectures.filter((lec) => lec.lectureNumber <= 3);
+  const fe4 = lectureById(lectures, "fe-4");
   const fe5 = lectureById(lectures, "fe-5");
   const fe6 = lectureById(lectures, "fe-6");
 
@@ -47,6 +48,15 @@ export default function FrontendLecturesPage() {
           ))}
         </LectureGrid>
       </section>
+
+      {fe4 ? (
+        <section className="flex flex-col gap-4">
+          <LectureGrid>
+            <LectureListCard lecture={fe4} hubType="lectures_frontend" />
+            <CodeExamplesEntryCard lecture={fe4} />
+          </LectureGrid>
+        </section>
+      ) : null}
 
       {fe5 ? (
         <section className="flex flex-col gap-4">
