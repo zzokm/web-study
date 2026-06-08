@@ -28,6 +28,9 @@ Checks
 12. Context codeLanguage consistency: if context.code is set, codeLanguage
     must be a known value (html | javascript | python | css | null)
 13. Question text and options are not empty strings
+14. Written questions must have expectedAnswer and writtenRubric
+15. Written questions must have no options
+16. Written rubric must declare version 1 with a non-empty checks array
 """
 
 from __future__ import annotations
@@ -197,12 +200,31 @@ def audit_year(year_file: str, valid_ids: set[str]) -> list[Issue]:
                 issues.append(Issue(year, qid, 3,
                     f"{len(topics)} relatedTopics (max 2): {topics}"))
 
-            # Check 10: correctAnswerId matches an option
+            # Check 10: correctAnswerId matches an option (MCQ/T-F only)
             correct = q.get("correctAnswerId")
             option_ids = {o.get("id") for o in q.get("options", [])}
-            if correct and option_ids and correct not in option_ids:
+            is_written = q.get("type") == "written"
+            if (
+                not is_written
+                and correct
+                and option_ids
+                and correct not in option_ids
+            ):
                 issues.append(Issue(year, qid, 10,
                     f"correctAnswerId '{correct}' not in options {sorted(option_ids)}"))
+
+            if is_written:
+                if not (q.get("expectedAnswer") or "").strip():
+                    issues.append(Issue(year, qid, 14, "Written question missing expectedAnswer"))
+                rubric = q.get("writtenRubric")
+                if not rubric:
+                    issues.append(Issue(year, qid, 14, "Written question missing writtenRubric"))
+                elif rubric.get("version") != 1:
+                    issues.append(Issue(year, qid, 16, f"writtenRubric version must be 1, got {rubric.get('version')}"))
+                elif not rubric.get("checks"):
+                    issues.append(Issue(year, qid, 16, "writtenRubric checks array is empty"))
+                if option_ids:
+                    issues.append(Issue(year, qid, 15, "Written question must not have options"))
 
             # ── Topic-consistency checks ─────────────────────────────────
 

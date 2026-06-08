@@ -31,7 +31,7 @@ Counts use `relatedTopics` lecture allocation — one question may count toward 
 | 1 | JavaScript 1 | frontend | 53 | 21.1% |
 | 2 | Python Essentials | backend | 50 | 19.9% |
 | 3 | JavaScript 2 & AJAX | frontend | 46 | 18.3% |
-| 4 | CSS | frontend | 38 | 15.1% |
+| 4 | CSS | frontend | 37 | 14.7% |
 | 5 | HTML Document Object Model | frontend | 24 | 9.6% |
 | 6 | Internet Protocols | frontend | 22 | 8.8% |
 | 7 | Web Basics, HTTP, URLs, and Status Codes | backend | 17 | 6.8% |
@@ -90,7 +90,7 @@ Keyword hits across stems, topics, and explanations (categories may overlap).
 | Python | 73 | 18 | 23 | 32 |
 | HTTP & URLs | 62 | 19 | 21 | 22 |
 | CSS | 41 | 12 | 16 | 13 |
-| Django | 29 | 10 | 8 | 11 |
+| Django | 30 | 10 | 8 | 12 |
 | Networking | 6 | 3 | 2 | 1 |
 
 ## Lecture focus by exam year
@@ -136,8 +136,8 @@ Keyword hits across stems, topics, and explanations (categories may overlap).
 | Python Essentials | 21 | 14 | 7 |
 | JavaScript 2 & AJAX | 14 | 1 | 13 |
 | HTML Document Object Model | 11 | 1 | 10 |
-| CSS | 10 | 2 | 8 |
 | JavaScript 1 | 9 | 2 | 7 |
+| CSS | 9 | 2 | 7 |
 | Django IV | 7 | 5 | 2 |
 | Internet Protocols | 4 | 1 | 3 |
 | Web Basics, HTTP, URLs, and Status Codes | 4 | 1 | 3 |

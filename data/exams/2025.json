@@ -2638,9 +2638,9 @@
   },
   {
     "id": "block_6",
-    "topic": "HTML, DOM, and Event Listeners",
+    "topic": "Written — demo test behaviour",
     "context": {
-      "text": "Given a paragraph element in an HTML file, write a complete snippet.",
+      "text": null,
       "code": null,
       "codeLanguage": null,
       "image": {
@@ -2652,14 +2652,53 @@
       {
         "id": "q81",
         "type": "written",
-        "questionText": "Question 3 - [8 Marks]\n 1. Display the text \"My favorite subject is English Arabic\" where \"English\" is struck-through and \"Arabic\" is underlined. [2marks]\n 2. Add a button labeled \"Style\" that, when clicked, changes the paragraph's: [3 marks for structure] Font color to green [1 mark], Font size to 14px [1 mark], Font family to Arial [1 mark]",
+        "questionText": "81. 1. Display the text \"My favorite subject is English Arabic\" where \"English\" is struck-through and \"Arabic\" is underlined.\n2. Add a button labeled \"Style\" that, when clicked, changes the paragraph's:\n- Font color to green\n- Font size to 14px\n- Font family to Arial",
         "options": [],
         "correctAnswerId": null,
         "expectedAnswer": "<p id=\"myPara\">My favorite subject is <s>English</s> <u>Arabic</u></p>\n<button onclick=\"changeStyle()\">Style</button>\n<script>\nfunction changeStyle() {\n  let p = document.getElementById(\"myPara\");\n  p.style.color = \"green\";\n  p.style.fontSize = \"14px\";\n  p.style.fontFamily = \"Arial\";\n}\n</script>",
-        "explanation": "The required snippet combines HTML for presentation (using standard tags like `<s>` or `<del>` for strike-through, and `<u>` for underline) and JavaScript logic for the event listener that triggers DOM manipulation of the `style` properties.",
+        "writtenRubric": {
+          "version": 1,
+          "checks": [
+            {
+              "id": "paragraph_text",
+              "type": "element_text_includes",
+              "selector": "p",
+              "text": "My favorite subject is"
+            },
+            {
+              "id": "english_struck",
+              "type": "text_has_decoration",
+              "text": "English",
+              "decoration": "strikethrough"
+            },
+            {
+              "id": "arabic_underlined",
+              "type": "text_has_decoration",
+              "text": "Arabic",
+              "decoration": "underline"
+            },
+            {
+              "id": "style_button",
+              "type": "control_labeled",
+              "role": "button",
+              "label": "Style"
+            },
+            {
+              "id": "click_styles",
+              "type": "click_applies_computed_styles",
+              "triggerLabel": "Style",
+              "targetSelector": "p",
+              "styles": {
+                "color": ["green", "rgb(0, 128, 0)", "#008000"],
+                "fontSize": ["14px"],
+                "fontFamily": ["arial"]
+              }
+            }
+          ]
+        },
+        "explanation": "Your snippet should render the sentence with strike-through on \"English\" and underline on \"Arabic\", include a button labeled \"Style\", and apply green 14px Arial styling to the paragraph when clicked. Any valid HTML/CSS/JS approach works as long as the outcome matches. See the model answer below.",
         "relatedTopics": [
-          "fe-3",
-          "fe-4"
+          "fe-3"
         ]
       }
     ]
