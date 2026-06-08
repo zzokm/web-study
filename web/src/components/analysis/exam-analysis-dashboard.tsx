@@ -22,6 +22,16 @@ import { AnalyticsEvents } from "@/lib/analytics-events";
 import { trackAnalyticsEvent } from "@/lib/analytics";
 import { AnalysisChart } from "./analysis-chart";
 
+const TRACK_ALLOCATION_COLORS = {
+  frontend: "var(--track-allocation-frontend)",
+  backend: "var(--track-allocation-backend)",
+} as const;
+
+const TRACK_ALLOCATION_LABELS = {
+  frontendShare: "Frontend",
+  backendShare: "Backend",
+} as const;
+
 function formatGeneratedAt(iso: string) {
   try {
     return new Date(iso).toLocaleDateString(undefined, {
@@ -102,40 +112,48 @@ export function ExamAnalysisDashboard({ data }: { data: ExamAnalysisData }) {
             </CardDescription>
           </CardHeader>
           <CardContent>
-            <AnalysisChart height={220}>
-              {({ width, height }) => (
-                <BarChart
-                  width={width}
-                  height={height}
-                  data={trackAllocationChart}
-                  margin={{ top: 8, right: 8, left: 0, bottom: 0 }}
-                >
-                  <CartesianGrid strokeDasharray="3 3" className="stroke-border" />
-                  <XAxis dataKey="label" tick={{ fontSize: 11 }} />
-                  <YAxis tick={{ fontSize: 12 }} unit="%" domain={[0, 100]} />
-                  <Tooltip
-                    formatter={(value, name) => [
-                      `${value ?? 0}%`,
-                      name === "frontendShare" ? "Frontend" : "Backend",
-                    ]}
-                  />
-                  <Bar
-                    dataKey="frontendShare"
-                    stackId="track"
-                    fill="hsl(var(--chart-1))"
-                    radius={[0, 0, 0, 0]}
-                    name="Frontend"
-                  />
-                  <Bar
-                    dataKey="backendShare"
-                    stackId="track"
-                    fill="hsl(var(--chart-2))"
-                    radius={[4, 4, 0, 0]}
-                    name="Backend"
-                  />
-                </BarChart>
-              )}
-            </AnalysisChart>
+            <div className="[--track-allocation-frontend:oklch(0.58_0.19_255)] [--track-allocation-backend:oklch(0.72_0.16_62)] dark:[--track-allocation-frontend:oklch(0.7_0.15_255)] dark:[--track-allocation-backend:oklch(0.78_0.13_62)]">
+              <TrackAllocationLegend />
+              <AnalysisChart height={240}>
+                {({ width, height }) => (
+                  <BarChart
+                    width={width}
+                    height={height}
+                    data={trackAllocationChart}
+                    margin={{ top: 8, right: 8, left: 0, bottom: 0 }}
+                  >
+                    <CartesianGrid strokeDasharray="3 3" className="stroke-border" />
+                    <XAxis dataKey="label" tick={{ fontSize: 11 }} />
+                    <YAxis tick={{ fontSize: 12 }} unit="%" domain={[0, 100]} />
+                    <Tooltip
+                      content={<TrackAllocationTooltip />}
+                      cursor={{ fill: "var(--muted)", fillOpacity: 0.35 }}
+                      itemSorter={(item) =>
+                        item.dataKey === "frontendShare" ? 0 : 1
+                      }
+                    />
+                    <Bar
+                      dataKey="frontendShare"
+                      stackId="track"
+                      fill={TRACK_ALLOCATION_COLORS.frontend}
+                      stroke="var(--background)"
+                      strokeWidth={2}
+                      radius={[0, 0, 0, 0]}
+                      name="frontendShare"
+                    />
+                    <Bar
+                      dataKey="backendShare"
+                      stackId="track"
+                      fill={TRACK_ALLOCATION_COLORS.backend}
+                      stroke="var(--background)"
+                      strokeWidth={2}
+                      radius={[4, 4, 0, 0]}
+                      name="backendShare"
+                    />
+                  </BarChart>
+                )}
+              </AnalysisChart>
+            </div>
           </CardContent>
         </Card>
       </section>
@@ -697,6 +715,82 @@ export function ExamAnalysisDashboard({ data }: { data: ExamAnalysisData }) {
   );
 }
 
+function TrackAllocationLegend() {
+  return (
+    <div className="mb-3 flex flex-wrap items-center gap-4 text-xs text-muted-foreground">
+      <span className="flex items-center gap-1.5">
+        <span className="size-2.5 rounded-[2px] bg-(--track-allocation-frontend)" />
+        Frontend
+      </span>
+      <span className="flex items-center gap-1.5">
+        <span className="size-2.5 rounded-[2px] bg-(--track-allocation-backend)" />
+        Backend
+      </span>
+    </div>
+  );
+}
+
+type TrackAllocationTooltipEntry = {
+  dataKey?: string | number;
+  value?: number | string;
+  color?: string;
+};
+
+function TrackAllocationTooltip({
+  active,
+  payload,
+  label,
+}: {
+  active?: boolean;
+  payload?: readonly TrackAllocationTooltipEntry[];
+  label?: string | number;
+}) {
+  if (!active || !payload?.length) return null;
+
+  const sorted = [...payload].sort((a, b) => {
+    if (a.dataKey === "frontendShare") return -1;
+    if (b.dataKey === "frontendShare") return 1;
+    return 0;
+  });
+
+  return (
+    <div className="min-w-[9.5rem] rounded-lg border border-border/50 bg-background px-2.5 py-1.5 text-xs shadow-xl">
+      <p className="mb-1.5 font-medium text-foreground">{label}</p>
+      <div className="grid gap-1">
+        {sorted.map((entry) => {
+          const key = String(entry.dataKey ?? "");
+          const trackLabel =
+            TRACK_ALLOCATION_LABELS[
+              key as keyof typeof TRACK_ALLOCATION_LABELS
+            ] ?? key;
+          const swatchColor =
+            key === "frontendShare"
+              ? TRACK_ALLOCATION_COLORS.frontend
+              : TRACK_ALLOCATION_COLORS.backend;
+
+          return (
+            <div
+              key={key}
+              className="flex items-center justify-between gap-4 leading-none"
+            >
+              <span className="flex items-center gap-1.5 text-muted-foreground">
+                <span
+                  className="size-2.5 shrink-0 rounded-[2px]"
+                  style={{ backgroundColor: swatchColor }}
+                />
+                {trackLabel}
+              </span>
+              <span className="font-mono font-medium tabular-nums text-foreground">
+                {entry.value}%
+              </span>
+            </div>
+          );
+        })}
+      </div>
+    </div>
+  );
+}
+
 function StatCard({ label, value }: { label: string; value: number }) {
   return (
     <Card>
@@ -726,15 +820,19 @@ function TrackAllocationCard({
         </CardTitle>
       </CardHeader>
       <CardContent className="flex flex-col gap-2 pt-0">
-        <div className="flex h-2 overflow-hidden rounded-full bg-muted">
-          <div
-            className="bg-[hsl(var(--chart-1))]"
-            style={{ width: `${row.frontendShare}%` }}
-          />
-          <div
-            className="bg-[hsl(var(--chart-2))]"
-            style={{ width: `${row.backendShare}%` }}
-          />
+        <div className="[--track-allocation-frontend:oklch(0.58_0.19_255)] [--track-allocation-backend:oklch(0.72_0.16_62)] dark:[--track-allocation-frontend:oklch(0.7_0.15_255)] dark:[--track-allocation-backend:oklch(0.78_0.13_62)]">
+          <div className="flex h-2.5 overflow-hidden rounded-full bg-muted ring-1 ring-border/60">
+            <div
+              className="border-r-2 border-background bg-(--track-allocation-frontend)"
+              style={{ width: `${row.frontendShare}%` }}
+              title={`Frontend ${row.frontendShare}%`}
+            />
+            <div
+              className="bg-(--track-allocation-backend)"
+              style={{ width: `${row.backendShare}%` }}
+              title={`Backend ${row.backendShare}%`}
+            />
+          </div>
         </div>
         <p className="text-xs text-muted-foreground">
           {row.questionCount} questions · FE {row.frontendHits} / BE{" "}
