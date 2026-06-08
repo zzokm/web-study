@@ -85,6 +85,7 @@ export type ReportLocationId =
   | "mock_exam"
   | "repetitive"
   | "saved"
+  | "written"
   | "by_exam"
   | "by_lecture";
 

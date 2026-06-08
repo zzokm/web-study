@@ -588,12 +588,18 @@ function PracticeSessionInner({
   );
 
   const handleFinish = useCallback(() => {
-    finishSession(progress);
-  }, [finishSession, progress]);
+    let finalProgress = progress;
+    if (question && !revealed) {
+      finalProgress = patchQuestionShownCleared(progress, question.questionKey);
+      patchProgress(() => finalProgress);
+    }
+    finishSession(finalProgress);
+  }, [finishSession, progress, question, revealed, patchProgress]);
 
   const handleSkip = useCallback(
     (source: InteractionSource = "click") => {
       if (!question || examSimulation || revealed) return;
+      if (index >= questions.length - 1) return;
 
       trackAnalyticsEvent(AnalyticsEvents.practiceNext, {
         ...practiceBase(source),
@@ -601,19 +607,9 @@ function PracticeSessionInner({
         skipped: true,
       });
 
-      const isLast = index >= questions.length - 1;
-
-      patchProgress((prev) => {
-        const next = patchQuestionShownCleared(prev, question.questionKey);
-        if (isLast) {
-          finishSession(next);
-        }
-        return next;
-      });
-
-      if (!isLast) {
-        setIndex((i) => i + 1);
-      }
+      const next = patchQuestionShownCleared(progress, question.questionKey);
+      patchProgress(() => next);
+      setIndex((i) => i + 1);
     },
     [
       question,
@@ -621,9 +617,9 @@ function PracticeSessionInner({
       revealed,
       index,
       questions.length,
+      progress,
       patchProgress,
       practiceBase,
-      finishSession,
     ]
   );
 

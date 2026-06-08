@@ -7,6 +7,7 @@ import {
   seededFisherYates,
   type SeededRandom,
 } from "@/lib/seeded-random";
+import type { PracticeSetupConfigParams } from "@/lib/analytics-event-schemas";
 import type { Question } from "@/types/question";
 import type { WrittenPracticeTrack } from "@/lib/written-practice-filter";
 
@@ -235,7 +236,7 @@ export function applyDisplaySnapshot(
 
 export function practiceConfigAnalyticsParams(
   config: PracticeSessionConfig
-): Record<string, boolean> {
+): PracticeSetupConfigParams {
   return {
     shuffle_questions: config.shuffleQuestions,
     shuffle_mcq_options: config.shuffleMcqOptions,

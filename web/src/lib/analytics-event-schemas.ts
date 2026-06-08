@@ -49,6 +49,7 @@ export type PracticeSetupConfigParams = {
   shuffle_mcq_options?: boolean;
   show_session_timer?: boolean;
   exam_simulation?: boolean;
+  written_track?: "frontend" | "backend";
 };
 
 export type PracticeSetupStartMode = "start" | "resume" | "fresh";
@@ -138,7 +139,11 @@ export type AnalyticsEventMap = {
       correct: boolean;
       thinking_ms?: number;
     };
-  practice_next: PageContextParams & PracticeContextParams & QuestionParams;
+  practice_next: PageContextParams &
+    PracticeContextParams &
+    QuestionParams & {
+      skipped?: boolean;
+    };
   practice_previous: PageContextParams & PracticeContextParams & QuestionParams;
   practice_pause: PageContextParams &
     PracticeContextParams & {

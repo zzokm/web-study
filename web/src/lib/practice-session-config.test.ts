@@ -4,6 +4,7 @@ import { createSeededRandom } from "@/lib/seeded-random";
 import {
   configFromSessionKey,
   configStorageSuffix,
+  practiceConfigAnalyticsParams,
   preparePracticeQuestions,
   type PracticeSessionConfig,
 } from "@/lib/practice-session-config";
@@ -28,6 +29,27 @@ describe("written practice session config", () => {
     const canonical = canonicalPracticeSessionKey(getWrittenQuestions());
     const sessionKey = canonical + ":s1000";
     expect(configFromSessionKey(sessionKey, canonical)?.writtenTrack).toBe("both");
+  });
+
+  it("includes written track in analytics params when filtered", () => {
+    expect(
+      practiceConfigAnalyticsParams({
+        ...config,
+        writtenTrack: "backend",
+      })
+    ).toEqual({
+      shuffle_questions: true,
+      shuffle_mcq_options: false,
+      show_session_timer: true,
+      exam_simulation: false,
+      written_track: "backend",
+    });
+    expect(
+      practiceConfigAnalyticsParams({
+        ...config,
+        writtenTrack: "both",
+      }).written_track
+    ).toBeUndefined();
   });
 
   it("shuffles all-written pools when shuffle is enabled", () => {

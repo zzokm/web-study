@@ -188,6 +188,19 @@ export function PracticeSessionFooter({
                   <ChevronRightIcon className="size-4 shrink-0" />
                 </Button>
               ) : null
+            ) : isLast && !revealed && isWritten && onFinish ? (
+              <Button
+                type="button"
+                size="lg"
+                onClick={onFinish}
+                className={PRACTICE_FOOTER_BTN_CLASS}
+                aria-label="Finish and view results"
+              >
+                <span className="truncate sm:hidden">Finish</span>
+                <span className="hidden truncate sm:inline">
+                  Finish &amp; results
+                </span>
+              </Button>
             ) : isWritten && !revealed && onSkip ? (
               <Button
                 type="button"
