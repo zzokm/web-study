@@ -2678,7 +2678,7 @@
           {
             "id": "c",
             "type": "text",
-            "content": "The output will be: One is less than Two!",
+            "content": "The output will be: One is less than Two!\nOne is less than Two!",
             "codeLanguage": null
           },
           {

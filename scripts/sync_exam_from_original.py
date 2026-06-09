@@ -459,6 +459,9 @@ OPTION_FIXES: dict[str, dict[str, dict[str, str]]] = {
         "q80": {"c": "6"},
         "q55": {"a": "copy()"},
         "q86": {"d": "None of the above"},
+        "q75": {
+            "c": "The output will be: One is less than Two!\nOne is less than Two!",
+        },
     },
     "2025": {
         "q77": {
