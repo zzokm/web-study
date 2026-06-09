@@ -2070,9 +2070,9 @@
             "codeLanguage": null
           }
         ],
-        "correctAnswerId": "d",
+        "correctAnswerId": "c",
         "expectedAnswer": null,
-        "explanation": "Duplicates are removed, so the values are `{1, 2, 3, 5}`, but Python 3 prints sets with spaces after commas (e.g. `{1, 2, 3, 5}`). Option c omits those spaces, so none of the options match exactly.",
+        "explanation": "`Y` is a set, so duplicate values are removed. `print(Y)` outputs the unique elements `{1, 2, 3, 5}`, which matches option c. Spacing after commas in the printed representation is not required to match exactly.",
         "relatedTopics": [
           "be-2"
         ]

@@ -65,7 +65,8 @@ EXPLANATION_FIXES: dict[str, str] = {
     ),
     "q65": (
         "`Y` is a set, so duplicate values are removed. `print(Y)` outputs "
-        "`{1, 2, 3, 5}` (spacing may vary), which matches option c."
+        "the unique elements `{1, 2, 3, 5}`, which matches option c. Spacing "
+        "after commas in the printed representation is not required to match exactly."
     ),
     "q67": (
         "`car.get(\"color\", \"red\")` returns the default string `\"red\"` "

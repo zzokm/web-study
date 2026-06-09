@@ -495,8 +495,8 @@ a. {1,1,2,3,3,5}
 b. tuple(1,2,3,5)
 c. {1,2,3,5}
 d. None of the answers!
-ANSWER: D
-EXPLANATION: Duplicates are removed, so the values are `{1, 2, 3, 5}`, but Python 3 prints sets with spaces after commas (e.g. `{1, 2, 3, 5}`). Option c omits those spaces, so none of the options match exactly.
+ANSWER: C
+EXPLANATION: `Y` is a set, so duplicate values are removed. `print(Y)` outputs the unique elements `{1, 2, 3, 5}`, which matches option c. Spacing after commas in the printed representation is not required to match exactly.
 
 66. What does {{ name }} this mean in Django Templates?
 a. {{name}} will be the output.
