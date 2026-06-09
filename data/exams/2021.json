@@ -2318,12 +2318,12 @@
       {
         "id": "q58",
         "type": "multiple_choice",
-        "questionText": "58. In the following Python statements:\nif 2 < 1:\n  print(\"Two is less than one!\")\nprint(\"Two is less than one!\")\n   Two is less than one!",
+        "questionText": "58. In the following Python statements:\nif 2 < 1:\n  print(\"Two is less than one!\")\nprint(\"Two is less than one!\")",
         "options": [
           {
             "id": "a",
             "type": "text",
-            "content": "The output will be: Two is less than one!",
+            "content": "The output will be: Two is less than one!\nTwo is less than one!",
             "codeLanguage": null
           },
           {

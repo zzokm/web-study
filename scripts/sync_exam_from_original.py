@@ -427,6 +427,9 @@ OPTION_FIXES: dict[str, dict[str, dict[str, str]]] = {
         "q13": {"c": "text-align"},
         "q32": {"c": "forloop.counter"},
         "q35": {"a": "django-admin startproject"},
+        "q58": {
+            "a": "The output will be: Two is less than one!\nTwo is less than one!",
+        },
         "q59": {"d": "Error!"},
         "q63": {"a": "X*, Y*"},
         "q64": {"a": "X*, Y"},
@@ -470,6 +473,7 @@ QUESTION_TEXT_FIXES: dict[str, dict[str, str]] = {
         "q18": "18. Which of the following lines of JavaScript code will change the HTML inside of an element with the attribute id=\"myElement\" to \"CS 105\"?",
         "q19": "19. If the function print() has been defined that prints the value passed in as the parameter to it, how many times is \"Hello\" printed?",
         "q20": "20. If the initial value of x (set on Line #1) is now 5 instead of 20, how many times is \"Hello\" printed?",
+        "q58": "58. In the following Python statements:\nif 2 < 1:\n  print(\"Two is less than one!\")\nprint(\"Two is less than one!\")",
         "q75": "75. var a = 200; var b = \"200\"; a == b will return true while a === b will return false?",
         "q79": "79. In the following statement: myNumbers = {1, 2, 3}; x = myNumbers.pop(); The removed item will be 3.",
     },
