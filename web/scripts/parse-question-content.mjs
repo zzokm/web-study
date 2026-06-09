@@ -158,9 +158,51 @@ function isTrailingProseLine(line) {
   return TRAILING_PROSE_RES.some((pattern) => pattern.test(trimmed));
 }
 
+/** MCQ / T-F answer lines duplicated at the end of exam questionText (e.g. `a. True`). */
+function isEmbeddedOptionLine(line) {
+  return /^[a-d]\.\s+\S/i.test(line.trim());
+}
+
+/** Remove trailing `a.`–`d.` option lines when they duplicate structured answer choices. */
+export function stripEmbeddedOptionsFromQuestionText(questionText) {
+  if (!questionText?.includes("\n")) return questionText;
+
+  const lines = questionText.replace(/\r\n/g, "\n").split("\n");
+  let end = lines.length;
+  while (end > 0 && isEmbeddedOptionLine(lines[end - 1])) {
+    end -= 1;
+  }
+
+  const optionLines = lines.slice(end);
+  if (optionLines.length < 2 || optionLines.length > 4) {
+    return questionText;
+  }
+  if (!optionLines.every(isEmbeddedOptionLine)) {
+    return questionText;
+  }
+
+  return lines.slice(0, end).join("\n").replace(/\n+$/, "");
+}
+
+function looksLikeProseSentence(line) {
+  const trimmed = line.trim();
+  if (trimmed.length < 40) return false;
+  if (trimmed.split(/\s+/).length < 8) return false;
+  if (
+    /^(In|The|When|If|For|To|A|An|We|You|Django|Python|CSS|HTML|AJAX)\b/.test(
+      trimmed
+    )
+  ) {
+    return true;
+  }
+  return /\b(the|will|is|are|when|from|not|can|has|have|using)\b/i.test(trimmed);
+}
+
 function looksLikeCode(line) {
   const trimmed = line.trim();
   if (!trimmed) return false;
+  if (isEmbeddedOptionLine(trimmed)) return false;
+  if (looksLikeProseSentence(trimmed)) return false;
   if (/<!DOCTYPE|<html|<head|<body|<script|<style|<\/\w/i.test(trimmed)) {
     return true;
   }
@@ -178,7 +220,7 @@ function looksLikeCode(line) {
   if (/=\s*[\[{("'0-9]|=\s*\w+\s*\(/.test(trimmed)) return true;
   if (/^\s*[}\])],?\s*$/.test(trimmed)) return true;
   if (
-    /\w\s*\([^)]*\)/.test(trimmed) &&
+    /^(?:[\w$]+\s*\(|new\s+[\w$]+\s*\()/.test(trimmed) &&
     !PROMPT_INTRO_RE.test(trimmed) &&
     !/\?$/.test(trimmed)
   ) {
@@ -216,11 +258,13 @@ export function parseWrittenQuestionText(questionText) {
 export function parseQuestionText(questionText) {
   if (!questionText) return [];
 
-  if (!questionText.includes("\n")) {
-    return [{ type: "text", content: questionText }];
+  const strippedText = stripEmbeddedOptionsFromQuestionText(questionText);
+
+  if (!strippedText.includes("\n")) {
+    return [{ type: "text", content: strippedText }];
   }
 
-  const lines = splitQuestionLines(questionText);
+  const lines = splitQuestionLines(strippedText);
 
   let end = lines.length;
   while (end > 0 && isTrailingProseLine(lines[end - 1])) {
@@ -231,12 +275,12 @@ export function parseQuestionText(questionText) {
   const bodyLines = lines.slice(0, end);
 
   if (bodyLines.length === 0) {
-    return [{ type: "text", content: questionText }];
+    return [{ type: "text", content: strippedText }];
   }
 
   const codeStart = findCodeStart(bodyLines);
   if (codeStart === -1) {
-    return [{ type: "text", content: questionText }];
+    return [{ type: "text", content: strippedText }];
   }
 
   const promptLines = bodyLines.slice(0, codeStart);
@@ -250,7 +294,7 @@ export function parseQuestionText(questionText) {
   const code = cleanExamCode(bodyLines.slice(codeStart).join("\n"), inferred);
 
   if (!code) {
-    return [{ type: "text", content: questionText }];
+    return [{ type: "text", content: strippedText }];
   }
 
   const segments = [];
@@ -258,7 +302,7 @@ export function parseQuestionText(questionText) {
   if (prompt) {
     segments.push({
       type: "text",
-      content: withQuestionPrefix(questionText, prompt),
+      content: withQuestionPrefix(strippedText, prompt),
     });
   }
 
