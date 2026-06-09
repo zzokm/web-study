@@ -439,6 +439,7 @@ OPTION_FIXES: dict[str, dict[str, dict[str, str]]] = {
         "q80": {"a": "True", "b": "False"},
     },
     "2024": {
+        "q2": {"b": "admin.py"},
         "q9": {"d": "innerHTML"},
         "q14": {"d": "const constant_name = value;"},
         "q15": {"d": "TypeError"},

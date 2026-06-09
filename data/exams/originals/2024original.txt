@@ -20,7 +20,7 @@ EXPLANATION: Django uses the MVT (Model-View-Template) pattern, matching option 
 
 2. For a model to be visible in the admin interface it has to be registered in which file?
 a. settings.py
-b. admin.py using admin.site.register(Model_name)
+b. admin.py
 c. views.py
 d. None of the previous
 ANSWER: B

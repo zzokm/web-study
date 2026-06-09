@@ -63,7 +63,7 @@
           {
             "id": "b",
             "type": "text",
-            "content": "admin.py using admin.site.register(Model_name)",
+            "content": "admin.py",
             "codeLanguage": null
           },
           {
