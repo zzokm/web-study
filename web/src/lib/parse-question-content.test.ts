@@ -79,9 +79,9 @@ describe("parseQuestionText", () => {
     expect(JSON.stringify(segments)).not.toMatch(/a\. True|b\. False/);
   });
 
-  it("still splits multiline code questions without embedded options", () => {
+  it("still splits multiline output-style code questions without embedded options", () => {
     const codeQuestion =
-      "21. In the following statement:\nmyNumbers = [1,2,3]\nx = myNumbers.pop()\nThe removed item will be 1";
+      "21. What will be the output of the following Python code?\nmyNumbers = [1,2,3]\nprint(myNumbers.pop())";
     const segments = parseQuestionText(codeQuestion);
     expect(segments.some((s) => s.type === "code")).toBe(true);
   });
@@ -95,5 +95,40 @@ describe("parseQuestionText", () => {
           '18. Which of the following lines of JavaScript code will change the HTML inside of an element with the attribute id="myElement" to "CS 105"?',
       },
     ]);
+  });
+
+  it("keeps full Python lambda assignment in the code block (2021 Q61)", () => {
+    const segments = parseQuestionText(
+      "61. y = lambda x: x / 20\nprint(y(100))\nThe above statement will return:"
+    );
+    expect(segments).toHaveLength(3);
+    expect(segments[0]?.type).toBe("text");
+    expect(segments[0]?.content).toBe("61.");
+    expect(segments[1]?.type).toBe("code");
+    expect(segments[1]?.content).toBe("y = lambda x: x / 20\nprint(y(100))");
+    expect(segments[1]?.codeLanguage).toBe("python");
+    expect(segments[2]?.content).toBe("The above statement will return:");
+  });
+
+  it("splits inline const after statement prompt (2024 Q64)", () => {
+    const segments = parseQuestionText(
+      "64. If you have the following JavaScript statement: const f = (a, b) => a + b + 5;"
+    );
+    expect(segments).toHaveLength(2);
+    expect(segments[0]?.content).toBe(
+      "64. If you have the following JavaScript statement:"
+    );
+    expect(segments[1]?.type).toBe("code");
+    expect(segments[1]?.content).toBe("const f = (a, b) => a + b + 5;");
+  });
+
+  it("starts multiline code at x = { assignments (2021 Q59)", () => {
+    const segments = parseQuestionText(
+      '59. x = {\n  "name": "Ahmed"\n}\nprint(x)\nThe above print will return:'
+    );
+    expect(segments.some((s) => s.type === "code")).toBe(true);
+    expect(segments.find((s) => s.type === "code")?.content).toMatch(
+      /^x = \{/
+    );
   });
 });

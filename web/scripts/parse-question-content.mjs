@@ -103,7 +103,12 @@ export function inferLanguageFromCode(code) {
   if (/<!DOCTYPE\s+html/i.test(sample) || /<html[\s>]/i.test(sample)) {
     return "html";
   }
-  if (/^\s*def\s+\w+\s*\(/m.test(sample) || /^\s*import\s+\w+/m.test(sample)) {
+  if (
+    /^\s*def\s+\w+\s*\(/m.test(sample) ||
+    /^\s*import\s+\w+/m.test(sample) ||
+    /\blambda\b/.test(sample) ||
+    /^\s*print\s*\(/m.test(sample)
+  ) {
     return "python";
   }
   if (
@@ -127,6 +132,10 @@ export function inferLanguageFromPrompt(prompt) {
 
 const PROMPT_INTRO_RE =
   /\b(in the following|what will|what is|what are|identify the error|consider the following|the output of the following|which of the following|how many|following python|following javascript|following java\s*script|following function|following statement|following code|following css)\b/i;
+
+/** Stems that should render an executable code block (not inline statement T/F). */
+const OUTPUT_CODE_PROMPT_RE =
+  /\b(what will|what is the output|output of the following|following python code|following javascript|following java\s*script|following code|code snippet|code print|the following python|the following javascript)\b/i;
 
 const TRAILING_PROSE_RES = [
   /^The\s+(output will be|removed item|above|following)/i,
@@ -239,14 +248,15 @@ function looksLikeCode(line) {
     return true;
   }
   if (
-    /^(var|let|const|function|print|Print|def|import|class|if|for|while|try|catch|return|async|await|console\.|document\.|delete|eval|new |typeof|yield|car\s*=|y\s*=|x\s*=)\b/i.test(
+    /^(var|let|const|function|print|Print|def|import|class|if|for|while|try|catch|return|async|await|console\.|document\.|delete|eval|new |typeof|yield|lambda)\b/i.test(
       trimmed
     )
   ) {
     return true;
   }
+  if (/^(?:car|y|x)\s*=/i.test(trimmed)) return true;
   if (/[;{}]$/.test(trimmed)) return true;
-  if (/=\s*[\[{("'0-9]|=\s*\w+\s*\(/.test(trimmed)) return true;
+  if (/=\s*[\[{("'0-9]|=\s*\w+\s*\(|=\s*lambda\b/.test(trimmed)) return true;
   if (/^\s*[}\])],?\s*$/.test(trimmed)) return true;
   if (
     /^(?:[\w$]+\s*\(|new\s+[\w$]+\s*\()/.test(trimmed) &&
@@ -278,6 +288,18 @@ function findCodeStart(lines) {
   return -1;
 }
 
+/** Prompt ending with a colon, then inline code on the same line (e.g. 2024 Q64). */
+function splitInlineCodeAfterPrompt(singleLine) {
+  const match = singleLine.match(
+    /^(\s*\d+\.\s+.*?\b(?:statement|statements|code|snippet|function))\s*:\s*(.+)$/i
+  );
+  if (!match) return null;
+  const prompt = match[1].trim();
+  const codePart = match[2].trim();
+  if (!looksLikeCode(codePart)) return null;
+  return { prompt, codePart };
+}
+
 /** Written coding prompts — always plain text (no code-block splitting). */
 export function parseWrittenQuestionText(questionText) {
   if (!questionText) return [];
@@ -290,6 +312,18 @@ export function parseQuestionText(questionText) {
   const strippedText = normalizeExamQuestionText(questionText);
 
   if (!strippedText.includes("\n")) {
+    const inline = splitInlineCodeAfterPrompt(strippedText);
+    if (inline) {
+      const inferred =
+        inferLanguageFromPrompt(inline.prompt) ??
+        inferLanguageFromCode(inline.codePart) ??
+        "javascript";
+      const code = cleanExamCode(inline.codePart, inferred);
+      return [
+        { type: "text", content: `${inline.prompt}:` },
+        { type: "code", content: code, codeLanguage: inferred },
+      ];
+    }
     return [{ type: "text", content: strippedText }];
   }
 
@@ -309,6 +343,10 @@ export function parseQuestionText(questionText) {
 
   const codeStart = findCodeStart(bodyLines);
   if (codeStart === -1) {
+    return [{ type: "text", content: strippedText }];
+  }
+
+  if (codeStart > 0 && !OUTPUT_CODE_PROMPT_RE.test(strippedText)) {
     return [{ type: "text", content: strippedText }];
   }
 
@@ -333,6 +371,11 @@ export function parseQuestionText(questionText) {
       type: "text",
       content: withQuestionPrefix(strippedText, prompt),
     });
+  } else {
+    const numberPrefix = strippedText.match(/^(\s*\d+\.)/)?.[1]?.trim();
+    if (numberPrefix) {
+      segments.push({ type: "text", content: numberPrefix });
+    }
   }
 
   segments.push({ type: "code", content: code, codeLanguage: inferred });
