@@ -100,7 +100,7 @@ Counts use `relatedTopics` lecture allocation — one question may count toward 
 - **True / false:** 49 (17.3%)
 - **Multiple choice:** 234
 - **Fill-in-the-blank stems:** 19
-- **T/F with negation wording:** 34 (69% of T/F)
+- **T/F with negation wording:** 7 (14% of T/F)
 - **Shared code context blocks:** 37
 - **Code answer choices:** 5
 
