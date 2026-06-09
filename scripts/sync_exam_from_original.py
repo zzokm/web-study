@@ -378,8 +378,10 @@ EXPLANATION_FIXES: dict[str, dict[str, str]] = {
         "q52": "Sets in Python do not allow duplicate values. Adding \"apple\" when it already exists has no effect. The length remains 3.",
         "q84": "The `nodeType` property returns an integer. For an element node (like the `<h2>` targeted here), `nodeType` is `1`.",
         "q86": "`:first-child` matches only when an element is the first child of its parent. Under `<body>`, `<h2>` is the first child, not any `<p>`, so none match.",
+        "q63": "Inline CSS is the correct modern approach: use the `style` attribute with `property: value` pairs. Options c and d are both valid HTML/CSS; a trailing semicolon after the last declaration is optional (lecture slide 14, Inline CSS, shows it).",
     },
     "2021": {
+        "q12": "False. The CSS `font` shorthand does not require `font-style` before `font-weight`. `font-style`, `font-variant`, and `font-weight` can appear in any order, as long as they all come before `font-size` and `font-family`.",
         "q3": "HTTP 304 is Not Modified; Not Found is 404, so 304 - Not Found is the odd pair.",
         "q13": "The deprecated `<center>` tag centered inline content. The CSS equivalent is the `text-align` property (e.g., `text-align: center`).",
         "q19": "With `x = 20`, the condition `x < 10` is false immediately, so the `while` loop body never runs and \"Hello\" is printed 0 times.",

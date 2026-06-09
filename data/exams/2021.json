@@ -472,7 +472,7 @@
         ],
         "correctAnswerId": "b",
         "expectedAnswer": null,
-        "explanation": "False. In the CSS shorthand `font` property, the sub-properties `font-style`, `font-variant`, and `font-weight` are entirely interchangeable in their order, as long as they all appear before `font-size`.",
+        "explanation": "False. The CSS `font` shorthand does not require `font-style` before `font-weight`. `font-style`, `font-variant`, and `font-weight` can appear in any order, as long as they all come before `font-size` and `font-family`.",
         "relatedTopics": [
           "fe-4"
         ]

@@ -181,11 +181,30 @@ export function getStats() {
   };
 }
 
+/** MCQ keys where more than one option id is graded correct (exam key kept as primary). */
+export const ALTERNATE_CORRECT_ANSWERS: Record<string, readonly string[]> = {
+  "2024:block_3:q63": ["c", "d"],
+};
+
 export function isAnswerCorrect(
   selectedId: string,
-  correctAnswerId: string
+  correctAnswerId: string,
+  questionKey?: string
 ): boolean {
-  return selectedId.trim().toLowerCase() === correctAnswerId.trim().toLowerCase();
+  const sel = selectedId.trim().toLowerCase();
+  if (questionKey) {
+    const alternates = ALTERNATE_CORRECT_ANSWERS[questionKey];
+    if (alternates?.some((id) => id === sel)) return true;
+  }
+  return sel === correctAnswerId.trim().toLowerCase();
+}
+
+export function isOptionCorrect(optionId: string, question: Question): boolean {
+  return isAnswerCorrect(
+    optionId,
+    question.correctAnswerId,
+    question.questionKey
+  );
 }
 
 export function isWrittenQuestion(question: Question): boolean {

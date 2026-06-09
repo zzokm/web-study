@@ -2,7 +2,7 @@
 
 import type { Question } from "@/types/question";
 import { mcqOptionDisplayLabel } from "@/lib/mcq-options";
-import { isAnswerCorrect } from "@/lib/questions";
+import { isOptionCorrect } from "@/lib/questions";
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
@@ -62,7 +62,7 @@ export function QuestionCard({
       );
     }
 
-    const isCorrect = isAnswerCorrect(optionId, question.correctAnswerId);
+    const isCorrect = isOptionCorrect(optionId, question);
     if (isCorrect) {
       return cn(
         "shrink-0 border-green-600 bg-background text-green-600 dark:bg-background",
@@ -88,7 +88,7 @@ export function QuestionCard({
       return "";
     }
 
-    const isCorrect = isAnswerCorrect(optionId, question.correctAnswerId);
+    const isCorrect = isOptionCorrect(optionId, question);
 
     if (isCorrect) {
       return cn(

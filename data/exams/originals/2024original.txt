@@ -635,7 +635,7 @@ b. <body bg-color="green">
 c. <body style="background-color: green">
 d. <body style="background-color: green;">
 ANSWER: C
-EXPLANATION: Inline CSS is the correct modern approach. You utilize the `style` attribute and correctly pair the `background-color` property with the value using a colon separator.
+EXPLANATION: Inline CSS is the correct modern approach: use the `style` attribute with `property: value` pairs. Options c and d are both valid HTML/CSS; a trailing semicolon after the last declaration is optional (lecture slide 14, Inline CSS, shows it).
 
 64. If you have the following JavaScript statement: const f = (a, b) => a + b + 5;
 a. f(3,4) will return 7

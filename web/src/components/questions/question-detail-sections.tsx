@@ -7,7 +7,7 @@ import { OptionContent } from "@/components/code/question-content";
 import { mcqOptionDisplayLabel } from "@/lib/mcq-options";
 import {
   getCorrectAnswerDisplay,
-  isAnswerCorrect,
+  isOptionCorrect,
   isWrittenQuestion,
 } from "@/lib/questions";
 import { inferWrittenEditorLanguage } from "@/lib/written-question-utils";
@@ -36,9 +36,9 @@ interface QuestionDetailSectionsProps {
 
 function browseRevealOptionClass(
   optionId: string,
-  correctAnswerId: string
+  question: Question
 ): string {
-  if (isAnswerCorrect(optionId, correctAnswerId)) {
+  if (isOptionCorrect(optionId, question)) {
     return cn(
       "border-green-600 bg-green-500/15 ring-2 ring-green-600/80",
       "text-green-900 dark:text-green-100"
@@ -58,7 +58,7 @@ function BrowseAnswerOptions({ question }: { question: Question }) {
             key={opt.id}
             className={cn(
               "flex flex-1 items-center justify-center rounded-lg border px-4 py-3 text-sm font-medium",
-              browseRevealOptionClass(opt.id, question.correctAnswerId)
+              browseRevealOptionClass(opt.id, question)
             )}
           >
             {opt.content}
@@ -75,7 +75,7 @@ function BrowseAnswerOptions({ question }: { question: Question }) {
           key={opt.id}
           className={cn(
             "flex items-center gap-3 rounded-lg border p-3",
-            browseRevealOptionClass(opt.id, question.correctAnswerId)
+            browseRevealOptionClass(opt.id, question)
           )}
         >
           <span className="shrink-0 text-sm font-medium uppercase tabular-nums">

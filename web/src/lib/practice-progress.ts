@@ -438,7 +438,11 @@ export function isAttemptCorrect(
   if (!attempt.revealed) return false;
   if (isWrittenQuestion(question)) return attempt.writtenCorrect === true;
   if (!attempt.selectedId) return false;
-  return isAnswerCorrect(attempt.selectedId, question.correctAnswerId);
+  return isAnswerCorrect(
+    attempt.selectedId,
+    question.correctAnswerId,
+    question.questionKey
+  );
 }
 
 export function isAttemptWrong(
@@ -448,7 +452,11 @@ export function isAttemptWrong(
   if (!attempt.revealed) return false;
   if (isWrittenQuestion(question)) return attempt.writtenCorrect === false;
   if (!attempt.selectedId) return false;
-  return !isAnswerCorrect(attempt.selectedId, question.correctAnswerId);
+  return !isAnswerCorrect(
+    attempt.selectedId,
+    question.correctAnswerId,
+    question.questionKey
+  );
 }
 
 export function computePracticeScore(
