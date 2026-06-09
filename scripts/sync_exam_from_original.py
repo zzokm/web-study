@@ -99,7 +99,7 @@ def parse_2021(orig: str) -> tuple[dict[int, ParsedQuestion], dict[int, ParsedQu
     tf_start = orig.index("Question TWO")
     mcq_text = orig[mcq_start:tf_start]
     tf_text = orig[tf_start:]
-    mcq = _parse_sequential(mcq_text, "ABCD", 1, 73)
+    mcq = _parse_sequential(mcq_text, "ABCDE", 1, 73)
     tf = _parse_sequential(tf_text, "ABCD", 74, 80)
     # TF questions have no ABCD - reparse as statement only
     tf_stmts: dict[int, ParsedQuestion] = {}

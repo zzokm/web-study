@@ -1081,7 +1081,7 @@
       {
         "id": "q27",
         "type": "multiple_choice",
-        "questionText": "27. What will the following Python code print?\nlst = []\nnums = [15, 6]\nlst.append(nums)\nnums = [10, 30, 20]\nlst.append(nums)\nlst.sort()\nprint(lst)\nE. [[10, 20, 30], [6, 15]]",
+        "questionText": "27. What will the following Python code print?\nlst = []\nnums = [15, 6]\nlst.append(nums)\nnums = [10, 30, 20]\nlst.append(nums)\nlst.sort()\nprint(lst)",
         "options": [
           {
             "id": "a",
@@ -1110,7 +1110,7 @@
           {
             "id": "e",
             "type": "text",
-            "content": "[[10, 20, 30]]",
+            "content": "[[10, 20, 30], [6, 15]]",
             "codeLanguage": null
           }
         ],
