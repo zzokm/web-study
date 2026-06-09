@@ -680,7 +680,7 @@
       {
         "id": "q18",
         "type": "multiple_choice",
-        "questionText": "18. Which of the following lines of JavaScript code will change the HTML inside of an element with the attribute id=\"myElement\" to \"CS 105\"?",
+        "questionText": "18. Which of the following lines of JavaScript code will change the HTML inside of an element with the attribute id=\"myElement\" to \"CS 105\"?\nFor the next two questions, consider the following code:\nvar x = 20;\nwhile (x < 10) {\n  print(\"Hello\");\n  x *= 2;\n}",
         "options": [
           {
             "id": "a",
@@ -776,7 +776,7 @@
       {
         "id": "q20",
         "type": "multiple_choice",
-        "questionText": "20. If the initial value of x (set on Line #1) is now 5 instead of 20, how many times is \"Hello\" printed?",
+        "questionText": "20. If the initial value of x (set on Line #1) is now 5 instead of 20, how many times is \"Hello\" printed?\nFor the next two questions, consider the following code:\nfunction foo(x) {\n  var ct = 0;\n  for (var i = 0; i < x.length; i++) {\n    if (x[i] >= 70) {\n      ct++;\n    }\n  }\n  return ct;\n}",
         "options": [
           {
             "id": "a",
@@ -894,7 +894,7 @@
         ],
         "correctAnswerId": "d",
         "expectedAnswer": null,
-        "explanation": "The full function increments `ct` (a counter) and returns it, so the return value is always a number. It may be 0 when no element is >= 70, so A and B are false.",
+        "explanation": "The full function increments `ct` and returns it, so the return value is always a number. It may be 0 when no element is >= 70.",
         "relatedTopics": [
           "fe-5"
         ]
@@ -1316,7 +1316,7 @@
         ],
         "correctAnswerId": "c",
         "expectedAnswer": null,
-        "explanation": "Inside a `{% for %}` loop, `forloop.counter` is a valid attribute (accessed without parentheses). The exam option incorrectly wrote `forloop.counter()`.",
+        "explanation": "`forloop.counter` is valid in Django templates; attributes are not called with parentheses.",
         "relatedTopics": [
           "be-7"
         ]
@@ -1428,7 +1428,7 @@
         ],
         "correctAnswerId": "a",
         "expectedAnswer": null,
-        "explanation": "A new Django project is created with `django-admin startproject <project_name>`. The exam option listed only `Project`, which is the argument name, not the command.",
+        "explanation": "Create a project with `django-admin startproject <name>`, not the bare word `Project`.",
         "relatedTopics": [
           "be-5"
         ]
@@ -1832,7 +1832,7 @@
         ],
         "correctAnswerId": "d",
         "expectedAnswer": null,
-        "explanation": "HTTP 200 means OK. With authorization in play, a 200 response indicates the credentials were accepted and the user is authorized to see the response.",
+        "explanation": "HTTP 200 with authorization means the user is authorized to see the response.",
         "relatedTopics": [
           "fe-1",
           "be-4"
@@ -2318,7 +2318,7 @@
       {
         "id": "q58",
         "type": "multiple_choice",
-        "questionText": "58. In the following Python statements:\nif 2 < 1:\n  print(\"Two is less than one!\")\nprint(\"Two is less than one!\")",
+        "questionText": "58. In the following Python statements:\nif 2 < 1:\n  print(\"Two is less than one!\")\nprint(\"Two is less than one!\")\n   Two is less than one!",
         "options": [
           {
             "id": "a",
@@ -2347,7 +2347,7 @@
         ],
         "correctAnswerId": "c",
         "expectedAnswer": null,
-        "explanation": "`2 < 1` is false, so the indented `print` under `if` is skipped. The second, unindented `print` still runs and outputs `Two is less than one!` once with no error.",
+        "explanation": "`2 < 1` is false, so the indented `print` under `if` is skipped. The second, unindented `print` still runs once.",
         "relatedTopics": [
           "be-2"
         ]
@@ -2384,7 +2384,7 @@
         ],
         "correctAnswerId": "c",
         "expectedAnswer": null,
-        "explanation": "Dictionaries strictly forbid duplicate keys. When multiple keys with identical names are evaluated during initialization, the trailing value seamlessly overwrites the preceding value.",
+        "explanation": "Dictionaries forbid duplicate keys; the last `mobile` value wins.",
         "relatedTopics": [
           "be-2"
         ]
@@ -2458,7 +2458,7 @@
         ],
         "correctAnswerId": "c",
         "expectedAnswer": null,
-        "explanation": "`100 / 20` evaluates to `5.0` in Python 3 (or `5` in Python 2). Option C is the intended answer here.",
+        "explanation": "`100 / 20` evaluates to `5.0` in Python 3. Option C is the intended answer.",
         "relatedTopics": [
           "be-2"
         ]
@@ -2548,7 +2548,7 @@
         ],
         "correctAnswerId": "a",
         "expectedAnswer": null,
-        "explanation": "Inside the block, `var X` is reassigned to `X*` (function-scoped) and `let Y` is shadowed to `Y*`, so `console.log(X, Y)` prints `X*, Y*`.",
+        "explanation": "Inside the block, `var X` becomes `X*` and inner `let Y` is `Y*`, so the log is `X*, Y*`.",
         "relatedTopics": [
           "fe-5",
           "fe-6"
@@ -2586,7 +2586,7 @@
         ],
         "correctAnswerId": "a",
         "expectedAnswer": null,
-        "explanation": "After the block, function-scoped `X` stays `X*`, while block-scoped inner `Y` is gone and outer `Y` is `Y`. The two `console.log` calls therefore output `X*` then `Y`.",
+        "explanation": "After the block, function-scoped `X` stays `X*` while outer `Y` is restored, so the logs are `X*` then `Y`.",
         "relatedTopics": [
           "fe-5",
           "fe-6"
@@ -2750,7 +2750,7 @@
         ],
         "correctAnswerId": "a",
         "expectedAnswer": null,
-        "explanation": "With no arguments, `x` is `undefined` and `arguments.length` is 0. `typeof undefined` returns the lowercase string `\"undefined\"` (option A uses capital U for readability).",
+        "explanation": "With no arguments, `x` is `undefined` and `arguments.length` is 0.",
         "relatedTopics": [
           "fe-5"
         ]
@@ -2880,7 +2880,7 @@
         ],
         "correctAnswerId": "c",
         "expectedAnswer": null,
-        "explanation": "Without the errors, the code resolves as `const x = {name:\"Ali\"}; x.name = \"Neamat\"; console.log(x.name)`. The property was updated successfully to \"Neamat\".",
+        "explanation": "Without the errors, `x.name` is updated to `\"Neamat\"` and logged successfully.",
         "relatedTopics": [
           "fe-5",
           "fe-6"
@@ -2984,7 +2984,7 @@
         ],
         "correctAnswerId": "a",
         "expectedAnswer": null,
-        "explanation": "Loose equality (`==`) coerces types; `200` equals `\"200\"`, but strict equality (`===`) evaluates to false as it compares both value and type.",
+        "explanation": "Loose equality (`==`) coerces types; `200` equals `\"200\"`, but strict equality (`===`) compares value and type.",
         "relatedTopics": [
           "fe-5"
         ]
@@ -3009,7 +3009,7 @@
         ],
         "correctAnswerId": "b",
         "expectedAnswer": null,
-        "explanation": "`isNaN(\"Hello\")` is true, but `isNaN(undefined)` is also true in JavaScript, making the second part of the statement incorrect.",
+        "explanation": "`isNaN(\"Hello\")` is true, but `isNaN(undefined)` is also true, so the second part of the statement is incorrect.",
         "relatedTopics": [
           "fe-5"
         ]
@@ -3034,7 +3034,7 @@
         ],
         "correctAnswerId": "a",
         "expectedAnswer": null,
-        "explanation": "An empty list evaluates as functionally 'falsy' in a Python boolean context.",
+        "explanation": "An empty list evaluates as falsy in a Python boolean context.",
         "relatedTopics": [
           "be-2"
         ]
@@ -3059,7 +3059,7 @@
         ],
         "correctAnswerId": "b",
         "expectedAnswer": null,
-        "explanation": "Sets are inherently unordered and explicitly *unindexed*.",
+        "explanation": "Sets are inherently unordered and explicitly unindexed.",
         "relatedTopics": [
           "be-2"
         ]
@@ -3084,7 +3084,7 @@
         ],
         "correctAnswerId": "b",
         "expectedAnswer": null,
-        "explanation": "Running `pop()` on a set removes a completely arbitrary element. For `{1, 2, 3}`, the removed item is not guaranteed to be 3 because sets are completely unordered.",
+        "explanation": "Running `pop()` on a set removes an arbitrary element; it is not guaranteed to be 3.",
         "relatedTopics": [
           "be-2"
         ]
@@ -3109,7 +3109,7 @@
         ],
         "correctAnswerId": "b",
         "expectedAnswer": null,
-        "explanation": "Standard parentheses actively define a Python Tuple, not a list (which relies on square brackets `[]`).",
+        "explanation": "Parentheses define a Python tuple, not a list (`[]`).",
         "relatedTopics": [
           "be-2"
         ]

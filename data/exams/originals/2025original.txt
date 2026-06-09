@@ -21,118 +21,186 @@ Total Marks in Writing: 60
 Part One: For each of the following statements please write down your answer in the bubble sheet:
 Question One: Write True or False [17 Marks]
 1. We use the put method in the HTTP request message for doing partial updates.
-ANSWER: False
+a. True
+b. False
+ANSWER: B
 EXPLANATION: The PUT method is designed to completely replace a target resource. For partial updates, the PATCH method is the correct standard.
 2. To determine the type of an object, we can use the "typeof" function in JavaScript.
-ANSWER: True
+a. True
+b. False
+ANSWER: A
 EXPLANATION: While technically `typeof` is an operator rather than a function (often written without parentheses like `typeof x`), it is widely accepted in basic web technology contexts as the primary way to determine a variable's type. Note: for specific object types, `instanceof` is more accurate, but `typeof` returns 'object'.
 3. CSS can be defined externally in a separate file by adding the <style> element inside the <head>.
-ANSWER: False
+a. True
+b. False
+ANSWER: B
 EXPLANATION: External CSS is linked using the `<link rel="stylesheet" href="...">` element. The `<style>` element is used exclusively for internal (embedded) CSS.
 4. var colors = (1:"red", 2:"green", 3:"blue") is one of the ways of defining an array in JavaScript.
-ANSWER: False
+a. True
+b. False
+ANSWER: B
 EXPLANATION: This syntax is entirely invalid in JavaScript. Arrays are defined using square brackets `[]` (e.g., `["red", "green", "blue"]`), and objects are defined using curly braces `{}`.
 5. Django views represents the presentation layer of Django.
-ANSWER: False
+a. True
+b. False
+ANSWER: B
 EXPLANATION: In Django's MVT (Model-View-Template) architecture, the View represents the business logic/controller layer. The Template represents the presentation layer.
 6. In Python, format function is used to format the datatypes of the output.
-ANSWER: False
+a. True
+b. False
+ANSWER: B
 EXPLANATION: The `format()` string method is used to control the string presentation and insert variables into string placeholders, not to change or format underlying data types themselves.
 7. In Python, A set is a collection which is both unordered and indexed.
-ANSWER: False
+a. True
+b. False
+ANSWER: B
 EXPLANATION: A set in Python is unordered and unindexed. You cannot access set items by referring to an index or a key.
 8. We can register models in the admin.py file to view it in the administration site of Django.
-ANSWER: True
+a. True
+b. False
+ANSWER: A
 EXPLANATION: Using `admin.site.register(ModelName)` inside `admin.py` is the standard way to make models visible and editable in the Django admin interface.
 9. "Post.Objects.all()" will retrieve all objects in the Post table.
-ANSWER: False
+a. True
+b. False
+ANSWER: B
 EXPLANATION: Python is case-sensitive. The correct syntax uses a lowercase 'o': `Post.objects.all()`.
 10. The super() function in python enables a class to have unlimited number of attributes.
-ANSWER: False
+a. True
+b. False
+ANSWER: B
 EXPLANATION: The `super()` function is used to return a proxy object that delegates method calls to a parent or sibling class, allowing inheritance. It has nothing to do with enabling an unlimited number of attributes.
 11. "migrate" command in Django is used to show the changes happened in the database.
-ANSWER: False
+a. True
+b. False
+ANSWER: B
 EXPLANATION: The `migrate` command applies the migrations to the database. To show changes or view migrations, commands like `showmigrations` or checking the output of `makemigrations` are used.
 12. In Python, to append elements from another list to the current list, use the update() method.
-ANSWER: False
+a. True
+b. False
+ANSWER: B
 EXPLANATION: Lists use the `extend()` method to append elements from an iterable. The `update()` method is used for sets and dictionaries.
 13. In Python, to add items from another set into the current set, use the extend() method.
-ANSWER: False
+a. True
+b. False
+ANSWER: B
 EXPLANATION: Sets use the `update()` method to add items from another set (or any iterable). `extend()` is used for lists.
 14. Tags and texts that are not directly displayed on the HTML page are written in title section.
-ANSWER: False
+a. True
+b. False
+ANSWER: B
 EXPLANATION: These tags are written in the `<head>` section, not the title section. The `<title>` is merely one element inside the head.
 15. If an application is running on Web Server Gateway Interface (WSGI), then it will handle client requests in a sequential manner.
-ANSWER: True
+a. True
+b. False
+ANSWER: A
 EXPLANATION: WSGI is generally synchronous and handles requests sequentially per worker. For asynchronous, non-blocking handling, ASGI is used.
 16. For a model to be visible in the admin interface it has to be registered in the settings.py file.
-ANSWER: False
+a. True
+b. False
+ANSWER: B
 EXPLANATION: Models must be registered in the `admin.py` file, not `settings.py`.
 17. In DOM, ChildNodes property returns elements and ignores text and comments.
-ANSWER: False
+a. True
+b. False
+ANSWER: B
 EXPLANATION: `childNodes` returns all node types, including text nodes (like whitespace) and comment nodes. The `children` property is what returns only element nodes.
 18. In python, a set is a collection which is unordered and unindexed.
-ANSWER: True
+a. True
+b. False
+ANSWER: A
 EXPLANATION: This is the precise definition of a standard Python set.
 19. In python, to create a class that inherits from another class we use inherits keyword.
-ANSWER: False
+a. True
+b. False
+ANSWER: B
 EXPLANATION: Python does not have an `inherits` keyword. Inheritance is achieved by passing the parent class as a parameter in parentheses: `class ChildClass(ParentClass):`.
 20. In Python, when using the super () function, the child class will not inherit the methods and properties from the parent class.
-ANSWER: False
+a. True
+b. False
+ANSWER: B
 EXPLANATION: This statement is the exact opposite of reality. `super()` is used precisely to access and inherit methods and properties from the parent class.
-21. In the following statement: myNumbers =[1,2,3]
+21. In the following statement: myNumbers = [1,2,3]
 x = myNumbers.pop()
 The removed item will be 1.
-ANSWER: False
+a. True
+b. False
+ANSWER: B
 EXPLANATION: By default, the `pop()` method in Python removes and returns the *last* item in the list, which would be 3, not 1.
-22. In the following statement: myNumbers =[1,2,3]
+22. In the following statement: myNumbers = [1,2,3]
 x = myNumbers.pop()
 The removed item will be 3.
-ANSWER: True
+a. True
+b. False
+ANSWER: A
 EXPLANATION: `pop()` removes the last element of the list, which is 3.
 23. x = ("apple", "banana", "cherry") is a definition of a list.
-ANSWER: False
+a. True
+b. False
+ANSWER: B
 EXPLANATION: This defines a tuple, as it uses parentheses `()`. A list uses square brackets `[]`.
 24. my-var is an incorrect variable name in Python.
-ANSWER: True
+a. True
+b. False
+ANSWER: A
 EXPLANATION: Hyphens are not allowed in Python variable names because they are interpreted as the minus operator. Variable names can only contain letters, numbers, and underscores.
 25. The CSS property background-attachment is used to specify whether the image is attached to the document or not.
-ANSWER: True
+a. True
+b. False
+ANSWER: A
 EXPLANATION: Yes, `background-attachment` sets whether a background image scrolls with the rest of the page, or if it is fixed (attached).
 26. The output of the following statements is Hello, My
 b= "Hello, My Friend"
 Print (b [:8])
-ANSWER: False
+a. True
+b. False
+ANSWER: B
 EXPLANATION: The slice `b[:8]` extracts characters from index 0 to 7. Counting from 0: 'H'(0), 'e'(1), 'l'(2), 'l'(3), 'o'(4), ','(5), ' '(6), 'M'(7). The output is 'Hello, M', which is 8 characters long. 'Hello, My' would require `[:9]`.
 27. Strip() function is used to remove whitespaces from the beginning and end of a string in Python.
-ANSWER: True
+a. True
+b. False
+ANSWER: A
 EXPLANATION: `strip()` safely removes leading and trailing characters (whitespace by default).
 28. The output of the following Python statements is ['a', 'b', 'C']
 X=['C','b','a']
 X.sort()
 Print(X)
-ANSWER: False
+a. True
+b. False
+ANSWER: B
 EXPLANATION: In Python, default sorting uses ASCII values. Uppercase letters have lower ASCII values than lowercase ones. Therefore, 'C' comes before 'a' and 'b'. The output will be `['C', 'a', 'b']`.
 29. When you create a Django project on your computer, you will get a folder for your project with a specific content including templates file.
-ANSWER: False
+a. True
+b. False
+ANSWER: B
 EXPLANATION: By default, the `django-admin startproject` command does not generate a `templates` folder or file. The developer must create it manually.
 30. Django comes with a built-in user interface that allows you to administrate your data. To access this interface you have to create a user name and password. To create this such user, you write python mange.py createuser.
-ANSWER: False
+a. True
+b. False
+ANSWER: B
 EXPLANATION: The correct command to create an administrative user is `python manage.py createsuperuser`, not `createuser` (and manage.py is misspelled in the prompt).
 31. AJAX is used for refreshing the page content by sending a request to the server and updating the whole HTML page from the response.
-ANSWER: False
+a. True
+b. False
+ANSWER: B
 EXPLANATION: The primary purpose of AJAX is asynchronous updating, allowing *parts* of a web page to be updated without needing to reload the *whole* HTML page.
 32. The output of the following Python statements is ['a', 'b', 'c']
 X=['C','b','A']
 X.sort(key = str.lower)
 Print(X)
-ANSWER: False
+a. True
+b. False
+ANSWER: B
 EXPLANATION: The `key=str.lower` argument tells the sort function to ignore case during comparisons, but it preserves the original elements. The output will be `['A', 'b', 'C']`.
 33. <br> tag is used to force the browser to display the next text or element on a new line.
-ANSWER: True
+a. True
+b. False
+ANSWER: A
 EXPLANATION: The `<br>` tag inserts a single line break.
 34. y= ("apple",) is a tuple.
-ANSWER: True
+a. True
+b. False
+ANSWER: A
 EXPLANATION: In Python, a single-element tuple requires a trailing comma. `("apple",)` correctly creates a tuple.
 
 Question Two: Choose the correct answer [23 Marks]
@@ -311,7 +379,7 @@ Based on the following HTML page, answer questions from (53-58)
 </body>
 </html>
 
-53. What will be the output of "document.getElementById("id1").firstChild.nodeName;"?
+53. What will be the output of `document.getElementById("id1").firstChild.nodeName;`?
 a. 1
 b. 2
 c. #text
@@ -522,7 +590,7 @@ EXPLANATION: Margin controls the space *outside* an element (between it and its 
 
 75. In the following Python statements:
 Y=set(("a","b","c"))
-Print(y)
+print(Y)
 The output will be:
 a. list[a,b,c]
 b. set(['a','b','c'])
@@ -550,7 +618,7 @@ EXPLANATION: Duplicates are removed, so the values are `{1, 2, 3, 5}`, but Pytho
 }
 print(x)
 The above print will return:
-a. {'name': 'Ahmed', 'id': '1', 'mobile': 123456789, 'mobile': 987654321}.
+a. {'name': 'Ahmed', 'id': '1', 'mobile': 123456789, 'mobile': 987654321}
 b. {'name': 'Ahmed', 'id': '1', 'mobile': 123456789}.
 c. {'name': 'Ahmed', 'id': '1', 'mobile': 987654321}.
 d. Error! As you cannot have duplicates in a dictionary
@@ -595,7 +663,7 @@ b. done!
 c. JavaScript error
 d. Something else
 ANSWER: D
-EXPLANATION: `f()` starts the async function, then `console.log('first!')` runs immediately. After about one second the awaited promise resolves and `done!` is logged. Because both strings appear, the answer is Something else.
+EXPLANATION: `f()` starts the async function, then `console.log('first!')` runs immediately. After about one second the awaited promise resolves and `done!` is logged. Because both strings appear, the answer is "Something else."
 
 Part Two: Answer the following questions in the determined space
 Question 3 - [8 Marks]

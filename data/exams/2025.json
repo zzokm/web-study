@@ -15,7 +15,7 @@
       {
         "id": "q1",
         "type": "multiple_choice",
-        "questionText": "1. We use the put method in the HTTP request message for doing partial updates.",
+        "questionText": "1. We use the put method in the HTTP request message for doing partial updates.\na. True\nb. False",
         "options": [
           {
             "id": "true",
@@ -41,7 +41,7 @@
       {
         "id": "q2",
         "type": "multiple_choice",
-        "questionText": "2. To determine the type of an object, we can use the \"typeof\" function in JavaScript.",
+        "questionText": "2. To determine the type of an object, we can use the \"typeof\" function in JavaScript.\na. True\nb. False",
         "options": [
           {
             "id": "true",
@@ -66,7 +66,7 @@
       {
         "id": "q3",
         "type": "multiple_choice",
-        "questionText": "3. CSS can be defined externally in a separate file by adding the <style> element inside the <head>.",
+        "questionText": "3. CSS can be defined externally in a separate file by adding the <style> element inside the <head>.\na. True\nb. False",
         "options": [
           {
             "id": "true",
@@ -91,7 +91,7 @@
       {
         "id": "q4",
         "type": "multiple_choice",
-        "questionText": "4. var colors = (1:\"red\", 2:\"green\", 3:\"blue\") is one of the ways of defining an array in JavaScript.",
+        "questionText": "4. var colors = (1:\"red\", 2:\"green\", 3:\"blue\") is one of the ways of defining an array in JavaScript.\na. True\nb. False",
         "options": [
           {
             "id": "true",
@@ -116,7 +116,7 @@
       {
         "id": "q5",
         "type": "multiple_choice",
-        "questionText": "5. Django views represents the presentation layer of Django.",
+        "questionText": "5. Django views represents the presentation layer of Django.\na. True\nb. False",
         "options": [
           {
             "id": "true",
@@ -142,7 +142,7 @@
       {
         "id": "q6",
         "type": "multiple_choice",
-        "questionText": "6. In Python, format function is used to format the datatypes of the output.",
+        "questionText": "6. In Python, format function is used to format the datatypes of the output.\na. True\nb. False",
         "options": [
           {
             "id": "true",
@@ -167,7 +167,7 @@
       {
         "id": "q7",
         "type": "multiple_choice",
-        "questionText": "7. In Python, A set is a collection which is both unordered and indexed.",
+        "questionText": "7. In Python, A set is a collection which is both unordered and indexed.\na. True\nb. False",
         "options": [
           {
             "id": "true",
@@ -192,7 +192,7 @@
       {
         "id": "q8",
         "type": "multiple_choice",
-        "questionText": "8. We can register models in the admin.py file to view it in the administration site of Django.",
+        "questionText": "8. We can register models in the admin.py file to view it in the administration site of Django.\na. True\nb. False",
         "options": [
           {
             "id": "true",
@@ -217,7 +217,7 @@
       {
         "id": "q9",
         "type": "multiple_choice",
-        "questionText": "9. \"Post.Objects.all()\" will retrieve all objects in the Post table.",
+        "questionText": "9. \"Post.Objects.all()\" will retrieve all objects in the Post table.\na. True\nb. False",
         "options": [
           {
             "id": "true",
@@ -242,7 +242,7 @@
       {
         "id": "q10",
         "type": "multiple_choice",
-        "questionText": "10. The super() function in python enables a class to have unlimited number of attributes.",
+        "questionText": "10. The super() function in python enables a class to have unlimited number of attributes.\na. True\nb. False",
         "options": [
           {
             "id": "true",
@@ -267,7 +267,7 @@
       {
         "id": "q11",
         "type": "multiple_choice",
-        "questionText": "11. \"migrate\" command in Django is used to show the changes happened in the database.",
+        "questionText": "11. \"migrate\" command in Django is used to show the changes happened in the database.\na. True\nb. False",
         "options": [
           {
             "id": "true",
@@ -292,7 +292,7 @@
       {
         "id": "q12",
         "type": "multiple_choice",
-        "questionText": "12. In Python, to append elements from another list to the current list, use the update() method.",
+        "questionText": "12. In Python, to append elements from another list to the current list, use the update() method.\na. True\nb. False",
         "options": [
           {
             "id": "true",
@@ -317,7 +317,7 @@
       {
         "id": "q13",
         "type": "multiple_choice",
-        "questionText": "13. In Python, to add items from another set into the current set, use the extend() method.",
+        "questionText": "13. In Python, to add items from another set into the current set, use the extend() method.\na. True\nb. False",
         "options": [
           {
             "id": "true",
@@ -342,7 +342,7 @@
       {
         "id": "q14",
         "type": "multiple_choice",
-        "questionText": "14. Tags and texts that are not directly displayed on the HTML page are written in title section.",
+        "questionText": "14. Tags and texts that are not directly displayed on the HTML page are written in title section.\na. True\nb. False",
         "options": [
           {
             "id": "true",
@@ -367,7 +367,7 @@
       {
         "id": "q15",
         "type": "multiple_choice",
-        "questionText": "15. If an application is running on Web Server Gateway Interface (WSGI), then it will handle client requests in a sequential manner.",
+        "questionText": "15. If an application is running on Web Server Gateway Interface (WSGI), then it will handle client requests in a sequential manner.\na. True\nb. False",
         "options": [
           {
             "id": "true",
@@ -392,7 +392,7 @@
       {
         "id": "q16",
         "type": "multiple_choice",
-        "questionText": "16. For a model to be visible in the admin interface it has to be registered in the settings.py file.",
+        "questionText": "16. For a model to be visible in the admin interface it has to be registered in the settings.py file.\na. True\nb. False",
         "options": [
           {
             "id": "true",
@@ -417,7 +417,7 @@
       {
         "id": "q17",
         "type": "multiple_choice",
-        "questionText": "17. In DOM, ChildNodes property returns elements and ignores text and comments.",
+        "questionText": "17. In DOM, ChildNodes property returns elements and ignores text and comments.\na. True\nb. False",
         "options": [
           {
             "id": "true",
@@ -442,7 +442,7 @@
       {
         "id": "q18",
         "type": "multiple_choice",
-        "questionText": "18. In python, a set is a collection which is unordered and unindexed.",
+        "questionText": "18. In python, a set is a collection which is unordered and unindexed.\na. True\nb. False",
         "options": [
           {
             "id": "true",
@@ -467,7 +467,7 @@
       {
         "id": "q19",
         "type": "multiple_choice",
-        "questionText": "19. In python, to create a class that inherits from another class we use inherits keyword.",
+        "questionText": "19. In python, to create a class that inherits from another class we use inherits keyword.\na. True\nb. False",
         "options": [
           {
             "id": "true",
@@ -492,7 +492,7 @@
       {
         "id": "q20",
         "type": "multiple_choice",
-        "questionText": "20. In Python, when using the super () function, the child class will not inherit the methods and properties from the parent class.",
+        "questionText": "20. In Python, when using the super () function, the child class will not inherit the methods and properties from the parent class.\na. True\nb. False",
         "options": [
           {
             "id": "true",
@@ -517,7 +517,7 @@
       {
         "id": "q21",
         "type": "multiple_choice",
-        "questionText": "21. In the following statement: myNumbers =[1,2,3]\nx = myNumbers.pop()\nThe removed item will be 1.",
+        "questionText": "21. In the following statement:\nmyNumbers = [1,2,3]\nx = myNumbers.pop()\nThe removed item will be 1.",
         "options": [
           {
             "id": "true",
@@ -542,7 +542,7 @@
       {
         "id": "q22_23a",
         "type": "multiple_choice",
-        "questionText": "22. In the following statement: myNumbers =[1,2,3]\nx = myNumbers.pop()\nThe removed item will be 3.",
+        "questionText": "22. In the following statement: myNumbers = [1,2,3]\nx = myNumbers.pop()\nThe removed item will be 3.\na. True\nb. False",
         "options": [
           {
             "id": "true",
@@ -567,7 +567,7 @@
       {
         "id": "q23b",
         "type": "multiple_choice",
-        "questionText": "23. x = (\"apple\", \"banana\", \"cherry\") is a definition of a list.",
+        "questionText": "23. x = (\"apple\", \"banana\", \"cherry\") is a definition of a list.\na. True\nb. False",
         "options": [
           {
             "id": "true",
@@ -592,7 +592,7 @@
       {
         "id": "q24",
         "type": "multiple_choice",
-        "questionText": "24. my-var is an incorrect variable name in Python.",
+        "questionText": "24. my-var is an incorrect variable name in Python.\na. True\nb. False",
         "options": [
           {
             "id": "true",
@@ -617,7 +617,7 @@
       {
         "id": "q25",
         "type": "multiple_choice",
-        "questionText": "25. The CSS property background-attachment is used to specify whether the image is attached to the document or not.",
+        "questionText": "25. The CSS property background-attachment is used to specify whether the image is attached to the document or not.\na. True\nb. False",
         "options": [
           {
             "id": "true",
@@ -642,7 +642,7 @@
       {
         "id": "q26",
         "type": "multiple_choice",
-        "questionText": "26. The output of the following statements is Hello, My\nb= \"Hello, My Friend\"\nPrint (b [:8])",
+        "questionText": "26. The output of the following statements is Hello, My\nb = \"Hello, My Friend\"\nprint(b[:8])",
         "options": [
           {
             "id": "true",
@@ -667,7 +667,7 @@
       {
         "id": "q27",
         "type": "multiple_choice",
-        "questionText": "27. Strip() function is used to remove whitespaces from the beginning and end of a string in Python.",
+        "questionText": "27. Strip() function is used to remove whitespaces from the beginning and end of a string in Python.\na. True\nb. False",
         "options": [
           {
             "id": "true",
@@ -692,7 +692,7 @@
       {
         "id": "q28",
         "type": "multiple_choice",
-        "questionText": "28. The output of the following Python statements is ['a', 'b', 'C']\nX=['C','b','a']\nX.sort()\nPrint(X)",
+        "questionText": "28. The output of the following Python statements is ['a', 'b', 'C']\nX = ['C','b','a']\nX.sort()\nprint(X)",
         "options": [
           {
             "id": "true",
@@ -717,7 +717,7 @@
       {
         "id": "q29",
         "type": "multiple_choice",
-        "questionText": "29. When you create a Django project on your computer, you will get a folder for your project with a specific content including templates file.",
+        "questionText": "29. When you create a Django project on your computer, you will get a folder for your project with a specific content including templates file.\na. True\nb. False",
         "options": [
           {
             "id": "true",
@@ -743,7 +743,7 @@
       {
         "id": "q30",
         "type": "multiple_choice",
-        "questionText": "30. Django comes with a built-in user interface that allows you to administrate your data. To access this interface you have to create a user name and password. To create this such user, you write python mange.py createuser.",
+        "questionText": "30. Django comes with a built-in user interface that allows you to administrate your data. To access this interface you have to create a user name and password. To create this such user, you write python mange.py createuser.\na. True\nb. False",
         "options": [
           {
             "id": "true",
@@ -768,7 +768,7 @@
       {
         "id": "q31",
         "type": "multiple_choice",
-        "questionText": "31. AJAX is used for refreshing the page content by sending a request to the server and updating the whole HTML page from the response.",
+        "questionText": "31. AJAX is used for refreshing the page content by sending a request to the server and updating the whole HTML page from the response.\na. True\nb. False",
         "options": [
           {
             "id": "true",
@@ -793,7 +793,7 @@
       {
         "id": "q32",
         "type": "multiple_choice",
-        "questionText": "32. The output of the following Python statements is ['a', 'b', 'c']\nX=['C','b','A']\nX.sort(key = str.lower)\nPrint(X)",
+        "questionText": "32. The output of the following Python statements is ['a', 'b', 'c']\nX = ['C','b','A']\nX.sort(key = str.lower)\nprint(X)",
         "options": [
           {
             "id": "true",
@@ -818,7 +818,7 @@
       {
         "id": "q33",
         "type": "multiple_choice",
-        "questionText": "33. <br> tag is used to force the browser to display the next text or element on a new line.",
+        "questionText": "33. <br> tag is used to force the browser to display the next text or element on a new line.\na. True\nb. False",
         "options": [
           {
             "id": "true",
@@ -843,7 +843,7 @@
       {
         "id": "q34",
         "type": "multiple_choice",
-        "questionText": "34. y= (\"apple\",) is a tuple.",
+        "questionText": "34. y= (\"apple\",) is a tuple.\na. True\nb. False",
         "options": [
           {
             "id": "true",
@@ -1569,7 +1569,7 @@
       {
         "id": "q53",
         "type": "multiple_choice",
-        "questionText": "53. What will be the output of \"document.getElementById(\"id1\").firstChild.nodeName;\"?",
+        "questionText": "53. What will be the output of `document.getElementById(\"id1\").firstChild.nodeName;`?",
         "options": [
           {
             "id": "a",
@@ -2230,7 +2230,7 @@
       {
         "id": "q70",
         "type": "multiple_choice",
-        "questionText": "70. What will be the output of the following python code?\nnewtuple = (1,2,3,4)\n(*k,) = newtuple\nPrint(k)",
+        "questionText": "70. What will be the output of the following python code?\nnewtuple = (1,2,3,4)\n(*k,) = newtuple\nprint(k)",
         "options": [
           {
             "id": "a",
@@ -2267,7 +2267,7 @@
       {
         "id": "q71",
         "type": "multiple_choice",
-        "questionText": "71. What will be the output of the following Python code?\nnewtuple=(1,2,3)\n(x, *k, y, z, m) = newtuple\nPrint(k)",
+        "questionText": "71. What will be the output of the following Python code?\nnewtuple=(1,2,3)\n(x, *k, y, z, m) = newtuple\nprint(k)",
         "options": [
           {
             "id": "a",
@@ -2415,7 +2415,7 @@
       {
         "id": "q75",
         "type": "multiple_choice",
-        "questionText": "75. In the following Python statements:\nY=set((\"a\",\"b\",\"c\"))\nPrint(y)\nThe output will be:",
+        "questionText": "75. In the following Python statements:\nY = set((\"a\",\"b\",\"c\"))\nprint(Y)\nThe output will be:",
         "options": [
           {
             "id": "a",
@@ -2489,12 +2489,12 @@
       {
         "id": "q77",
         "type": "multiple_choice",
-        "questionText": "77. x={\n\"name\": \"Ahmed\",\n\"id\": \"1\",\n\"mobile\": 123456789,\n\"mobile\": 987654321\n}\nprint(x)\nThe above print will return:",
+        "questionText": "77. The following python code:\nx={\n\"name\": \"Ahmed\",\n\"id\": \"1\",\n\"mobile\": 123456789,\n\"mobile\": 987654321\n}\nprint(x)\nThe above print will return:",
         "options": [
           {
             "id": "a",
             "type": "text",
-            "content": "{'name': 'Ahmed', 'id': '1', 'mobile': 123456789, 'mobile': 987654321}.",
+            "content": "{'name': 'Ahmed', 'id': '1', 'mobile': 123456789, 'mobile': 987654321}",
             "codeLanguage": null
           },
           {
@@ -2629,7 +2629,7 @@
         ],
         "correctAnswerId": "d",
         "expectedAnswer": null,
-        "explanation": "`f()` starts the async function, then `console.log('first!')` runs immediately. After about one second the awaited promise resolves and `done!` is logged. Because both strings appear, the answer is Something else.",
+        "explanation": "`f()` starts the async function, then `console.log('first!')` runs immediately. After about one second the awaited promise resolves and `done!` is logged. Because both strings appear, the answer is \"Something else.\"",
         "relatedTopics": [
           "fe-6"
         ]

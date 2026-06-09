@@ -196,7 +196,7 @@ B. The function will never return the value 0.
 C. The function only returns if x is a number.
 D. The function will return a number.
 ANSWER: D
-EXPLANATION: The full function increments `ct` (a counter) and returns it, so the return value is always a number. It may be 0 when no element is >= 70, so A and B are false.
+EXPLANATION: The full function increments `ct` and returns it, so the return value is always a number. It may be 0 when no element is >= 70.
 
 23. In JavaScript, which one of the following is not considered as an error?
 A. Syntax error
@@ -290,7 +290,7 @@ B. forloop.firstitem
 C. forloop.counter
 D. forloop.lastitem
 ANSWER: C
-EXPLANATION: Inside a `{% for %}` loop, `forloop.counter` is a valid attribute (accessed without parentheses). The exam option incorrectly wrote `forloop.counter()`.
+EXPLANATION: `forloop.counter` is valid in Django templates; attributes are not called with parentheses.
 
 33. What does the architecture of Django consist of?
 A. Views
@@ -314,7 +314,7 @@ B. manage.py
 C. __init__.py
 D. All of the above
 ANSWER: A
-EXPLANATION: A new Django project is created with `django-admin startproject <project_name>`. The exam option listed only `Project`, which is the argument name, not the command.
+EXPLANATION: Create a project with `django-admin startproject <name>`, not the bare word `Project`.
 
 36. In a URL, an optional ______ can be inserted between the host and the path, separated from the host by a colon.
 A. Port Number
@@ -394,7 +394,7 @@ B. content cannot be displayed after authorization.
 C. None of the answers
 D. User is authorized to see the response.
 ANSWER: D
-EXPLANATION: HTTP 200 means OK. With authorization in play, a 200 response indicates the credentials were accepted and the user is authorized to see the response.
+EXPLANATION: HTTP 200 with authorization means the user is authorized to see the response.
 
 46. A lock icon in the browser denotes ______ for ______ connection.
 A. Hypertext Transfer Protocol over TCP, secured
@@ -516,7 +516,7 @@ B. The output will be: Two is less than one! Two is less than one!
 C. The output will be: Two is less than one!
 D. The output will be an Error.
 ANSWER: C
-EXPLANATION: `2 < 1` is false, so the indented `print` under `if` is skipped. The second, unindented `print` still runs and outputs `Two is less than one!` once with no error.
+EXPLANATION: `2 < 1` is false, so the indented `print` under `if` is skipped. The second, unindented `print` still runs once.
 
 59. x = {
   "name": "Ahmed",
@@ -531,7 +531,7 @@ B. {'name': 'Ahmed', 'id': '1', 'mobile': 123456789}
 C. {'name': 'Ahmed', 'id': '1', 'mobile': 987654321}
 D. Error!
 ANSWER: C
-EXPLANATION: Dictionaries strictly forbid duplicate keys. When multiple keys with identical names are evaluated during initialization, the trailing value seamlessly overwrites the preceding value.
+EXPLANATION: Dictionaries forbid duplicate keys; the last `mobile` value wins.
 
 60. def f(**person):
   print("Person's name is " + person["name"])
@@ -552,7 +552,7 @@ B. 100/20
 C. 5
 D. y(100)
 ANSWER: C
-EXPLANATION: `100 / 20` evaluates to `5.0` in Python 3 (or `5` in Python 2). Option C is the intended answer here.
+EXPLANATION: `100 / 20` evaluates to `5.0` in Python 3. Option C is the intended answer.
 
 Use the following code, answer questions from 62-64: When the function run() is called.
 1. function run() {
@@ -583,7 +583,7 @@ B. X, ReferenceError
 C. ReferenceError, Y
 D. Undefined, ReferenceError
 ANSWER: A
-EXPLANATION: Inside the block, `var X` is reassigned to `X*` (function-scoped) and `let Y` is shadowed to `Y*`, so `console.log(X, Y)` prints `X*, Y*`.
+EXPLANATION: Inside the block, `var X` becomes `X*` and inner `let Y` is `Y*`, so the log is `X*, Y*`.
 
 64. The last console.log statement (lines 10, 11) will output:
 A. X*, Y
@@ -591,7 +591,7 @@ B. X, ReferenceError
 C. ReferenceError, Y
 D. Undefined, ReferenceError
 ANSWER: A
-EXPLANATION: After the block, function-scoped `X` stays `X*`, while block-scoped inner `Y` is gone and outer `Y` is `Y`. The two `console.log` calls therefore output `X*` then `Y`.
+EXPLANATION: After the block, function-scoped `X` stays `X*` while outer `Y` is restored, so the logs are `X*` then `Y`.
 
 Use the following code, answer questions from 65-68:
 function func(x)
@@ -629,7 +629,7 @@ B. ReferenceError: func is not defined
 C. Undefined, Undefined
 D. None of the Above
 ANSWER: A
-EXPLANATION: With no arguments, `x` is `undefined` and `arguments.length` is 0. `typeof undefined` returns the lowercase string `"undefined"` (option A uses capital U for readability).
+EXPLANATION: With no arguments, `x` is `undefined` and `arguments.length` is 0.
 
 Use the following code, answer questions from 69-73:
 1. const x = {name:"Ali", address: "Giza"};
@@ -664,7 +664,7 @@ B. undefined
 C. "Neamat"
 D. Throw an error
 ANSWER: C
-EXPLANATION: Without the errors, the code resolves as `const x = {name:"Ali"}; x.name = "Neamat"; console.log(x.name)`. The property was updated successfully to "Neamat".
+EXPLANATION: Without the errors, `x.name` is updated to `"Neamat"` and logged successfully.
 
 73. Assume Lines from 1 to 3 in this code are removed, and line 6 is removed too, code remaining is only lines 4, 5 and 7, line 7 will output:
 A. 23
@@ -686,34 +686,34 @@ EXPLANATION: JavaScript is dynamically typed.
 A. True
 B. False
 ANSWER: A
-EXPLANATION: Loose equality (`==`) coerces types; `200` equals `"200"`, but strict equality (`===`) evaluates to false as it compares both value and type.
+EXPLANATION: Loose equality (`==`) coerces types; `200` equals `"200"`, but strict equality (`===`) compares value and type.
 
 76. isNaN("Hello") returns true while isNaN(undefined) returns false?
 A. True
 B. False
 ANSWER: B
-EXPLANATION: `isNaN("Hello")` is true, but `isNaN(undefined)` is also true in JavaScript, making the second part of the statement incorrect.
+EXPLANATION: `isNaN("Hello")` is true, but `isNaN(undefined)` is also true, so the second part of the statement is incorrect.
 
 77. In Python, the value of [] is False.
 A. True
 B. False
 ANSWER: A
-EXPLANATION: An empty list evaluates as functionally 'falsy' in a Python boolean context.
+EXPLANATION: An empty list evaluates as falsy in a Python boolean context.
 
 78. In Python, A set is a collection which is both unordered and indexed.
 A. True
 B. False
 ANSWER: B
-EXPLANATION: Sets are inherently unordered and explicitly *unindexed*.
+EXPLANATION: Sets are inherently unordered and explicitly unindexed.
 
 79. In the following statement: myNumbers = {1, 2, 3}; x = myNumbers.pop(); The removed item will be 3.
 A. True
 B. False
 ANSWER: B
-EXPLANATION: Running `pop()` on a set removes a completely arbitrary element. For `{1, 2, 3}`, the removed item is not guaranteed to be 3 because sets are completely unordered.
+EXPLANATION: Running `pop()` on a set removes an arbitrary element; it is not guaranteed to be 3.
 
 80. x = ("apple", "banana", "cherry") is a definition of a list.
 A. True
 B. False
 ANSWER: B
-EXPLANATION: Standard parentheses actively define a Python Tuple, not a list (which relies on square brackets `[]`).
+EXPLANATION: Parentheses define a Python tuple, not a list (`[]`).

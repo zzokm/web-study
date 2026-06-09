@@ -401,9 +401,10 @@ EXPLANATION_FIXES: dict[str, dict[str, str]] = {
         "q80": "Parentheses define a Python tuple, not a list (`[]`).",
     },
     "2025": {
-        "q65": "Python 3 prints `{1, 2, 3, 5}` with spaces; option c's `{1,2,3,5}` does not match exactly.",
-        "q76": "Duplicates are removed, so the values are `{1, 2, 3, 5}`, but Python 3 prints sets with curly braces, not `set([1,2,3,5])`.",
-        "q79": "`.flat(2)` yields `[1, 2, 3, 4, 5, 6, 7, 8]`, and `console.log` prints brackets; option c omits them.",
+        "q65": "Duplicates are removed, so the values are `{1, 2, 3, 5}`, but Python 3 prints sets with spaces after commas (e.g. `{1, 2, 3, 5}`). Option c omits those spaces, so none of the options match exactly.",
+        "q76": "Duplicates are removed, so the values are `{1, 2, 3, 5}`, but Python 3 prints sets with curly braces (e.g. `{1, 2, 3, 5}`), not `set([1,2,3,5])`. None of the listed formats match exactly.",
+        "q79": "`.flat(2)` yields `[1, 2, 3, 4, 5, 6, 7, 8]`, and `console.log` prints array brackets and spaces. Option c omits brackets, so it does not match the actual console output.",
+        "q80": "`f()` starts the async function, then `console.log('first!')` runs immediately. After about one second the awaited promise resolves and `done!` is logged. Because both strings appear, the answer is \"Something else.\"",
     },
 }
 
@@ -412,11 +413,9 @@ OPTION_FIXES: dict[str, dict[str, dict[str, str]]] = {
         "q13": {"c": "text-align"},
         "q32": {"c": "forloop.counter"},
         "q35": {"a": "django-admin startproject"},
+        "q59": {"d": "Error!"},
         "q63": {"a": "X*, Y*"},
         "q64": {"a": "X*, Y"},
-    },
-    "2021": {
-        "q59": {"d": "Error!"},
         "q74": {"a": "True", "b": "False"},
         "q75": {"a": "True", "b": "False"},
         "q76": {"a": "True", "b": "False"},
@@ -437,6 +436,11 @@ OPTION_FIXES: dict[str, dict[str, dict[str, str]]] = {
         "q80": {"c": "6"},
         "q86": {"d": "None of the above"},
     },
+    "2025": {
+        "q77": {
+            "a": "{'name': 'Ahmed', 'id': '1', 'mobile': 123456789, 'mobile': 987654321}",
+        },
+    },
 }
 
 QUESTION_TEXT_FIXES: dict[str, dict[str, str]] = {
@@ -455,6 +459,18 @@ QUESTION_TEXT_FIXES: dict[str, dict[str, str]] = {
         "q76": "76. The output of the following statement in python is:\nx = \"My Lovely Bird!\"\nprint(x[:7])",
         "q82": "82. By using this CSS selector div > p { color: red; }, how many p elements will be styled?",
         "q83": "83. By using this CSS selector div ~ p { color: blue; }, the number of p elements that will be styled is",
+    },
+    "2025": {
+        "q21": "21. In the following statement:\nmyNumbers = [1,2,3]\nx = myNumbers.pop()\nThe removed item will be 1.",
+        "q22": "22. In the following statement:\nmyNumbers = [1,2,3]\nx = myNumbers.pop()\nThe removed item will be 3.",
+        "q26": "26. The output of the following statements is Hello, My\nb = \"Hello, My Friend\"\nprint(b[:8])",
+        "q28": "28. The output of the following Python statements is ['a', 'b', 'C']\nX = ['C','b','a']\nX.sort()\nprint(X)",
+        "q32": "32. The output of the following Python statements is ['a', 'b', 'c']\nX = ['C','b','A']\nX.sort(key = str.lower)\nprint(X)",
+        "q53": "53. What will be the output of `document.getElementById(\"id1\").firstChild.nodeName;`?",
+        "q70": "70. What will be the output of the following python code?\nnewtuple = (1,2,3,4)\n(*k,) = newtuple\nprint(k)",
+        "q71": "71. What will be the output of the following Python code?\nnewtuple=(1,2,3)\n(x, *k, y, z, m) = newtuple\nprint(k)",
+        "q75": "75. In the following Python statements:\nY = set((\"a\",\"b\",\"c\"))\nprint(Y)\nThe output will be:",
+        "q77": "77. The following python code:\nx={\n\"name\": \"Ahmed\",\n\"id\": \"1\",\n\"mobile\": 123456789,\n\"mobile\": 987654321\n}\nprint(x)\nThe above print will return:",
     },
 }
 

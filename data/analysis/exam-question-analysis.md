@@ -8,9 +8,9 @@ Generated: 2026-06-09
 | --- | ---: |
 | Exam finals | 2021, 2024, 2025 |
 | Total question instances | 283 |
-| Unique stems (deduped) | 256 |
+| Unique stems (deduped) | 257 |
 | Lectures mapped | 15 |
-| Repeated stems (same answer) | 23 |
+| Repeated stems (same answer) | 22 |
 
 ## Exams at a glance
 
@@ -47,7 +47,7 @@ Counts use `relatedTopics` lecture allocation — one question may count toward 
 
 ## Cross-exam repetition
 
-23 stems repeat across finals (or within a final) with the same correct answer. Drill these first.
+22 stems repeat across finals (or within a final) with the same correct answer. Drill these first.
 
 | Occurrences | Years | Lectures | Question |
 | ---: | --- | --- | --- |
@@ -62,7 +62,6 @@ Counts use `relatedTopics` lecture allocation — one question may count toward 
 | 2 | 2021, 2024 | JavaScript 1 | 53. What is the output of the following JavaScript snippet? |
 | 2 | 2021, 2024 | JavaScript 2 & AJAX | 55. To select numbers that are less than 10 from an array of numbers (named myNumbers), the followin… |
 | 2 | 2021, 2025 | JavaScript 2 & AJAX | 56. In the function: |
-| 2 | 2021, 2025 | Python Essentials | 59. x = { |
 | 2 | 2021, 2024 | Python Essentials | 60. def f(**person): |
 | 2 | 2021, 2024 | Python Essentials | 77. In Python, the value of [] is False. |
 | 2 | 2021, 2025 | Python Essentials | 80. x = ("apple", "banana", "cherry") is a definition of a list. |
@@ -87,7 +86,6 @@ Counts use `relatedTopics` lecture allocation — one question may count toward 
 - **2021 + 2024** — 53. What is the output of the following JavaScript snippet?
 - **2021 + 2024** — 55. To select numbers that are less than 10 from an array of numbers (named myNumbers), the following is a correct synta…
 - **2021 + 2025** — 56. In the function:
-- **2021 + 2025** — 59. x = {
 - **2021 + 2024** — 60. def f(**person):
 - **2021 + 2024** — 77. In Python, the value of [] is False.
 - **2021 + 2025** — 80. x = ("apple", "banana", "cherry") is a definition of a list.
@@ -102,7 +100,7 @@ Counts use `relatedTopics` lecture allocation — one question may count toward 
 - **True / false:** 49 (17.3%)
 - **Multiple choice:** 234
 - **Fill-in-the-blank stems:** 19
-- **T/F with negation wording:** 7 (14% of T/F)
+- **T/F with negation wording:** 34 (69% of T/F)
 - **Shared code context blocks:** 37
 - **Code answer choices:** 5
 
@@ -112,7 +110,7 @@ Keyword hits across stems, topics, and explanations (categories may overlap).
 
 | Theme | Total | 2021 | 2024 | 2025 |
 | --- | ---: | ---: | ---: | ---: |
-| JavaScript | 145 | 52 | 36 | 29 |
+| JavaScript | 143 | 50 | 36 | 29 |
 | HTML & DOM | 113 | 27 | 41 | 24 |
 | Python | 88 | 18 | 24 | 32 |
 | HTTP & URLs | 71 | 18 | 19 | 21 |

@@ -18,7 +18,7 @@ def format_answer(question: dict) -> str:
     answer_id = question["correctAnswerId"]
     options = {opt["id"]: opt["content"] for opt in question["options"]}
     if answer_id in ("true", "false"):
-        return "True" if answer_id == "true" else "False"
+        return "A" if answer_id == "true" else "B"
     if len(options) == 2 and set(options.values()) <= {"True", "False"}:
         return answer_id.upper()
     return answer_id.upper()
