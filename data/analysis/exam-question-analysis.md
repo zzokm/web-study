@@ -8,9 +8,9 @@ Generated: 2026-06-09
 | --- | ---: |
 | Exam finals | 2021, 2024, 2025 |
 | Total question instances | 283 |
-| Unique stems (deduped) | 257 |
+| Unique stems (deduped) | 256 |
 | Lectures mapped | 15 |
-| Repeated stems (same answer) | 22 |
+| Repeated stems (same answer) | 23 |
 
 ## Exams at a glance
 
@@ -47,7 +47,7 @@ Counts use `relatedTopics` lecture allocation — one question may count toward 
 
 ## Cross-exam repetition
 
-22 stems repeat across finals (or within a final) with the same correct answer. Drill these first.
+23 stems repeat across finals (or within a final) with the same correct answer. Drill these first.
 
 | Occurrences | Years | Lectures | Question |
 | ---: | --- | --- | --- |
@@ -68,6 +68,7 @@ Counts use `relatedTopics` lecture allocation — one question may count toward 
 | 2 | 2024, 2025 | Django I | 5. What is a correct syntax for creating a Django project? |
 | 2 | 2024, 2025 | Django IV | 6. If you have a Django application named members, and a model named Member, what is a correct synta… |
 | 2 | 2024, 2025 | Django IV | 10. When you have done changes in a model in Django, which command has to be executed in order to ma… |
+| 2 | 2024, 2025 | Python Essentials | 53. What will be the output of the following Python code? |
 | 2 | 2024, 2025 | JavaScript 1 | 67. var colors = {1:"red", 2:"green", 3: "blue"} is one of the ways of defining an array in JavaScri… |
 | 2 | 2024, 2025 | Python Essentials | 69. In the following statement: myNumbers = [1, 2, 3]; x = myNumbers.pop(); |
 | 2 | 2024 | CSS, HTML Document Object Model | 82. By using this CSS selector div > p { color: red; }, how many p elements will be styled? |
@@ -92,6 +93,7 @@ Counts use `relatedTopics` lecture allocation — one question may count toward 
 - **2024 + 2025** — 5. What is a correct syntax for creating a Django project?
 - **2024 + 2025** — 6. If you have a Django application named members, and a model named Member, what is a correct syntax to import the mode…
 - **2024 + 2025** — 10. When you have done changes in a model in Django, which command has to be executed in order to make the changes take…
+- **2024 + 2025** — 53. What will be the output of the following Python code?
 - **2024 + 2025** — 67. var colors = {1:"red", 2:"green", 3: "blue"} is one of the ways of defining an array in JavaScript?
 - **2024 + 2025** — 69. In the following statement: myNumbers = [1, 2, 3]; x = myNumbers.pop();
 

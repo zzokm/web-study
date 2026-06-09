@@ -2117,7 +2117,7 @@
       {
         "id": "q67",
         "type": "multiple_choice",
-        "questionText": "67. What will be the output of the following Python code?\ncar= {\n\"brand\": \"Ford\",\n\"model\": \"Mustang\",\n\"year\": 1964\n}\ny= car.get(\"color\", \"red\")\nprint(len(y))",
+        "questionText": "67. What will be the output of the following Python code?\ncar= {\n\"brand\": \"Ford\",\n\"model\": \"Mustang\",\n\"year\": 1964\n}\ny= car.keys()\ncar[\"color\"] = \"red\"\nprint(len(y))",
         "options": [
           {
             "id": "a",
@@ -2144,9 +2144,9 @@
             "codeLanguage": null
           }
         ],
-        "correctAnswerId": "a",
+        "correctAnswerId": "c",
         "expectedAnswer": null,
-        "explanation": "`car.get(\"color\", \"red\")` returns the default string `\"red\"` because `color` is not in the dictionary. `len(\"red\")` is 3.",
+        "explanation": "`dict.keys()` returns a live view of the dictionary keys. After `car[\"color\"] = \"red\"` adds a fourth key, `len(y)` is 4.",
         "relatedTopics": [
           "be-2"
         ]

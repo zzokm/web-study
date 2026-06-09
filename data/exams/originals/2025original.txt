@@ -512,14 +512,15 @@ car= {
 "model": "Mustang",
 "year": 1964
 }
-y= car.get("color", "red")
+y= car.keys()
+car["color"] = "red"
 print(len(y))
 a. 3
 b. 6
 c. 4
 d. 8
-ANSWER: A
-EXPLANATION: `car.get("color", "red")` returns the default string `"red"` because `color` is not in the dictionary. `len("red")` is 3.
+ANSWER: C
+EXPLANATION: `dict.keys()` returns a live view of the dictionary keys. After `car["color"] = "red"` adds a fourth key, `len(y)` is 4.
 
 68. What will be the output of the following Java Script code snippet?
 function test(...args) {

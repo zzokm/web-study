@@ -335,6 +335,7 @@ ANSWER_FIXES: dict[str, dict[str, str]] = {
         "q2": "false",
         "q53": "c",
         "q65": "c",
+        "q67": "c",
         "q76": "d",
         "q79": "d",
     },
@@ -413,6 +414,7 @@ EXPLANATION_FIXES: dict[str, dict[str, str]] = {
     },
     "2025": {
         "q2": "False. `typeof` is an operator, not a function (use `typeof x`, not `typeof(x)` as a function call). For objects, `typeof` usually returns `\"object\"` — it does not tell you the specific object type (e.g. array vs plain object). Use `instanceof` or helpers like `Array.isArray()` when you need the actual object type.",
+        "q67": "`dict.keys()` returns a live view of the dictionary keys. After `car[\"color\"] = \"red\"` adds a fourth key, `len(y)` is 4.",
         "q65": "`Y` is a set, so duplicate values are removed. `print(Y)` outputs the unique elements `{1, 2, 3, 5}`, which matches option c. Spacing after commas in the printed representation is not required to match exactly.",
         "q76": "Duplicates are removed, so the values are `{1, 2, 3, 5}`, but Python 3 prints sets with curly braces (e.g. `{1, 2, 3, 5}`), not `set([1,2,3,5])`. None of the listed formats match exactly.",
         "q79": "`.flat(2)` yields `[1, 2, 3, 4, 5, 6, 7, 8]`, and `console.log` prints array brackets and spaces. Option c omits brackets, so it does not match the actual console output.",
@@ -506,6 +508,7 @@ QUESTION_TEXT_FIXES: dict[str, dict[str, str]] = {
         "q28": "28. The output of the following Python statements is ['a', 'b', 'C']\nX = ['C','b','a']\nX.sort()\nprint(X)",
         "q32": "32. The output of the following Python statements is ['a', 'b', 'c']\nX = ['C','b','A']\nX.sort(key = str.lower)\nprint(X)",
         "q53": "53. What will be the output of `document.getElementById(\"id1\").firstChild.nodeName;`?",
+        "q67": "67. What will be the output of the following Python code?\ncar= {\n\"brand\": \"Ford\",\n\"model\": \"Mustang\",\n\"year\": 1964\n}\ny= car.keys()\ncar[\"color\"] = \"red\"\nprint(len(y))",
         "q70": "70. What will be the output of the following python code?\nnewtuple = (1,2,3,4)\n(*k,) = newtuple\nprint(k)",
         "q71": "71. What will be the output of the following Python code?\nnewtuple=(1,2,3)\n(x, *k, y, z, m) = newtuple\nprint(k)",
         "q75": "75. In the following Python statements:\nY = set((\"a\",\"b\",\"c\"))\nprint(Y)\nThe output will be:",
