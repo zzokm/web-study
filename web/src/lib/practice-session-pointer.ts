@@ -25,6 +25,7 @@ import {
   resultStorageId,
   type StoredPracticeResult,
 } from "@/lib/practice-results";
+import { isWrittenQuestion } from "@/lib/questions";
 import type { Question } from "@/types/question";
 
 export type PracticeSessionPointer = {
@@ -173,10 +174,23 @@ function resolveSessionConfig(
   );
 }
 
+function poolKeysAreSupersetOf(
+  poolKeys: string[],
+  subsetKeys: Iterable<string>
+): boolean {
+  if (poolKeys.length === 0) return false;
+  const superset = new Set(poolKeys);
+  for (const key of subsetKeys) {
+    if (!superset.has(key)) return false;
+  }
+  return true;
+}
+
 function sessionKeyBelongsToPool(
   scopeId: PracticeScopeId,
   sessionKey: string,
-  canonicalKey: string
+  canonicalKey: string,
+  currentQuestionKeys: Set<string>
 ): boolean {
   if (sessionKey === canonicalKey || sessionKey.startsWith(`${canonicalKey}:s`)) {
     return true;
@@ -184,6 +198,14 @@ function sessionKeyBelongsToPool(
 
   const poolKeys = parseQuestionKeysFromSessionKey(sessionKey);
   if (poolKeys.length === 0) return false;
+
+  if (
+    poolKeys.length >= currentQuestionKeys.size &&
+    poolKeysAreSupersetOf(poolKeys, currentQuestionKeys)
+  ) {
+    return true;
+  }
+
   const legacyCanonical = canonicalPracticeSessionKey(
     poolKeys.map((questionKey) => ({ questionKey }))
   );
@@ -220,6 +242,12 @@ function legacyProgressBelongsToPool(
 
   const poolKeys = parseQuestionKeysFromSessionKey(sessionKey);
   if (poolKeys.length === 0) return true;
+  if (
+    poolKeys.length >= currentQuestionKeys.size &&
+    poolKeysAreSupersetOf(poolKeys, currentQuestionKeys)
+  ) {
+    return true;
+  }
   if (!poolKeys.every((key) => currentQuestionKeys.has(key))) return false;
   if (poolKeys.length > questions.length) return false;
 
@@ -262,7 +290,12 @@ function enumeratePoolSessionKeys(
       if (
         scopedInner === canonicalKey ||
         scopedInner.startsWith(`${canonicalKey}:s`) ||
-        sessionKeyBelongsToPool(scopeId, scopedInner, canonicalKey)
+        sessionKeyBelongsToPool(
+          scopeId,
+          scopedInner,
+          canonicalKey,
+          currentQuestionKeys
+        )
       ) {
         add(scopedInner);
         continue;
@@ -287,7 +320,7 @@ function enumeratePoolSessionKeys(
     if (
       rawKey === canonicalKey ||
       rawKey.startsWith(`${canonicalKey}:s`) ||
-      sessionKeyBelongsToPool(scopeId, rawKey, canonicalKey)
+      sessionKeyBelongsToPool(scopeId, rawKey, canonicalKey, currentQuestionKeys)
     ) {
       add(rawKey);
       continue;
@@ -364,22 +397,26 @@ function isCompletedResultForPool(
   questions: Question[],
   currentQuestionKeys: Set<string>
 ): boolean {
-  if (!result.questionKeys?.length) return false;
-  if (!result.questionKeys.every((key) => currentQuestionKeys.has(key))) {
-    return false;
-  }
+  if (!result.questionKeys?.length || !result.progress) return false;
 
   const examSimulation = result.config?.examSimulation ?? false;
   const questionByKey = new Map(
     questions.map((question) => [question.questionKey, question])
   );
 
-  return result.questionKeys.every((key) => {
+  const isPracticed = (key: string): boolean => {
     const question = questionByKey.get(key);
     const attempt = result.progress[key];
     if (!question || !attempt) return false;
     return isQuestionPracticed(question, attempt, examSimulation);
-  });
+  };
+
+  if (result.questionKeys.every((key) => currentQuestionKeys.has(key))) {
+    return result.questionKeys.every(isPracticed);
+  }
+
+  // Current pool is narrower than the saved result (e.g. MCQ-only lecture view).
+  return questions.every((question) => isPracticed(question.questionKey));
 }
 
 function completedStatusFromPointer(
@@ -696,6 +733,28 @@ export function reconcilePracticeSessionPointer(
     status: "in_progress",
     updatedAt: new Date().toISOString(),
   });
+}
+
+/** Infer lecture written toggle from a legacy session pool that included written keys. */
+export function resolveLectureIncludeWrittenQuestions(
+  config: PracticeSessionConfig,
+  sessionKey: string,
+  allQuestions: Question[]
+): boolean {
+  if (config.includeWrittenQuestions) return true;
+
+  const poolKeys = parseQuestionKeysFromSessionKey(sessionKey);
+  if (poolKeys.length === 0) return false;
+
+  const mcqKeys = new Set(
+    allQuestions
+      .filter((question) => !isWrittenQuestion(question))
+      .map((question) => question.questionKey)
+  );
+
+  if (poolKeys.length <= mcqKeys.size) return false;
+
+  return poolKeys.some((key) => !mcqKeys.has(key));
 }
 
 export function touchPracticeSessionPointer(args: {

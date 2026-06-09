@@ -9,6 +9,7 @@ import { resultStorageId } from "@/lib/practice-results";
 import {
   bumpPracticeStatusStore,
   getPracticeSessionStatusSnapshot,
+  resolveLectureIncludeWrittenQuestions,
   savePracticeSessionPointer,
 } from "@/lib/practice-session-pointer";
 
@@ -27,6 +28,16 @@ function mcq(questionKey: string): Question {
       { id: "a", content: "A", type: "text" },
       { id: "b", content: "B", type: "text" },
     ],
+  } as unknown as Question;
+}
+
+function written(questionKey: string): Question {
+  return {
+    questionKey,
+    questionType: "written",
+    correctAnswerId: "",
+    options: [],
+    expectedAnswer: "ok",
   } as unknown as Question;
 }
 
@@ -145,6 +156,48 @@ describe("getPracticeSessionStatusSnapshot legacy pools", () => {
       expect(status.total).toBe(3);
       expect(status.percent).toBe(33);
     }
+  });
+
+  it("resolves lecture MCQ-only progress stored on a full pool session key", () => {
+    const mcqQuestions = [mcq("lecture:q1"), mcq("lecture:q2")];
+    const fullQuestions = [...mcqQuestions, written("lecture:w1")];
+    const fullCanonical = canonicalPracticeSessionKey(fullQuestions);
+    const sessionKey = `${fullCanonical}:s0000`;
+
+    store.set(
+      `${PROGRESS_PREFIX}${scopeStorageKey(LECTURE_SCOPE, sessionKey)}`,
+      JSON.stringify(revealedProgress(["lecture:q1"]))
+    );
+
+    const status = getPracticeSessionStatusSnapshot(mcqQuestions, LECTURE_SCOPE);
+
+    expect(status?.kind).toBe("in_progress");
+    if (status?.kind === "in_progress") {
+      expect(status.answered).toBe(1);
+      expect(status.total).toBe(2);
+      expect(status.percent).toBe(50);
+    }
+  });
+
+  it("infers includeWrittenQuestions from a legacy full-pool session key", () => {
+    const mcqQuestions = [mcq("lecture:q1"), mcq("lecture:q2")];
+    const fullQuestions = [...mcqQuestions, written("lecture:w1")];
+    const fullCanonical = canonicalPracticeSessionKey(fullQuestions);
+    const sessionKey = `${fullCanonical}:s0000`;
+
+    expect(
+      resolveLectureIncludeWrittenQuestions(
+        {
+          shuffleQuestions: false,
+          shuffleMcqOptions: false,
+          showSessionTimer: false,
+          examSimulation: false,
+          includeWrittenQuestions: false,
+        },
+        sessionKey,
+        fullQuestions
+      )
+    ).toBe(true);
   });
 
   it("does not count exam progress toward lecture scope", () => {

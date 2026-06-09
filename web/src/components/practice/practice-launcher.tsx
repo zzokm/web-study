@@ -44,6 +44,7 @@ import {
   getPracticeStatusStoreVersion,
   getPracticeSessionStatusSnapshot,
   reconcilePracticeSessionPointer,
+  resolveLectureIncludeWrittenQuestions,
   subscribePracticeStatus,
   touchPracticeSessionPointer,
   type PracticeSessionStatus,
@@ -110,6 +111,7 @@ export function PracticeLauncher({
   const [initialIndex, setInitialIndex] = useState(0);
   const [startFresh, setStartFresh] = useState(false);
   const setupViewedRef = useRef(false);
+  const configSyncedFromStatusRef = useRef(false);
 
   const practiceScopeId = useMemo(
     () => practiceScopeIdFromPathname(pathname),
@@ -155,6 +157,29 @@ export function PracticeLauncher({
     reconcilePracticeSessionPointer(sessionQuestions, practiceScopeId);
     bumpPracticeStatusStore();
   }, [phase, canonicalKey, practiceScopeId, sessionQuestions]);
+
+  useEffect(() => {
+    if (
+      !isLecture ||
+      !statusHydrated ||
+      configSyncedFromStatusRef.current ||
+      !sessionStatus
+    ) {
+      return;
+    }
+    configSyncedFromStatusRef.current = true;
+    setConfig({
+      shuffleQuestions: sessionStatus.config.shuffleQuestions,
+      shuffleMcqOptions: sessionStatus.config.shuffleMcqOptions,
+      showSessionTimer: sessionStatus.config.showSessionTimer,
+      examSimulation: sessionStatus.config.examSimulation,
+      includeWrittenQuestions: resolveLectureIncludeWrittenQuestions(
+        sessionStatus.config,
+        sessionStatus.sessionKey,
+        baseQuestions
+      ),
+    });
+  }, [baseQuestions, isLecture, sessionStatus, statusHydrated]);
 
   const beginSession = useCallback(
     (
