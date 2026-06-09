@@ -1493,9 +1493,9 @@
             "codeLanguage": null
           }
         ],
-        "correctAnswerId": "d",
+        "correctAnswerId": "b",
         "expectedAnswer": null,
-        "explanation": "The subscript 2 in H₂O uses `<sub>`. Option D — `<p>H<sub>2</sub>O</p>` — is correct. Option A wrongly uses `<sup>`, B uses `<ins>`, and C uses the invalid `<below>` tag.",
+        "explanation": "The subscript 2 in H₂O uses `<sub>`. Option B — `<p>H<sub>2</sub>O</p>` — is correct. Option A wrongly uses `<sup>`, C uses `<ins>`, and D uses the invalid `<below>` tag.",
         "relatedTopics": [
           "fe-2"
         ]
@@ -1568,7 +1568,7 @@
             "codeLanguage": null
           }
         ],
-        "correctAnswerId": "c",
+        "correctAnswerId": "b",
         "expectedAnswer": null,
         "explanation": "The `src` (source) attribute is used in the `<img>` tag to specify the URL or path to the image file.",
         "relatedTopics": [
@@ -2277,9 +2277,9 @@
             "codeLanguage": null
           }
         ],
-        "correctAnswerId": "b",
+        "correctAnswerId": "a",
         "expectedAnswer": null,
-        "explanation": "The `<div>` tag operates as a generic block-level container designed to divide the HTML document into distinct structural sections or divisions.",
+        "explanation": "The `<div>` tag is a generic block-level container used to divide the HTML document into distinct structural sections or divisions.",
         "relatedTopics": [
           "fe-2"
         ]

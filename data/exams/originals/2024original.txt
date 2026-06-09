@@ -440,8 +440,8 @@ a. <p>H<sup>2</sup>O</p>
 b. <p>H<sub>2</sub>O</p>
 c. <p>H<ins>2</ins>O</p>
 d. <p>H<below>2</below>O</p>
-ANSWER: D
-EXPLANATION: The subscript 2 in H₂O uses `<sub>`. Option D — `<p>H<sub>2</sub>O</p>` — is correct. Option A wrongly uses `<sup>`, B uses `<ins>`, and C uses the invalid `<below>` tag.
+ANSWER: B
+EXPLANATION: The subscript 2 in H₂O uses `<sub>`. Option B — `<p>H<sub>2</sub>O</p>` — is correct. Option A wrongly uses `<sup>`, C uses `<ins>`, and D uses the invalid `<below>` tag.
 
 41. Which is the correct HTML statement to display Hello Hi in a paragraph?
 a. <p><del>Hello</del> <ins>Hi</ins></p>
@@ -456,7 +456,7 @@ a. href
 b. src
 c. link
 d. All of the above
-ANSWER: C
+ANSWER: B
 EXPLANATION: The `src` (source) attribute is used in the `<img>` tag to specify the URL or path to the image file.
 
 43. Can we use class name with multiple HTML elements?
@@ -632,8 +632,8 @@ a. For creating different sections
 b. For creating different styles
 c. For adding headings.
 d. For adding titles
-ANSWER: B
-EXPLANATION: The `<div>` tag operates as a generic block-level container designed to divide the HTML document into distinct structural sections or divisions.
+ANSWER: A
+EXPLANATION: The `<div>` tag is a generic block-level container used to divide the HTML document into distinct structural sections or divisions.
 
 63. Which of the following is the correct way to add background color in HTML?
 a. <body color="green">
