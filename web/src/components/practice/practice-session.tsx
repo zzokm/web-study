@@ -90,6 +90,8 @@ import {
 } from "@/components/practice/practice-session-footer";
 import { PracticeFloatingTimer } from "@/components/layout/practice-header-extras";
 import { PracticePauseOverlay } from "@/components/practice/practice-pause-overlay";
+import { PracticeFeedbackModal } from "@/components/feedback/practice-feedback-modal";
+import { shouldShowPracticeFeedbackPrompt } from "@/lib/feedback-prompt-storage";
 import {
   getPracticeElapsedMs,
   usePracticeHeader,
@@ -182,6 +184,10 @@ function PracticeSessionInner({
     Record<string, number>
   >({});
   const [checkingWritten, setCheckingWritten] = useState(false);
+  const [pendingResultId, setPendingResultId] = useState<string | null>(null);
+  const [pendingResultScorePercent, setPendingResultScorePercent] = useState(0);
+  const [feedbackModalOpen, setFeedbackModalOpen] = useState(false);
+  const [feedbackSessionId, setFeedbackSessionId] = useState(0);
   const writtenPanelRef = useRef<WrittenQuestionPanelHandle>(null);
   const isMobile = useIsMobile();
   const reloadGateId = `practice:${sessionKey}`;
@@ -615,6 +621,15 @@ function PracticeSessionInner({
       clearActivePracticeSession();
       bumpPracticeStatusStore();
       onSessionFinished?.();
+
+      if (shouldShowPracticeFeedbackPrompt()) {
+        setPendingResultId(id);
+        setPendingResultScorePercent(score.percent);
+        setFeedbackSessionId((session) => session + 1);
+        setFeedbackModalOpen(true);
+        return;
+      }
+
       router.push(`/practice/results/?id=${id}`);
     },
     [
@@ -629,6 +644,14 @@ function PracticeSessionInner({
       practiceScopeId,
     ]
   );
+
+  const completePendingResults = useCallback(() => {
+    setFeedbackModalOpen(false);
+    if (pendingResultId) {
+      router.push(`/practice/results/?id=${pendingResultId}`);
+      setPendingResultId(null);
+    }
+  }, [pendingResultId, router]);
 
   const handleFinish = useCallback(() => {
     let finalProgress = progress;
@@ -761,6 +784,15 @@ function PracticeSessionInner({
 
   return (
     <>
+      {feedbackModalOpen ? (
+        <PracticeFeedbackModal
+          key={feedbackSessionId}
+          open={feedbackModalOpen}
+          practiceTitle={title}
+          scorePercent={pendingResultScorePercent}
+          onComplete={completePendingResults}
+        />
+      ) : null}
       <PracticePauseOverlay open={paused && showTimer} />
       {showTimer ? <PracticeFloatingTimer /> : null}
       <div

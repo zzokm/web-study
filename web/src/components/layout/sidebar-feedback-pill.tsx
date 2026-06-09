@@ -1,11 +1,8 @@
 "use client";
 
 import { MessageSquareIcon } from "lucide-react";
-import { OutboundTrackedLink } from "@/components/analytics/outbound-tracked-link";
-import {
-  FEEDBACK_FORM_TOOLTIP,
-  FEEDBACK_FORM_URL,
-} from "@/lib/site-links";
+import { useFeedbackModal } from "@/components/feedback/feedback-modal-context";
+import { FEEDBACK_FORM_TOOLTIP } from "@/lib/site-links";
 import {
   Tooltip,
   TooltipContent,
@@ -13,16 +10,16 @@ import {
 } from "@/components/ui/tooltip";
 
 export function SidebarFeedbackPill() {
+  const { openFeedbackModal } = useFeedbackModal();
+
   return (
     <div className="my-2">
       <Tooltip>
         <TooltipTrigger
           render={
-            <OutboundTrackedLink
-              href={FEEDBACK_FORM_URL}
-              outboundLabel="Feedback"
-              target="_blank"
-              rel="noopener noreferrer"
+            <button
+              type="button"
+              onClick={() => openFeedbackModal("sidebar")}
               data-analytics-zone="sidebar"
               data-analytics-id="feedback_pill"
               className="flex w-full items-center justify-center gap-2 rounded-full bg-foreground px-4 py-2.5 text-sm font-semibold text-background shadow-sm transition-opacity hover:opacity-90"

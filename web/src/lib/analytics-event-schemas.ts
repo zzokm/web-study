@@ -239,6 +239,27 @@ export type AnalyticsEventMap = {
     report_context: string;
     has_question_key: boolean;
   };
+  feedback_prompt_open: PageContextParams & {
+    practice_title: string;
+    score_percent: number;
+  };
+  feedback_prompt_submit: PageContextParams & {
+    practice_title: string;
+    score_percent: number;
+    overall_rating?: number;
+    rated_count: number;
+  };
+  feedback_prompt_skip: PageContextParams & {
+    practice_title: string;
+    score_percent: number;
+    skip_reason: "countdown" | "skip";
+    overall_rated: boolean;
+  };
+  feedback_prompt_dismiss: PageContextParams & {
+    practice_title: string;
+    score_percent: number;
+    overall_rated: boolean;
+  };
   written_ai_review_copy: PageContextParams &
     QuestionParams & {
       answer_language: string;
@@ -285,5 +306,9 @@ export const AnalyticsEventNames = {
   lectureSlideView: "lecture_slide_view",
   issueReportOpen: "issue_report_open",
   issueReportSubmit: "issue_report_submit",
+  feedbackPromptOpen: "feedback_prompt_open",
+  feedbackPromptSubmit: "feedback_prompt_submit",
+  feedbackPromptSkip: "feedback_prompt_skip",
+  feedbackPromptDismiss: "feedback_prompt_dismiss",
   writtenAiReviewCopy: "written_ai_review_copy",
 } as const satisfies Record<string, AnalyticsEventName>;

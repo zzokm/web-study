@@ -21,6 +21,7 @@ import { ExamCountdown } from "@/components/layout/exam-countdown";
 import { SidebarFeedbackPill } from "@/components/layout/sidebar-feedback-pill";
 import { HeaderReportIssuePill } from "@/components/layout/header-report-issue-pill";
 import { SidebarGithubLinks } from "@/components/layout/sidebar-github-links";
+import { FeedbackModalProvider } from "@/components/feedback/feedback-modal-context";
 import { ReportIssueProvider } from "@/components/report/report-issue-context";
 import { OutboundTrackedLink } from "@/components/analytics/outbound-tracked-link";
 import { GitHubIcon } from "@/components/icons/github-icon";
@@ -175,9 +176,11 @@ export function AppShell({ children }: { children: React.ReactNode }) {
   return (
     <TooltipProvider>
       <ReportIssueProvider>
-        <PracticeHeaderProvider>
-          <AppShellInner>{children}</AppShellInner>
-        </PracticeHeaderProvider>
+        <FeedbackModalProvider>
+          <PracticeHeaderProvider>
+            <AppShellInner>{children}</AppShellInner>
+          </PracticeHeaderProvider>
+        </FeedbackModalProvider>
       </ReportIssueProvider>
     </TooltipProvider>
   );
