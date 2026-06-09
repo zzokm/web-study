@@ -423,20 +423,22 @@ EXPLANATION_FIXES: dict[str, dict[str, str]] = {
 }
 
 
-def _load_be2_python_explanations() -> dict[str, dict[str, str]]:
-    path = ROOT / "data" / "explanations" / "be2-python-explanations.json"
+def _load_backend_explanations() -> dict[str, dict[str, str]]:
+    path = ROOT / "data" / "explanations" / "backend-explanations.json"
+    if not path.exists():
+        path = ROOT / "data" / "explanations" / "be2-python-explanations.json"
     if not path.exists():
         return {}
     raw = json.loads(path.read_text(encoding="utf-8"))
     return {k: v for k, v in raw.items() if k != "written"}
 
 
-def _merge_be2_python_explanations() -> None:
-    for year, fixes in _load_be2_python_explanations().items():
+def _merge_backend_explanations() -> None:
+    for year, fixes in _load_backend_explanations().items():
         EXPLANATION_FIXES.setdefault(year, {}).update(fixes)
 
 
-_merge_be2_python_explanations()
+_merge_backend_explanations()
 
 OPTION_FIXES: dict[str, dict[str, dict[str, str]]] = {
     "2021": {
@@ -524,8 +526,22 @@ QUESTION_TEXT_FIXES: dict[str, dict[str, str]] = {
         "q53": "53. What will be the output of the following Python code?\ncar = {\n\"brand\": \"Ford\",\n\"model\": \"Mustang\",\n\"year\": 1964\n}\ny = car.keys()\ncar[\"color\"] = \"red\"\nprint(len(y))",
         "q57": "57. External CSS style has the highest priority",
         "q33": "33. What will be the output of the following JavaScript code snippet?\ndocument.write(typeof(NaN));",
+        "q59": "59. What does `{{ name }}` mean in Django Templates?",
     },
     "2025": {
+        "q1": "1. We use the put method in the HTTP request message for doing partial updates.",
+        "q5": "5. Django views represents the presentation layer of Django.",
+        "q8": "8. We can register models in the admin.py file to view it in the administration site of Django.",
+        "q9": "9. \"Post.Objects.all()\" will retrieve all objects in the Post table.",
+        "q10": "10. The super() function in python enables a class to have unlimited number of attributes.",
+        "q11": "11. \"migrate\" command in Django is used to show the changes happened in the database.",
+        "q15": "15. If an application is running on Web Server Gateway Interface (WSGI), then it will handle client requests in a sequential manner.",
+        "q16": "16. For a model to be visible in the admin interface it has to be registered in the settings.py file.",
+        "q19": "19. In python, to create a class that inherits from another class we use inherits keyword.",
+        "q20": "20. In Python, when using the super () function, the child class will not inherit the methods and properties from the parent class.",
+        "q29": "29. When you create a Django project on your computer, you will get a folder for your project with a specific content including templates file.",
+        "q30": "30. Django comes with a built-in user interface that allows you to administrate your data. To access this interface you have to create a user name and password. To create this such user, you write python mange.py createuser.",
+        "q66": "66. What does `{{ name }}` mean in Django Templates?",
         "q21": "21. In the following statement:\nmyNumbers = [1,2,3]\nx = myNumbers.pop()\nThe removed item will be 1.",
         "q22": "22. In the following statement:\nmyNumbers = [1,2,3]\nx = myNumbers.pop()\nThe removed item will be 3.",
         "q26": "26. The output of the following statements is Hello, My\nb = \"Hello, My Friend\"\nprint(b[:8])",

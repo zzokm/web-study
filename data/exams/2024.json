@@ -44,7 +44,7 @@
         ],
         "correctAnswerId": "c",
         "expectedAnswer": null,
-        "explanation": "Django uses the MVT (Model-View-Template) pattern, matching option c.",
+        "explanation": "Django uses the MVT (Model-View-Template) pattern. Models handle data and database access, Views contain request-handling logic, Templates render HTML. This is Django's documented architecture, distinct from classic MVC or MVVM.",
         "relatedTopics": [
           "be-5"
         ]
@@ -81,7 +81,7 @@
         ],
         "correctAnswerId": "b",
         "expectedAnswer": null,
-        "explanation": "Models are registered using `admin.site.register()` within the `admin.py` file of a Django app to make them accessible via the Django admin panel.",
+        "explanation": "The Django admin site displays models registered in the app's `admin.py` via `admin.site.register(MyModel)` or a `@admin.register` decorator. `settings.py` configures the project; `views.py` handles public URLs — neither registers admin models.",
         "relatedTopics": [
           "be-8"
         ]
@@ -155,7 +155,7 @@
         ],
         "correctAnswerId": "c",
         "expectedAnswer": null,
-        "explanation": "Django template tags use `{% %}`. A `for` loop starts with `{% for x in y %}`. Python-style parentheses, ASP-style `<% %>`, and \"none of the previous\" are not valid Django template syntax.",
+        "explanation": "Django template logic uses tags wrapped in `{% %}`. A for loop starts with `{% for x in y %}` and ends with `{% endfor %}`. Parentheses `(for x in y)` are invalid. `<% %>` belongs to other template engines, not Django.",
         "relatedTopics": [
           "be-7"
         ]
@@ -192,7 +192,7 @@
         ],
         "correctAnswerId": "c",
         "expectedAnswer": null,
-        "explanation": "The standard CLI command to initialize a new Django project is `django-admin startproject <projectname>`.",
+        "explanation": "The canonical command is `django-admin startproject my_tennis_club`, which scaffolds the project directory and inner config package. `django start` and `manage.py start-django` are not real commands. After creation, use `manage.py` inside the project for runserver, migrate, etc.",
         "relatedTopics": [
           "be-5"
         ]
@@ -229,7 +229,7 @@
         ],
         "correctAnswerId": "a",
         "expectedAnswer": null,
-        "explanation": "In Python and Django, models are stored in the `models.py` file within the app directory. The correct relative import is `from <appname>.models import <ModelName>`.",
+        "explanation": "Django models live in `appname/models.py`. Standard import: `from members.models import Member`. JavaScript-style `import Member from members` and dotted `import members.Member` are not valid Python import syntax for this case.",
         "relatedTopics": [
           "be-8"
         ]
@@ -377,7 +377,7 @@
         ],
         "correctAnswerId": "d",
         "expectedAnswer": null,
-        "explanation": "`makemigrations` only creates migration files; applying them requires `migrate`, which is not listed.",
+        "explanation": "To apply model changes to the database you run `python manage.py migrate`. That command is not listed. `makemigrations` (option C) only creates migration files — it does not alter the database. `runmigrations` and `executemigrations` are fake commands. Therefore D (None of the previous) is correct. Exam trap: students pick C because it is the only real Django command shown, but it is the wrong step for \"take effect in the database.\"",
         "relatedTopics": [
           "be-8"
         ]
@@ -849,7 +849,7 @@
         ],
         "correctAnswerId": "d",
         "expectedAnswer": null,
-        "explanation": "The `Expires` header is an HTTP response header that contains the date/time after which the response is considered stale, denoting time-based caching.",
+        "explanation": "The `Expires` header is sent in an HTTP response and gives a date/time after which the cached response should be considered stale — time-based caching. It is not a request header and not about content-type. Pair: response + time-based caching.",
         "relatedTopics": [
           "fe-1",
           "be-4"
@@ -1842,7 +1842,7 @@
         ],
         "correctAnswerId": "b",
         "expectedAnswer": null,
-        "explanation": "False. ASGI is specifically designed to handle requests asynchronously and concurrently, unlike WSGI, which is synchronous/sequential.",
+        "explanation": "ASGI (Asynchronous Server Gateway Interface) supports async views and concurrent request handling within an event loop. WSGI is synchronous — each worker typically handles one request at a time in sequence. The statement claims ASGI is sequential, which is false.",
         "relatedTopics": [
           "be-1",
           "be-5"
@@ -2130,7 +2130,7 @@
         ],
         "correctAnswerId": "b",
         "expectedAnswer": null,
-        "explanation": "The `User-Agent` string allows network protocol peers to identify the application type, operating system, software vendor, or software version of the requesting user agent.",
+        "explanation": "The `User-Agent` request header identifies the client software (browser, version, OS). `Referer` (sic in HTTP spec) sends the previous page URL. `Cookie` sends stored cookies. Servers use User-Agent for analytics and compatibility decisions.",
         "relatedTopics": [
           "fe-1",
           "be-4"
@@ -2139,7 +2139,7 @@
       {
         "id": "q59",
         "type": "multiple_choice",
-        "questionText": "59. What does {{ name }} this mean in Django Templates?",
+        "questionText": "59. What does `{{ name }}` mean in Django Templates?",
         "options": [
           {
             "id": "a",
@@ -2168,7 +2168,7 @@
         ],
         "correctAnswerId": "c",
         "expectedAnswer": null,
-        "explanation": "Double curly braces `{{ }}` constitute a template variable in Django; the engine interpolates this and outputs the value of the backend Python variable passed through the context.",
+        "explanation": "`{{ name }}` in a Django template renders the value of the context variable `name` at that position. It is variable interpolation, not literal text. The view must pass `name` in the context dict. Spacing inside `{{ name }}` is conventional; `{{name}}` also works but option C describes the semantics correctly.",
         "relatedTopics": [
           "be-7"
         ]

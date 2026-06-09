@@ -812,7 +812,7 @@
           }
         ]
       },
-      "explanation": "Django models translate Python classes into database tables. Attributes of the class represent database columns, defined using Django field types like `CharField` (which requires a `max_length`) and `IntegerField`.",
+      "explanation": "Django models subclass `models.Model`. Each class attribute using a `models.*Field` becomes a database column. `CharField` requires `max_length`; `IntegerField` stores integers. After defining the model, run `makemigrations` then `migrate`. Example: `class Product(models.Model): name = models.CharField(max_length=100); price = models.IntegerField()`.",
       "relatedTopics": [
         "be-8"
       ]
@@ -841,7 +841,7 @@
           }
         ]
       },
-      "explanation": "A Django view function takes a web request and returns a web response. The simplest response is passing a raw HTML string into an imported `HttpResponse` object.",
+      "explanation": "A function-based view accepts `request` as its first argument and must return an `HttpResponse` (or subclass). Import `HttpResponse` from `django.http`. Minimal pattern: `def home_view(request): return HttpResponse('<h1>Welcome to Django</h1>')`. Wire it in `urls.py` with `path('', views.home_view)`.",
       "relatedTopics": [
         "be-5"
       ]
@@ -870,7 +870,7 @@
           }
         ]
       },
-      "explanation": "Django templates use `{% %}` for logic (like loops and conditionals) and `{{ }}` to output variables. Every `{% for %}` loop must be explicitly closed with `{% endfor %}`.",
+      "explanation": "Django templates separate logic tags `{% %}` from output `{{ }}`. Loop: `{% for user in users %}<li>{{ user }}</li>{% endfor %}`. Every `{% for %}` needs `{% endfor %}`. The view passes `users` in the context dictionary. Wrap `<li>` elements in `<ul>` as the prompt requires.",
       "relatedTopics": [
         "be-7"
       ]
@@ -899,7 +899,7 @@
           }
         ]
       },
-      "explanation": "The `urls.py` file dictates URL routing in Django. The `path()` function takes a route string, a view function to call, and optionally a `name` argument which is highly recommended for reverse URL lookups in templates.",
+      "explanation": "In `urls.py`: `from django.urls import path` and `from . import views` (or your app). `urlpatterns = [path('contact/', views.contact_view, name='contact')]`. The `name` enables `{% url 'contact' %}` and `reverse('contact')`. Route string includes trailing slash per Django convention.",
       "relatedTopics": [
         "be-5"
       ]
@@ -952,7 +952,7 @@
           }
         ]
       },
-      "explanation": "Python Object-Oriented Programming relies on the `__init__` method to initialize an object's state. The `self` parameter is strictly required as the first argument in instance methods to access class variables.",
+      "explanation": "Define `class Car:` with `def __init__(self, make, year):` assigning `self.make` and `self.year`. Method `display(self)` returns a formatted string, typically `return f'{self.year} {self.make}'` for output like '2020 Toyota'. `self` is mandatory as the first parameter of instance methods.",
       "relatedTopics": [
         "be-3"
       ]

@@ -15,7 +15,7 @@
       {
         "id": "q1",
         "type": "multiple_choice",
-        "questionText": "1. We use the put method in the HTTP request message for doing partial updates.\na. True\nb. False",
+        "questionText": "1. We use the put method in the HTTP request message for doing partial updates.",
         "options": [
           {
             "id": "true",
@@ -32,7 +32,7 @@
         ],
         "correctAnswerId": "false",
         "expectedAnswer": null,
-        "explanation": "The PUT method is designed to completely replace a target resource. For partial updates, the PATCH method is the correct standard.",
+        "explanation": "PUT is intended to replace an entire resource. PATCH performs partial updates (changing only some fields). Using PUT for partial updates is incorrect per REST conventions. Answer: False. Related: POST creates; DELETE removes.",
         "relatedTopics": [
           "fe-1",
           "be-4"
@@ -116,7 +116,7 @@
       {
         "id": "q5",
         "type": "multiple_choice",
-        "questionText": "5. Django views represents the presentation layer of Django.\na. True\nb. False",
+        "questionText": "5. Django views represents the presentation layer of Django.",
         "options": [
           {
             "id": "true",
@@ -133,7 +133,7 @@
         ],
         "correctAnswerId": "false",
         "expectedAnswer": null,
-        "explanation": "In Django's MVT (Model-View-Template) architecture, the View represents the business logic/controller layer. The Template represents the presentation layer.",
+        "explanation": "In Django MVT, Views handle request logic (query data, decide what to return). Templates are the presentation layer (HTML layout). The statement swaps these roles, so it is False. Models are the data layer.",
         "relatedTopics": [
           "be-5",
           "be-6"
@@ -192,7 +192,7 @@
       {
         "id": "q8",
         "type": "multiple_choice",
-        "questionText": "8. We can register models in the admin.py file to view it in the administration site of Django.\na. True\nb. False",
+        "questionText": "8. We can register models in the admin.py file to view it in the administration site of Django.",
         "options": [
           {
             "id": "true",
@@ -209,7 +209,7 @@
         ],
         "correctAnswerId": "true",
         "expectedAnswer": null,
-        "explanation": "Using `admin.site.register(ModelName)` inside `admin.py` is the standard way to make models visible and editable in the Django admin interface.",
+        "explanation": "Register models in `admin.py` with `admin.site.register(Model)` so they appear in `/admin/`. This is standard Django admin setup. The statement is True.",
         "relatedTopics": [
           "be-8"
         ]
@@ -217,7 +217,7 @@
       {
         "id": "q9",
         "type": "multiple_choice",
-        "questionText": "9. \"Post.Objects.all()\" will retrieve all objects in the Post table.\na. True\nb. False",
+        "questionText": "9. \"Post.Objects.all()\" will retrieve all objects in the Post table.",
         "options": [
           {
             "id": "true",
@@ -234,7 +234,7 @@
         ],
         "correctAnswerId": "false",
         "expectedAnswer": null,
-        "explanation": "Python is case-sensitive. The correct syntax uses a lowercase 'o': `Post.objects.all()`.",
+        "explanation": "Django's default manager is lowercase `objects`, not `Objects`. Correct call: `Post.objects.all()`. Python is case-sensitive; `Objects` would raise `AttributeError`. The statement is False.",
         "relatedTopics": [
           "be-8"
         ]
@@ -242,7 +242,7 @@
       {
         "id": "q10",
         "type": "multiple_choice",
-        "questionText": "10. The super() function in python enables a class to have unlimited number of attributes.\na. True\nb. False",
+        "questionText": "10. The super() function in python enables a class to have unlimited number of attributes.",
         "options": [
           {
             "id": "true",
@@ -259,7 +259,7 @@
         ],
         "correctAnswerId": "false",
         "expectedAnswer": null,
-        "explanation": "The `super()` function is used to return a proxy object that delegates method calls to a parent or sibling class, allowing inheritance. It has nothing to do with enabling an unlimited number of attributes.",
+        "explanation": "`super()` returns a proxy to the parent class so you can call parent methods (especially `__init__`) in inheritance chains. It does not grant unlimited attributes — attribute count is unrelated. The statement is False.",
         "relatedTopics": [
           "be-3"
         ]
@@ -267,7 +267,7 @@
       {
         "id": "q11",
         "type": "multiple_choice",
-        "questionText": "11. \"migrate\" command in Django is used to show the changes happened in the database.\na. True\nb. False",
+        "questionText": "11. \"migrate\" command in Django is used to show the changes happened in the database.",
         "options": [
           {
             "id": "true",
@@ -284,7 +284,7 @@
         ],
         "correctAnswerId": "false",
         "expectedAnswer": null,
-        "explanation": "The `migrate` command applies the migrations to the database. To show changes or view migrations, commands like `showmigrations` or checking the output of `makemigrations` are used.",
+        "explanation": "`migrate` applies pending migrations to the database (creates/alters tables). It does not merely \"show\" changes. To inspect migration status use `showmigrations`; to generate files use `makemigrations`. The statement is False.",
         "relatedTopics": [
           "be-8"
         ]
@@ -367,7 +367,7 @@
       {
         "id": "q15",
         "type": "multiple_choice",
-        "questionText": "15. If an application is running on Web Server Gateway Interface (WSGI), then it will handle client requests in a sequential manner.\na. True\nb. False",
+        "questionText": "15. If an application is running on Web Server Gateway Interface (WSGI), then it will handle client requests in a sequential manner.",
         "options": [
           {
             "id": "true",
@@ -384,7 +384,7 @@
         ],
         "correctAnswerId": "true",
         "expectedAnswer": null,
-        "explanation": "WSGI is generally synchronous and handles requests sequentially per worker. For asynchronous, non-blocking handling, ASGI is used.",
+        "explanation": "WSGI apps are traditionally synchronous — a worker processes one request, then the next, sequentially within that worker. (Multiple workers can run in parallel processes, but each worker is sequential.) The statement is True in the exam's intended sense.",
         "relatedTopics": [
           "be-5"
         ]
@@ -392,7 +392,7 @@
       {
         "id": "q16",
         "type": "multiple_choice",
-        "questionText": "16. For a model to be visible in the admin interface it has to be registered in the settings.py file.\na. True\nb. False",
+        "questionText": "16. For a model to be visible in the admin interface it has to be registered in the settings.py file.",
         "options": [
           {
             "id": "true",
@@ -409,7 +409,7 @@
         ],
         "correctAnswerId": "false",
         "expectedAnswer": null,
-        "explanation": "Models must be registered in the `admin.py` file, not `settings.py`.",
+        "explanation": "Admin model registration belongs in each app's `admin.py`, not `settings.py`. `settings.py` holds project configuration (INSTALLED_APPS, DATABASES). The statement is False.",
         "relatedTopics": [
           "be-8"
         ]
@@ -467,7 +467,7 @@
       {
         "id": "q19",
         "type": "multiple_choice",
-        "questionText": "19. In python, to create a class that inherits from another class we use inherits keyword.\na. True\nb. False",
+        "questionText": "19. In python, to create a class that inherits from another class we use inherits keyword.",
         "options": [
           {
             "id": "true",
@@ -484,7 +484,7 @@
         ],
         "correctAnswerId": "false",
         "expectedAnswer": null,
-        "explanation": "Python does not have an `inherits` keyword. Inheritance is achieved by passing the parent class as a parameter in parentheses: `class ChildClass(ParentClass):`.",
+        "explanation": "Python inheritance syntax is `class Child(Parent):`, not an `inherits` keyword (used in other languages like JavaScript/Java). The statement is False.",
         "relatedTopics": [
           "be-3"
         ]
@@ -492,7 +492,7 @@
       {
         "id": "q20",
         "type": "multiple_choice",
-        "questionText": "20. In Python, when using the super () function, the child class will not inherit the methods and properties from the parent class.\na. True\nb. False",
+        "questionText": "20. In Python, when using the super () function, the child class will not inherit the methods and properties from the parent class.",
         "options": [
           {
             "id": "true",
@@ -509,7 +509,7 @@
         ],
         "correctAnswerId": "false",
         "expectedAnswer": null,
-        "explanation": "This statement is the exact opposite of reality. `super()` is used precisely to access and inherit methods and properties from the parent class.",
+        "explanation": "`super()` exists so child classes can call parent methods and initialize parent state. Without `super()`, you can still inherit, but cooperative multiple inheritance breaks. The claim that super prevents inheritance is backwards — False.",
         "relatedTopics": [
           "be-3"
         ]
@@ -717,7 +717,7 @@
       {
         "id": "q29",
         "type": "multiple_choice",
-        "questionText": "29. When you create a Django project on your computer, you will get a folder for your project with a specific content including templates file.\na. True\nb. False",
+        "questionText": "29. When you create a Django project on your computer, you will get a folder for your project with a specific content including templates file.",
         "options": [
           {
             "id": "true",
@@ -734,7 +734,7 @@
         ],
         "correctAnswerId": "false",
         "expectedAnswer": null,
-        "explanation": "By default, the `django-admin startproject` command does not generate a `templates` folder or file. The developer must create it manually.",
+        "explanation": "`django-admin startproject` creates the project package, `manage.py`, and settings — but not an app-level `templates/` folder by default. Templates are usually added inside apps or configured via `TEMPLATES` DIRS. The statement is False.",
         "relatedTopics": [
           "be-5",
           "be-7"
@@ -743,7 +743,7 @@
       {
         "id": "q30",
         "type": "multiple_choice",
-        "questionText": "30. Django comes with a built-in user interface that allows you to administrate your data. To access this interface you have to create a user name and password. To create this such user, you write python mange.py createuser.\na. True\nb. False",
+        "questionText": "30. Django comes with a built-in user interface that allows you to administrate your data. To access this interface you have to create a user name and password. To create this such user, you write python mange.py createuser.",
         "options": [
           {
             "id": "true",
@@ -760,7 +760,7 @@
         ],
         "correctAnswerId": "false",
         "expectedAnswer": null,
-        "explanation": "The correct command to create an administrative user is `python manage.py createsuperuser`, not `createuser` (and manage.py is misspelled in the prompt).",
+        "explanation": "Django admin exists, but the command is `python manage.py createsuperuser` (not `mange.py createuser`). The typos in the statement are intentional traps. False.",
         "relatedTopics": [
           "be-8"
         ]
@@ -912,7 +912,7 @@
         ],
         "correctAnswerId": "a",
         "expectedAnswer": null,
-        "explanation": "The `Content-Type` entity header is used to indicate the media type (MIME type) of the resource.",
+        "explanation": "The `Content-Type` response header declares the media type (MIME type) of the body, e.g. `text/html`, `application/json`, `image/png`. It does not describe image dimensions or font size.",
         "relatedTopics": [
           "fe-1",
           "be-4"
@@ -950,7 +950,7 @@
         ],
         "correctAnswerId": "b",
         "expectedAnswer": null,
-        "explanation": "HTTP 200 OK implies the request was successful. In the context of authorization, it implies the server accepted the credentials and fulfilled the request.",
+        "explanation": "HTTP 200 after authorization means success — the user is authorized and the server returned the resource. Contrast 401 (authentication required) and 403 (authenticated but forbidden).",
         "relatedTopics": [
           "fe-1",
           "be-4"
@@ -988,7 +988,7 @@
         ],
         "correctAnswerId": "a",
         "expectedAnswer": null,
-        "explanation": "HTTP 403 is the 'Forbidden' status code. The client must authenticate itself to get the requested response, or lacks permissions even with authentication.",
+        "explanation": "HTTP 403 Forbidden means the server understood the request and the user is authenticated (or identity is known), but access to this resource is denied. The server is reachable — option A is correct. Do not confuse with 401 Unauthorized (credentials missing/invalid). 401 says \"who are you?\"; 403 says \"I know you, but you may not access this.\"",
         "relatedTopics": [
           "fe-1",
           "be-4"
@@ -1961,7 +1961,7 @@
         ],
         "correctAnswerId": "c",
         "expectedAnswer": null,
-        "explanation": "`django-admin startproject project_name` is the standard terminal command to bootstrap a new Django project.",
+        "explanation": "Project scaffolding uses the `django-admin` utility before `manage.py` exists: `django-admin startproject my_tennis_club`. That creates the outer project folder, inner config package, and `manage.py`. Options like `django start` or `py manage.py start-django` are invented distractors. After creation, run commands via `python manage.py` inside the project directory.",
         "relatedTopics": [
           "be-5"
         ]
@@ -1998,7 +1998,7 @@
         ],
         "correctAnswerId": "a",
         "expectedAnswer": null,
-        "explanation": "Django stores app models inside `models.py`. Standard Python import syntax extracts a specific class from that module via `from app_name.models import ClassName`.",
+        "explanation": "Models are defined in `appname/models.py`. The standard import path is `from members.models import Member` when the app is named `members` and the class is `Member`. JavaScript-style `import Member from members` or `import members.Member` are invalid Python syntax. Django expects normal Python package imports following `INSTALLED_APPS` structure.",
         "relatedTopics": [
           "be-8"
         ]
@@ -2035,7 +2035,7 @@
         ],
         "correctAnswerId": "d",
         "expectedAnswer": null,
-        "explanation": "The `makemigrations` command (option c) creates the Python instructions, but to *make the changes take effect* in the database, the `python manage.py migrate` command must be run. Since it is missing, D is the answer.",
+        "explanation": "Identical trap to 2024 Q10: applying schema changes requires `python manage.py migrate`, which is absent from the list. `makemigrations` only writes migration files. Fake commands `runmigrations`/`executemigrations` are distractors. Correct answer: D (None of the previous). Read carefully: \"take effect in the database\" means apply, not generate.",
         "relatedTopics": [
           "be-8"
         ]
@@ -2080,7 +2080,7 @@
       {
         "id": "q66",
         "type": "multiple_choice",
-        "questionText": "66. What does {{ name }} this mean in Django Templates?",
+        "questionText": "66. What does `{{ name }}` mean in Django Templates?",
         "options": [
           {
             "id": "a",
@@ -2109,7 +2109,7 @@
         ],
         "correctAnswerId": "c",
         "expectedAnswer": null,
-        "explanation": "In Django's template language, double curly braces evaluate the variable inside and output its value into the template.",
+        "explanation": "Same semantics as 2024 Q59: `{{ name }}` outputs the context variable's value during template rendering. Not literal braces, not the word \"name\" as static text.",
         "relatedTopics": [
           "be-7"
         ]
