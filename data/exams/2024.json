@@ -534,7 +534,7 @@
       {
         "id": "q15",
         "type": "multiple_choice",
-        "questionText": "15. What will be the output of this code?",
+        "questionText": "15. What will be the output of this code?\nconst VALUE=10;\nVALUE=20;",
         "options": [
           {
             "id": "a",
@@ -597,7 +597,7 @@
       {
         "id": "q17",
         "type": "multiple_choice",
-        "questionText": "17. What will be the value of X?",
+        "questionText": "17. What will be the value of X?\nvar X=10;\nfunction myfunc()\n{\nlet x=20;\n}\ndocument.write(X);",
         "options": [
           {
             "id": "a",
@@ -635,7 +635,7 @@
       {
         "id": "q18",
         "type": "multiple_choice",
-        "questionText": "18. What is the output of the following JavaScript code?",
+        "questionText": "18. What is the output of the following JavaScript code?\nvar a=10+20+\"5\";\ndocument.getElementById(\"demo\").innerHTML = a;",
         "options": [
           {
             "id": "a",
@@ -672,7 +672,7 @@
       {
         "id": "q19",
         "type": "multiple_choice",
-        "questionText": "19. What will be the output of the following JavaScript code?",
+        "questionText": "19. What will be the output of the following JavaScript code?\nvar x = 1234;\ndocument.getElementById(\"test\").innerHTML = typeof(x);",
         "options": [
           {
             "id": "a",
@@ -746,7 +746,7 @@
       {
         "id": "q21",
         "type": "multiple_choice",
-        "questionText": "21. What will be the output of the following JavaScript code?",
+        "questionText": "21. What will be the output of the following JavaScript code?\nvar numbers = [1, 2, 3, 4];\nfunction myfunc(total, value) {\nreturn total + value;\n}\nvar sum = numbers.reduce(myfunc, 2);",
         "options": [
           {
             "id": "a",
@@ -783,7 +783,7 @@
       {
         "id": "q22",
         "type": "multiple_choice",
-        "questionText": "22. What will be the output of the following JavaScript code?",
+        "questionText": "22. What will be the output of the following JavaScript code?\nvar numbers = [170, 50, 25];\nfunction myfunc(total, value) {\nreturn total - value;\n}\nvar x = numbers.reduce(myfunc);\ndocument.write(x);",
         "options": [
           {
             "id": "a",
@@ -858,7 +858,7 @@
       {
         "id": "q24",
         "type": "multiple_choice",
-        "questionText": "24. What will be the output of the following JavaScript code?",
+        "questionText": "24. What will be the output of the following JavaScript code?\nconst arr = [10, 20, 30];\nlet result = 0;\narr.forEach(myFunction);\ndocument.write(\"Result: \", result);\nfunction myFunction(value, index, array) {\nresult += value;\n}",
         "options": [
           {
             "id": "a",
@@ -895,7 +895,7 @@
       {
         "id": "q25",
         "type": "multiple_choice",
-        "questionText": "25. What will be the output of the following JavaScript code?",
+        "questionText": "25. What will be the output of the following JavaScript code?\nconst values = [10, 20, 30];\nconst result = values.map(myFunction);\ndocument.write(\"Result: \", result);\nfunction myFunction(value, index, array) {\nreturn value * value;\n}",
         "options": [
           {
             "id": "a",
@@ -1043,7 +1043,7 @@
       {
         "id": "q29",
         "type": "multiple_choice",
-        "questionText": "29. What will be the output of the following JavaScript code?",
+        "questionText": "29. What will be the output of the following JavaScript code?\ntry {\nconst cars = {\ncompany: \"Honda\",\ncolor: \"white\"\n};\nvar x = \"color\";\ndelete cars.company;\ndocument.write(cars.company);\ndocument.write(cars[x]);\n} catch (err){\ndocument.write(err.message);\n}",
         "options": [
           {
             "id": "a",
@@ -1080,7 +1080,7 @@
       {
         "id": "q30",
         "type": "multiple_choice",
-        "questionText": "30. What will be the output of the following JavaScript code?",
+        "questionText": "30. What will be the output of the following JavaScript code?\nlet x = 10;\nlet y = 20;\nlet text = \"x * y\";\nlet result = eval(text);\ndocument.getElementById(\"demo\").innerHTML = result;",
         "options": [
           {
             "id": "a",
@@ -1118,7 +1118,7 @@
       {
         "id": "q31",
         "type": "multiple_choice",
-        "questionText": "31. What will be the output of this JavaScript code?",
+        "questionText": "31. What will be the output of this JavaScript code?\nvar numbers = [10, 20, 30];\nfunction myFunction(value, index, array) {\nreturn value > 10;\n}\nvar y = numbers.filter(myFunction);\ndocument.write(typeof(y));",
         "options": [
           {
             "id": "a",
@@ -1155,7 +1155,7 @@
       {
         "id": "q32",
         "type": "multiple_choice",
-        "questionText": "32. What will be the output of this JavaScript code?",
+        "questionText": "32. What will be the output of this JavaScript code?\nvar numbers = [10, 20, 10, 30];\nvar y = numbers.lastIndexOf(10);\nvar z = numbers.indexOf(30);\ndocument.write(y + z);",
         "options": [
           {
             "id": "a",
@@ -1992,7 +1992,7 @@
           {
             "id": "a",
             "type": "text",
-            "content": "Copy()",
+            "content": "copy()",
             "codeLanguage": null
           },
           {
@@ -2016,7 +2016,7 @@
         ],
         "correctAnswerId": "c",
         "expectedAnswer": null,
-        "explanation": "Both `copy()` and `dict()` can shallow-copy a dictionary. Option a shows `Copy()` with a capital C; Python is case-sensitive, so that is a typo for `copy()`.",
+        "explanation": "Both `copy()` and `dict()` shallow-copy a dictionary, so both methods in options a and b are valid.",
         "relatedTopics": [
           "be-2"
         ]
@@ -2801,7 +2801,7 @@
         ],
         "correctAnswerId": "b",
         "expectedAnswer": null,
-        "explanation": "Without a depth argument, `flat()` defaults to a depth of `1`. The structure `[3, [4,5,6], 7]` gets its outer array stripped, injecting 3, the inner array `[4,5,6]`, and 7 directly into the master array. The output array contains the sub-array `[4,5,6]` intact.",
+        "explanation": "With depth 1, `flat()` yields `[1, 2, 3, [4, 5, 6], 7, 8]`. `document.writeln` coerces the array to a string; nested arrays join with commas, producing `1,2,3,4,5,6,7,8`.",
         "relatedTopics": [
           "fe-6"
         ]

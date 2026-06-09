@@ -564,12 +564,12 @@ ANSWER: C
 EXPLANATION: Sets use `update()`; lists use `extend()` when adding from another collection.
 
 55. To make a copy of a dictionary, we can use ____ method.
-a. Copy()
+a. copy()
 b. dict()
 c. a. and b.
 d. makecopy()
 ANSWER: C
-EXPLANATION: Both `copy()` and `dict()` can shallow-copy a dictionary. Option a shows `Copy()` with a capital C; Python is case-sensitive, so that is a typo for `copy()`.
+EXPLANATION: Both `copy()` and `dict()` shallow-copy a dictionary, so both methods in options a and b are valid.
 
 56. In CSS, "color:red" can be called as
 a. Selector
@@ -761,7 +761,7 @@ b. 1,2,3,4,5,6,7,8
 c. 1,2,[3,[4,5,6],7],8
 d. None of the previous
 ANSWER: B
-EXPLANATION: Without a depth argument, `flat()` defaults to a depth of `1`. The structure `[3, [4,5,6], 7]` gets its outer array stripped, injecting 3, the inner array `[4,5,6]`, and 7 directly into the master array. The output array contains the sub-array `[4,5,6]` intact.
+EXPLANATION: With depth 1, `flat()` yields `[1, 2, 3, [4, 5, 6], 7, 8]`. `document.writeln` coerces the array to a string; nested arrays join with commas, producing `1,2,3,4,5,6,7,8`.
 
 Based on the following HTML page, answer the following questions:
 
