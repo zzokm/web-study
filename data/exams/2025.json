@@ -159,7 +159,7 @@
         ],
         "correctAnswerId": "false",
         "expectedAnswer": null,
-        "explanation": "The `format()` string method is used to control the string presentation and insert variables into string placeholders, not to change or format underlying data types themselves.",
+        "explanation": "Python's string formatting controls how values appear in text, not the underlying type of the data. Methods like `\"{}\".format(x)` or f-strings insert `x` into a template; they do not convert a number's type in memory. To change types you use constructors like `int()`, `str()`, or `float()`. The statement confuses presentation formatting with type conversion, so it is false.",
         "relatedTopics": [
           "be-2"
         ]
@@ -184,7 +184,7 @@
         ],
         "correctAnswerId": "false",
         "expectedAnswer": null,
-        "explanation": "A set in Python is unordered and unindexed. You cannot access set items by referring to an index or a key.",
+        "explanation": "A standard `set` has no indices and no keys — only membership tests (`x in s`) and iteration. Elements are unique and the collection is unordered (do not assume `s[0]` exists). The statement claims sets are indexed, which is false. This is the same core fact tested in 2021 Q78 and 2024 Q72, phrased as a true/false stem.",
         "relatedTopics": [
           "be-2"
         ]
@@ -309,7 +309,7 @@
         ],
         "correctAnswerId": "false",
         "expectedAnswer": null,
-        "explanation": "Lists use the `extend()` method to append elements from an iterable. The `update()` method is used for sets and dictionaries.",
+        "explanation": "Lists extend sequence by appending each element from another iterable. The list method for that is `extend()`, e.g. `list_a.extend(list_b)`. `update()` is for sets and dictionaries, not lists — calling `update()` on a list would fail because lists have no such method. The statement is therefore false. Exam trap: `update` sounds like a generic \"add stuff\" verb, but Python assigns it only to mutable set/dict types.",
         "relatedTopics": [
           "be-2"
         ]
@@ -334,7 +334,7 @@
         ],
         "correctAnswerId": "false",
         "expectedAnswer": null,
-        "explanation": "Sets use the `update()` method to add items from another set (or any iterable). `extend()` is used for lists.",
+        "explanation": "`extend()` is a list method that adds each element from an iterable. Sets use `update()` to merge in elements from another set or iterable; calling `extend()` on a set would fail with `AttributeError`. The statement is false. Pair with 2025 Q12 (lists use `extend`, not `update`) and 2024 Q54 for the full set-vs-list method map.",
         "relatedTopics": [
           "be-2"
         ]
@@ -459,7 +459,7 @@
         ],
         "correctAnswerId": "true",
         "expectedAnswer": null,
-        "explanation": "This is the precise definition of a standard Python set.",
+        "explanation": "Python sets are mutable collections of unique items. They do not preserve insertion order as an indexing feature (historically; even with display order, indexing is still invalid) and you cannot access elements by position. \"Unordered and unindexed\" is the standard exam definition. The statement is true. Do not confuse with `dict`, which is keyed but also not positionally indexed.",
         "relatedTopics": [
           "be-2"
         ]
@@ -534,7 +534,7 @@
         ],
         "correctAnswerId": "false",
         "expectedAnswer": null,
-        "explanation": "By default, the `pop()` method in Python removes and returns the *last* item in the list, which would be 3, not 1.",
+        "explanation": "When `pop()` is called with no index on a list, Python removes the last element. `[1, 2, 3]` ends with `3`, so the removed value is `3`, not `1`. The statement is false. Use `pop(0)` to remove from the front. This mirrors 2024 Q68/Q69 and tests the default `pop()` index.",
         "relatedTopics": [
           "be-2"
         ]
@@ -559,7 +559,7 @@
         ],
         "correctAnswerId": "true",
         "expectedAnswer": null,
-        "explanation": "`pop()` removes the last element of the list, which is 3.",
+        "explanation": "List `pop()` without an argument always targets the final index. For `[1, 2, 3]`, the last element is `3`, so `x` becomes `3` and the list becomes `[1, 2]`. The statement is true. Remember: only `pop(0)` removes the first item.",
         "relatedTopics": [
           "be-2"
         ]
@@ -584,7 +584,7 @@
         ],
         "correctAnswerId": "false",
         "expectedAnswer": null,
-        "explanation": "This defines a tuple, as it uses parentheses `()`. A list uses square brackets `[]`.",
+        "explanation": "A comma-separated sequence in parentheses is a tuple literal. `(\"apple\", \"banana\", \"cherry\")` creates a 3-item tuple. Lists require square brackets `[]`. The statement claims this is a list definition, so it is false. Do not confuse tuples with lists just because both are sequences.",
         "relatedTopics": [
           "be-2"
         ]
@@ -609,7 +609,7 @@
         ],
         "correctAnswerId": "true",
         "expectedAnswer": null,
-        "explanation": "Hyphens are not allowed in Python variable names because they are interpreted as the minus operator. Variable names can only contain letters, numbers, and underscores.",
+        "explanation": "Python identifiers must be contiguous letters, digits, and underscores, and cannot start with a digit. `my-var` is parsed as `my` minus `var`, not one name — hyphens are the subtraction operator. Valid alternatives: `my_var`, `myVar`. The statement that `my-var` is incorrect is true. Exam trap: underscores are allowed; hyphens never are.",
         "relatedTopics": [
           "be-2"
         ]
@@ -659,7 +659,7 @@
         ],
         "correctAnswerId": "false",
         "expectedAnswer": null,
-        "explanation": "The slice `b[:8]` extracts characters from index 0 to 7. Counting from 0: 'H'(0), 'e'(1), 'l'(2), 'l'(3), 'o'(4), ','(5), ' '(6), 'M'(7). The output is 'Hello, M', which is 8 characters long. 'Hello, My' would require `[:9]`.",
+        "explanation": "Evaluate the slice literally. `b[:8]` takes indices `0`–`7` (stop `8` is excluded). For `\"Hello, My Friend\"`: `H e l l o , space M` — eight characters — yielding `\"Hello, M\"`. The claim in the statement is `\"Hello, My\"` (nine characters through the second `y`), which would require `b[:9]`. Because the actual output does not match the statement, the answer is False. Exam trick: commas and spaces count as characters when counting slice lengths.",
         "relatedTopics": [
           "be-2"
         ]
@@ -684,7 +684,7 @@
         ],
         "correctAnswerId": "true",
         "expectedAnswer": null,
-        "explanation": "`strip()` safely removes leading and trailing characters (whitespace by default).",
+        "explanation": "`str.strip()` with no arguments removes leading and trailing whitespace characters (spaces, tabs, newlines by default). It does not remove spaces in the middle of the string. Related methods: `lstrip()` (left only), `rstrip()` (right only). You can pass a custom character set to strip other characters. The statement matches default `strip()` behavior, so it is true.",
         "relatedTopics": [
           "be-2"
         ]
@@ -709,7 +709,7 @@
         ],
         "correctAnswerId": "false",
         "expectedAnswer": null,
-        "explanation": "In Python, default sorting uses ASCII values. Uppercase letters have lower ASCII values than lowercase ones. Therefore, 'C' comes before 'a' and 'b'. The output will be `['C', 'a', 'b']`.",
+        "explanation": "Default `list.sort()` compares elements using Python's ordering rules, which for strings means Unicode code points. Uppercase letters precede lowercase (`'C'` before `'a'` and `'b'`). Sorted result: `['C', 'a', 'b']`, not `['a', 'b', 'C']`. The statement is false. Case-sensitive sorting is the default; case-insensitive sorting requires a `key` function (see Q32).",
         "relatedTopics": [
           "be-2"
         ]
@@ -810,7 +810,7 @@
         ],
         "correctAnswerId": "false",
         "expectedAnswer": null,
-        "explanation": "The `key=str.lower` argument tells the sort function to ignore case during comparisons, but it preserves the original elements. The output will be `['A', 'b', 'C']`.",
+        "explanation": "`sort(key=str.lower)` compares elements case-insensitively but does not rewrite the stored strings. Ordering follows lowercased keys `a, b, c`, while original casing remains, producing `['A', 'b', 'C']`. The statement claims `['a', 'b', 'c']`, which would require lowercasing the values themselves. Exam trap: `key=` affects comparison only, not the elements returned.",
         "relatedTopics": [
           "be-2"
         ]
@@ -860,7 +860,7 @@
         ],
         "correctAnswerId": "true",
         "expectedAnswer": null,
-        "explanation": "In Python, a single-element tuple requires a trailing comma. `(\"apple\",)` correctly creates a tuple.",
+        "explanation": "A single value in parentheses is just grouping: `(\"apple\")` equals the string `\"apple\"`. A one-element tuple requires a trailing comma: `(\"apple\",)`. Therefore `y = (\"apple\",)` creates a tuple, and the statement is true. This is a classic Python syntax quirk tested repeatedly in exams.",
         "relatedTopics": [
           "be-2"
         ]
@@ -2072,7 +2072,7 @@
         ],
         "correctAnswerId": "c",
         "expectedAnswer": null,
-        "explanation": "`Y` is a set, so duplicate values are removed. `print(Y)` outputs the unique elements `{1, 2, 3, 5}`, which matches option c. Spacing after commas in the printed representation is not required to match exactly.",
+        "explanation": "Curly braces with comma-separated values define a set literal. Duplicate values `1` and `3` collapse to one copy each, leaving `{1, 2, 3, 5}`. `print(Y)` shows that unique set. Option A keeps duplicates, which sets cannot store. Option B uses invalid `tuple(...)` call syntax. Python may print spaces after commas (`{1, 2, 3, 5}`), but option C matches the unique elements and brace notation.",
         "relatedTopics": [
           "be-2"
         ]
@@ -2146,7 +2146,7 @@
         ],
         "correctAnswerId": "c",
         "expectedAnswer": null,
-        "explanation": "`dict.keys()` returns a live view of the dictionary keys. After `car[\"color\"] = \"red\"` adds a fourth key, `len(y)` is 4.",
+        "explanation": "`car.keys()` returns a live view of the dictionary's keys. Assigning `car[\"color\"] = \"red\"` after creating `y` still updates what `y` sees, so `len(y)` is `4`. This is identical in spirit to 2024 Q53: the view tracks mutations. A snapshot would have frozen the count at `3`.",
         "relatedTopics": [
           "be-2"
         ]
@@ -2259,7 +2259,7 @@
         ],
         "correctAnswerId": "d",
         "expectedAnswer": null,
-        "explanation": "The unpacking assignment `(*k,) = newtuple` collects all items of the tuple into a list `k`. So `k` evaluates to `[1, 2, 3, 4]`. Since this isn't listed (b is `[2,3,4]`), the answer is None of the previous.",
+        "explanation": "The assignment `(*k,) = newtuple` unpacks the entire 4-tuple into starred target `k`, which becomes the list `[1, 2, 3, 4]`. Option A (`2,3,4`) omits the leading `1` and lacks list syntax. Option B (`[2,3,4]`) is the middle slice from a different unpacking pattern. Option C (`1,2,3`) truncates the tuple. None match `[1, 2, 3, 4]`, so the correct choice is \"None of the previous.\"",
         "relatedTopics": [
           "be-2"
         ]
@@ -2296,7 +2296,7 @@
         ],
         "correctAnswerId": "c",
         "expectedAnswer": null,
-        "explanation": "The unpacking requires at least 4 items (for `x, y, z, m`). The tuple only has 3 items. This results in a `ValueError: not enough values to unpack`.",
+        "explanation": "Unpacking `(x, *k, y, z, m) = (1, 2, 3)` needs at least five scalar targets plus whatever `*k` collects — more positions than the three available values. Python raises `ValueError: not enough values to unpack` before `print(k)` runs, so the answer is \"Python Error.\" Star unpacking cannot invent missing elements. Contrast 2024 Q37, where four values satisfy `(x, *k, y)`.",
         "relatedTopics": [
           "be-2"
         ]
@@ -2444,7 +2444,7 @@
         ],
         "correctAnswerId": "d",
         "expectedAnswer": null,
-        "explanation": "In Python 3, printing a set of strings outputs curly braces like `{'a', 'b', 'c'}` (order may vary). None of the options match this exact syntax.",
+        "explanation": "`set((\"a\", \"b\", \"c\"))` builds a set of strings. In Python 3, `print` renders it with curly braces, e.g. `{'a', 'b', 'c'}` (order may vary because sets are unordered). Options A–C use invalid or Python 2-style representations (`list[...]`, `set(['a', ...])` without quotes, unquoted identifiers). None match the actual output format, so answer D is correct.",
         "relatedTopics": [
           "be-2"
         ]
@@ -2481,7 +2481,7 @@
         ],
         "correctAnswerId": "d",
         "expectedAnswer": null,
-        "explanation": "Duplicates are removed, so the values are `{1, 2, 3, 5}`, but Python 3 prints sets with curly braces (e.g. `{1, 2, 3, 5}`), not `set([1,2,3,5])`. None of the listed formats match exactly.",
+        "explanation": "Duplicates in `{1,1,2,3,3,5}` are removed, leaving the unique set `{1, 2, 3, 5}`. Python 3 prints sets as `{1, 2, 3, 5}`, not `set([1, 2, 3, 5])` (Python 2 repr) and not a dict/t tuple. Options A–C show legacy or wrong types. Because no option matches real Python 3 output, choose \"None of the answers.\"",
         "relatedTopics": [
           "be-2"
         ]
@@ -2518,7 +2518,7 @@
         ],
         "correctAnswerId": "c",
         "expectedAnswer": null,
-        "explanation": "Dictionaries in Python cannot have duplicate keys. If you assign to the same key twice during initialization, the last assignment overwrites the previous one.",
+        "explanation": "Dictionary literals cannot contain duplicate keys. The second `\"mobile\"` entry overwrites the first during creation, so the stored value is `987654321`. `print(x)` displays `{'name': 'Ahmed', 'id': '1', 'mobile': 987654321}`. Option D is wrong — duplicate keys in a literal are legal syntax; they silently overwrite. Options A and B retain the first `mobile` value, which Python never stores.",
         "relatedTopics": [
           "be-2"
         ]

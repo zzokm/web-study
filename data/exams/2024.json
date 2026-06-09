@@ -998,7 +998,7 @@
         ],
         "correctAnswerId": "c",
         "expectedAnswer": null,
-        "explanation": "Unlike languages that use curly braces `{}` to define scope, Python relies entirely on leading whitespace (indentation) to group blocks of statements.",
+        "explanation": "After a header line ending with a colon (`if`, `for`, `while`, `def`, `else`, etc.), Python expects an indented block on the following lines. There are no `{}` block delimiters. Consistent leading whitespace (usually four spaces) groups statements into one block; dedenting ends the block. Option A (`Block`) and B (`Loop`) name concepts, not Python's block syntax. Getting indentation wrong raises `IndentationError` before the program runs.",
         "relatedTopics": [
           "be-2"
         ]
@@ -1347,7 +1347,7 @@
         ],
         "correctAnswerId": "b",
         "expectedAnswer": null,
-        "explanation": "`(*k,) = (1, 2, 3, 4)` sets `k` to `[1, 2, 3, 4]`, matching option b.",
+        "explanation": "The assignment `(*k,) = (1, 2, 3, 4)` uses starred unpacking on the left. Because there is only one target (`k`) with a star, it receives every element of the tuple as a list: `[1, 2, 3, 4]`. The trailing comma in `(*k,)` is required — without it, parentheses would be grouping, not a valid one-target unpack pattern. `print(k)` therefore shows `[1, 2, 3, 4]`. Options A and C list partial values without brackets; they describe different unpack shapes.",
         "relatedTopics": [
           "be-2"
         ]
@@ -1384,7 +1384,7 @@
         ],
         "correctAnswerId": "c",
         "expectedAnswer": null,
-        "explanation": "`(x, *k, y) = (1, 2, 3, 4)` sets `k` to `[2, 3]`, matching option c.",
+        "explanation": "Tuple unpacking assigns by position. In `(x, *k, y) = (1, 2, 3, 4)`, `x` takes the first value `1`, `y` takes the last value `4`, and the starred name `k` absorbs the middle values as a list. Therefore `k == [2, 3]`. Starred targets always collect a list (possibly empty) of leftover items. Option A shows bare values without list brackets. Option B incorrectly includes the final `4` in `k`.",
         "relatedTopics": [
           "be-2"
         ]
@@ -1780,7 +1780,7 @@
         ],
         "correctAnswerId": "a",
         "expectedAnswer": null,
-        "explanation": "Negative indexing in Python starts from the end (-1 is '!'). The slice `[-5:-2]` starts at the 5th character from the end ('o') and stops before the 2nd character from the end ('d'). The characters are 'o', 'r', 'l', giving \"orl\".",
+        "explanation": "Negative indices count from the end: index `-1` is `'!'`, `-2` is `'d'`, `-3` is `'l'`, `-4` is `'r'`, `-5` is `'o'`. Slice `b[-5:-2]` starts at `'o'` and stops before index `-2` (`'d'`), so the slice characters are `'o'`, `'r'`, `'l'` → `orl`. Slices exclude the stop index. Option B (`or`) would use stop `-3`. Option C (`Wor`) uses positive-index thinking and is out of range for this negative slice.",
         "relatedTopics": [
           "be-2"
         ]
@@ -1817,7 +1817,7 @@
         ],
         "correctAnswerId": "c",
         "expectedAnswer": null,
-        "explanation": "`index(3)` returns the first occurrence at index 2.",
+        "explanation": "`tuple.index(value)` returns the zero-based index of the first matching element, not the value itself and not the count of occurrences. The first `3` in `(1, 2, 3, 3, 4, 5)` sits at index `2`, so `print(x)` outputs `2`. Option A (`3`) confuses index with value. Option B (`4`) might come from counting duplicates or using 1-based indexing.",
         "relatedTopics": [
           "be-2"
         ]
@@ -1905,7 +1905,7 @@
         ],
         "correctAnswerId": "b",
         "expectedAnswer": null,
-        "explanation": "Sets in Python do not allow duplicate values. Adding \"apple\" when it already exists has no effect. The length remains 3.",
+        "explanation": "Sets store unique elements only. `fruits` begins with three distinct strings. `fruits.add(\"apple\")` attempts to insert a duplicate; sets ignore duplicates, so membership and length stay unchanged. `len(fruits)` remains `3`. Option A assumes duplicates increase length. Sets are unordered, but length always reflects unique members.",
         "relatedTopics": [
           "be-2"
         ]
@@ -1942,7 +1942,7 @@
         ],
         "correctAnswerId": "c",
         "expectedAnswer": null,
-        "explanation": "`dict.keys()` reflects live changes; after adding `color`, there are four keys.",
+        "explanation": "`dict.keys()` returns a dynamic view object, not a static snapshot. Variable `y` stays linked to the dictionary's keys, so when `car[\"color\"] = \"red\"` adds a fourth key, `len(y)` becomes `4` even though `y` was created when there were only three keys. If `keys()` returned a copy, the length would remain `3`. This live-view behavior is a common exam trap.",
         "relatedTopics": [
           "be-2"
         ]
@@ -1979,7 +1979,7 @@
         ],
         "correctAnswerId": "c",
         "expectedAnswer": null,
-        "explanation": "Sets use `update()`; lists use `extend()` when adding from another collection.",
+        "explanation": "Adding *multiple items from another collection* uses different methods per type. Sets merge elements with `update(other_set)` (or `|=`); duplicates are ignored automatically. Lists append each element from an iterable with `extend(other_list)`. `append()` only adds one object as a single element — `lst.append(other_list)` would nest the whole list, not merge items. Option A swaps in `append()` for the list side; B and D pair `extend()` with sets, which lists do not support.",
         "relatedTopics": [
           "be-2"
         ]
@@ -2016,7 +2016,7 @@
         ],
         "correctAnswerId": "c",
         "expectedAnswer": null,
-        "explanation": "Both `copy()` and `dict()` shallow-copy a dictionary, so both methods in options a and b are valid.",
+        "explanation": "Both `my_dict.copy()` and `dict(my_dict)` create a new shallow copy of the dictionary — new outer dict, but nested objects are shared if present. Either works for a flat dict copy, so option C (\"a. and b.\") is correct. `makecopy()` is not a real dict method. Exam trap: shallow copy is enough for the question; `copy.deepcopy()` is only needed for nested mutable values inside values.",
         "relatedTopics": [
           "be-2"
         ]
@@ -2479,7 +2479,7 @@
         ],
         "correctAnswerId": "b",
         "expectedAnswer": null,
-        "explanation": "The `pop()` method extracts and returns the *last* element of an array, which in this case is 3, not 1.",
+        "explanation": "For a Python list, `pop()` with no index removes and returns the last element. `[1, 2, 3]` ends with `3`, not `1`. The statement says the removed item will be `1`, which is false. To remove the first element you must call `pop(0)`. Exam trick: do not confuse list `pop()` with `set.pop()`, which removes an arbitrary element.",
         "relatedTopics": [
           "be-2"
         ]
@@ -2504,7 +2504,7 @@
         ],
         "correctAnswerId": "a",
         "expectedAnswer": null,
-        "explanation": "The `pop()` function successfully removes the final index item from the array (3) and returns it.",
+        "explanation": "For a Python list, `pop()` with no argument removes the final element. In `[1, 2, 3]`, the last item is `3`, so `x = myNumbers.pop()` sets `x` to `3` and leaves `[1, 2]`. The statement is therefore true. This pairs with question 68, which tests the same method but with a wrong claimed value.",
         "relatedTopics": [
           "be-2"
         ]
@@ -2529,7 +2529,7 @@
         ],
         "correctAnswerId": "a",
         "expectedAnswer": null,
-        "explanation": "In Python, empty data structures such as an empty list `[]` inherently evaluate to a boolean value of `False`.",
+        "explanation": "Empty built-in containers are falsy in boolean context. `bool([])` is `False`, as are `bool({})`, `bool(set())`, and `bool(\"\")`. Any list with at least one element is truthy, even `[0]` or `[False]`. The statement is true. This pairs with set/index questions: `[]` is a valid list you can call methods on — falsy does not mean \"invalid\" or \"error\".",
         "relatedTopics": [
           "be-2"
         ]
@@ -2554,7 +2554,7 @@
         ],
         "correctAnswerId": "a",
         "expectedAnswer": null,
-        "explanation": "Yes, `set()` is the built-in constructor specifically designed for instantiating new set objects.",
+        "explanation": "Python provides the built-in `set()` constructor. You can build sets from iterables (`set([1, 2, 3])`), strings (`set(\"abc\")`), or empty sets (`set()`). Curly-brace literals like `{1, 2, 3}` are another syntax, not the only way. The statement is true. Note: `{}` alone creates an empty dict, not a set — use `set()` for an empty set.",
         "relatedTopics": [
           "be-2"
         ]
@@ -2579,7 +2579,7 @@
         ],
         "correctAnswerId": "b",
         "expectedAnswer": null,
-        "explanation": "Sets are unordered and explicitly *unindexed*. You cannot retrieve elements from a set via index positions.",
+        "explanation": "Sets store unique elements without positional indexing. You cannot do `s[0]` or iterate by index; use a `for` loop or convert to `list(s)` if order matters. Sets are unordered (iteration order is not a reliable indexing scheme). The statement incorrectly adds \"indexed\", so it is false. Contrast 2025 Q18/Q7, which state the correct \"unordered and unindexed\" definition.",
         "relatedTopics": [
           "be-2"
         ]
@@ -2616,7 +2616,7 @@
         ],
         "correctAnswerId": "a",
         "expectedAnswer": null,
-        "explanation": "The `**kwargs` syntax `**person` packages the keyword arguments into a dictionary. The print statement successfully queries `person[\"name\"]` to fetch \"Ahmed\".",
+        "explanation": "The `**person` syntax gathers keyword arguments into a dictionary inside the function. `f(name=\"Ahmed\", age=10)` makes `person` equivalent to `{\"name\": \"Ahmed\", \"age\": 10}`. Only `person[\"name\"]` is used in the `print`, so output is `Person's name is Ahmed`. Extra keys like `age` are valid and do not cause an error. Options C and D incorrectly suggest keyword arguments break the definition.",
         "relatedTopics": [
           "be-2"
         ]
@@ -2653,7 +2653,7 @@
         ],
         "correctAnswerId": "d",
         "expectedAnswer": null,
-        "explanation": "Division in Python 3 returns a float: `100 / 20` is `5.0`.",
+        "explanation": "`lambda x: x / 20` divides using `/`, which in Python 3 always produces a float. `100 / 20` evaluates to `5.0`, and `print` displays `5.0`. Option C (`5`) is the integer-looking value but is not what `/` returns. Option B shows source code, not evaluated output. Use `//` for floor division if you need integer `5`.",
         "relatedTopics": [
           "be-2"
         ]
@@ -2690,7 +2690,7 @@
         ],
         "correctAnswerId": "d",
         "expectedAnswer": null,
-        "explanation": "Python requires an indented block under `if`. The second `print` is not indented into the `if` body, so this raises an `IndentationError`.",
+        "explanation": "Python uses indentation to define blocks. After `if 1 < 2:`, the next line must be indented to belong to the `if` body. Here the first `print` is not indented relative to the `if`, so Python raises `IndentationError` at parse time — no output is produced. Options A–C describe runtime output that cannot occur because the file fails before execution. Compare with 2021 Q58, where indentation is valid and the second `print` sits outside the `if`.",
         "relatedTopics": [
           "be-2"
         ]
@@ -2727,7 +2727,7 @@
         ],
         "correctAnswerId": "a",
         "expectedAnswer": null,
-        "explanation": "The slice `[:7]` returns characters from index 0 up to (but not including) index 7. This extracts `M`, `y`, ` `, `L`, `o`, `v`, `e` resulting in `My Love`.",
+        "explanation": "Slice `x[:7]` includes indices `0` through `6` (the stop `7` is excluded). String `\"My Lovely Bird!\"` indices: `0:M, 1:y, 2:space, 3:L, 4:o, 5:v, 6:e`. Result: `\"My Love\"` (seven characters). Option B (`My Lovel`) would include index `7` (`l` from `Lovely`). Option C (`ly Bird!`) is the suffix starting at index `7`, not the prefix.",
         "relatedTopics": [
           "be-2"
         ]
@@ -2764,7 +2764,7 @@
         ],
         "correctAnswerId": "c",
         "expectedAnswer": null,
-        "explanation": "`x[7:]` starts at index 7 (the first `l` in `Lovely`), yielding `ly Bird!`.",
+        "explanation": "Slice `x[7:]` starts at index `7` and runs to the end. Index `7` is the first `l` in `Lovely`, so the slice is `\"ly Bird!\"` (from that `l` through the exclamation mark). Option D (`y Bird!`) would start one index too late. Option A (`My Love`) is the `[:7]` prefix, not the suffix tested here.",
         "relatedTopics": [
           "be-2"
         ]

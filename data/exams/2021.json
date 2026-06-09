@@ -1072,7 +1072,7 @@
         ],
         "correctAnswerId": "b",
         "expectedAnswer": null,
-        "explanation": "When assigning `name2 = name1`, Python simply creates a new reference pointing to the exact same object in memory. Because they reference the same object, the memory address retrieved by `id()` will be identical for both.",
+        "explanation": "This question tests object identity, not whether the messy `__init__` body is valid. In Python, `name2 = name1` does not copy an object — it binds a second name to the same object `name1` already refers to. If both names point to one object, `id(name1) == id(name2)` is always true. Option A is wrong because multiple references to the same object are normal and encouraged. Option C is wrong because assignment never creates a second `Name` instance by itself. Option D cannot be true because A and C are false. Exam trick: the oddly named `__init__(javatpoint)` and the undefined name `java` are distractions; the line being tested is the alias assignment. Note: if you actually ran `Name('ABC')` as written, Python would raise `TypeError` because `__init__` is defined with only one parameter (the instance), so the `'ABC'` argument has nowhere to go — but the official answer focuses on reference semantics after a successful construction.",
         "relatedTopics": [
           "be-2",
           "be-3"
@@ -1116,7 +1116,7 @@
         ],
         "correctAnswerId": "d",
         "expectedAnswer": null,
-        "explanation": "Initially, `lst` is `[]`. First append: `lst` becomes `[[15, 6]]`. Second append: `lst` becomes `[[15, 6], [10, 30, 20]]`. The `sort()` function sorts inner lists sequentially element by element. Since the first element 10 is less than 15, the array `[10, 30, 20]` is placed before `[15, 6]`. The result is `[[10, 30, 20], [15, 6]]`.",
+        "explanation": "Trace the state step by step. `lst` starts as `[]`. `lst.append(nums)` stores a reference to the list object `[15, 6]` inside `lst`, so `lst` is `[[15, 6]]`. Then `nums = [10, 30, 20]` rebinds the name `nums` to a brand-new list; it does not modify the `[15, 6]` object already stored in `lst`. The second `append` adds that new list, giving `[[15, 6], [10, 30, 20]]`. `lst.sort()` sorts only the outer list. Python compares nested lists element by element: `[10, 30, 20]` vs `[15, 6]` — first elements `10` and `15`, so `[10, 30, 20]` comes first. Final output: `[[10, 30, 20], [15, 6]]`. Common trap: thinking `nums` reassignment changes what is already inside `lst`, or flattening/sorting all numbers into one list (option A).",
         "relatedTopics": [
           "be-2"
         ]
@@ -2347,7 +2347,7 @@
         ],
         "correctAnswerId": "c",
         "expectedAnswer": null,
-        "explanation": "`2 < 1` is false, so the indented `print` under `if` is skipped. The second, unindented `print` still runs once.",
+        "explanation": "Python executes the `if` test first: `2 < 1` is `False`, so the indented `print` inside the `if` block is skipped entirely. Indentation defines the `if` body — only the first `print` belongs to the `if`. The second `print(\"Two is less than one!\")` is at the same indentation level as `if`, so it is not conditional and always runs once. Output is a single line: `Two is less than one!`. Option A would require both prints to run. Option D would require a syntax/runtime failure, but the code is valid. Exam trick: identical strings in both `print` calls make it easy to assume both run.",
         "relatedTopics": [
           "be-2"
         ]
@@ -2384,7 +2384,7 @@
         ],
         "correctAnswerId": "c",
         "expectedAnswer": null,
-        "explanation": "Dictionaries forbid duplicate keys; the last `mobile` value wins.",
+        "explanation": "Dictionary keys must be unique. When the literal repeats `\"mobile\"`, Python does not keep both entries — the later value overwrites the earlier one during construction. After creation, `x` has exactly three keys: `name`, `id`, and `mobile` (with value `987654321`). `print(x)` uses the dict's string representation, producing `{'name': 'Ahmed', 'id': '1', 'mobile': 987654321}`. Option A suggests four keys, which is impossible. Option B keeps the first `mobile` value, but overwrites always favor the last assignment.",
         "relatedTopics": [
           "be-2"
         ]
@@ -2421,7 +2421,7 @@
         ],
         "correctAnswerId": "a",
         "expectedAnswer": null,
-        "explanation": "The `**person` argument is a standard `kwargs` collector. It packages `name` and `age` into a dictionary named `person`. The print statement then accesses the dictionary key `\"name\"` cleanly.",
+        "explanation": "The parameter `**person` collects all keyword arguments into a dictionary. Calling `f(name=\"Ahmed\", age=10)` builds `person == {\"name\": \"Ahmed\", \"age\": 10}` inside the function. The function only reads `person[\"name\"]`, so the output is `Person's name is Ahmed` — `age` is accepted but never printed. This is not an error: `**kwargs` may collect more keys than the function uses. Options C and D incorrectly claim the function rejects extra keyword arguments.",
         "relatedTopics": [
           "be-2"
         ]
@@ -2458,7 +2458,7 @@
         ],
         "correctAnswerId": "c",
         "expectedAnswer": null,
-        "explanation": "`100 / 20` evaluates to `5.0` in Python 3. Option C is the intended answer.",
+        "explanation": "A `lambda` creates an anonymous one-expression function. `y(100)` evaluates `100 / 20`. In Python 3, `/` is true division and always returns a `float`, so the computed value is `5.0`, not integer `5`. The exam lists option C as `5`, which is the intended choice even though `type(y(100))` is `<class 'float'>`. Options A and D misunderstand lambda assignment; option B would be the unevaluated expression, not the printed result.",
         "relatedTopics": [
           "be-2"
         ]
@@ -3034,7 +3034,7 @@
         ],
         "correctAnswerId": "a",
         "expectedAnswer": null,
-        "explanation": "An empty list evaluates as falsy in a Python boolean context.",
+        "explanation": "Python defines truthiness for collections: an empty list `[]` is falsy, so `bool([])` is `False` and `if []:` does not run its body. Non-empty lists are truthy (`bool([0])` is `True` — even a list of zeros counts because the container has an element). The statement says the *value* of `[]` is `False` in a boolean sense, which is true. Exam trap: `[]` is still a list object, not the literal boolean `False`, but in conditions Python treats it as false.",
         "relatedTopics": [
           "be-2"
         ]
@@ -3059,7 +3059,7 @@
         ],
         "correctAnswerId": "b",
         "expectedAnswer": null,
-        "explanation": "Sets are inherently unordered and explicitly unindexed.",
+        "explanation": "A Python set is unordered (no stable insertion order guarantee for all operations) and unindexed — you cannot use `my_set[0]` or slice a set. Sets model unique membership, not positional access. The statement claims sets are *indexed*, which is false. Compare with lists and tuples, which support zero-based indexing. Related exam pattern: sets are also mutable (you can add/remove), unlike tuples.",
         "relatedTopics": [
           "be-2"
         ]
@@ -3084,7 +3084,7 @@
         ],
         "correctAnswerId": "b",
         "expectedAnswer": null,
-        "explanation": "Running `pop()` on a set removes an arbitrary element; it is not guaranteed to be 3.",
+        "explanation": "Sets are unordered collections. `set.pop()` removes and returns an arbitrary element — there is no guarantee it removes `3`, the largest value, or any specific item. The statement claims the removed item will always be `3`, which is false. This differs from `list.pop()`, which by default removes the last element. Exam trick: students who know list `pop()` behavior may wrongly transfer that rule to sets.",
         "relatedTopics": [
           "be-2"
         ]
@@ -3109,7 +3109,7 @@
         ],
         "correctAnswerId": "b",
         "expectedAnswer": null,
-        "explanation": "Parentheses define a Python tuple, not a list (`[]`).",
+        "explanation": "Parentheses with comma-separated values define a tuple: `(\"apple\", \"banana\", \"cherry\")` is a 3-element tuple. Lists require square brackets: `[\"apple\", \"banana\", \"cherry\"]`. The statement confuses the two literal syntaxes, so it is false. Remember: `()` alone is not always a tuple (empty `()` is a tuple, but grouping like `(x)` is just `x`), but multiple comma-separated items inside parentheses always form a tuple.",
         "relatedTopics": [
           "be-2"
         ]

@@ -422,6 +422,22 @@ EXPLANATION_FIXES: dict[str, dict[str, str]] = {
     },
 }
 
+
+def _load_be2_python_explanations() -> dict[str, dict[str, str]]:
+    path = ROOT / "data" / "explanations" / "be2-python-explanations.json"
+    if not path.exists():
+        return {}
+    raw = json.loads(path.read_text(encoding="utf-8"))
+    return {k: v for k, v in raw.items() if k != "written"}
+
+
+def _merge_be2_python_explanations() -> None:
+    for year, fixes in _load_be2_python_explanations().items():
+        EXPLANATION_FIXES.setdefault(year, {}).update(fixes)
+
+
+_merge_be2_python_explanations()
+
 OPTION_FIXES: dict[str, dict[str, dict[str, str]]] = {
     "2021": {
         "q13": {"c": "text-align"},

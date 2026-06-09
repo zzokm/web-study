@@ -50,15 +50,25 @@
             "triggerLabel": "Style",
             "targetSelector": "p",
             "styles": {
-              "color": ["green", "rgb(0, 128, 0)", "#008000"],
-              "fontSize": ["14px"],
-              "fontFamily": ["arial"]
+              "color": [
+                "green",
+                "rgb(0, 128, 0)",
+                "#008000"
+              ],
+              "fontSize": [
+                "14px"
+              ],
+              "fontFamily": [
+                "arial"
+              ]
             }
           }
         ]
       },
       "explanation": "Your snippet should render the sentence with strike-through on \"English\" and underline on \"Arabic\", include a button labeled \"Style\", and apply green 14px Arial styling to the paragraph when clicked. Any valid HTML/CSS/JS approach works as long as the outcome matches. See the model answer below.",
-      "relatedTopics": ["fe-3"]
+      "relatedTopics": [
+        "fe-3"
+      ]
     },
     {
       "id": "wq-js-dom-change",
@@ -86,7 +96,9 @@
         ]
       },
       "explanation": "This task tests basic DOM manipulation. You need an element to target by ID, a button with an `onclick` event listener, and a JavaScript function that uses `document.getElementById` and `.innerHTML` to update the text.",
-      "relatedTopics": ["fe-3"]
+      "relatedTopics": [
+        "fe-3"
+      ]
     },
     {
       "id": "wq-js-array-filter",
@@ -112,7 +124,9 @@
         ]
       },
       "explanation": "The `.filter()` method creates a shallow copy of a portion of a given array, filtered down to just the elements from the given array that pass the test implemented by the provided callback function.",
-      "relatedTopics": ["fe-5"]
+      "relatedTopics": [
+        "fe-5"
+      ]
     },
     {
       "id": "wq-js-async-await",
@@ -143,7 +157,9 @@
         ]
       },
       "explanation": "Using `async/await` is modern syntax for handling JavaScript Promises. The `try/catch` block ensures that if the Promise is rejected, the application can handle the error gracefully without crashing.",
-      "relatedTopics": ["fe-6"]
+      "relatedTopics": [
+        "fe-6"
+      ]
     },
     {
       "id": "wq-css-hover-target",
@@ -169,7 +185,9 @@
         ]
       },
       "explanation": "Descendant selectors (like `.nav-menu a`) target specific elements within a parent class. The `:hover` pseudo-class allows you to apply styling specifically when the user interacts with the element using their cursor.",
-      "relatedTopics": ["fe-4"]
+      "relatedTopics": [
+        "fe-4"
+      ]
     },
     {
       "id": "wq-js-object-access",
@@ -195,7 +213,9 @@
         ]
       },
       "explanation": "JavaScript objects store data as key-value pairs. You can access an object's values dynamically using dot notation (`object.property`) or bracket notation (`object['property']`).",
-      "relatedTopics": ["fe-5"]
+      "relatedTopics": [
+        "fe-5"
+      ]
     },
     {
       "id": "wq-html-login-form",
@@ -222,7 +242,9 @@
         ]
       },
       "explanation": "Forms are structured using the `<form>` tag. Hiding characters requires setting the `<input>` type to `\"password\"`. A `<button>` with type `\"submit\"` is standard practice for triggering the form submission.",
-      "relatedTopics": ["fe-2"]
+      "relatedTopics": [
+        "fe-2"
+      ]
     },
     {
       "id": "wq-js-ajax-get",
@@ -248,7 +270,9 @@
         ]
       },
       "explanation": "AJAX (Asynchronous JavaScript and XML) allows web pages to be updated asynchronously. The `XMLHttpRequest` object requires opening a connection, setting a state change handler to verify HTTP 200 success, and finally sending the request.",
-      "relatedTopics": ["fe-6"]
+      "relatedTopics": [
+        "fe-6"
+      ]
     },
     {
       "id": "wq-js-arrow-function",
@@ -274,7 +298,10 @@
         ]
       },
       "explanation": "ES6 arrow functions provide a more concise syntax. If the function body contains only a single return statement, the curly braces `{}` and the `return` keyword can be omitted for an implicit return.",
-      "relatedTopics": ["fe-5", "fe-6"]
+      "relatedTopics": [
+        "fe-5",
+        "fe-6"
+      ]
     },
     {
       "id": "wq-short-storage",
@@ -295,7 +322,9 @@
         ]
       },
       "explanation": "Modern HTML5 Web Storage provides `localStorage` for persisting data across browser sessions. The `setItem` method requires a key and a value.",
-      "relatedTopics": ["fe-6"]
+      "relatedTopics": [
+        "fe-6"
+      ]
     },
     {
       "id": "wq-short-flexbox",
@@ -326,7 +355,9 @@
         ]
       },
       "explanation": "Flexbox is ideal for UI alignment. `justify-content` centers items along the main axis (horizontal by default), while `align-items` centers them along the cross axis (vertical).",
-      "relatedTopics": ["fe-4"]
+      "relatedTopics": [
+        "fe-4"
+      ]
     },
     {
       "id": "wq-short-img-src",
@@ -352,7 +383,9 @@
         ]
       },
       "explanation": "You can modify HTML attributes directly via the DOM API. Accessing the `.src` property of an Image object allows you to swap graphics dynamically.",
-      "relatedTopics": ["fe-3"]
+      "relatedTopics": [
+        "fe-3"
+      ]
     },
     {
       "id": "wq-short-grid",
@@ -378,7 +411,9 @@
         ]
       },
       "explanation": "CSS Grid is powerful for 2D layouts. The `repeat()` function paired with the fractional unit (`1fr`) easily distributes available space equally across columns.",
-      "relatedTopics": ["fe-4"]
+      "relatedTopics": [
+        "fe-4"
+      ]
     },
     {
       "id": "wq-short-map",
@@ -404,7 +439,9 @@
         ]
       },
       "explanation": "The `.map()` array method iterates over a collection and applies a transformation to each item, returning a brand new array with the extracted or modified values.",
-      "relatedTopics": ["fe-5"]
+      "relatedTopics": [
+        "fe-5"
+      ]
     },
     {
       "id": "wq-short-default-param",
@@ -430,7 +467,9 @@
         ]
       },
       "explanation": "ES6 introduces default parameter values natively in the function signature, allowing variables to fallback gracefully if no argument is passed.",
-      "relatedTopics": ["fe-6"]
+      "relatedTopics": [
+        "fe-6"
+      ]
     },
     {
       "id": "wq-long-dark-mode",
@@ -461,7 +500,10 @@
         ]
       },
       "explanation": "The modern way to manage UI states like dark mode is using the `.classList` API. The `.toggle()` method adds the class if it's missing, and removes it if it's present.",
-      "relatedTopics": ["fe-3", "fe-4"]
+      "relatedTopics": [
+        "fe-3",
+        "fe-4"
+      ]
     },
     {
       "id": "wq-long-ajax-json",
@@ -492,7 +534,9 @@
         ]
       },
       "explanation": "Handling JSON APIs with raw AJAX requires manually checking the ready state and status codes before parsing the raw string payload using `JSON.parse()`.",
-      "relatedTopics": ["fe-6"]
+      "relatedTopics": [
+        "fe-6"
+      ]
     },
     {
       "id": "wq-long-promise",
@@ -523,7 +567,9 @@
         ]
       },
       "explanation": "Promises represent the eventual completion of an asynchronous operation. You define the work inside the Promise constructor, invoke `resolve` when finished, and handle the outcome using `.then()`.",
-      "relatedTopics": ["fe-6"]
+      "relatedTopics": [
+        "fe-6"
+      ]
     },
     {
       "id": "wq-long-validation",
@@ -554,7 +600,9 @@
         ]
       },
       "explanation": "Client-side form validation is crucial. Catching the `submit` event allows you to run logic before a page reload happens. `event.preventDefault()` stops the browser's native submission process.",
-      "relatedTopics": ["fe-3"]
+      "relatedTopics": [
+        "fe-3"
+      ]
     },
     {
       "id": "wq-long-reduce",
@@ -580,7 +628,9 @@
         ]
       },
       "explanation": "The `.reduce()` method executes a reducer function on each element of the array, passing in the return value from the calculation on the preceding element. It's excellent for condensing arrays into single values.",
-      "relatedTopics": ["fe-5"]
+      "relatedTopics": [
+        "fe-5"
+      ]
     },
     {
       "id": "wq-long-tabs",
@@ -611,7 +661,9 @@
         ]
       },
       "explanation": "Creating interactive tabs relies on manipulating the `.style.display` property of DOM elements. The logic involves resetting all related elements to a hidden state before revealing the specific target.",
-      "relatedTopics": ["fe-3"]
+      "relatedTopics": [
+        "fe-3"
+      ]
     },
     {
       "id": "wq-long-classes",
@@ -642,7 +694,9 @@
         ]
       },
       "explanation": "ES6 classes provide a much cleaner syntax over traditional prototype-based inheritance. The `constructor` method is automatically called when a new instance of the class is created.",
-      "relatedTopics": ["fe-6"]
+      "relatedTopics": [
+        "fe-6"
+      ]
     },
     {
       "id": "wq-long-traversal",
@@ -668,7 +722,9 @@
         ]
       },
       "explanation": "DOM traversal APIs like `.parentNode`, `.nextSibling`, or `.children` allow you to navigate the HTML tree programmatically relative to a known element, which is essential when IDs aren't present on every node.",
-      "relatedTopics": ["fe-3"]
+      "relatedTopics": [
+        "fe-3"
+      ]
     },
     {
       "id": "wq-long-delegation",
@@ -694,7 +750,9 @@
         ]
       },
       "explanation": "Event delegation is a performance optimization. Instead of attaching a listener to every child element, you attach one to the parent and leverage event bubbling (`event.target`) to determine exactly what was clicked.",
-      "relatedTopics": ["fe-3"]
+      "relatedTopics": [
+        "fe-3"
+      ]
     },
     {
       "id": "wq-long-status-badge",
@@ -725,7 +783,10 @@
         ]
       },
       "explanation": "Manipulating UI badges dynamically involves a combination of updating textual nodes (`innerText` or `textContent`) and swapping CSS classes via the `classList` API to manage the visual state.",
-      "relatedTopics": ["fe-3", "fe-4"]
+      "relatedTopics": [
+        "fe-3",
+        "fe-4"
+      ]
     },
     {
       "id": "wq-django-model-product",
@@ -752,7 +813,9 @@
         ]
       },
       "explanation": "Django models translate Python classes into database tables. Attributes of the class represent database columns, defined using Django field types like `CharField` (which requires a `max_length`) and `IntegerField`.",
-      "relatedTopics": ["be-8"]
+      "relatedTopics": [
+        "be-8"
+      ]
     },
     {
       "id": "wq-django-view-home",
@@ -779,7 +842,9 @@
         ]
       },
       "explanation": "A Django view function takes a web request and returns a web response. The simplest response is passing a raw HTML string into an imported `HttpResponse` object.",
-      "relatedTopics": ["be-5"]
+      "relatedTopics": [
+        "be-5"
+      ]
     },
     {
       "id": "wq-django-template-loop",
@@ -806,7 +871,9 @@
         ]
       },
       "explanation": "Django templates use `{% %}` for logic (like loops and conditionals) and `{{ }}` to output variables. Every `{% for %}` loop must be explicitly closed with `{% endfor %}`.",
-      "relatedTopics": ["be-7"]
+      "relatedTopics": [
+        "be-7"
+      ]
     },
     {
       "id": "wq-django-url-path",
@@ -833,7 +900,9 @@
         ]
       },
       "explanation": "The `urls.py` file dictates URL routing in Django. The `path()` function takes a route string, a view function to call, and optionally a `name` argument which is highly recommended for reverse URL lookups in templates.",
-      "relatedTopics": ["be-5"]
+      "relatedTopics": [
+        "be-5"
+      ]
     },
     {
       "id": "wq-python-dict-lookup",
@@ -854,8 +923,10 @@
           }
         ]
       },
-      "explanation": "Dictionary lookups are common in backend Python logic. Using the `in` keyword safely checks for key existence. Alternatively, the `.get(key, default)` method achieves this in a single line.",
-      "relatedTopics": ["be-2"]
+      "explanation": "Dictionary membership tests whether a key exists before access. Use `if name in grades:` then `return grades[name]`, or the idiomatic one-liner `return grades.get(name, 'Not Found')`. The `in` operator checks keys, not values. `.get(key, default)` returns the default when the key is missing instead of raising `KeyError`. Either approach satisfies the prompt; `.get` is shorter when you only need a fallback.",
+      "relatedTopics": [
+        "be-2"
+      ]
     },
     {
       "id": "wq-python-oop-class",
@@ -882,7 +953,9 @@
         ]
       },
       "explanation": "Python Object-Oriented Programming relies on the `__init__` method to initialize an object's state. The `self` parameter is strictly required as the first argument in instance methods to access class variables.",
-      "relatedTopics": ["be-3"]
+      "relatedTopics": [
+        "be-3"
+      ]
     },
     {
       "id": "wq-python-try-except",
@@ -908,8 +981,10 @@
           }
         ]
       },
-      "explanation": "Using `try/except` blocks is crucial in backend engineering to prevent an application from crashing during runtime errors. It is best practice to catch specific exception types rather than using a broad, empty `except:` block.",
-      "relatedTopics": ["be-2"]
+      "explanation": "Wrap risky operations in `try`/`except` so predictable failures do not crash the program. Division by zero raises `ZeroDivisionError`; catching that specific type avoids masking other bugs. Structure: attempt `result = a / b` and `print(result)` inside `try`, and `except ZeroDivisionError:` print the required message. Catching `Exception` broadly works but is weaker style. The `else`/`finally` clauses are optional here.",
+      "relatedTopics": [
+        "be-2"
+      ]
     }
   ]
 }
