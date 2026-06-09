@@ -178,7 +178,7 @@ export function canonicalPracticeSessionKey(
     .join("\0");
 }
 
-const SESSION_CONFIG_SUFFIX = /:s[01]{4}(?::w[fbe])?$/;
+const SESSION_CONFIG_SUFFIX = /:s[01]{4,5}(?::w[fbe])?$/;
 
 /** Strip config suffix (`:s0000`, `:s0000:wf`, …) from a practice session key. */
 export function stripPracticeSessionConfigSuffix(sessionKey: string): string {

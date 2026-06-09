@@ -35,7 +35,7 @@ export default async function LectureQuestionsPage({
       <div className="flex flex-wrap items-start justify-between gap-4">
         <div>
           <h1 className="text-2xl font-semibold tracking-tight">{meta.lecture}</h1>
-          <p className="text-muted-foreground">{questions.length} questions</p>
+          <p className="text-muted-foreground">{meta.count} questions</p>
         </div>
         <LinkButton href={`/practice/lecture/${slug}/`}>Practice this lecture</LinkButton>
       </div>

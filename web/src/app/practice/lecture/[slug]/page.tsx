@@ -36,6 +36,7 @@ export default async function PracticeLecturePage({
       questions={questions}
       title={`${meta.lecture} — Practice`}
       backHref={`/by-lecture/${slug}/`}
+      variant="lecture"
     />
   );
 }

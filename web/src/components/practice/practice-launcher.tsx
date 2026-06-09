@@ -19,12 +19,14 @@ import {
 import {
   applyDisplaySnapshot,
   buildDisplaySnapshot,
+  DEFAULT_LECTURE_PRACTICE_SESSION_CONFIG,
   DEFAULT_PRACTICE_SESSION_CONFIG,
   DEFAULT_WRITTEN_PRACTICE_SESSION_CONFIG,
   preparePracticeQuestions,
   practiceConfigAnalyticsParams,
   type PracticeSessionConfig,
 } from "@/lib/practice-session-config";
+import { excludeWrittenQuestions } from "@/lib/questions";
 import { filterWrittenQuestionsByTrack } from "@/lib/written-practice-filter";
 import { clearActivePracticeSession } from "@/lib/practice-active-session";
 import { practiceScopeIdFromPathname } from "@/lib/practice-scope";
@@ -59,7 +61,7 @@ export type PracticeLauncherProps = {
   questions: Question[];
   title: string;
   backHref?: string;
-  variant?: "default" | "written";
+  variant?: "default" | "written" | "lecture";
 };
 
 export function PracticeLauncher({
@@ -71,20 +73,34 @@ export function PracticeLauncher({
   const pathname = usePathname();
   const router = useRouter();
   const isWritten = variant === "written";
+  const isLecture = variant === "lecture";
   const defaultConfig = isWritten
     ? DEFAULT_WRITTEN_PRACTICE_SESSION_CONFIG
-    : DEFAULT_PRACTICE_SESSION_CONFIG;
+    : isLecture
+      ? DEFAULT_LECTURE_PRACTICE_SESSION_CONFIG
+      : DEFAULT_PRACTICE_SESSION_CONFIG;
 
   const [phase, setPhase] = useState<LauncherPhase>("setup");
   const [config, setConfig] = useState<PracticeSessionConfig>(defaultConfig);
 
   const sessionQuestions = useMemo(() => {
-    if (!isWritten) return baseQuestions;
-    return filterWrittenQuestionsByTrack(
-      baseQuestions,
-      config.writtenTrack ?? "both"
-    );
-  }, [baseQuestions, config.writtenTrack, isWritten]);
+    if (isWritten) {
+      return filterWrittenQuestionsByTrack(
+        baseQuestions,
+        config.writtenTrack ?? "both"
+      );
+    }
+    if (isLecture && !config.includeWrittenQuestions) {
+      return excludeWrittenQuestions(baseQuestions);
+    }
+    return baseQuestions;
+  }, [
+    baseQuestions,
+    config.includeWrittenQuestions,
+    config.writtenTrack,
+    isLecture,
+    isWritten,
+  ]);
 
   /** Set when a session starts; only read while `phase === "session"`. */
   const [activeSessionKey, setActiveSessionKey] = useState("");

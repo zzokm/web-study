@@ -100,8 +100,21 @@ export function getQuestionsByLectureSlug(slug: string): Question[] {
   return dedupeQuestionsByStem(getQuestionsByLectureSlugRaw(slug));
 }
 
-export function getQuestionsForLecturePractice(slug: string): Question[] {
-  return getQuestionsByLectureSlug(slug);
+export function excludeWrittenQuestions(questions: Question[]): Question[] {
+  return questions.filter((q) => !isWrittenQuestion(q));
+}
+
+/** MCQ / T/F count for hub labels — written items are excluded unless opted in at practice setup. */
+export function countLectureMcqQuestions(slug: string): number {
+  return excludeWrittenQuestions(getQuestionsByLectureSlug(slug)).length;
+}
+
+export function getQuestionsForLecturePractice(
+  slug: string,
+  includeWritten = false
+): Question[] {
+  const questions = getQuestionsByLectureSlug(slug);
+  return includeWritten ? questions : excludeWrittenQuestions(questions);
 }
 
 export function countUniqueQuestions(): number {
@@ -130,7 +143,7 @@ export function getLectureSlugs(): LectureSlugEntry[] {
     .map((lec) => ({
       slug: lec.lectureId,
       lecture: formatLectureBadgeLabel(lec),
-      count: getQuestionsByLectureSlug(lec.lectureId).length,
+      count: countLectureMcqQuestions(lec.lectureId),
       track: lec.track,
       trackLabel: tracks[lec.track]?.label ?? lec.track,
       lectureNumber: lec.lectureNumber,

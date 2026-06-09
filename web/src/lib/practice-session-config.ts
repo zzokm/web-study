@@ -16,6 +16,8 @@ export type PracticeSessionConfig = {
   shuffleMcqOptions: boolean;
   showSessionTimer: boolean;
   examSimulation: boolean;
+  /** Lecture practice only: include coding/written questions from this lecture. */
+  includeWrittenQuestions?: boolean;
   /** Written practice only: filter by frontend / backend lecture topics. */
   writtenTrack?: WrittenPracticeTrack;
 };
@@ -25,6 +27,12 @@ export const DEFAULT_PRACTICE_SESSION_CONFIG: PracticeSessionConfig = {
   shuffleMcqOptions: false,
   showSessionTimer: true,
   examSimulation: false,
+};
+
+/** Default options for lecture-scoped practice (`/practice/lecture/...`). */
+export const DEFAULT_LECTURE_PRACTICE_SESSION_CONFIG: PracticeSessionConfig = {
+  ...DEFAULT_PRACTICE_SESSION_CONFIG,
+  includeWrittenQuestions: false,
 };
 
 /** Default options for written-question practice setup. */
@@ -49,7 +57,7 @@ export function configFromSessionKey(
   }
   if (!sessionKey.startsWith(`${canonicalKey}:s`)) return null;
   const rest = sessionKey.slice(canonicalKey.length + 2);
-  const match = rest.match(/^([01]{4})(?::w([fbe]))?$/);
+  const match = rest.match(/^([01]{4,5})(?::w([fbe]))?$/);
   if (!match) return null;
   const flags = match[1];
   const trackCode = match[2];
@@ -64,6 +72,7 @@ export function configFromSessionKey(
     shuffleMcqOptions: flags[1] === "1",
     showSessionTimer: flags[2] === "1",
     examSimulation: flags[3] === "1",
+    includeWrittenQuestions: flags[4] === "1",
     writtenTrack,
   };
 }
@@ -75,6 +84,7 @@ export function configStorageSuffix(config: PracticeSessionConfig): string {
     config.shuffleMcqOptions ? "1" : "0",
     config.showSessionTimer ? "1" : "0",
     config.examSimulation ? "1" : "0",
+    config.includeWrittenQuestions ? "1" : "0",
   ].join("");
   let suffix = `:s${flags}`;
   const track = config.writtenTrack ?? "both";

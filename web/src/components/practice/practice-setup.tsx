@@ -42,7 +42,7 @@ type PracticeSetupProps = {
   onStartFresh: () => void;
   backHref?: string;
   /** Written practice: hide shuffle, timer, and exam simulation options. */
-  variant?: "default" | "written";
+  variant?: "default" | "written" | "lecture";
 };
 
 function SetupOption({
@@ -212,6 +212,7 @@ export function PracticeSetup({
   variant = "default",
 }: PracticeSetupProps) {
   const isWritten = variant === "written";
+  const isLecture = variant === "lecture";
   const progress = deriveSetupProgressDisplay(
     sessionStatus,
     questionCount,
@@ -338,6 +339,17 @@ export function PracticeSetup({
           />
           <CardContent>
             <FieldGroup className="gap-3">
+              {isLecture ? (
+                <SetupOption
+                  id="include-written-questions"
+                  label="Include written questions"
+                  description="Add coding-style written questions assigned to this lecture."
+                  checked={config.includeWrittenQuestions ?? false}
+                  onCheckedChange={(checked) =>
+                    patch({ includeWrittenQuestions: checked })
+                  }
+                />
+              ) : null}
               <SetupOption
                 id="shuffle-questions"
                 label="Shuffle question order"
@@ -379,10 +391,11 @@ export function PracticeSetup({
         </Card>
       )}
 
-      {isWritten && questionCount === 0 ? (
+      {(isWritten || isLecture) && questionCount === 0 ? (
         <p className="text-sm text-muted-foreground">
-          No questions match this track. Choose a different track to start
-          practicing.
+          {isWritten
+            ? "No questions match this track. Choose a different track to start practicing."
+            : "No questions in this set. Turn on written questions if this lecture includes them."}
         </p>
       ) : null}
 
@@ -391,7 +404,7 @@ export function PracticeSetup({
           type="button"
           size="lg"
           onClick={onStart}
-          disabled={isWritten && questionCount === 0}
+          disabled={(isWritten || isLecture) && questionCount === 0}
         >
           {sessionStatus ? "Start new session" : "Start practice"}
         </Button>

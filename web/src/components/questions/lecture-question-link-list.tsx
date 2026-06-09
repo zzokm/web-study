@@ -3,7 +3,11 @@
 import type { HubType } from "@/lib/analytics-event-schemas";
 import { HubTrackedLink } from "@/components/analytics/hub-tracked-link";
 import { PracticeHubCardHeader } from "@/components/practice/practice-hub-card-header";
-import { getLectureSlugs, getQuestionsByLectureSlug } from "@/lib/questions";
+import {
+  excludeWrittenQuestions,
+  getLectureSlugs,
+  getQuestionsByLectureSlug,
+} from "@/lib/questions";
 import { Card } from "@/components/ui/card";
 import { cn } from "@/lib/utils";
 
@@ -39,7 +43,9 @@ export function LectureQuestionLinkList({
               )}
             >
               {trackLectures.map((lec) => {
-                const questions = getQuestionsByLectureSlug(lec.slug);
+                const practiceQuestions = excludeWrittenQuestions(
+                  getQuestionsByLectureSlug(lec.slug)
+                );
                 return (
                   <HubTrackedLink
                     key={lec.slug}
@@ -54,7 +60,7 @@ export function LectureQuestionLinkList({
                         description={`${lec.count} question${
                           lec.count === 1 ? "" : "s"
                         }`}
-                        questions={questions}
+                        questions={practiceQuestions}
                         scopeId={`lecture:${lec.slug}`}
                         compact={compact}
                       />

@@ -16,6 +16,7 @@ describe("written practice session config", () => {
     shuffleMcqOptions: false,
     showSessionTimer: true,
     examSimulation: false,
+    includeWrittenQuestions: false,
     writtenTrack: "frontend",
   };
 
@@ -50,6 +51,27 @@ describe("written practice session config", () => {
         writtenTrack: "both",
       }).written_track
     ).toBeUndefined();
+  });
+
+  it("round-trips includeWrittenQuestions in session key suffix", () => {
+    const canonical = "q1\0q2";
+    const sessionKey =
+      canonical +
+      configStorageSuffix({
+        shuffleQuestions: false,
+        shuffleMcqOptions: false,
+        showSessionTimer: true,
+        examSimulation: false,
+        includeWrittenQuestions: true,
+      });
+    expect(configFromSessionKey(sessionKey, canonical)).toEqual({
+      shuffleQuestions: false,
+      shuffleMcqOptions: false,
+      showSessionTimer: true,
+      examSimulation: false,
+      includeWrittenQuestions: true,
+      writtenTrack: "both",
+    });
   });
 
   it("shuffles all-written pools when shuffle is enabled", () => {
