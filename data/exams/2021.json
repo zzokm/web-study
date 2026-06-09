@@ -2762,7 +2762,7 @@
     "topic": "JavaScript Const Declarations and Mutation",
     "context": {
       "text": "Use the following code, answer questions from 69-73:",
-      "code": "const x = {name:\"Ali\", address: \"Giza\"};\nx = {name:\"Neamat\"};\nx.name = \"Neamat\";\nconst y = 23;\ny = 44;\nconsole.log(x.name);\nconsole.log(y);",
+      "code": "const x = {name:\"Ali\", address: \"Giza\"};\nx = {address: \"Giza\"};\nx.name = \"Neamat\";\nconst y = 23;\ny = 44;\nconsole.log(x.name);\nconsole.log(y);",
       "codeLanguage": "javascript",
       "image": {
         "url": null,

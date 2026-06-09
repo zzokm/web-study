@@ -29,6 +29,14 @@ const FLAT_HTML = `<html>
 
 const FLAT_CSS = `.class { color: blue; font-weight; bold; }`;
 
+const CONST_MUTATION_BLOCK = `const x = {name:"Ali", address: "Giza"};
+x = {address: "Giza"};
+x.name = "Neamat";
+const y = 23;
+y = 44;
+console.log(x.name);
+console.log(y);`;
+
 describe("formatExamCode", () => {
   it("indents JavaScript brace blocks (2025 Q80 style)", () => {
     const formatted = formatExamCode(Q80_ASYNC, "javascript");
@@ -66,5 +74,15 @@ describe("formatExamCode", () => {
     const indented = `function changeStyle() {\n    let p = document.getElementById("myPara");\n}`;
     expect(shouldFormatExamCode(indented, "javascript")).toBe(false);
     expect(cleanExamCode(indented, "javascript")).toBe(indented);
+  });
+
+  it("preserves one-statement-per-line JS for exam line refs (2021 Q69-73)", () => {
+    expect(shouldFormatExamCode(CONST_MUTATION_BLOCK, "javascript")).toBe(false);
+    expect(cleanExamCode(CONST_MUTATION_BLOCK, "javascript")).toBe(
+      CONST_MUTATION_BLOCK
+    );
+    expect(cleanExamCode(CONST_MUTATION_BLOCK, "javascript").split("\n")).toHaveLength(
+      7
+    );
   });
 });

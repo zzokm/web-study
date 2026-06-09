@@ -633,7 +633,7 @@ EXPLANATION: With no arguments, `x` is `undefined` and `arguments.length` is 0.
 
 Use the following code, answer questions from 69-73:
 1. const x = {name:"Ali", address: "Giza"};
-2. x = {name:"Neamat"};
+2. x = {address: "Giza"};
 3. x.name = "Neamat";
 4. const y = 23;
 5. y = 44;

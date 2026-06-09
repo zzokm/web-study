@@ -46,6 +46,11 @@ export function shouldFormatExamCode(
   if (language === "json") return false;
 
   if (language === "javascript") {
+    // One statement per line (exam line-number refs); skip beautify expansion.
+    const allSemicolonTerminated = nonEmpty.every((line) =>
+      /;\s*$/.test(line.trim())
+    );
+    if (allSemicolonTerminated) return false;
     return /\{/.test(normalized);
   }
 

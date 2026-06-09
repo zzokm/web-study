@@ -248,7 +248,7 @@ run();""",
         "block_const_code": {
             "text": "Use the following code, answer questions from 69-73:",
             "code": """const x = {name:"Ali", address: "Giza"};
-x = {name:"Neamat"};
+x = {address: "Giza"};
 x.name = "Neamat";
 const y = 23;
 y = 44;

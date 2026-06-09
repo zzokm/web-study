@@ -37,6 +37,10 @@ export function shouldFormatExamCode(code, language) {
   if (language === "json") return false;
 
   if (language === "javascript") {
+    const allSemicolonTerminated = nonEmpty.every((line) =>
+      /;\s*$/.test(line.trim())
+    );
+    if (allSemicolonTerminated) return false;
     return /\{/.test(normalized);
   }
 
