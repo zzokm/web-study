@@ -305,6 +305,7 @@ ANSWER_FIXES: dict[str, dict[str, str]] = {
         "q52": "b",
         "q84": "b",
         "q86": "d",
+        "q63": "d",
     },
     "2021": {
         "q3": "d",
@@ -378,7 +379,7 @@ EXPLANATION_FIXES: dict[str, dict[str, str]] = {
         "q52": "Sets in Python do not allow duplicate values. Adding \"apple\" when it already exists has no effect. The length remains 3.",
         "q84": "The `nodeType` property returns an integer. For an element node (like the `<h2>` targeted here), `nodeType` is `1`.",
         "q86": "`:first-child` matches only when an element is the first child of its parent. Under `<body>`, `<h2>` is the first child, not any `<p>`, so none match.",
-        "q63": "Inline CSS is the correct modern approach: use the `style` attribute with `property: value` pairs. Options c and d are both valid HTML/CSS; a trailing semicolon after the last declaration is optional (lecture slide 14, Inline CSS, shows it).",
+        "q63": "Inline CSS is the correct modern approach: use the `style` attribute with `property: value` pairs. Options c and d are both allowable HTML/CSS; a trailing semicolon after the last declaration is optional, but including one is preferred (as on lecture slide 14, Inline CSS).",
     },
     "2021": {
         "q12": "False. The CSS `font` shorthand does not require `font-style` before `font-weight`. `font-style`, `font-variant`, and `font-weight` can appear in any order, as long as they all come before `font-size` and `font-family`.",
