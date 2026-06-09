@@ -111,9 +111,9 @@ Keyword hits across stems, topics, and explanations (categories may overlap).
 | Theme | Total | 2021 | 2024 | 2025 |
 | --- | ---: | ---: | ---: | ---: |
 | JavaScript | 143 | 50 | 36 | 29 |
-| HTML & DOM | 114 | 27 | 41 | 25 |
+| HTML & DOM | 112 | 27 | 39 | 25 |
 | Python | 88 | 18 | 24 | 32 |
-| HTTP & URLs | 71 | 18 | 19 | 21 |
+| HTTP & URLs | 69 | 18 | 17 | 21 |
 | CSS | 49 | 12 | 16 | 13 |
 | Django | 37 | 10 | 8 | 12 |
 | Networking | 6 | 3 | 2 | 1 |

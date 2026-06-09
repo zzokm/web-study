@@ -118,7 +118,7 @@ EXPLANATION: The `nodeName` property is strictly read-only (it returns the tag n
 a. const constant_name;
 b. constant name const;
 c. constant name const = value;
-d. const constant_name = value; You have to initialize any const
+d. const constant_name = value;
 ANSWER: D
 EXPLANATION: When declaring a constant using the `const` keyword, you must initialize it with a value at the time of declaration.
 
@@ -132,7 +132,7 @@ VALUE=20;
 a. 10
 b. 20
 c. ValueError
-d. TypeError Can't overwrite a const
+d. TypeError
 
 16. Can we use a function as a variable value?
 a. Yes
@@ -163,7 +163,6 @@ EXPLANATION: JavaScript evaluates left to right: `10 + 20` is `30`, then `30 + "
 var a=10+20+"5";
 document.getElementById("demo").innerHTML = a;
 </script>
-int + str results in conversion of the int to str then concatenating. Evaluate from left to write.
 a. 305
 b. 35
 c. TypeError
@@ -202,7 +201,7 @@ var sum = numbers.reduce(myfunc, 2);
 a. 10
 b. 7
 c. 9
-d. None of the previous Output is 12
+d. None of the previous
 
 22. What will be the output of the following JavaScript code?
 ANSWER: C
@@ -329,7 +328,7 @@ document.getElementById("demo").innerHTML = result;
 </html>
 a. x * y
 b. "200"
-c. ValueError Should be int
+c. ValueError
 d. 200
 
 31. What will be the output of this JavaScript code?
@@ -357,18 +356,17 @@ var y = numbers.lastIndexOf(10);
 var z = numbers.indexOf(30);
 document.write(y + z);
 </script>
-y and z are ints and are added normally. The answer is 5
 a. 5
 b. 3
 c. 2
 d. None of the previous
 
 33. What will be the output of the following JavaScript code snippet?
-ANSWER: C
-EXPLANATION: The rest parameter syntax `...args` gathers arguments into a real array. Since arrays in JavaScript are objects, `typeof(args)` evaluates to `"object"`.
 <script>
 document.write(typeof(NaN));
 </script>
+ANSWER: B
+EXPLANATION: In JavaScript, `typeof NaN` evaluates to `"number"` because `NaN` is a numeric value.
 a. NaN
 b. number
 c. object
@@ -388,7 +386,7 @@ EXPLANATION: `concat` merges the array with the new elements, creating `[1, 2, 3
 35. What will be the output of the following JavaScript code?
 var a = 0;
 for (a=0; a<5; a++);
-document.write(a); Note the ; after the for loop
+document.write(a);
 a. 01234
 b. 0
 c. Error
@@ -410,7 +408,7 @@ EXPLANATION: The asterisk `*` unpacking operator gathers all elements from the t
 37. What will be the output of the following Python code?
 newtuple = (1, 2, 3, 4)
 (x, *k, y) = newtuple
-print(k) This unpack method sets x to index 0 and y to index -1 and the rest to k
+print(k)
 a. 2, 3
 b. [2, 3, 4]
 c. [2, 3]
@@ -530,7 +528,7 @@ ANSWER: A
 EXPLANATION: Yes, HTML5 introduced the native `<audio>` element for embedding sound content.
 
 52. What will be the output of the following Python code?
-fruits = {"apple", "banana", "cherry"} Sets don't allow duplicates
+fruits = {"apple", "banana", "cherry"}
 fruits.add("apple")
 x = len(fruits)
 print(x)
@@ -538,7 +536,7 @@ a. 4
 b. 3
 c. 2
 d. None of the previous
-ANSWER: A
+ANSWER: B
 EXPLANATION: Sets in Python do not allow duplicate values. Adding "apple" when it already exists has no effect. The length remains 3.
 
 53. What will be the output of the following Python code?
@@ -548,7 +546,7 @@ car = {
 "year": 1964
 }
 y = car.keys()
-car["color"] = "red" y sees the dict changes
+car["color"] = "red"
 print(len(y))
 a. 3
 b. 6
@@ -833,8 +831,8 @@ a. Element node
 b. 1
 c. Text node
 d. 3
-ANSWER: A
-EXPLANATION: The `nodeType` property returns an integer. An element node (like the `<h2>` targeted here) structurally aligns with nodeType `1`.
+ANSWER: B
+EXPLANATION: The `nodeType` property returns an integer. For an element node (like the `<h2>` targeted here), `nodeType` is `1`.
 
 Based on the following HTML page, answer the following questions
 

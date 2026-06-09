@@ -519,7 +519,7 @@
           {
             "id": "d",
             "type": "text",
-            "content": "const constant_name = value; You have to initialize any const",
+            "content": "const constant_name = value;",
             "codeLanguage": null
           }
         ],
@@ -557,7 +557,7 @@
           {
             "id": "d",
             "type": "text",
-            "content": "TypeError Can't overwrite a const",
+            "content": "TypeError",
             "codeLanguage": null
           }
         ],
@@ -664,7 +664,7 @@
         ],
         "correctAnswerId": "a",
         "expectedAnswer": null,
-        "explanation": "JavaScript evaluates left to right: `10 + 20` is `30`, then `30 + \"5\"` coerces to string concatenation, giving `\"305\"`.",
+        "explanation": "`10 + 20` is `30`, then `30 + \"5\"` concatenates to `\"305\"`.",
         "relatedTopics": [
           "fe-5"
         ]
@@ -769,7 +769,7 @@
           {
             "id": "d",
             "type": "text",
-            "content": "None of the previous Output is 12",
+            "content": "None of the previous",
             "codeLanguage": null
           }
         ],
@@ -812,7 +812,7 @@
         ],
         "correctAnswerId": "c",
         "expectedAnswer": null,
-        "explanation": "`reduce` subtracts left to right: `170 - 50 = 120`, then `120 - 25 = 95`.",
+        "explanation": "`reduce` with subtraction gives `170 - 50 - 25 = 95`.",
         "relatedTopics": [
           "fe-6"
         ]
@@ -1072,7 +1072,7 @@
         ],
         "correctAnswerId": "b",
         "expectedAnswer": null,
-        "explanation": "After `delete cars.company`, `cars.company` is `undefined`. With `x = \"color\"`, `cars[x]` is `cars[\"color\"]` → `\"white\"`, so the output is `undefined white`.",
+        "explanation": "`cars.company` is `undefined` after delete; `cars[\"color\"]` is `\"white\"`.",
         "relatedTopics": [
           "fe-6"
         ]
@@ -1097,7 +1097,7 @@
           {
             "id": "c",
             "type": "text",
-            "content": "ValueError Should be int",
+            "content": "ValueError",
             "codeLanguage": null
           },
           {
@@ -1109,7 +1109,7 @@
         ],
         "correctAnswerId": "d",
         "expectedAnswer": null,
-        "explanation": "The `eval()` function evaluates JavaScript code represented as a string. It accesses the scope variables `x` and `y`, calculating `10 * 20`, which is the number `200` (option d), not the string `\"200\"`.",
+        "explanation": "`eval(\"x * y\")` returns the number `200`, not the string `\"200\"`.",
         "relatedTopics": [
           "fe-5",
           "fe-6"
@@ -1147,7 +1147,7 @@
         ],
         "correctAnswerId": "b",
         "expectedAnswer": null,
-        "explanation": "`filter()` returns an array, and `typeof` an array in JavaScript is `\"object\"`.",
+        "explanation": "`filter()` returns an array; `typeof` an array is `\"object\"`.",
         "relatedTopics": [
           "fe-6"
         ]
@@ -1184,7 +1184,7 @@
         ],
         "correctAnswerId": "a",
         "expectedAnswer": null,
-        "explanation": "`lastIndexOf(10)` is `2`, `indexOf(30)` is `3`, and `2 + 3 = 5` (option a).",
+        "explanation": "`lastIndexOf(10)` is 2, `indexOf(30)` is 3, sum is 5.",
         "relatedTopics": [
           "fe-6"
         ]
@@ -1192,7 +1192,7 @@
       {
         "id": "q33",
         "type": "multiple_choice",
-        "questionText": "33. What will be the output of the following JavaScript code snippet?",
+        "questionText": "33. What will be the output of the following JavaScript code snippet?\ndocument.write(typeof(NaN));",
         "options": [
           {
             "id": "a",
@@ -1219,9 +1219,9 @@
             "codeLanguage": null
           }
         ],
-        "correctAnswerId": "c",
+        "correctAnswerId": "b",
         "expectedAnswer": null,
-        "explanation": "The rest parameter syntax `...args` gathers arguments into a real array. Since arrays in JavaScript are objects, `typeof(args)` evaluates to `\"object\"`.",
+        "explanation": "In JavaScript, `typeof NaN` evaluates to `\"number\"` because `NaN` is a numeric value.",
         "relatedTopics": [
           "fe-6"
         ]
@@ -1281,7 +1281,7 @@
       {
         "id": "q35",
         "type": "multiple_choice",
-        "questionText": "35. What will be the output of the following JavaScript code?\nvar a = 0;\nfor (a=0; a<5; a++);\ndocument.write(a); Note the ; after the for loop",
+        "questionText": "35. What will be the output of the following JavaScript code?\nvar a = 0;\nfor (a=0; a<5; a++);\ndocument.write(a);",
         "options": [
           {
             "id": "a",
@@ -1310,7 +1310,7 @@
         ],
         "correctAnswerId": "d",
         "expectedAnswer": null,
-        "explanation": "The semicolon after `for (a=0; a<5; a++);` ends the loop with an empty body, so only `a` is incremented until it reaches 5. `document.write(a)` runs once afterward and prints `5`.",
+        "explanation": "The semicolon after the `for` loop leaves an empty body; `document.write(a)` runs once and prints `5`.",
         "relatedTopics": [
           "fe-5"
         ]
@@ -1347,7 +1347,7 @@
         ],
         "correctAnswerId": "b",
         "expectedAnswer": null,
-        "explanation": "The asterisk `*` unpacking operator gathers all elements from the tuple into a list. `k` becomes `[1, 2, 3, 4]`, matching option b.",
+        "explanation": "`(*k,) = (1, 2, 3, 4)` sets `k` to `[1, 2, 3, 4]`, matching option b.",
         "relatedTopics": [
           "be-2"
         ]
@@ -1355,7 +1355,7 @@
       {
         "id": "q37",
         "type": "multiple_choice",
-        "questionText": "37. What will be the output of the following Python code?\nnewtuple = (1, 2, 3, 4)\n(x, *k, y) = newtuple\nprint(k) This unpack method sets x to index 0 and y to index -1 and the rest to k",
+        "questionText": "37. What will be the output of the following Python code?\nnewtuple = (1, 2, 3, 4)\n(x, *k, y) = newtuple\nprint(k)",
         "options": [
           {
             "id": "a",
@@ -1384,7 +1384,7 @@
         ],
         "correctAnswerId": "c",
         "expectedAnswer": null,
-        "explanation": "The unpacking syntax assigns the first element to `x` (1), the last element to `y` (4), and packs all remaining intermediate elements into a list `k`. Therefore, `k` is `[2, 3]`.",
+        "explanation": "`(x, *k, y) = (1, 2, 3, 4)` sets `k` to `[2, 3]`, matching option c.",
         "relatedTopics": [
           "be-2"
         ]
@@ -1495,7 +1495,7 @@
         ],
         "correctAnswerId": "b",
         "expectedAnswer": null,
-        "explanation": "The subscript 2 in H₂O uses `<sub>`. Option B — `<p>H<sub>2</sub>O</p>` — is correct. Option A wrongly uses `<sup>`, C uses `<ins>`, and D uses the invalid `<below>` tag.",
+        "explanation": "H₂O needs `<sub>` for the 2; option B is `<p>H<sub>2</sub>O</p>`.",
         "relatedTopics": [
           "fe-2"
         ]
@@ -1532,7 +1532,7 @@
         ],
         "correctAnswerId": "a",
         "expectedAnswer": null,
-        "explanation": "Deleted text uses `<del>` and inserted text uses `<ins>`. There is no standard `<cut>` element.",
+        "explanation": "Use `<del>` for deleted text and `<ins>` for inserted text; `<cut>` is not valid HTML.",
         "relatedTopics": [
           "fe-2",
           "fe-3"
@@ -1570,7 +1570,7 @@
         ],
         "correctAnswerId": "b",
         "expectedAnswer": null,
-        "explanation": "The `src` (source) attribute is used in the `<img>` tag to specify the URL or path to the image file.",
+        "explanation": "The `<img>` tag uses the `src` attribute to specify the image path.",
         "relatedTopics": [
           "fe-2"
         ]
@@ -1817,7 +1817,7 @@
         ],
         "correctAnswerId": "c",
         "expectedAnswer": null,
-        "explanation": "`index(3)` returns the index of the first `3`, which is `2` (0-based indexing).",
+        "explanation": "`index(3)` returns the first occurrence at index 2.",
         "relatedTopics": [
           "be-2"
         ]
@@ -1876,7 +1876,7 @@
       {
         "id": "q52",
         "type": "multiple_choice",
-        "questionText": "52. What will be the output of the following Python code?\nfruits = {\"apple\", \"banana\", \"cherry\"} Sets don't allow duplicates\nfruits.add(\"apple\")\nx = len(fruits)\nprint(x)",
+        "questionText": "52. What will be the output of the following Python code?\nfruits = {\"apple\", \"banana\", \"cherry\"}\nfruits.add(\"apple\")\nx = len(fruits)\nprint(x)",
         "options": [
           {
             "id": "a",
@@ -1903,7 +1903,7 @@
             "codeLanguage": null
           }
         ],
-        "correctAnswerId": "a",
+        "correctAnswerId": "b",
         "expectedAnswer": null,
         "explanation": "Sets in Python do not allow duplicate values. Adding \"apple\" when it already exists has no effect. The length remains 3.",
         "relatedTopics": [
@@ -1913,7 +1913,7 @@
       {
         "id": "q53",
         "type": "multiple_choice",
-        "questionText": "53. What will be the output of the following Python code?\ncar = {\n\"brand\": \"Ford\",\n\"model\": \"Mustang\",\n\"year\": 1964\n}\ny = car.keys()\ncar[\"color\"] = \"red\" y sees the dict changes\nprint(len(y))",
+        "questionText": "53. What will be the output of the following Python code?\ncar = {\n\"brand\": \"Ford\",\n\"model\": \"Mustang\",\n\"year\": 1964\n}\ny = car.keys()\ncar[\"color\"] = \"red\"\nprint(len(y))",
         "options": [
           {
             "id": "a",
@@ -2061,7 +2061,7 @@
       {
         "id": "q57",
         "type": "multiple_choice",
-        "questionText": "57. External CSS style has the highest priority\nInline > Internal > External > Browser Default",
+        "questionText": "57. External CSS style has the highest priority",
         "options": [
           {
             "id": "a",
@@ -2279,7 +2279,7 @@
         ],
         "correctAnswerId": "a",
         "expectedAnswer": null,
-        "explanation": "The `<div>` tag is a generic block-level container used to divide the HTML document into distinct structural sections or divisions.",
+        "explanation": "`<div>` is a structural container for grouping sections, not for styling, headings, or titles by itself.",
         "relatedTopics": [
           "fe-2"
         ]
@@ -2354,7 +2354,7 @@
         ],
         "correctAnswerId": "c",
         "expectedAnswer": null,
-        "explanation": "`const f = (a, b) => a + b + 5` is valid arrow-function syntax; `f(4, 5)` returns `4 + 5 + 5 = 14`.",
+        "explanation": "Valid arrow syntax; `f(4, 5)` returns `14`.",
         "relatedTopics": [
           "fe-5",
           "fe-6"
@@ -2764,7 +2764,7 @@
         ],
         "correctAnswerId": "c",
         "expectedAnswer": null,
-        "explanation": "`x[7:]` is a positive slice from index 7 to the end. Index 7 is the first `l` in `Lovely`, so the output is `ly Bird!`.",
+        "explanation": "`x[7:]` starts at index 7 (the first `l` in `Lovely`), yielding `ly Bird!`.",
         "relatedTopics": [
           "be-2"
         ]
@@ -3037,9 +3037,9 @@
             "codeLanguage": null
           }
         ],
-        "correctAnswerId": "a",
+        "correctAnswerId": "b",
         "expectedAnswer": null,
-        "explanation": "The `nodeType` property returns an integer. An element node (like the `<h2>` targeted here) structurally aligns with nodeType `1`.",
+        "explanation": "The `nodeType` property returns an integer. For an element node (like the `<h2>` targeted here), `nodeType` is `1`.",
         "relatedTopics": [
           "fe-3"
         ]
