@@ -332,6 +332,7 @@ ANSWER_FIXES: dict[str, dict[str, str]] = {
         "q80": "b",
     },
     "2025": {
+        "q2": "false",
         "q53": "c",
         "q65": "c",
         "q76": "d",
@@ -411,6 +412,7 @@ EXPLANATION_FIXES: dict[str, dict[str, str]] = {
         "q80": "Parentheses define a Python tuple, not a list (`[]`).",
     },
     "2025": {
+        "q2": "False. `typeof` is an operator, not a function (use `typeof x`, not `typeof(x)` as a function call). For objects, `typeof` usually returns `\"object\"` — it does not tell you the specific object type (e.g. array vs plain object). Use `instanceof` or helpers like `Array.isArray()` when you need the actual object type.",
         "q65": "`Y` is a set, so duplicate values are removed. `print(Y)` outputs the unique elements `{1, 2, 3, 5}`, which matches option c. Spacing after commas in the printed representation is not required to match exactly.",
         "q76": "Duplicates are removed, so the values are `{1, 2, 3, 5}`, but Python 3 prints sets with curly braces (e.g. `{1, 2, 3, 5}`), not `set([1,2,3,5])`. None of the listed formats match exactly.",
         "q79": "`.flat(2)` yields `[1, 2, 3, 4, 5, 6, 7, 8]`, and `console.log` prints array brackets and spaces. Option c omits brackets, so it does not match the actual console output.",

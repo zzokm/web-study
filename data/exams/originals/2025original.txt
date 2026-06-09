@@ -28,8 +28,8 @@ EXPLANATION: The PUT method is designed to completely replace a target resource.
 2. To determine the type of an object, we can use the "typeof" function in JavaScript.
 a. True
 b. False
-ANSWER: A
-EXPLANATION: While technically `typeof` is an operator rather than a function (often written without parentheses like `typeof x`), it is widely accepted in basic web technology contexts as the primary way to determine a variable's type. Note: for specific object types, `instanceof` is more accurate, but `typeof` returns 'object'.
+ANSWER: B
+EXPLANATION: False. `typeof` is an operator, not a function (use `typeof x`, not `typeof(x)` as a function call). For objects, `typeof` usually returns `"object"` — it does not tell you the specific object type (e.g. array vs plain object). Use `instanceof` or helpers like `Array.isArray()` when you need the actual object type.
 3. CSS can be defined externally in a separate file by adding the <style> element inside the <head>.
 a. True
 b. False
