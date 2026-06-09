@@ -1503,7 +1503,7 @@
       {
         "id": "q41",
         "type": "multiple_choice",
-        "questionText": "41. Which is the correct HTML statement to display Hello Hi in a paragraph?",
+        "questionText": "41. Which is the correct HTML statement to display <del>Hello</del> <u>Hi</u> in a paragraph?",
         "options": [
           {
             "id": "a",

@@ -442,7 +442,7 @@ d. <p>H<below>2</below>O</p>
 ANSWER: B
 EXPLANATION: The subscript 2 in H₂O uses `<sub>`. Option B — `<p>H<sub>2</sub>O</p>` — is correct. Option A wrongly uses `<sup>`, C uses `<ins>`, and D uses the invalid `<below>` tag.
 
-41. Which is the correct HTML statement to display Hello Hi in a paragraph?
+41. Which is the correct HTML statement to display <del>Hello</del> <u>Hi</u> in a paragraph?
 a. <p><del>Hello</del> <ins>Hi</ins></p>
 b. <p><cut>Hello</cut> <ins>Hi</ins></p>
 c. <p><del>Hello</del> <mark>Hi</mark></p>

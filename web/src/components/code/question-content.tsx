@@ -1,5 +1,6 @@
 import type { Question, QuestionContentSegment, QuestionContext } from "@/types/question";
 import { CodeBlock } from "@/components/code/code-block";
+import { QuestionText } from "@/components/questions/question-text";
 import { stripLeadingQuestionNumber } from "@/lib/parse-question-content";
 import { cn } from "@/lib/utils";
 
@@ -65,9 +66,13 @@ function SegmentList({
               textClassName
             )}
           >
-            {preservePartNumbers
-              ? segment.content
-              : stripLeadingQuestionNumber(segment.content)}
+            <QuestionText
+              text={
+                preservePartNumbers
+                  ? segment.content
+                  : stripLeadingQuestionNumber(segment.content)
+              }
+            />
           </p>
         )
       )}
