@@ -12,6 +12,8 @@ import { dirname, join } from "path";
 import { fileURLToPath } from "url";
 import { z } from "zod";
 import {
+  cleanExamCode,
+  normalizeCodeLanguage,
   normalizeOption,
   parseBlockContext,
   parseQuestionText,
@@ -353,6 +355,13 @@ function loadWrittenQuestionBundle() {
   return { manifest, entries };
 }
 
+function formatExpectedAnswer(raw) {
+  const answer = raw.expectedAnswer;
+  if (!answer?.trim()) return answer ?? null;
+  const lang = normalizeCodeLanguage(raw.answerLanguage) ?? "html";
+  return cleanExamCode(answer, lang);
+}
+
 function examStemWithNumber(questionText, questionNumber) {
   const prefix = `${questionNumber}. `;
   const numbered = new RegExp(`^${questionNumber}\\.\\s`);
@@ -381,7 +390,7 @@ function buildWrittenHubCatalogEntry(raw, manifestEntry, sourceFile) {
     examOrder: manifestEntry.order ?? 1,
     blockId: "written",
     relatedTopics: raw.relatedTopics ?? [],
-    expectedAnswer: raw.expectedAnswer,
+    expectedAnswer: formatExpectedAnswer(raw),
     writtenRubric: raw.writtenRubric,
     answerLanguage: raw.answerLanguage ?? null,
   };
@@ -431,7 +440,7 @@ function buildWrittenExamCatalogEntry(
     examOrder,
     blockId: placement.blockId,
     relatedTopics: raw.relatedTopics ?? [],
-    expectedAnswer: raw.expectedAnswer,
+    expectedAnswer: formatExpectedAnswer(raw),
     writtenRubric: raw.writtenRubric,
     answerLanguage: raw.answerLanguage ?? null,
   };

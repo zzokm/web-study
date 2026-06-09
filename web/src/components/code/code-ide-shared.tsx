@@ -3,7 +3,7 @@
 import { useEffect, useMemo, useState } from "react";
 import type { ThemedToken } from "shiki";
 import {
-  normalizeCodeIndentation,
+  cleanExamCode,
   resolveHighlightLanguage,
   type SupportedCodeLanguage,
 } from "@/lib/parse-question-content";
@@ -58,13 +58,13 @@ export function useShikiLines(
   resolvedLanguage: SupportedCodeLanguage;
 } {
   const editor = options?.editor ?? false;
+  const resolvedLanguage = resolveHighlightLanguage(language, code);
   const normalizedCode = useMemo(() => {
     const lineEndings = code.replace(/\r\n/g, "\n");
     if (editor) return lineEndings;
-    return normalizeCodeIndentation(lineEndings.replace(/\n$/, ""));
-  }, [code, editor]);
+    return cleanExamCode(lineEndings.replace(/\n$/, ""), resolvedLanguage);
+  }, [code, editor, resolvedLanguage]);
   const lines = useMemo(() => normalizedCode.split("\n"), [normalizedCode]);
-  const resolvedLanguage = resolveHighlightLanguage(language, code);
   const highlightKey = `${resolvedLanguage}:${normalizedCode}`;
   const [highlightState, setHighlightState] = useState<{
     key: string;

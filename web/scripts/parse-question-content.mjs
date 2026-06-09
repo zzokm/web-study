@@ -1,5 +1,7 @@
 /** Shared exam code parsing — keep in sync with src/lib/parse-question-content.ts */
 
+import { formatExamCode, shouldFormatExamCode } from "./format-exam-code.mjs";
+
 export const SUPPORTED_CODE_LANGUAGES = [
   "javascript",
   "html",
@@ -75,13 +77,25 @@ export function normalizeCodeIndentation(code, indentSize = CODE_INDENT_SIZE) {
     .join("\n");
 }
 
-export function cleanExamCode(code) {
+export function resolveHighlightLanguage(lang, code) {
+  return (
+    normalizeCodeLanguage(lang) ??
+    (code ? inferLanguageFromCode(code) : null) ??
+    "javascript"
+  );
+}
+
+export function cleanExamCode(code, language) {
   if (!code) return "";
   const lines = String(code).replace(/\r\n/g, "\n").split("\n");
   const stripped = lines.map((line) => line.replace(/^\s*\d+\.\s+/, ""));
-  return normalizeCodeIndentation(
+  const normalized = normalizeCodeIndentation(
     stripped.join("\n").replace(/\n+$/, "").trimStart()
   );
+  const lang = resolveHighlightLanguage(language, normalized);
+  return shouldFormatExamCode(normalized, lang)
+    ? formatExamCode(normalized, lang)
+    : normalized;
 }
 
 export function inferLanguageFromCode(code) {
@@ -226,19 +240,18 @@ export function parseQuestionText(questionText) {
   }
 
   const promptLines = bodyLines.slice(0, codeStart);
-  const code = cleanExamCode(bodyLines.slice(codeStart).join("\n"));
   const trailing = trailingLines.join("\n").trim();
-
-  if (!code) {
-    return [{ type: "text", content: questionText }];
-  }
-
   const prompt = promptLines.join("\n").trim();
   const inferred =
     inferLanguageFromPrompt(prompt) ??
     inferLanguageFromPrompt(trailing) ??
-    inferLanguageFromCode(code) ??
+    inferLanguageFromCode(bodyLines.slice(codeStart).join("\n")) ??
     "javascript";
+  const code = cleanExamCode(bodyLines.slice(codeStart).join("\n"), inferred);
+
+  if (!code) {
+    return [{ type: "text", content: questionText }];
+  }
 
   const segments = [];
 
@@ -262,10 +275,10 @@ export function parseBlockContext(context) {
   if (!context) return null;
 
   const text = context.text?.trim() ? context.text.trim() : null;
-  const code = context.code ? cleanExamCode(context.code) : null;
   const codeLanguage =
     normalizeCodeLanguage(context.codeLanguage) ??
-    (code ? inferLanguageFromCode(code) : null);
+    (context.code ? inferLanguageFromCode(context.code) : null);
+  const code = context.code ? cleanExamCode(context.code, codeLanguage) : null;
 
   if (!text && !code) return null;
 
@@ -278,15 +291,17 @@ export function normalizeOption(option) {
   const isCode = option.type === "code" || Boolean(rawCode);
 
   if (isCode) {
-    const content = cleanExamCode(rawCode || rawContent);
+    const raw = rawCode || rawContent;
+    const codeLanguage =
+      normalizeCodeLanguage(option.codeLanguage) ??
+      inferLanguageFromCode(raw) ??
+      "javascript";
+    const content = cleanExamCode(raw, codeLanguage);
     return {
       id: option.id,
       type: "code",
       content,
-      codeLanguage:
-        normalizeCodeLanguage(option.codeLanguage) ??
-        inferLanguageFromCode(content) ??
-        "javascript",
+      codeLanguage,
     };
   }
 

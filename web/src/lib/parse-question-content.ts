@@ -1,3 +1,8 @@
+import {
+  formatExamCode,
+  shouldFormatExamCode,
+} from "@/lib/format-exam-code";
+
 export const SUPPORTED_CODE_LANGUAGES = [
   "javascript",
   "html",
@@ -95,12 +100,19 @@ export function stripLeadingQuestionNumber(text: string): string {
   return text.replace(/^\s*\d+\.\s+/, "");
 }
 
-export function cleanExamCode(code: string): string {
+export function cleanExamCode(
+  code: string,
+  language?: string | null
+): string {
   const lines = code.replace(/\r\n/g, "\n").split("\n");
   const stripped = lines.map((line) => line.replace(/^\s*\d+\.\s+/, ""));
-  return normalizeCodeIndentation(
+  const normalized = normalizeCodeIndentation(
     stripped.join("\n").replace(/\n+$/, "").trimStart()
   );
+  const lang = resolveHighlightLanguage(language, normalized);
+  return shouldFormatExamCode(normalized, lang)
+    ? formatExamCode(normalized, lang)
+    : normalized;
 }
 
 export function inferLanguageFromCode(code: string): SupportedCodeLanguage | null {
