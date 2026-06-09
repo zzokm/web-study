@@ -334,7 +334,7 @@
           {
             "id": "d",
             "type": "text",
-            "content": "innerHTML a is wrong because we want to define the HTML content",
+            "content": "innerHTML",
             "codeLanguage": null
           }
         ],

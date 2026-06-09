@@ -425,6 +425,7 @@ OPTION_FIXES: dict[str, dict[str, dict[str, str]]] = {
         "q80": {"a": "True", "b": "False"},
     },
     "2024": {
+        "q9": {"d": "innerHTML"},
         "q38": {"c": "Both a and b."},
         "q65": {"a": "myNumbers.map((value) => value * 4);"},
         "q66": {"b": "myNumbers.filter((value) => value < 10);"},

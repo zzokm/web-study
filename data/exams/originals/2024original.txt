@@ -78,7 +78,7 @@ EXPLANATION: While 'a' represents the raw method name, 'c' explicitly shows the 
 a. innerText
 b. innerContent
 c. element Text
-d. innerHTML a is wrong because we want to define the HTML content
+d. innerHTML
 ANSWER: D
 EXPLANATION: The `innerHTML` property sets or returns the HTML content inside an element.
 
