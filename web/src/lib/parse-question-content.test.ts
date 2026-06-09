@@ -122,6 +122,21 @@ describe("parseQuestionText", () => {
     expect(segments[1]?.content).toBe("const f = (a, b) => a + b + 5;");
   });
 
+  it("splits 2021 Q26 class/identity code into a Python block", () => {
+    const segments = parseQuestionText(
+      "26. Which statement is correct about this Python code?\nclass Name:\n  def __init__(javatpoint):\n    javatjavatpoint = java\nname1 = Name('ABC')\nname2 = name1"
+    );
+    expect(segments).toHaveLength(2);
+    expect(segments[0]?.type).toBe("text");
+    expect(segments[0]?.content).toBe(
+      "26. Which statement is correct about this Python code?"
+    );
+    expect(segments[1]?.type).toBe("code");
+    expect(segments[1]?.codeLanguage).toBe("python");
+    expect(segments[1]?.content).toContain("class Name:");
+    expect(segments[1]?.content).toContain("name2 = name1");
+  });
+
   it("starts multiline code at x = { assignments (2021 Q59)", () => {
     const segments = parseQuestionText(
       '59. x = {\n  "name": "Ahmed"\n}\nprint(x)\nThe above print will return:'

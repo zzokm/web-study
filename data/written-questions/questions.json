@@ -812,7 +812,7 @@
           }
         ]
       },
-      "explanation": "Django models subclass `models.Model`. Each class attribute using a `models.*Field` becomes a database column. `CharField` requires `max_length`; `IntegerField` stores integers. After defining the model, run `makemigrations` then `migrate`. Example: `class Product(models.Model): name = models.CharField(max_length=100); price = models.IntegerField()`.",
+      "explanation": "**Answer**\n\nDjango models subclass `models.Model`. Each class attribute using a `models.*Field` becomes a database column.\n\n**Explanation**\n\n`CharField` requires `max_length`; `IntegerField` stores integers. After defining the model, run `makemigrations` then `migrate`.\n\nExample: `class Product(models.Model): name = models.CharField(max_length=100); price = models.IntegerField()`.",
       "relatedTopics": [
         "be-8"
       ]
@@ -841,7 +841,7 @@
           }
         ]
       },
-      "explanation": "A function-based view accepts `request` as its first argument and must return an `HttpResponse` (or subclass). Import `HttpResponse` from `django.http`. Minimal pattern: `def home_view(request): return HttpResponse('<h1>Welcome to Django</h1>')`. Wire it in `urls.py` with `path('', views.home_view)`.",
+      "explanation": "**Answer**\n\nA function-based view accepts `request` as its first argument and must return an `HttpResponse` (or subclass). Import `HttpResponse` from `django.http`.\n\n**Explanation**\n\nMinimal pattern: `def home_view(request): return HttpResponse(\"<h1>Welcome to Django</h1>\")`. Wire it in `urls.py` with `path(\"\", views.home_view)`.",
       "relatedTopics": [
         "be-5"
       ]
@@ -870,7 +870,7 @@
           }
         ]
       },
-      "explanation": "Django templates separate logic tags `{% %}` from output `{{ }}`. Loop: `{% for user in users %}<li>{{ user }}</li>{% endfor %}`. Every `{% for %}` needs `{% endfor %}`. The view passes `users` in the context dictionary. Wrap `<li>` elements in `<ul>` as the prompt requires.",
+      "explanation": "**Answer**\n\nDjango templates separate logic tags `{% %}` from output `{{ }}`. Loop: `{% for user in users %}<li>{{ user }}</li>{% endfor %}`.\n\n**Explanation**\n\nEvery `{% for %}` needs `{% endfor %}`. The view passes `users` in the context dictionary.\n\nWrap `<li>` elements in `<ul>` as the prompt requires.",
       "relatedTopics": [
         "be-7"
       ]
@@ -899,7 +899,7 @@
           }
         ]
       },
-      "explanation": "In `urls.py`: `from django.urls import path` and `from . import views` (or your app). `urlpatterns = [path('contact/', views.contact_view, name='contact')]`. The `name` enables `{% url 'contact' %}` and `reverse('contact')`. Route string includes trailing slash per Django convention.",
+      "explanation": "**Answer**\n\nIn `urls.py`: `from django.urls import path` and `from . import views` (or your app).\n\n**Explanation**\n\n`urlpatterns = [path(\"contact/\", views.contact_view, name=\"contact\")]`. The `name` enables `{% url \"contact\" %}` and `reverse(\"contact\")`.\n\nRoute string includes trailing slash per Django convention.",
       "relatedTopics": [
         "be-5"
       ]
@@ -923,7 +923,7 @@
           }
         ]
       },
-      "explanation": "Dictionary membership tests whether a key exists before access. Use `if name in grades:` then `return grades[name]`, or the idiomatic one-liner `return grades.get(name, 'Not Found')`. The `in` operator checks keys, not values. `.get(key, default)` returns the default when the key is missing instead of raising `KeyError`. Either approach satisfies the prompt; `.get` is shorter when you only need a fallback.",
+      "explanation": "**Answer**\n\nDictionary membership tests whether a key exists before access. Use `if name in grades:` then `return grades[name]`, or the idiomatic one-liner `return grades.get(name, \"Not Found\")`.\n\n**Explanation**\n\nThe `in` operator checks keys, not values. `.get(key, default)` returns the default when the key is missing instead of raising `KeyError`.\n\nEither approach satisfies the prompt; `.get` is shorter when you only need a fallback.",
       "relatedTopics": [
         "be-2"
       ]
@@ -952,7 +952,7 @@
           }
         ]
       },
-      "explanation": "Define `class Car:` with `def __init__(self, make, year):` assigning `self.make` and `self.year`. Method `display(self)` returns a formatted string, typically `return f'{self.year} {self.make}'` for output like '2020 Toyota'. `self` is mandatory as the first parameter of instance methods.",
+      "explanation": "**Answer**\n\nDefine `class Car:` with `def __init__(self, make, year):` assigning `self.make` and `self.year`. Method `display(self)` returns a formatted string, typically `return f\"{self.year} {self.make}\"` for output like '2020 Toyota'.\n\n**Explanation**\n\n`self` is mandatory as the first parameter of instance methods.",
       "relatedTopics": [
         "be-3"
       ]
@@ -981,7 +981,7 @@
           }
         ]
       },
-      "explanation": "Wrap risky operations in `try`/`except` so predictable failures do not crash the program. Division by zero raises `ZeroDivisionError`; catching that specific type avoids masking other bugs. Structure: attempt `result = a / b` and `print(result)` inside `try`, and `except ZeroDivisionError:` print the required message. Catching `Exception` broadly works but is weaker style. The `else`/`finally` clauses are optional here.",
+      "explanation": "**Answer**\n\nWrap risky operations in `try`/`except` so predictable failures do not crash the program. Division by zero raises `ZeroDivisionError`; catching that specific type avoids masking other bugs.\n\n**Explanation**\n\nStructure: attempt `result = a / b` and `print(result)` inside `try`, and `except ZeroDivisionError:` print the required message. Catching `Exception` broadly works but is weaker style.\n\nThe `else`/`finally` clauses are optional here.",
       "relatedTopics": [
         "be-2"
       ]

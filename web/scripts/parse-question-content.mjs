@@ -135,7 +135,7 @@ const PROMPT_INTRO_RE =
 
 /** Stems that should render an executable code block (not inline statement T/F). */
 const OUTPUT_CODE_PROMPT_RE =
-  /\b(what will|what is the output|output of the following|following python code|following javascript|following java\s*script|following code|code snippet|code print|the following python|the following javascript)\b/i;
+  /\b(what will|what is the output|output of the following|following python code|following javascript|following java\s*script|following code|code snippet|code print|the following python|the following javascript|this python code|about this python|correct about this)\b/i;
 
 const TRAILING_PROSE_RES = [
   /^The\s+(output will be|removed item|above|following)/i,

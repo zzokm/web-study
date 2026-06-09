@@ -81,7 +81,7 @@
         ],
         "correctAnswerId": "b",
         "expectedAnswer": null,
-        "explanation": "HTTP methods such as GET, POST, HEAD, PUT, and DELETE are defined on the request, not the response. The client sends a request line like `GET /path HTTP/1.1`; the server replies with a status line. Option A incorrectly mixes both sides. Response carries status codes and headers, but method names belong to the request message.",
+        "explanation": "**Answer**\n\nHTTP methods such as GET, POST, HEAD, PUT, and DELETE are defined on the request, not the response. The client sends a request line like `GET /path HTTP/1.1`; the server replies with a status line.\n\n**Explanation**\n\nOption A incorrectly mixes both sides. Response carries status codes and headers, but method names belong to the request message.",
         "relatedTopics": [
           "fe-1",
           "be-4"
@@ -119,7 +119,7 @@
         ],
         "correctAnswerId": "d",
         "expectedAnswer": null,
-        "explanation": "Each pair matches a real HTTP status: 200 OK, 400 Bad Request, 301 Moved Permanently. The mismatch is 304 — it means Not Modified (conditional GET cache hit), not Not Found. Not Found is 404. Exam trap: 304 and 404 sound similar but serve completely different purposes.",
+        "explanation": "**Answer**\n\nEach pair matches a real HTTP status: 200 OK, 400 Bad Request, 301 Moved Permanently. The mismatch is 304: it means Not Modified (conditional GET cache hit), not Not Found.\n\n**Explanation**\n\nNot Found is 404\n\n**Exam tip**\n\n304 and 404 sound similar but serve completely different purposes.",
         "relatedTopics": [
           "fe-1",
           "be-4"
@@ -195,7 +195,7 @@
         ],
         "correctAnswerId": "a",
         "expectedAnswer": null,
-        "explanation": "HTTP names the first line of a request the Request-Line (`METHOD path HTTP/version`) and the first line of a response the Status-Line (`HTTP/version code reason`). Option B duplicates Status for both sides. Option C swaps Response into the request slot. These lines are mandatory in their respective messages.",
+        "explanation": "**Answer**\n\nHTTP names the first line of a request the Request-Line (`METHOD path HTTP/version`) and the first line of a response the Status-Line (`HTTP/version code reason`). Option B duplicates Status for both sides.\n\n**Explanation**\n\nOption C swaps Response into the request slot. These lines are mandatory in their respective messages.",
         "relatedTopics": [
           "fe-1",
           "be-4"
@@ -233,7 +233,7 @@
         ],
         "correctAnswerId": "b",
         "expectedAnswer": null,
-        "explanation": "Every HTTP/1.1 request must include a Request-Line and at least one header (Host is required in 1.1). The body is optional — GET usually has none. Option C describes a response (Status-Line), not a request. A valid request can exist without a body, so option A is incomplete.",
+        "explanation": "**Answer**\n\nEvery HTTP/1.1 request must include a Request-Line and at least one header (Host is required in 1.1). The body is optional: GET usually has none.\n\n**Explanation**\n\nOption C describes a response (Status-Line), not a request. A valid request can exist without a body, so option A is incomplete.",
         "relatedTopics": [
           "fe-1",
           "be-4"
@@ -271,7 +271,7 @@
         ],
         "correctAnswerId": "c",
         "expectedAnswer": null,
-        "explanation": "POST places data in the request body, keeping it out of the URL and server logs; GET appends parameters to the query string, which is visible in the URL and browser history. For sensitive or large payloads, POST is more robust and secure than GET. Option A reverses the comparison. PUT is also body-based but the stem contrasts POST vs GET specifically.",
+        "explanation": "**Answer**\n\nPOST places data in the request body, keeping it out of the URL and server logs; GET appends parameters to the query string, which is visible in the URL and browser history. For sensitive or large payloads, POST is more robust and secure than GET.\n\n**Explanation**\n\nOption A reverses the comparison. PUT is also body-based but the stem contrasts POST vs GET specifically.",
         "relatedTopics": [
           "fe-1",
           "be-4"
@@ -1072,7 +1072,7 @@
         ],
         "correctAnswerId": "b",
         "expectedAnswer": null,
-        "explanation": "This question tests object identity, not whether the messy `__init__` body is valid. In Python, `name2 = name1` does not copy an object — it binds a second name to the same object `name1` already refers to. If both names point to one object, `id(name1) == id(name2)` is always true. Option A is wrong because multiple references to the same object are normal and encouraged. Option C is wrong because assignment never creates a second `Name` instance by itself. Option D cannot be true because A and C are false. Exam trick: the oddly named `__init__(javatpoint)` and the undefined name `java` are distractions; the line being tested is the alias assignment. Note: if you actually ran `Name('ABC')` as written, Python would raise `TypeError` because `__init__` is defined with only one parameter (the instance), so the `'ABC'` argument has nowhere to go — but the official answer focuses on reference semantics after a successful construction.",
+        "explanation": "**What this question tests**\n\nPython object identity: when two variables refer to the same object in memory.\n\n**The line that decides the answer**\n\n`name2 = name1` does not copy the object. It creates a second name (alias) pointing to whatever `name1` already points to. If they share one object, `id(name1) == id(name2)` is always true.\n\n**Why option B is correct**\n\nBoth names reference the same `Name` instance, so `id()` returns the same memory address for each.\n\n**Why the other options are wrong**\n\n- A: Multiple references to one object are normal in Python, not an error.\n- C: Assignment does not create a second `Name` object; only `Name(\"ABC\")` constructs one instance.\n- D: Cannot be true because A and C are both false.\n\n**Exam tricks in this code**\n\n- The oddly named `__init__(javatpoint)` and the undefined name `java` are distractions.\n- If you actually ran `Name(\"ABC\")` as written, Python would raise `TypeError` (`__init__` only accepts the instance, so `\"ABC\"` has nowhere to go).\n- The official answer focuses on reference semantics from `name2 = name1`, assuming construction succeeded.",
         "relatedTopics": [
           "be-2",
           "be-3"
@@ -1116,7 +1116,7 @@
         ],
         "correctAnswerId": "d",
         "expectedAnswer": null,
-        "explanation": "Trace the state step by step. `lst` starts as `[]`. `lst.append(nums)` stores a reference to the list object `[15, 6]` inside `lst`, so `lst` is `[[15, 6]]`. Then `nums = [10, 30, 20]` rebinds the name `nums` to a brand-new list; it does not modify the `[15, 6]` object already stored in `lst`. The second `append` adds that new list, giving `[[15, 6], [10, 30, 20]]`. `lst.sort()` sorts only the outer list. Python compares nested lists element by element: `[10, 30, 20]` vs `[15, 6]` — first elements `10` and `15`, so `[10, 30, 20]` comes first. Final output: `[[10, 30, 20], [15, 6]]`. Common trap: thinking `nums` reassignment changes what is already inside `lst`, or flattening/sorting all numbers into one list (option A).",
+        "explanation": "**Answer**\n\nTrace the state step by step. `lst` starts as `[]`.\n\n**Explanation**\n\n`lst.append(nums)` stores a reference to the list object `[15, 6]` inside `lst`, so `lst` is `[[15, 6]]`. Then `nums = [10, 30, 20]` rebinds the name `nums` to a brand-new list; it does not modify the `[15, 6]` object already stored in `lst`.\n\nThe second `append` adds that new list, giving `[[15, 6], [10, 30, 20]]`. `lst.sort()` sorts only the outer list.\n\nPython compares nested lists element by element: `[10, 30, 20]` vs `[15, 6]`: first elements `10` and `15`, so `[10, 30, 20]` comes first. Final output: `[[10, 30, 20], [15, 6]]`\n\n**Exam tip**\n\nthinking `nums` reassignment changes what is already inside `lst`, or flattening/sorting all numbers into one list (option A).",
         "relatedTopics": [
           "be-2"
         ]
@@ -1168,7 +1168,7 @@
         ],
         "correctAnswerId": "b",
         "expectedAnswer": null,
-        "explanation": "A Django app is a Python package (directory with `__init__.py`) that groups related functionality — models, views, templates, URLs — inside a project. Option B captures that. Option A is grammatically broken in the exam text. Option C (Both 1 & 2) is a trap: the flawed wording of option A makes \"both\" tempting, but the intended answer is the clean definition in B.",
+        "explanation": "**Answer**\n\nA Django app is a Python package (directory with `__init__.py`) that groups related functionality: models, views, templates, URLs: inside a project. Option B captures that.\n\n**Explanation**\n\nOption A is grammatically broken in the exam text. Option C (Both 1 & 2) is a trap: the flawed wording of option A makes \"both\" tempting, but the intended answer is the clean definition in B.",
         "relatedTopics": [
           "be-5"
         ]
@@ -1205,7 +1205,7 @@
         ],
         "correctAnswerId": "d",
         "expectedAnswer": null,
-        "explanation": "Django migrations are Python files under an app's `migrations/` folder, auto-generated by `makemigrations`, recording model schema changes over time. All three statements A–C are true, so D (All of the above) is correct. Exam trap: migrations are not applied to the database until you run `migrate` — creating files (`makemigrations`) is only step one.",
+        "explanation": "**Answer**\n\nDjango migrations are Python files under an app's `migrations/` folder, auto-generated by `makemigrations`, recording model schema changes over time. All three statements A to C are true, so D (All of the above) is correct\n\n**Exam tip**\n\nmigrations are not applied to the database until you run `migrate`: creating files (`makemigrations`) is only step one.",
         "relatedTopics": [
           "be-8"
         ]
@@ -1242,7 +1242,7 @@
         ],
         "correctAnswerId": "c",
         "expectedAnswer": null,
-        "explanation": "Django follows MVT: Model (data), View (business logic / request handling), Template (presentation HTML). MVC's Controller maps roughly to Django's URL dispatcher plus views. MVVM is a different pattern (common in frontend frameworks). Django documentation explicitly describes MVT, not MVC.",
+        "explanation": "**Answer**\n\nDjango follows MVT: Model (data), View (business logic / request handling), Template (presentation HTML). MVC's Controller maps roughly to Django's URL dispatcher plus views.\n\n**Explanation**\n\nMVVM is a different pattern (common in frontend frameworks). Django documentation explicitly describes MVT, not MVC.",
         "relatedTopics": [
           "be-5"
         ]
@@ -1279,7 +1279,7 @@
         ],
         "correctAnswerId": "c",
         "expectedAnswer": null,
-        "explanation": "Django template syntax `{{ name }}` outputs the value of context variable `name` after template rendering — it is replaced, not shown literally. Option A suggests the braces themselves print. Option B treats `name` as plain HTML text. Variables are supplied from the view's `render(request, template, context)` call.",
+        "explanation": "**Answer**\n\nDjango template syntax `{{ name }}` outputs the value of context variable `name` after template rendering: it is replaced, not shown literally. Option A suggests the braces themselves print.\n\n**Explanation**\n\nOption B treats `name` as plain HTML text. Variables are supplied from the view's `render(request, template, context)` call.",
         "relatedTopics": [
           "be-7"
         ]
@@ -1316,7 +1316,7 @@
         ],
         "correctAnswerId": "c",
         "expectedAnswer": null,
-        "explanation": "Inside `{% for %}`, Django exposes `forloop` with attributes like `counter` (1-based index), `first`, `last`, `parentloop`. `forloop.reverse`, `firstitem`, and `lastitem` are not real attributes — common exam decoys. Access is `forloop.counter`, never called with parentheses in templates.",
+        "explanation": "**Answer**\n\nInside `{% for %}`, Django exposes `forloop` with attributes like `counter` (1-based index), `first`, `last`, `parentloop`. `forloop.reverse`, `firstitem`, and `lastitem` are not real attributes: common exam decoys.\n\n**Explanation**\n\nAccess is `forloop.counter`, never called with parentheses in templates.",
         "relatedTopics": [
           "be-7"
         ]
@@ -1353,7 +1353,7 @@
         ],
         "correctAnswerId": "d",
         "expectedAnswer": null,
-        "explanation": "Django's architecture is MVT: Models define data, Views process requests and return responses, Templates render HTML. All three layers are required in a typical app, so D (All of the Above) is correct. Views are not the presentation layer — templates handle presentation.",
+        "explanation": "**Answer**\n\nDjango's architecture is MVT: Models define data, Views process requests and return responses, Templates render HTML. All three layers are required in a typical app, so D (All of the Above) is correct.\n\n**Explanation**\n\nViews are not the presentation layer: templates handle presentation.",
         "relatedTopics": [
           "be-5",
           "be-7"
@@ -1391,7 +1391,7 @@
         ],
         "correctAnswerId": "c",
         "expectedAnswer": null,
-        "explanation": "Django is a Python web framework — a library/toolkit for building web apps, not a programming language (Python is the language) and not merely generic software. You write Python code that uses Django's APIs for routing, ORM, templates, and admin.",
+        "explanation": "**Answer**\n\nDjango is a Python web framework: a library/toolkit for building web apps, not a programming language (Python is the language) and not merely generic software. You write Python code that uses Django's APIs for routing, ORM, templates, and admin.",
         "relatedTopics": [
           "be-5"
         ]
@@ -1428,7 +1428,7 @@
         ],
         "correctAnswerId": "a",
         "expectedAnswer": null,
-        "explanation": "New Django projects are created with `django-admin startproject <name>` from the command line. `manage.py` appears inside the created project for day-to-day commands. `__init__.py` marks Python packages but does not create a project by itself.",
+        "explanation": "**Answer**\n\nNew Django projects are created with `django-admin startproject <name>` from the command line. `manage.py` appears inside the created project for day-to-day commands.\n\n**Explanation**\n\n`__init__.py` marks Python packages but does not create a project by itself.",
         "relatedTopics": [
           "be-5"
         ]
@@ -1480,7 +1480,7 @@
         ],
         "correctAnswerId": "a",
         "expectedAnswer": null,
-        "explanation": "URL format is `scheme://host:port/path`. The port between host and path is optional (defaults: 80 HTTP, 443 HTTPS). Example: `http://localhost:8000/admin/`. Protocol is the scheme before `://`; host is the domain or IP.",
+        "explanation": "**Answer**\n\nURL format is `scheme://host:port/path`. The port between host and path is optional (defaults: 80 HTTP, 443 HTTPS).\n\n**Explanation**\n\nExample: `http://localhost:8000/admin/`. Protocol is the scheme before `://`; host is the domain or IP.",
         "relatedTopics": [
           "fe-1",
           "be-4"
@@ -1518,7 +1518,7 @@
         ],
         "correctAnswerId": "a",
         "expectedAnswer": null,
-        "explanation": "Cookies are set by the server via the `Set-Cookie` response header; the browser stores them and sends them back in the `Cookie` request header on later requests. Clients do not originate cookies — they only return what the server previously issued.",
+        "explanation": "**Answer**\n\nCookies are set by the server via the `Set-Cookie` response header; the browser stores them and sends them back in the `Cookie` request header on later requests. Clients do not originate cookies: they only return what the server previously issued.",
         "relatedTopics": [
           "fe-1",
           "be-4"
@@ -1556,7 +1556,7 @@
         ],
         "correctAnswerId": "d",
         "expectedAnswer": null,
-        "explanation": "Form data and API payloads (POST/PUT) travel in the HTTP request body, not the response body. Headers carry metadata (Content-Type, Authorization), but typical parameter values for a form POST are in the body. Option D (Body, request) is correct.",
+        "explanation": "**Answer**\n\nForm data and API payloads (POST/PUT) travel in the HTTP request body, not the response body. Headers carry metadata (Content-Type, Authorization), but typical parameter values for a form POST are in the body.\n\n**Explanation**\n\nOption D (Body, request) is correct.",
         "relatedTopics": [
           "fe-1",
           "be-4"
@@ -1720,7 +1720,7 @@
         ],
         "correctAnswerId": "c",
         "expectedAnswer": null,
-        "explanation": "Every HTTP response must include a status line with a status code (e.g. 200, 404). A response body is optional (204 No Content has none). Option A and B confuse direction — response content comes from the server, but the mandatory element tested here is the status code.",
+        "explanation": "**Answer**\n\nEvery HTTP response must include a status line with a status code (e.g. 200, 404).\n\n**Explanation**\n\nA response body is optional (204 No Content has none). Option A and B confuse direction: response content comes from the server, but the mandatory element tested here is the status code.",
         "relatedTopics": [
           "fe-1",
           "be-4"
@@ -1832,7 +1832,7 @@
         ],
         "correctAnswerId": "d",
         "expectedAnswer": null,
-        "explanation": "In an authorization context, HTTP 200 means the request succeeded and the authenticated user is permitted to access the resource. It is not a denial (401/403) and not a server error. Option A describes unauthorized access; option B describes a display failure unrelated to 200's meaning.",
+        "explanation": "**Answer**\n\nIn an authorization context, HTTP 200 means the request succeeded and the authenticated user is permitted to access the resource. It is not a denial (401/403) and not a server error.\n\n**Explanation**\n\nOption A describes unauthorized access; option B describes a display failure unrelated to 200's meaning.",
         "relatedTopics": [
           "fe-1",
           "be-4"
@@ -1870,7 +1870,7 @@
         ],
         "correctAnswerId": "b",
         "expectedAnswer": null,
-        "explanation": "The browser padlock indicates HTTPS — HTTP secured with TLS (Transport Layer Security). Traffic is encrypted between client and server. Plain HTTP (option C) would not show a lock. The exam wording is redundant but option B matches HTTPS over TLS.",
+        "explanation": "**Answer**\n\nThe browser padlock indicates HTTPS: HTTP secured with TLS (Transport Layer Security). Traffic is encrypted between client and server.\n\n**Explanation**\n\nPlain HTTP (option C) would not show a lock. The exam wording is redundant but option B matches HTTPS over TLS.",
         "relatedTopics": [
           "fe-1",
           "be-4"
@@ -2347,7 +2347,7 @@
         ],
         "correctAnswerId": "c",
         "expectedAnswer": null,
-        "explanation": "Python executes the `if` test first: `2 < 1` is `False`, so the indented `print` inside the `if` block is skipped entirely. Indentation defines the `if` body — only the first `print` belongs to the `if`. The second `print(\"Two is less than one!\")` is at the same indentation level as `if`, so it is not conditional and always runs once. Output is a single line: `Two is less than one!`. Option A would require both prints to run. Option D would require a syntax/runtime failure, but the code is valid. Exam trick: identical strings in both `print` calls make it easy to assume both run.",
+        "explanation": "**Answer**\n\nPython executes the `if` test first: `2 < 1` is `False`, so the indented `print` inside the `if` block is skipped entirely. Indentation defines the `if` body: only the first `print` belongs to the `if`.\n\n**Explanation**\n\nThe second `print(\"Two is less than one!\")` is at the same indentation level as `if`, so it is not conditional and always runs once. Output is a single line: `Two is less than one!`.\n\nOption A would require both prints to run. Option D would require a syntax/runtime failure, but the code is valid\n\n**Exam tip**\n\nidentical strings in both `print` calls make it easy to assume both run.",
         "relatedTopics": [
           "be-2"
         ]
@@ -2384,7 +2384,7 @@
         ],
         "correctAnswerId": "c",
         "expectedAnswer": null,
-        "explanation": "Dictionary keys must be unique. When the literal repeats `\"mobile\"`, Python does not keep both entries — the later value overwrites the earlier one during construction. After creation, `x` has exactly three keys: `name`, `id`, and `mobile` (with value `987654321`). `print(x)` uses the dict's string representation, producing `{'name': 'Ahmed', 'id': '1', 'mobile': 987654321}`. Option A suggests four keys, which is impossible. Option B keeps the first `mobile` value, but overwrites always favor the last assignment.",
+        "explanation": "**Answer**\n\nDictionary keys must be unique. When the literal repeats `\"mobile\"`, Python does not keep both entries: the later value overwrites the earlier one during construction.\n\n**Explanation**\n\nAfter creation, `x` has exactly three keys: `name`, `id`, and `mobile` (with value `987654321`). `print(x)` uses the dict's string representation, producing `{\"name\": \"Ahmed\", \"id\": \"1\", \"mobile\": 987654321}`.\n\nOption A suggests four keys, which is impossible. Option B keeps the first `mobile` value, but overwrites always favor the last assignment.",
         "relatedTopics": [
           "be-2"
         ]
@@ -2421,7 +2421,7 @@
         ],
         "correctAnswerId": "a",
         "expectedAnswer": null,
-        "explanation": "The parameter `**person` collects all keyword arguments into a dictionary. Calling `f(name=\"Ahmed\", age=10)` builds `person == {\"name\": \"Ahmed\", \"age\": 10}` inside the function. The function only reads `person[\"name\"]`, so the output is `Person's name is Ahmed` — `age` is accepted but never printed. This is not an error: `**kwargs` may collect more keys than the function uses. Options C and D incorrectly claim the function rejects extra keyword arguments.",
+        "explanation": "The parameter `\n\n**person` collects all keyword arguments into a dictionary. Calling `f(name=\"Ahmed\", age=10)` builds `person == {\"name\": \"Ahmed\", \"age\": 10}` inside the function. The function only reads `person[\"name\"]`, so the output is `Person\"s name is Ahmed`: `age` is accepted but never printed. This is not an error: `**kwargs` may collect more keys than the function uses. Options C and D incorrectly claim the function rejects extra keyword arguments.",
         "relatedTopics": [
           "be-2"
         ]
@@ -2458,7 +2458,7 @@
         ],
         "correctAnswerId": "c",
         "expectedAnswer": null,
-        "explanation": "A `lambda` creates an anonymous one-expression function. `y(100)` evaluates `100 / 20`. In Python 3, `/` is true division and always returns a `float`, so the computed value is `5.0`, not integer `5`. The exam lists option C as `5`, which is the intended choice even though `type(y(100))` is `<class 'float'>`. Options A and D misunderstand lambda assignment; option B would be the unevaluated expression, not the printed result.",
+        "explanation": "**Answer**\n\nA `lambda` creates an anonymous one-expression function. `y(100)` evaluates `100 / 20`.\n\n**Explanation**\n\nIn Python 3, `/` is true division and always returns a `float`, so the computed value is `5.0`, not integer `5`. The exam lists option C as `5`, which is the intended choice even though `type(y(100))` is `<class \"float\">`.\n\nOptions A and D misunderstand lambda assignment; option B would be the unevaluated expression, not the printed result.",
         "relatedTopics": [
           "be-2"
         ]
@@ -3034,7 +3034,7 @@
         ],
         "correctAnswerId": "a",
         "expectedAnswer": null,
-        "explanation": "Python defines truthiness for collections: an empty list `[]` is falsy, so `bool([])` is `False` and `if []:` does not run its body. Non-empty lists are truthy (`bool([0])` is `True` — even a list of zeros counts because the container has an element). The statement says the *value* of `[]` is `False` in a boolean sense, which is true. Exam trap: `[]` is still a list object, not the literal boolean `False`, but in conditions Python treats it as false.",
+        "explanation": "**Answer**\n\nPython defines truthiness for collections: an empty list `[]` is falsy, so `bool([])` is `False` and `if []:` does not run its body. Non-empty lists are truthy (`bool([0])` is `True`: even a list of zeros counts because the container has an element).\n\n**Explanation**\n\nThe statement says the *value* of `[]` is `False` in a boolean sense, which is true\n\n**Exam tip**\n\n`[]` is still a list object, not the literal boolean `False`, but in conditions Python treats it as false.",
         "relatedTopics": [
           "be-2"
         ]
@@ -3059,7 +3059,7 @@
         ],
         "correctAnswerId": "b",
         "expectedAnswer": null,
-        "explanation": "A Python set is unordered (no stable insertion order guarantee for all operations) and unindexed — you cannot use `my_set[0]` or slice a set. Sets model unique membership, not positional access. The statement claims sets are *indexed*, which is false. Compare with lists and tuples, which support zero-based indexing. Related exam pattern: sets are also mutable (you can add/remove), unlike tuples.",
+        "explanation": "**Answer**\n\nA Python set is unordered (no stable insertion order guarantee for all operations) and unindexed: you cannot use `my_set[0]` or slice a set. Sets model unique membership, not positional access.\n\n**Explanation**\n\nThe statement claims sets are *indexed*, which is false. Compare with lists and tuples, which support zero-based indexing.\n\nRelated exam pattern: sets are also mutable (you can add/remove), unlike tuples.",
         "relatedTopics": [
           "be-2"
         ]
@@ -3084,7 +3084,7 @@
         ],
         "correctAnswerId": "b",
         "expectedAnswer": null,
-        "explanation": "Sets are unordered collections. `set.pop()` removes and returns an arbitrary element — there is no guarantee it removes `3`, the largest value, or any specific item. The statement claims the removed item will always be `3`, which is false. This differs from `list.pop()`, which by default removes the last element. Exam trick: students who know list `pop()` behavior may wrongly transfer that rule to sets.",
+        "explanation": "**Answer**\n\nSets are unordered collections. `set.pop()` removes and returns an arbitrary element: there is no guarantee it removes `3`, the largest value, or any specific item.\n\n**Explanation**\n\nThe statement claims the removed item will always be `3`, which is false. This differs from `list.pop()`, which by default removes the last element\n\n**Exam tip**\n\nstudents who know list `pop()` behavior may wrongly transfer that rule to sets.",
         "relatedTopics": [
           "be-2"
         ]
@@ -3109,7 +3109,7 @@
         ],
         "correctAnswerId": "b",
         "expectedAnswer": null,
-        "explanation": "Parentheses with comma-separated values define a tuple: `(\"apple\", \"banana\", \"cherry\")` is a 3-element tuple. Lists require square brackets: `[\"apple\", \"banana\", \"cherry\"]`. The statement confuses the two literal syntaxes, so it is false. Remember: `()` alone is not always a tuple (empty `()` is a tuple, but grouping like `(x)` is just `x`), but multiple comma-separated items inside parentheses always form a tuple.",
+        "explanation": "**Answer**\n\nParentheses with comma-separated values define a tuple: `(\"apple\", \"banana\", \"cherry\")` is a 3-element tuple. Lists require square brackets: `[\"apple\", \"banana\", \"cherry\"]`.\n\n**Explanation**\n\nThe statement confuses the two literal syntaxes, so it is false. Remember: `()` alone is not always a tuple (empty `()` is a tuple, but grouping like `(x)` is just `x`), but multiple comma-separated items inside parentheses always form a tuple.",
         "relatedTopics": [
           "be-2"
         ]

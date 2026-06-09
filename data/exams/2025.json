@@ -32,7 +32,7 @@
         ],
         "correctAnswerId": "false",
         "expectedAnswer": null,
-        "explanation": "PUT is intended to replace an entire resource. PATCH performs partial updates (changing only some fields). Using PUT for partial updates is incorrect per REST conventions. Answer: False. Related: POST creates; DELETE removes.",
+        "explanation": "**Answer**\n\nPUT is intended to replace an entire resource. PATCH performs partial updates (changing only some fields).\n\n**Explanation**\n\nUsing PUT for partial updates is incorrect per REST conventions. Answer: False.\n\nRelated: POST creates; DELETE removes.",
         "relatedTopics": [
           "fe-1",
           "be-4"
@@ -133,7 +133,7 @@
         ],
         "correctAnswerId": "false",
         "expectedAnswer": null,
-        "explanation": "In Django MVT, Views handle request logic (query data, decide what to return). Templates are the presentation layer (HTML layout). The statement swaps these roles, so it is False. Models are the data layer.",
+        "explanation": "**Answer**\n\nIn Django MVT, Views handle request logic (query data, decide what to return). Templates are the presentation layer (HTML layout).\n\n**Explanation**\n\nThe statement swaps these roles, so it is False. Models are the data layer.",
         "relatedTopics": [
           "be-5",
           "be-6"
@@ -159,7 +159,7 @@
         ],
         "correctAnswerId": "false",
         "expectedAnswer": null,
-        "explanation": "Python's string formatting controls how values appear in text, not the underlying type of the data. Methods like `\"{}\".format(x)` or f-strings insert `x` into a template; they do not convert a number's type in memory. To change types you use constructors like `int()`, `str()`, or `float()`. The statement confuses presentation formatting with type conversion, so it is false.",
+        "explanation": "**Answer**\n\nPython's string formatting controls how values appear in text, not the underlying type of the data. Methods like `\"{}\".format(x)` or f-strings insert `x` into a template; they do not convert a number's type in memory.\n\n**Explanation**\n\nTo change types you use constructors like `int()`, `str()`, or `float()`. The statement confuses presentation formatting with type conversion, so it is false.",
         "relatedTopics": [
           "be-2"
         ]
@@ -184,7 +184,7 @@
         ],
         "correctAnswerId": "false",
         "expectedAnswer": null,
-        "explanation": "A standard `set` has no indices and no keys — only membership tests (`x in s`) and iteration. Elements are unique and the collection is unordered (do not assume `s[0]` exists). The statement claims sets are indexed, which is false. This is the same core fact tested in 2021 Q78 and 2024 Q72, phrased as a true/false stem.",
+        "explanation": "**Answer**\n\nA standard `set` has no indices and no keys: only membership tests (`x in s`) and iteration. Elements are unique and the collection is unordered (do not assume `s[0]` exists).\n\n**Explanation**\n\nThe statement claims sets are indexed, which is false. This is the same core fact tested in 2021 Q78 and 2024 Q72, phrased as a true/false stem.",
         "relatedTopics": [
           "be-2"
         ]
@@ -209,7 +209,7 @@
         ],
         "correctAnswerId": "true",
         "expectedAnswer": null,
-        "explanation": "Register models in `admin.py` with `admin.site.register(Model)` so they appear in `/admin/`. This is standard Django admin setup. The statement is True.",
+        "explanation": "**Answer**\n\nRegister models in `admin.py` with `admin.site.register(Model)` so they appear in `/admin/`. This is standard Django admin setup.\n\n**Explanation**\n\nThe statement is True.",
         "relatedTopics": [
           "be-8"
         ]
@@ -234,7 +234,7 @@
         ],
         "correctAnswerId": "false",
         "expectedAnswer": null,
-        "explanation": "Django's default manager is lowercase `objects`, not `Objects`. Correct call: `Post.objects.all()`. Python is case-sensitive; `Objects` would raise `AttributeError`. The statement is False.",
+        "explanation": "**Answer**\n\nDjango's default manager is lowercase `objects`, not `Objects`. Correct call: `Post.objects.all()`.\n\n**Explanation**\n\nPython is case-sensitive; `Objects` would raise `AttributeError`. The statement is False.",
         "relatedTopics": [
           "be-8"
         ]
@@ -259,7 +259,7 @@
         ],
         "correctAnswerId": "false",
         "expectedAnswer": null,
-        "explanation": "`super()` returns a proxy to the parent class so you can call parent methods (especially `__init__`) in inheritance chains. It does not grant unlimited attributes — attribute count is unrelated. The statement is False.",
+        "explanation": "**Answer**\n\n`super()` returns a proxy to the parent class so you can call parent methods (especially `__init__`) in inheritance chains. It does not grant unlimited attributes: attribute count is unrelated.\n\n**Explanation**\n\nThe statement is False.",
         "relatedTopics": [
           "be-3"
         ]
@@ -284,7 +284,7 @@
         ],
         "correctAnswerId": "false",
         "expectedAnswer": null,
-        "explanation": "`migrate` applies pending migrations to the database (creates/alters tables). It does not merely \"show\" changes. To inspect migration status use `showmigrations`; to generate files use `makemigrations`. The statement is False.",
+        "explanation": "**Answer**\n\n`migrate` applies pending migrations to the database (creates/alters tables). It does not merely \"show\" changes.\n\n**Explanation**\n\nTo inspect migration status use `showmigrations`; to generate files use `makemigrations`. The statement is False.",
         "relatedTopics": [
           "be-8"
         ]
@@ -309,7 +309,7 @@
         ],
         "correctAnswerId": "false",
         "expectedAnswer": null,
-        "explanation": "Lists extend sequence by appending each element from another iterable. The list method for that is `extend()`, e.g. `list_a.extend(list_b)`. `update()` is for sets and dictionaries, not lists — calling `update()` on a list would fail because lists have no such method. The statement is therefore false. Exam trap: `update` sounds like a generic \"add stuff\" verb, but Python assigns it only to mutable set/dict types.",
+        "explanation": "**Answer**\n\nLists extend sequence by appending each element from another iterable. The list method for that is `extend()`, e.g.\n\n**Explanation**\n\n`list_a.extend(list_b)`. `update()` is for sets and dictionaries, not lists: calling `update()` on a list would fail because lists have no such method.\n\nThe statement is therefore false\n\n**Exam tip**\n\n`update` sounds like a generic \"add stuff\" verb, but Python assigns it only to mutable set/dict types.",
         "relatedTopics": [
           "be-2"
         ]
@@ -334,7 +334,7 @@
         ],
         "correctAnswerId": "false",
         "expectedAnswer": null,
-        "explanation": "`extend()` is a list method that adds each element from an iterable. Sets use `update()` to merge in elements from another set or iterable; calling `extend()` on a set would fail with `AttributeError`. The statement is false. Pair with 2025 Q12 (lists use `extend`, not `update`) and 2024 Q54 for the full set-vs-list method map.",
+        "explanation": "**Answer**\n\n`extend()` is a list method that adds each element from an iterable. Sets use `update()` to merge in elements from another set or iterable; calling `extend()` on a set would fail with `AttributeError`.\n\n**Explanation**\n\nThe statement is false. Pair with 2025 Q12 (lists use `extend`, not `update`) and 2024 Q54 for the full set-vs-list method map.",
         "relatedTopics": [
           "be-2"
         ]
@@ -384,7 +384,7 @@
         ],
         "correctAnswerId": "true",
         "expectedAnswer": null,
-        "explanation": "WSGI apps are traditionally synchronous — a worker processes one request, then the next, sequentially within that worker. (Multiple workers can run in parallel processes, but each worker is sequential.) The statement is True in the exam's intended sense.",
+        "explanation": "**Answer**\n\nWSGI apps are traditionally synchronous: a worker processes one request, then the next, sequentially within that worker. (Multiple workers can run in parallel processes, but each worker is sequential.) The statement is True in the exam's intended sense.",
         "relatedTopics": [
           "be-5"
         ]
@@ -409,7 +409,7 @@
         ],
         "correctAnswerId": "false",
         "expectedAnswer": null,
-        "explanation": "Admin model registration belongs in each app's `admin.py`, not `settings.py`. `settings.py` holds project configuration (INSTALLED_APPS, DATABASES). The statement is False.",
+        "explanation": "**Answer**\n\nAdmin model registration belongs in each app's `admin.py`, not `settings.py`. `settings.py` holds project configuration (INSTALLED_APPS, DATABASES).\n\n**Explanation**\n\nThe statement is False.",
         "relatedTopics": [
           "be-8"
         ]
@@ -459,7 +459,7 @@
         ],
         "correctAnswerId": "true",
         "expectedAnswer": null,
-        "explanation": "Python sets are mutable collections of unique items. They do not preserve insertion order as an indexing feature (historically; even with display order, indexing is still invalid) and you cannot access elements by position. \"Unordered and unindexed\" is the standard exam definition. The statement is true. Do not confuse with `dict`, which is keyed but also not positionally indexed.",
+        "explanation": "**Answer**\n\nPython sets are mutable collections of unique items. They do not preserve insertion order as an indexing feature (historically; even with display order, indexing is still invalid) and you cannot access elements by position.\n\n**Explanation**\n\n\"Unordered and unindexed\" is the standard exam definition. The statement is true.\n\nDo not confuse with `dict`, which is keyed but also not positionally indexed.",
         "relatedTopics": [
           "be-2"
         ]
@@ -484,7 +484,7 @@
         ],
         "correctAnswerId": "false",
         "expectedAnswer": null,
-        "explanation": "Python inheritance syntax is `class Child(Parent):`, not an `inherits` keyword (used in other languages like JavaScript/Java). The statement is False.",
+        "explanation": "**Answer**\n\nPython inheritance syntax is `class Child(Parent):`, not an `inherits` keyword (used in other languages like JavaScript/Java). The statement is False.",
         "relatedTopics": [
           "be-3"
         ]
@@ -509,7 +509,7 @@
         ],
         "correctAnswerId": "false",
         "expectedAnswer": null,
-        "explanation": "`super()` exists so child classes can call parent methods and initialize parent state. Without `super()`, you can still inherit, but cooperative multiple inheritance breaks. The claim that super prevents inheritance is backwards — False.",
+        "explanation": "**Answer**\n\n`super()` exists so child classes can call parent methods and initialize parent state. Without `super()`, you can still inherit, but cooperative multiple inheritance breaks.\n\n**Explanation**\n\nThe claim that super prevents inheritance is backwards: False.",
         "relatedTopics": [
           "be-3"
         ]
@@ -534,7 +534,7 @@
         ],
         "correctAnswerId": "false",
         "expectedAnswer": null,
-        "explanation": "When `pop()` is called with no index on a list, Python removes the last element. `[1, 2, 3]` ends with `3`, so the removed value is `3`, not `1`. The statement is false. Use `pop(0)` to remove from the front. This mirrors 2024 Q68/Q69 and tests the default `pop()` index.",
+        "explanation": "**Answer**\n\nWhen `pop()` is called with no index on a list, Python removes the last element. `[1, 2, 3]` ends with `3`, so the removed value is `3`, not `1`.\n\n**Explanation**\n\nThe statement is false. Use `pop(0)` to remove from the front.\n\nThis mirrors 2024 Q68/Q69 and tests the default `pop()` index.",
         "relatedTopics": [
           "be-2"
         ]
@@ -559,7 +559,7 @@
         ],
         "correctAnswerId": "true",
         "expectedAnswer": null,
-        "explanation": "List `pop()` without an argument always targets the final index. For `[1, 2, 3]`, the last element is `3`, so `x` becomes `3` and the list becomes `[1, 2]`. The statement is true. Remember: only `pop(0)` removes the first item.",
+        "explanation": "**Answer**\n\nList `pop()` without an argument always targets the final index. For `[1, 2, 3]`, the last element is `3`, so `x` becomes `3` and the list becomes `[1, 2]`.\n\n**Explanation**\n\nThe statement is true. Remember: only `pop(0)` removes the first item.",
         "relatedTopics": [
           "be-2"
         ]
@@ -584,7 +584,7 @@
         ],
         "correctAnswerId": "false",
         "expectedAnswer": null,
-        "explanation": "A comma-separated sequence in parentheses is a tuple literal. `(\"apple\", \"banana\", \"cherry\")` creates a 3-item tuple. Lists require square brackets `[]`. The statement claims this is a list definition, so it is false. Do not confuse tuples with lists just because both are sequences.",
+        "explanation": "**Answer**\n\nA comma-separated sequence in parentheses is a tuple literal. `(\"apple\", \"banana\", \"cherry\")` creates a 3-item tuple.\n\n**Explanation**\n\nLists require square brackets `[]`. The statement claims this is a list definition, so it is false.\n\nDo not confuse tuples with lists just because both are sequences.",
         "relatedTopics": [
           "be-2"
         ]
@@ -609,7 +609,7 @@
         ],
         "correctAnswerId": "true",
         "expectedAnswer": null,
-        "explanation": "Python identifiers must be contiguous letters, digits, and underscores, and cannot start with a digit. `my-var` is parsed as `my` minus `var`, not one name — hyphens are the subtraction operator. Valid alternatives: `my_var`, `myVar`. The statement that `my-var` is incorrect is true. Exam trap: underscores are allowed; hyphens never are.",
+        "explanation": "**Answer**\n\nPython identifiers must be contiguous letters, digits, and underscores, and cannot start with a digit. `my-var` is parsed as `my` minus `var`, not one name: hyphens are the subtraction operator.\n\n**Explanation**\n\nValid alternatives: `my_var`, `myVar`. The statement that `my-var` is incorrect is true\n\n**Exam tip**\n\nunderscores are allowed; hyphens never are.",
         "relatedTopics": [
           "be-2"
         ]
@@ -659,7 +659,7 @@
         ],
         "correctAnswerId": "false",
         "expectedAnswer": null,
-        "explanation": "Evaluate the slice literally. `b[:8]` takes indices `0`–`7` (stop `8` is excluded). For `\"Hello, My Friend\"`: `H e l l o , space M` — eight characters — yielding `\"Hello, M\"`. The claim in the statement is `\"Hello, My\"` (nine characters through the second `y`), which would require `b[:9]`. Because the actual output does not match the statement, the answer is False. Exam trick: commas and spaces count as characters when counting slice lengths.",
+        "explanation": "**Answer**\n\nEvaluate the slice literally. `b[:8]` takes indices `0` to `7` (stop `8` is excluded).\n\n**Explanation**\n\nFor `\"Hello, My Friend\"`: `H e l l o , space M`: eight characters: yielding `\"Hello, M\"`. The claim in the statement is `\"Hello, My\"` (nine characters through the second `y`), which would require `b[:9]`.\n\nBecause the actual output does not match the statement, the answer is False\n\n**Exam tip**\n\ncommas and spaces count as characters when counting slice lengths.",
         "relatedTopics": [
           "be-2"
         ]
@@ -684,7 +684,7 @@
         ],
         "correctAnswerId": "true",
         "expectedAnswer": null,
-        "explanation": "`str.strip()` with no arguments removes leading and trailing whitespace characters (spaces, tabs, newlines by default). It does not remove spaces in the middle of the string. Related methods: `lstrip()` (left only), `rstrip()` (right only). You can pass a custom character set to strip other characters. The statement matches default `strip()` behavior, so it is true.",
+        "explanation": "**Answer**\n\n`str.strip()` with no arguments removes leading and trailing whitespace characters (spaces, tabs, newlines by default). It does not remove spaces in the middle of the string.\n\n**Explanation**\n\nRelated methods: `lstrip()` (left only), `rstrip()` (right only). You can pass a custom character set to strip other characters.\n\nThe statement matches default `strip()` behavior, so it is true.",
         "relatedTopics": [
           "be-2"
         ]
@@ -709,7 +709,7 @@
         ],
         "correctAnswerId": "false",
         "expectedAnswer": null,
-        "explanation": "Default `list.sort()` compares elements using Python's ordering rules, which for strings means Unicode code points. Uppercase letters precede lowercase (`'C'` before `'a'` and `'b'`). Sorted result: `['C', 'a', 'b']`, not `['a', 'b', 'C']`. The statement is false. Case-sensitive sorting is the default; case-insensitive sorting requires a `key` function (see Q32).",
+        "explanation": "**Answer**\n\nDefault `list.sort()` compares elements using Python's ordering rules, which for strings means Unicode code points. Uppercase letters precede lowercase (`\"C\"` before `\"a\"` and `\"b\"`).\n\n**Explanation**\n\nSorted result: `[\"C\", \"a\", \"b\"]`, not `[\"a\", \"b\", \"C\"]`. The statement is false.\n\nCase-sensitive sorting is the default; case-insensitive sorting requires a `key` function (see Q32).",
         "relatedTopics": [
           "be-2"
         ]
@@ -734,7 +734,7 @@
         ],
         "correctAnswerId": "false",
         "expectedAnswer": null,
-        "explanation": "`django-admin startproject` creates the project package, `manage.py`, and settings — but not an app-level `templates/` folder by default. Templates are usually added inside apps or configured via `TEMPLATES` DIRS. The statement is False.",
+        "explanation": "**Answer**\n\n`django-admin startproject` creates the project package, `manage.py`, and settings: but not an app-level `templates/` folder by default. Templates are usually added inside apps or configured via `TEMPLATES` DIRS.\n\n**Explanation**\n\nThe statement is False.",
         "relatedTopics": [
           "be-5",
           "be-7"
@@ -760,7 +760,7 @@
         ],
         "correctAnswerId": "false",
         "expectedAnswer": null,
-        "explanation": "Django admin exists, but the command is `python manage.py createsuperuser` (not `mange.py createuser`). The typos in the statement are intentional traps. False.",
+        "explanation": "**Answer**\n\nDjango admin exists, but the command is `python manage.py createsuperuser` (not `mange.py createuser`). The typos in the statement are intentional traps.\n\n**Explanation**\n\nFalse.",
         "relatedTopics": [
           "be-8"
         ]
@@ -810,7 +810,7 @@
         ],
         "correctAnswerId": "false",
         "expectedAnswer": null,
-        "explanation": "`sort(key=str.lower)` compares elements case-insensitively but does not rewrite the stored strings. Ordering follows lowercased keys `a, b, c`, while original casing remains, producing `['A', 'b', 'C']`. The statement claims `['a', 'b', 'c']`, which would require lowercasing the values themselves. Exam trap: `key=` affects comparison only, not the elements returned.",
+        "explanation": "**Answer**\n\n`sort(key=str.lower)` compares elements case-insensitively but does not rewrite the stored strings. Ordering follows lowercased keys `a, b, c`, while original casing remains, producing `[\"A\", \"b\", \"C\"]`.\n\n**Explanation**\n\nThe statement claims `[\"a\", \"b\", \"c\"]`, which would require lowercasing the values themselves\n\n**Exam tip**\n\n`key=` affects comparison only, not the elements returned.",
         "relatedTopics": [
           "be-2"
         ]
@@ -860,7 +860,7 @@
         ],
         "correctAnswerId": "true",
         "expectedAnswer": null,
-        "explanation": "A single value in parentheses is just grouping: `(\"apple\")` equals the string `\"apple\"`. A one-element tuple requires a trailing comma: `(\"apple\",)`. Therefore `y = (\"apple\",)` creates a tuple, and the statement is true. This is a classic Python syntax quirk tested repeatedly in exams.",
+        "explanation": "**Answer**\n\nA single value in parentheses is just grouping: `(\"apple\")` equals the string `\"apple\"`. A one-element tuple requires a trailing comma: `(\"apple\",)`.\n\n**Explanation**\n\nTherefore `y = (\"apple\",)` creates a tuple, and the statement is true. This is a classic Python syntax quirk tested repeatedly in exams.",
         "relatedTopics": [
           "be-2"
         ]
@@ -912,7 +912,7 @@
         ],
         "correctAnswerId": "a",
         "expectedAnswer": null,
-        "explanation": "The `Content-Type` response header declares the media type (MIME type) of the body, e.g. `text/html`, `application/json`, `image/png`. It does not describe image dimensions or font size.",
+        "explanation": "**Answer**\n\nThe `Content-Type` response header declares the media type (MIME type) of the body, e.g. `text/html`, `application/json`, `image/png`.\n\n**Explanation**\n\nIt does not describe image dimensions or font size.",
         "relatedTopics": [
           "fe-1",
           "be-4"
@@ -950,7 +950,7 @@
         ],
         "correctAnswerId": "b",
         "expectedAnswer": null,
-        "explanation": "HTTP 200 after authorization means success — the user is authorized and the server returned the resource. Contrast 401 (authentication required) and 403 (authenticated but forbidden).",
+        "explanation": "**Answer**\n\nHTTP 200 after authorization means success: the user is authorized and the server returned the resource. Contrast 401 (authentication required) and 403 (authenticated but forbidden).",
         "relatedTopics": [
           "fe-1",
           "be-4"
@@ -988,7 +988,7 @@
         ],
         "correctAnswerId": "a",
         "expectedAnswer": null,
-        "explanation": "HTTP 403 Forbidden means the server understood the request and the user is authenticated (or identity is known), but access to this resource is denied. The server is reachable — option A is correct. Do not confuse with 401 Unauthorized (credentials missing/invalid). 401 says \"who are you?\"; 403 says \"I know you, but you may not access this.\"",
+        "explanation": "**Answer**\n\nHTTP 403 Forbidden means the server understood the request and the user is authenticated (or identity is known), but access to this resource is denied. The server is reachable: option A is correct.\n\n**Explanation**\n\nDo not confuse with 401 Unauthorized (credentials missing/invalid). 401 says \"who are you?\"; 403 says \"I know you, but you may not access this.\"",
         "relatedTopics": [
           "fe-1",
           "be-4"
@@ -1961,7 +1961,7 @@
         ],
         "correctAnswerId": "c",
         "expectedAnswer": null,
-        "explanation": "Project scaffolding uses the `django-admin` utility before `manage.py` exists: `django-admin startproject my_tennis_club`. That creates the outer project folder, inner config package, and `manage.py`. Options like `django start` or `py manage.py start-django` are invented distractors. After creation, run commands via `python manage.py` inside the project directory.",
+        "explanation": "**Answer**\n\nProject scaffolding uses the `django-admin` utility before `manage.py` exists: `django-admin startproject my_tennis_club`. That creates the outer project folder, inner config package, and `manage.py`.\n\n**Explanation**\n\nOptions like `django start` or `py manage.py start-django` are invented distractors. After creation, run commands via `python manage.py` inside the project directory.",
         "relatedTopics": [
           "be-5"
         ]
@@ -1998,7 +1998,7 @@
         ],
         "correctAnswerId": "a",
         "expectedAnswer": null,
-        "explanation": "Models are defined in `appname/models.py`. The standard import path is `from members.models import Member` when the app is named `members` and the class is `Member`. JavaScript-style `import Member from members` or `import members.Member` are invalid Python syntax. Django expects normal Python package imports following `INSTALLED_APPS` structure.",
+        "explanation": "**Answer**\n\nModels are defined in `appname/models.py`. The standard import path is `from members.models import Member` when the app is named `members` and the class is `Member`.\n\n**Explanation**\n\nJavaScript-style `import Member from members` or `import members.Member` are invalid Python syntax. Django expects normal Python package imports following `INSTALLED_APPS` structure.",
         "relatedTopics": [
           "be-8"
         ]
@@ -2035,7 +2035,7 @@
         ],
         "correctAnswerId": "d",
         "expectedAnswer": null,
-        "explanation": "Identical trap to 2024 Q10: applying schema changes requires `python manage.py migrate`, which is absent from the list. `makemigrations` only writes migration files. Fake commands `runmigrations`/`executemigrations` are distractors. Correct answer: D (None of the previous). Read carefully: \"take effect in the database\" means apply, not generate.",
+        "explanation": "**Answer**\n\nIdentical trap to 2024 Q10: applying schema changes requires `python manage.py migrate`, which is absent from the list. `makemigrations` only writes migration files.\n\n**Explanation**\n\nFake commands `runmigrations`/`executemigrations` are distractors. Correct answer: D (None of the previous).\n\nRead carefully: \"take effect in the database\" means apply, not generate.",
         "relatedTopics": [
           "be-8"
         ]
@@ -2072,7 +2072,7 @@
         ],
         "correctAnswerId": "c",
         "expectedAnswer": null,
-        "explanation": "Curly braces with comma-separated values define a set literal. Duplicate values `1` and `3` collapse to one copy each, leaving `{1, 2, 3, 5}`. `print(Y)` shows that unique set. Option A keeps duplicates, which sets cannot store. Option B uses invalid `tuple(...)` call syntax. Python may print spaces after commas (`{1, 2, 3, 5}`), but option C matches the unique elements and brace notation.",
+        "explanation": "**Answer**\n\nCurly braces with comma-separated values define a set literal. Duplicate values `1` and `3` collapse to one copy each, leaving `{1, 2, 3, 5}`.\n\n**Explanation**\n\n`print(Y)` shows that unique set. Option A keeps duplicates, which sets cannot store.\n\nOption B uses invalid `tuple(...)` call syntax. Python may print spaces after commas (`{1, 2, 3, 5}`), but option C matches the unique elements and brace notation.",
         "relatedTopics": [
           "be-2"
         ]
@@ -2109,7 +2109,7 @@
         ],
         "correctAnswerId": "c",
         "expectedAnswer": null,
-        "explanation": "Same semantics as 2024 Q59: `{{ name }}` outputs the context variable's value during template rendering. Not literal braces, not the word \"name\" as static text.",
+        "explanation": "**Answer**\n\nSame semantics as 2024 Q59: `{{ name }}` outputs the context variable's value during template rendering. Not literal braces, not the word \"name\" as static text.",
         "relatedTopics": [
           "be-7"
         ]
@@ -2146,7 +2146,7 @@
         ],
         "correctAnswerId": "c",
         "expectedAnswer": null,
-        "explanation": "`car.keys()` returns a live view of the dictionary's keys. Assigning `car[\"color\"] = \"red\"` after creating `y` still updates what `y` sees, so `len(y)` is `4`. This is identical in spirit to 2024 Q53: the view tracks mutations. A snapshot would have frozen the count at `3`.",
+        "explanation": "**Answer**\n\n`car.keys()` returns a live view of the dictionary's keys. Assigning `car[\"color\"] = \"red\"` after creating `y` still updates what `y` sees, so `len(y)` is `4`.\n\n**Explanation**\n\nThis is identical in spirit to 2024 Q53: the view tracks mutations. A snapshot would have frozen the count at `3`.",
         "relatedTopics": [
           "be-2"
         ]
@@ -2259,7 +2259,7 @@
         ],
         "correctAnswerId": "d",
         "expectedAnswer": null,
-        "explanation": "The assignment `(*k,) = newtuple` unpacks the entire 4-tuple into starred target `k`, which becomes the list `[1, 2, 3, 4]`. Option A (`2,3,4`) omits the leading `1` and lacks list syntax. Option B (`[2,3,4]`) is the middle slice from a different unpacking pattern. Option C (`1,2,3`) truncates the tuple. None match `[1, 2, 3, 4]`, so the correct choice is \"None of the previous.\"",
+        "explanation": "**Answer**\n\nThe assignment `(*k,) = newtuple` unpacks the entire 4-tuple into starred target `k`, which becomes the list `[1, 2, 3, 4]`. Option A (`2,3,4`) omits the leading `1` and lacks list syntax.\n\n**Explanation**\n\nOption B (`[2,3,4]`) is the middle slice from a different unpacking pattern. Option C (`1,2,3`) truncates the tuple.\n\nNone match `[1, 2, 3, 4]`, so the correct choice is \"None of the previous.\"",
         "relatedTopics": [
           "be-2"
         ]
@@ -2296,7 +2296,7 @@
         ],
         "correctAnswerId": "c",
         "expectedAnswer": null,
-        "explanation": "Unpacking `(x, *k, y, z, m) = (1, 2, 3)` needs at least five scalar targets plus whatever `*k` collects — more positions than the three available values. Python raises `ValueError: not enough values to unpack` before `print(k)` runs, so the answer is \"Python Error.\" Star unpacking cannot invent missing elements. Contrast 2024 Q37, where four values satisfy `(x, *k, y)`.",
+        "explanation": "**Answer**\n\nUnpacking `(x, *k, y, z, m) = (1, 2, 3)` needs at least five scalar targets plus whatever `*k` collects: more positions than the three available values. Python raises `ValueError: not enough values to unpack` before `print(k)` runs, so the answer is \"Python Error.\" Star unpacking cannot invent missing elements.\n\n**Explanation**\n\nContrast 2024 Q37, where four values satisfy `(x, *k, y)`.",
         "relatedTopics": [
           "be-2"
         ]
@@ -2444,7 +2444,7 @@
         ],
         "correctAnswerId": "d",
         "expectedAnswer": null,
-        "explanation": "`set((\"a\", \"b\", \"c\"))` builds a set of strings. In Python 3, `print` renders it with curly braces, e.g. `{'a', 'b', 'c'}` (order may vary because sets are unordered). Options A–C use invalid or Python 2-style representations (`list[...]`, `set(['a', ...])` without quotes, unquoted identifiers). None match the actual output format, so answer D is correct.",
+        "explanation": "**Answer**\n\n`set((\"a\", \"b\", \"c\"))` builds a set of strings. In Python 3, `print` renders it with curly braces, e.g.\n\n**Explanation**\n\n`{\"a\", \"b\", \"c\"}` (order may vary because sets are unordered). Options A to C use invalid or Python 2-style representations (`list[...]`, `set([\"a\", ...])` without quotes, unquoted identifiers).\n\nNone match the actual output format, so answer D is correct.",
         "relatedTopics": [
           "be-2"
         ]
@@ -2481,7 +2481,7 @@
         ],
         "correctAnswerId": "d",
         "expectedAnswer": null,
-        "explanation": "Duplicates in `{1,1,2,3,3,5}` are removed, leaving the unique set `{1, 2, 3, 5}`. Python 3 prints sets as `{1, 2, 3, 5}`, not `set([1, 2, 3, 5])` (Python 2 repr) and not a dict/t tuple. Options A–C show legacy or wrong types. Because no option matches real Python 3 output, choose \"None of the answers.\"",
+        "explanation": "**Answer**\n\nDuplicates in `{1,1,2,3,3,5}` are removed, leaving the unique set `{1, 2, 3, 5}`. Python 3 prints sets as `{1, 2, 3, 5}`, not `set([1, 2, 3, 5])` (Python 2 repr) and not a dict/t tuple.\n\n**Explanation**\n\nOptions A to C show legacy or wrong types. Because no option matches real Python 3 output, choose \"None of the answers.\"",
         "relatedTopics": [
           "be-2"
         ]
@@ -2518,7 +2518,7 @@
         ],
         "correctAnswerId": "c",
         "expectedAnswer": null,
-        "explanation": "Dictionary literals cannot contain duplicate keys. The second `\"mobile\"` entry overwrites the first during creation, so the stored value is `987654321`. `print(x)` displays `{'name': 'Ahmed', 'id': '1', 'mobile': 987654321}`. Option D is wrong — duplicate keys in a literal are legal syntax; they silently overwrite. Options A and B retain the first `mobile` value, which Python never stores.",
+        "explanation": "**Answer**\n\nDictionary literals cannot contain duplicate keys. The second `\"mobile\"` entry overwrites the first during creation, so the stored value is `987654321`.\n\n**Explanation**\n\n`print(x)` displays `{\"name\": \"Ahmed\", \"id\": \"1\", \"mobile\": 987654321}`. Option D is wrong: duplicate keys in a literal are legal syntax; they silently overwrite.\n\nOptions A and B retain the first `mobile` value, which Python never stores.",
         "relatedTopics": [
           "be-2"
         ]
