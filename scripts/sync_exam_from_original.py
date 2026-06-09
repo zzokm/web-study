@@ -454,6 +454,7 @@ QUESTION_TEXT_FIXES: dict[str, dict[str, str]] = {
         "q79": "79. In the following statement: myNumbers = {1, 2, 3}; x = myNumbers.pop(); The removed item will be 3.",
     },
     "2024": {
+        "q13": "13. In HTML DOM, which of the following properties are read-only?",
         "q17": "17. What will be the value of X?",
         "q60": "60. What is the output of the following JavaScript snippet?\nx = \"20\";\ny = \"10\";\ndocument.writeln(x+y, x-y);",
         "q68": "68. In the following statement: myNumbers = [1, 2, 3]; x = myNumbers.pop();\nThe removed item will be 1",

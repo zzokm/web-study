@@ -3,6 +3,7 @@ import {
   normalizeExamQuestionText,
   parseQuestionText,
   stripEmbeddedOptionsFromQuestionText,
+  stripInstructorExamReferencesFromQuestionText,
   stripLeakedSharedContextFromQuestionText,
 } from "../../scripts/parse-question-content.mjs";
 
@@ -17,6 +18,18 @@ const Q22 =
 
 const Q18_2021_LEAKED =
   '18. Which of the following lines of JavaScript code will change the HTML inside of an element with the attribute id="myElement" to "CS 105"?\nFor the next two questions, consider the following code:\nvar x = 20;\nwhile (x < 10) {\n  print("Hello");\n  x *= 2;\n}';
+
+describe("stripInstructorExamReferencesFromQuestionText", () => {
+  it("removes instructor cross-exam notes from stems", () => {
+    expect(
+      stripInstructorExamReferencesFromQuestionText(
+        "13. In HTML DOM, which of the following properties are read-only? In midterm April 2023"
+      )
+    ).toBe(
+      "13. In HTML DOM, which of the following properties are read-only?"
+    );
+  });
+});
 
 describe("stripLeakedSharedContextFromQuestionText", () => {
   it("removes the next block's shared code snippet from the wrong question", () => {

@@ -170,15 +170,25 @@ function isEmbeddedOptionLine(line) {
 const LEAKED_SHARED_CONTEXT_RE =
   /\n+For the next (?:two|three|four|\d+) questions?, consider the following code:\n[\s\S]*$/i;
 
+/** Instructor cross-exam references pasted into stems (e.g. "In midterm April 2023"). */
+const INSTRUCTOR_EXAM_REFERENCE_RE = /\s+In midterm\b[^.?\n]*$/i;
+
 export function stripLeakedSharedContextFromQuestionText(questionText) {
   if (!questionText) return questionText;
   return questionText.replace(LEAKED_SHARED_CONTEXT_RE, "").replace(/\n+$/, "");
 }
 
+export function stripInstructorExamReferencesFromQuestionText(questionText) {
+  if (!questionText) return questionText;
+  return questionText.replace(INSTRUCTOR_EXAM_REFERENCE_RE, "");
+}
+
 /** Normalize exam questionText before segment parsing or catalog storage. */
 export function normalizeExamQuestionText(questionText) {
-  return stripLeakedSharedContextFromQuestionText(
-    stripEmbeddedOptionsFromQuestionText(questionText)
+  return stripInstructorExamReferencesFromQuestionText(
+    stripLeakedSharedContextFromQuestionText(
+      stripEmbeddedOptionsFromQuestionText(questionText)
+    )
   );
 }
 

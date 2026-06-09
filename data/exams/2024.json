@@ -459,7 +459,7 @@
       {
         "id": "q13",
         "type": "multiple_choice",
-        "questionText": "13. In HTML DOM, which of the following properties are read-only? In midterm April 2023",
+        "questionText": "13. In HTML DOM, which of the following properties are read-only?",
         "options": [
           {
             "id": "a",
