@@ -105,7 +105,7 @@ B. margin
 C. text-align
 D. font
 ANSWER: C
-EXPLANATION: The deprecated `<center>` tag centered inline content. The CSS equivalent is the `text-align` property (e.g. `text-align: center`). The exam option misspelled this as `align`.
+EXPLANATION: The deprecated `<center>` tag centered inline content. The CSS equivalent is the `text-align` property (e.g., `text-align: center`).
 
 14. Which of the following is the correct way to apply style to a document?
 A. Use an external style sheet, either by importing it or by linking to it
@@ -115,7 +115,7 @@ D. All the mentioned
 ANSWER: D
 EXPLANATION: CSS can be applied in three standard ways: External (via `<link>` or `@import`), Internal/Embedded (via `<style>` in the `<head>`), and Inline (via the `style=""` attribute on individual HTML tags).
 
-15. With, which tag do you write the style rules directly within the document found within the head of the document.
+15. With which tag do you write the style rules directly within the document found within the head of the document?
 A. <script>
 B. <php>
 C. <style>
@@ -146,12 +146,11 @@ C. html["myElement"].innerHTML = "CS 105";
 D. document.html["myElement"].innerHTML = "CS 105";
 
 For the next two questions, consider the following code:
-1 var x = 20;
-2 while (x < 10)
-3 {
-4   print("Hello");
-5   x *= 2;
-6 }
+var x = 20;
+while (x < 10) {
+  print("Hello");
+  x *= 2;
+}
 ANSWER: A
 EXPLANATION: The standard DOM API method to retrieve an element by its ID is `document.getElementById()`. Modifying its `innerHTML` property securely updates the content within that element.
 
@@ -171,15 +170,15 @@ C. 2
 D. 3
 
 For the next two questions, consider the following code:
-1 function foo(x)
-2 {
-3   var ct = 0;
-4   for (var i = 0; i < x
-5   {
-6     if (x[i] >= 70)
-7     {
-8       ct++;
-9     }
+function foo(x) {
+  var ct = 0;
+  for (var i = 0; i < x.length; i++) {
+    if (x[i] >= 70) {
+      ct++;
+    }
+  }
+  return ct;
+}
 ANSWER: B
 EXPLANATION: With `x = 5`, the loop runs once (`5 < 10`), prints "Hello", then `x` becomes 10. On the next check, `10 < 10` is false, so the loop stops after exactly 1 print.
 
@@ -197,7 +196,7 @@ B. The function will never return the value 0.
 C. The function only returns if x is a number.
 D. The function will return a number.
 ANSWER: D
-EXPLANATION: The printed exam snippet is truncated, but the complete function (shown in context) increments `ct` and returns it, so the return value is always a number. It may be 0 when no element is >= 70, so A and B are false.
+EXPLANATION: The full function increments `ct` (a counter) and returns it, so the return value is always a number. It may be 0 when no element is >= 70, so A and B are false.
 
 23. In JavaScript, which one of the following is not considered as an error?
 A. Syntax error
@@ -530,7 +529,7 @@ The above print will return:
 A. {'name': 'Ahmed', 'id': '1', 'mobile': 123456789, 'mobile': 987654321}
 B. {'name': 'Ahmed', 'id': '1', 'mobile': 123456789}
 C. {'name': 'Ahmed', 'id': '1', 'mobile': 987654321}
-D. Error! As you cannot have duplicate keys in a dictionary
+D. Error!
 ANSWER: C
 EXPLANATION: Dictionaries strictly forbid duplicate keys. When multiple keys with identical names are evaluated during initialization, the trailing value seamlessly overwrites the preceding value.
 
@@ -553,7 +552,7 @@ B. 100/20
 C. 5
 D. y(100)
 ANSWER: C
-EXPLANATION: `100 / 20` evaluates to `5`.
+EXPLANATION: `100 / 20` evaluates to `5.0` in Python 3 (or `5` in Python 2). Option C is the intended answer here.
 
 Use the following code, answer questions from 62-64: When the function run() is called.
 1. function run() {
@@ -614,7 +613,7 @@ B. ReferenceError: func is not defined
 C. "string", 1
 D. "string", 0
 ANSWER: C
-EXPLANATION: The first argument is a string, so `typeof` is `string` with one argument.
+EXPLANATION: The first argument is a string, so `typeof` is `string` with one argument passed.
 
 67. If we call func("A", "2", "Ali", "Z"); it will log:
 A. "string", 3
@@ -665,7 +664,7 @@ B. undefined
 C. "Neamat"
 D. Throw an error
 ANSWER: C
-EXPLANATION: Without the errors, the code resolves as `const x = {name:"A"}; x.name = "Neamat"; console.log(x.name)`. The property was updated successfully to "Neamat".
+EXPLANATION: Without the errors, the code resolves as `const x = {name:"Ali"}; x.name = "Neamat"; console.log(x.name)`. The property was updated successfully to "Neamat".
 
 73. Assume Lines from 1 to 3 in this code are removed, and line 6 is removed too, code remaining is only lines 4, 5 and 7, line 7 will output:
 A. 23
@@ -678,33 +677,43 @@ EXPLANATION: Reassigning `const y` throws before `console.log(y)` can run.
 Question TWO (True or False):
 
 74. JavaScript is a statically typed language.
-ANSWER: False
+A. True
+B. False
+ANSWER: B
 EXPLANATION: JavaScript is dynamically typed.
 
-75. var a = 200;
-    var b = "200";
-    a == b will return true while a === b will return false?
-ANSWER: True
-EXPLANATION: Loose equality coerces types; `200` equals `"200"`, but `===` does not.
+75. var a = 200; var b = "200"; a == b will return true while a === b will return false?
+A. True
+B. False
+ANSWER: A
+EXPLANATION: Loose equality (`==`) coerces types; `200` equals `"200"`, but strict equality (`===`) evaluates to false as it compares both value and type.
 
 76. isNaN("Hello") returns true while isNaN(undefined) returns false?
-ANSWER: False
-EXPLANATION: `isNaN("Hello")` is true, but `isNaN(undefined)` is also true in JavaScript, so the second part of the statement is wrong.
+A. True
+B. False
+ANSWER: B
+EXPLANATION: `isNaN("Hello")` is true, but `isNaN(undefined)` is also true in JavaScript, making the second part of the statement incorrect.
 
 77. In Python, the value of [] is False.
-ANSWER: True
-EXPLANATION: An empty list is falsy in Python boolean context.
+A. True
+B. False
+ANSWER: A
+EXPLANATION: An empty list evaluates as functionally 'falsy' in a Python boolean context.
 
 78. In Python, A set is a collection which is both unordered and indexed.
-ANSWER: False
-EXPLANATION: Sets are unordered and unindexed, not indexed.
+A. True
+B. False
+ANSWER: B
+EXPLANATION: Sets are inherently unordered and explicitly *unindexed*.
 
-79. In the following statement: myNumbers = {1, 2, 3}
-    x = myNumbers.pop()
-    The removed item will be 3.
-ANSWER: False
-EXPLANATION: `pop()` on a set removes an arbitrary element; for `{1,2,3}` the removed item is not guaranteed to be 3 (sets are unordered). The statement as written about list behavior is false for sets — exam answer is False.
+79. In the following statement: myNumbers = {1, 2, 3}; x = myNumbers.pop(); The removed item will be 3.
+A. True
+B. False
+ANSWER: B
+EXPLANATION: Running `pop()` on a set removes a completely arbitrary element. For `{1, 2, 3}`, the removed item is not guaranteed to be 3 because sets are completely unordered.
 
 80. x = ("apple", "banana", "cherry") is a definition of a list.
-ANSWER: False
-EXPLANATION: Parentheses define a tuple, not a list.
+A. True
+B. False
+ANSWER: B
+EXPLANATION: Standard parentheses actively define a Python Tuple, not a list (which relies on square brackets `[]`).

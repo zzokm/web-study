@@ -142,7 +142,7 @@ EXPLANATION: Yes. In JavaScript, functions are first-class citizens, meaning the
 
 17. What will be the value of X?
 ANSWER: B
-EXPLANATION: JavaScript is case-sensitive. `X` (uppercase) refers to the global variable `10`. `x` (lowercase) is a separate local variable `20`. The function specifically writes `X`, which is `10`.
+EXPLANATION: JavaScript is case-sensitive. `X` (uppercase) is the global variable `10`; `x` (lowercase) is a separate `let` inside `myfunc`, which is never called. `document.write(X)` outputs `10`.
 <script>
 var X=10;
 function myfunc()
@@ -151,7 +151,6 @@ let x=20;
 }
 document.write(X);
 </script>
-The function uses x not X. The function was never called. let is block scoped
 a. 20
 b. 10
 c. ValueError
@@ -315,8 +314,8 @@ c. undefined color
 d. TypeError
 
 30. What will be the output of the following JavaScript code?
-ANSWER: B
-EXPLANATION: The `eval()` function evaluates JavaScript code represented as a string. It accesses the scope variables `x` and `y`, calculating `10 * 20`, which is `200`.
+ANSWER: D
+EXPLANATION: The `eval()` function evaluates JavaScript code represented as a string. It accesses the scope variables `x` and `y`, calculating `10 * 20`, which is the number `200` (option d), not the string `"200"`.
 <body>
 <p id="demo"></p>
 <script>
@@ -405,8 +404,8 @@ a. 1, 2, 3
 b. [1, 2, 3, 4]
 c. 2, 3, 4
 d. None of the previous
-ANSWER: D
-EXPLANATION: The asterisk `*` unpacking operator gathers all elements from the tuple into a list. `k` becomes `[1, 2, 3, 4]`. None of the provided options accurately reflect this output.
+ANSWER: B
+EXPLANATION: The asterisk `*` unpacking operator gathers all elements from the tuple into a list. `k` becomes `[1, 2, 3, 4]`, matching option b.
 
 37. What will be the output of the following Python code?
 newtuple = (1, 2, 3, 4)
@@ -416,13 +415,13 @@ a. 2, 3
 b. [2, 3, 4]
 c. [2, 3]
 d. None of the previous
-ANSWER: B
+ANSWER: C
 EXPLANATION: The unpacking syntax assigns the first element to `x` (1), the last element to `y` (4), and packs all remaining intermediate elements into a list `k`. Therefore, `k` is `[2, 3]`.
 
 38. Which is the correct HTML statement to define the red color of the paragraph text?
 a. <p style="color: #ff0000;">
 b. <p style="color: red;">
-c. Both a and b. Assuming the missing < was not intended
+c. Both a and b.
 d. None of the previous
 ANSWER: C
 EXPLANATION: CSS allows color definition using predefined color names (like "red") or hexadecimal codes (like "#ff0000"). Both syntaxes are valid.
@@ -521,7 +520,7 @@ EXPLANATION: `index(3)` returns the index of the first `3`, which is `2` (0-base
 50. If an application is running on Asynchronous Server Gateway Interface (ASGI), then it will handle client requests in a sequential manner?
 a. True
 b. False
-ANSWER: False
+ANSWER: B
 EXPLANATION: False. ASGI is specifically designed to handle requests asynchronously and concurrently, unlike WSGI, which is synchronous/sequential.
 
 51. Can you play audios in HTML?
@@ -572,8 +571,7 @@ b. dict()
 c. a. and b.
 d. makecopy()
 ANSWER: C
-EXPLANATION: Both `copy()` and `dict()` can shallow-copy a dictionary.
-Note: Copy() should be copy() because Python is case-sensitive. dict() is just using the copy constructor. It is assumed that Copy() is just a typo and should be copy()
+EXPLANATION: Both `copy()` and `dict()` can shallow-copy a dictionary. Option a shows `Copy()` with a capital C; Python is case-sensitive, so that is a typo for `copy()`.
 
 56. In CSS, "color:red" can be called as
 a. Selector
@@ -587,7 +585,7 @@ EXPLANATION: In CSS terminology, the combination of a property (`color`) and its
 a. True
 b. False
 Inline > Internal > External > Browser Default
-ANSWER: False
+ANSWER: B
 EXPLANATION: False. Inline styles (using the `style` attribute directly on an HTML element) have the highest specificity and priority, overriding external stylesheets.
 
 58. The ____ HTTP request header specifies information about the software (browser) making the request.
@@ -610,14 +608,12 @@ EXPLANATION: Double curly braces `{{ }}` constitute a template variable in Djang
 x = "20";
 y = "10";
 document.writeln(x+y, x-y);
-In Addition strs are type casted into strs
-In Subtraction strs are type casted into ints
 a. 30, 10
 b. 30, NAN
 c. 2010, NAN
 d. 2010, 10
 ANSWER: D
-EXPLANATION: With string operands, `+` concatenates to `2010` and `-` coerces to numbers giving `10`.
+EXPLANATION: With string operands, `+` concatenates to `2010`. The `-` operator coerces the strings to numbers, giving `10`.
 
 61. Which of the following is the correct way of creating a hyperlink in HTML?
 a. <a>www.google.com</a>
@@ -652,61 +648,61 @@ ANSWER: C
 EXPLANATION: `const f = (a, b) => a + b + 5` is valid arrow-function syntax; `f(4, 5)` returns `4 + 5 + 5 = 14`.
 
 65. To multiply an array of numbers (named myNumbers) with 4, the following is a correct syntax to do it:
-a. myNumbers.map((value) => value * 4); The map method takes a function as a parameter
+a. myNumbers.map((value) => value * 4);
 b. myNumbers.filter((value) => value * 4);
 c. myNumbers.map(value * 4);
 d. myNumbers.filter(value * 4);
 ANSWER: A
-EXPLANATION: The `map()` method transforms every element in an array and returns a new array, requiring a callback function. Option A supplies a valid arrow function callback for the transformation.
+EXPLANATION: The `map()` method transforms every element and requires a callback function. Option A supplies a valid arrow function.
 
 66. To keep numbers that are less than 10 from an array of numbers (named myNumbers), the following is a correct syntax to do it:
 a. myNumbers.map((value) => value < 10);
-b. myNumbers.filter((value) => value < 10); The filter method takes a function as a parameter
+b. myNumbers.filter((value) => value < 10);
 c. myNumbers.map(value < 10);
 d. myNumbers.filter(value < 10);
 ANSWER: B
-EXPLANATION: The `filter()` method constructs a new array compiling strictly the elements that pass the test implemented by the callback function.
+EXPLANATION: The `filter()` method keeps elements that pass a callback test. Option B supplies a valid arrow function.
 
 67. var colors = {1:"red", 2:"green", 3: "blue"} is one of the ways of defining an array in JavaScript?
 a. True
 b. False
-ANSWER: False
+ANSWER: B
 EXPLANATION: This syntax is invalid. Arrays are defined using square brackets `[]` (e.g., `["red", "green", "blue"]`).
 
-68. In the following statement: myNumbers = [1, 2, 3]; x = myNumbers.pop(); Removes last element
+68. In the following statement: myNumbers = [1, 2, 3]; x = myNumbers.pop();
 The removed item will be 1
 a. True
 b. False
-ANSWER: False
+ANSWER: B
 EXPLANATION: The `pop()` method extracts and returns the *last* element of an array, which in this case is 3, not 1.
 
 69. In the following statement: myNumbers = [1, 2, 3]; x = myNumbers.pop();
 The removed item will be 3
 a. True
 b. False
-ANSWER: True
+ANSWER: A
 EXPLANATION: The `pop()` function successfully removes the final index item from the array (3) and returns it.
 
 70. In Python, the value of [] is False?
 a. True
 b. False
-ANSWER: True
+ANSWER: A
 EXPLANATION: In Python, empty data structures such as an empty list `[]` inherently evaluate to a boolean value of `False`.
 
 71. In Python, it is possible to use the set() constructor to create a set?
 a. True
 b. False
-ANSWER: True
+ANSWER: A
 EXPLANATION: Yes, `set()` is the built-in constructor specifically designed for instantiating new set objects.
 
 72. In Python, A set is a collection which is both unordered and indexed?
 a. True
 b. False
-ANSWER: False
+ANSWER: B
 EXPLANATION: Sets are unordered and explicitly *unindexed*. You cannot retrieve elements from a set via index positions.
 
 73. def f(**person):
-print("Person's name is " + person["name"]) kwargs are sent as a dictionary
+print("Person's name is " + person["name"])
 f(name="Ahmed", age=10)
 The above statement will return:
 a. Person's name is Ahmed
@@ -722,13 +718,13 @@ The above statement will return:
 a. Error as there is no function called y
 b. 100/20
 c. 5
-d. 5.0 Should be 5.0 since Python type casts results of division to float by default
+d. 5.0
 ANSWER: D
 EXPLANATION: Division in Python 3 returns a float: `100 / 20` is `5.0`.
 
 75. In the following Python statements:
 if 1 < 2:
-print("One is less than Two!") Notice the incorrect indentation between the 2 print functions
+print("One is less than Two!")
 print("One is less than Two!")
 a. The output will be: One is less than Two! One is less than Two!
 b. The output will be: One is less than Two!
@@ -736,10 +732,9 @@ c. The output will be: One is less than Two!
 One is less than Two!
 d. The output will be an Error
 ANSWER: D
-EXPLANATION: Python mandates strict indentation for logic blocks. An `if` statement lacking an indented body directly beneath it will inherently trigger a fatal `IndentationError`.
+EXPLANATION: Python requires an indented block under `if`. The second `print` is not indented into the `if` body, so this raises an `IndentationError`.
 
 76. The output of the following statement in python is:
-Slicing won't throw Error if out of bounds
 x = "My Lovely Bird!"
 print(x[:7])
 a. My Love
@@ -794,20 +789,20 @@ document.getElementById("id1").innerHTML = my.length;
 </html>
 
 79. To get the value of the text node of the h2 element node, you can use
-a. document.getElementById("id1").innerHTML which is equivalent to document.getElementById("id1").firstChild.nodeValue;
+a. document.getElementById("id1").innerHTML
 b. document.getElementById("id1").text;
-c. document.getElementById("id1").nodeValue; Any element that accepts text inside it always has a text node inside, here this node is accessed using firstChild, then nodeValue accessed the contents of this node which is the text
+c. document.getElementById("id1").nodeValue
 d. none of the above
 ANSWER: D
-EXPLANATION: Accessing the text node uses `firstChild.nodeValue`; the listed shortcuts are incorrect.
+EXPLANATION: Text inside an element lives in a child text node. The correct approach is `document.getElementById("id1").firstChild.nodeValue`. `innerHTML` is not equivalent; `.text` is not a standard element property; and `nodeValue` on the element itself is `null`.
 
 80. Based on the above html page, the content of h2 element will be presented as
 a. Hello World
 b. Hello World 6
-c. 6 The answer is 6 since we have 6 p elements and we changed the contents of id1 in the script tag
+c. 6
 d. None of the above
 ANSWER: C
-EXPLANATION: The script writes the paragraph count (6) into the `h2` element.
+EXPLANATION: The script sets `h2` innerHTML to `my.length`, the count of `<p>` elements (6).
 
 81. The number of objects in my variable is
 a. 4
@@ -818,22 +813,20 @@ ANSWER: C
 EXPLANATION: Six `<p>` elements exist in the page, so the collection length is 6.
 
 82. By using this CSS selector div > p { color: red; }, how many p elements will be styled?
-Direct Children
 a. 3
 b. 2
 c. 5
 d. 6
 ANSWER: B
-EXPLANATION: The child combinator `>` targets only direct children. Paragraph 1 and Paragraph 2 are direct children of the `<div>`. Paragraph 3 is a child of the `<section>`, making it a descendant but not a direct child of the `<div>`.
+EXPLANATION: The child combinator `>` selects only direct `<p>` children of `<div>`: Paragraph 1 and Paragraph 2. Paragraph 3 is inside `<section>`, not a direct child of `<div>`.
 
 83. By using this CSS selector div ~ p { color: blue; }, the number of p elements that will be styled is
-Any sibling
 a. 3
 b. 2
 c. 5
 d. 6
 ANSWER: B
-EXPLANATION: The general sibling combinator `~` flags all siblings that follow the specified element. Following the `<div>`, there are exactly two succeeding `<p>` elements (Paragraph 4 and Paragraph 5) resting at the identical hierarchical level.
+EXPLANATION: The general sibling combinator `~` selects `<p>` siblings that follow `<div>` at the same level: Paragraph 4 and Paragraph 5.
 
 84. Using document.getElementById("id1").nodeType will return
 a. Element node
@@ -878,9 +871,9 @@ EXPLANATION: Square brackets `[]` encapsulate CSS attribute selectors, identifyi
 a. 1
 b. 2
 c. 3
-d. None of the above No p element has a child
+d. None of the above
 ANSWER: D
-EXPLANATION: No `<p>` element is the first child of its parent, so none match `:first-child`.
+EXPLANATION: `:first-child` matches only when an element is the first child of its parent. Under `<body>`, `<h2>` is the first child, not any `<p>`, so none match.
 
 87. To change the background color of all <a> elements to be yellow, you can use
 a. a[target] { background-color: yellow; }

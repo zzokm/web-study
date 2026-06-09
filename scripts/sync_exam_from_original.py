@@ -109,17 +109,21 @@ def parse_2021(orig: str) -> tuple[dict[int, ParsedQuestion], dict[int, ParsedQu
         m = re.match(r"^(\d+)\.\s+(.*)$", line)
         if m:
             if current is not None:
-                tf_stmts[current] = ParsedQuestion(
-                    stem="\n".join(buf).strip(), is_true_false=True
-                )
+                body = "\n".join(buf).strip()
+                pq = _split_block(body, "ab")
+                if not pq.options:
+                    pq.is_true_false = True
+                tf_stmts[current] = pq
             current = int(m.group(1))
             buf = [m.group(2)]
         elif current and line.strip():
             buf.append(line.rstrip())
     if current is not None:
-        tf_stmts[current] = ParsedQuestion(
-            stem="\n".join(buf).strip(), is_true_false=True
-        )
+        body = "\n".join(buf).strip()
+        pq = _split_block(body, "ab")
+        if not pq.options:
+            pq.is_true_false = True
+        tf_stmts[current] = pq
     return tf_stmts, mcq
 
 
@@ -276,7 +280,10 @@ ANSWER_FIXES: dict[str, dict[str, str]] = {
         "q18": "a",
         "q22": "c",
         "q29": "b",
+        "q30": "d",
         "q31": "b",
+        "q36": "b",
+        "q37": "c",
         "q32": "a",
         "q35": "d",
         "q40": "b",
@@ -312,13 +319,13 @@ ANSWER_FIXES: dict[str, dict[str, str]] = {
         "q66": "c",
         "q67": "c",
         "q73": "d",
-        "q74": "false",
-        "q75": "true",
-        "q76": "false",
-        "q77": "true",
-        "q78": "false",
-        "q79": "false",
-        "q80": "false",
+        "q74": "b",
+        "q75": "a",
+        "q76": "b",
+        "q77": "a",
+        "q78": "b",
+        "q79": "b",
+        "q80": "b",
     },
     "2025": {
         "q53": "c",
@@ -336,7 +343,10 @@ EXPLANATION_FIXES: dict[str, dict[str, str]] = {
         "q18": "`10 + 20` is `30`, then `30 + \"5\"` concatenates to `\"305\"`.",
         "q22": "`reduce` with subtraction gives `170 - 50 - 25 = 95`.",
         "q29": "`cars.company` is `undefined` after delete; `cars[\"color\"]` is `\"white\"`.",
+        "q30": "`eval(\"x * y\")` returns the number `200`, not the string `\"200\"`.",
         "q31": "`filter()` returns an array; `typeof` an array is `\"object\"`.",
+        "q36": "`(*k,) = (1, 2, 3, 4)` sets `k` to `[1, 2, 3, 4]`, matching option b.",
+        "q37": "`(x, *k, y) = (1, 2, 3, 4)` sets `k` to `[2, 3]`, matching option c.",
         "q32": "`lastIndexOf(10)` is 2, `indexOf(30)` is 3, sum is 5.",
         "q35": "The semicolon after the `for` loop leaves an empty body; `document.write(a)` runs once and prints `5`.",
         "q40": "H₂O needs `<sub>` for the 2; option B is `<p>H<sub>2</sub>O</p>`.",
@@ -346,41 +356,49 @@ EXPLANATION_FIXES: dict[str, dict[str, str]] = {
         "q49": "`index(3)` returns the first occurrence at index 2.",
         "q53": "`dict.keys()` reflects live changes; after adding `color`, there are four keys.",
         "q54": "Sets use `update()`; lists use `extend()` when adding from another collection.",
-        "q55": "Both `copy()` and `dict()` can shallow-copy a dictionary.",
-        "q60": "With string operands, `+` concatenates to `2010` and `-` coerces to numbers giving `10`.",
+        "q17": "JavaScript is case-sensitive. `X` (uppercase) is the global variable `10`; `x` (lowercase) is a separate `let` inside `myfunc`, which is never called. `document.write(X)` outputs `10`.",
+        "q55": "Both `copy()` and `dict()` can shallow-copy a dictionary. Option a shows `Copy()` with a capital C; Python is case-sensitive, so that is a typo for `copy()`.",
+        "q60": "With string operands, `+` concatenates to `2010`. The `-` operator coerces the strings to numbers, giving `10`.",
+        "q65": "The `map()` method transforms every element and requires a callback function. Option A supplies a valid arrow function.",
+        "q66": "The `filter()` method keeps elements that pass a callback test. Option B supplies a valid arrow function.",
+        "q75": "Python requires an indented block under `if`. The second `print` is not indented into the `if` body, so this raises an `IndentationError`.",
         "q64": "Valid arrow syntax; `f(4, 5)` returns `14`.",
         "q74": "Division in Python 3 returns a float: `100 / 20` is `5.0`.",
         "q77": "`x[7:]` starts at index 7 (the first `l` in `Lovely`), yielding `ly Bird!`.",
-        "q79": "Accessing the text node uses `firstChild.nodeValue`; the listed shortcuts are incorrect.",
-        "q80": "The script writes the paragraph count (6) into the `h2` element.",
+        "q79": "Text inside an element lives in a child text node. The correct approach is `document.getElementById(\"id1\").firstChild.nodeValue`. `innerHTML` is not equivalent; `.text` is not a standard element property; and `nodeValue` on the element itself is `null`.",
+        "q80": "The script sets `h2` innerHTML to `my.length`, the count of `<p>` elements (6).",
+        "q82": "The child combinator `>` selects only direct `<p>` children of `<div>`: Paragraph 1 and Paragraph 2. Paragraph 3 is inside `<section>`, not a direct child of `<div>`.",
+        "q83": "The general sibling combinator `~` selects `<p>` siblings that follow `<div>` at the same level: Paragraph 4 and Paragraph 5.",
         "q81": "Six `<p>` elements exist in the page, so the collection length is 6.",
-        "q86": "No `<p>` element is the first child of its parent, so none match `:first-child`.",
+        "q86": "`:first-child` matches only when an element is the first child of its parent. Under `<body>`, `<h2>` is the first child, not any `<p>`, so none match.",
     },
     "2021": {
         "q3": "HTTP 304 is Not Modified; Not Found is 404, so 304 - Not Found is the odd pair.",
-        "q13": "The deprecated `<center>` tag maps to the `text-align` CSS property. The exam option misspelled it as `align`.",
-        "q19": "With `x = 20`, `x < 10` is false immediately, so the loop never runs and nothing is printed.",
-        "q20": "With `x = 5`, the loop prints once, then `x` becomes 10 and the condition fails.",
-        "q22": "The printed exam snippet is truncated, but the complete function returns the numeric counter `ct`.",
+        "q13": "The deprecated `<center>` tag centered inline content. The CSS equivalent is the `text-align` property (e.g., `text-align: center`).",
+        "q19": "With `x = 20`, the condition `x < 10` is false immediately, so the `while` loop body never runs and \"Hello\" is printed 0 times.",
+        "q20": "With `x = 5`, the loop runs once (`5 < 10`), prints \"Hello\", then `x` becomes 10. On the next check, `10 < 10` is false, so the loop stops after exactly 1 print.",
+        "q22": "The full function increments `ct` and returns it, so the return value is always a number. It may be 0 when no element is >= 70.",
         "q32": "`forloop.counter` is valid in Django templates; attributes are not called with parentheses.",
         "q35": "Create a project with `django-admin startproject <name>`, not the bare word `Project`.",
         "q45": "HTTP 200 with authorization means the user is authorized to see the response.",
-        "q58": "The unindented `print` runs once; the `if` body is skipped because `2 < 1` is false.",
-        "q68": "No arguments means `typeof` is `\"undefined\"` (lowercase) and `arguments.length` is 0.",
-        "q61": "`100 / 20` evaluates to `5`.",
+        "q58": "`2 < 1` is false, so the indented `print` under `if` is skipped. The second, unindented `print` still runs once.",
+        "q59": "Dictionaries forbid duplicate keys; the last `mobile` value wins.",
+        "q61": "`100 / 20` evaluates to `5.0` in Python 3. Option C is the intended answer.",
         "q63": "Inside the block, `var X` becomes `X*` and inner `let Y` is `Y*`, so the log is `X*, Y*`.",
-        "q64": "After the block, `X` remains `X*` while outer `Y` is restored, so the logs are `X*` then `Y`.",
+        "q64": "After the block, function-scoped `X` stays `X*` while outer `Y` is restored, so the logs are `X*` then `Y`.",
         "q65": "`typeof` reports `number` for the first argument and `arguments.length` is 2.",
-        "q66": "The first argument is a string, so `typeof` is `string` with one argument.",
+        "q66": "The first argument is a string, so `typeof` is `string` with one argument passed.",
         "q67": "Four arguments are supplied, so `arguments.length` is 4.",
+        "q68": "With no arguments, `x` is `undefined` and `arguments.length` is 0.",
+        "q72": "Without the errors, `x.name` is updated to `\"Neamat\"` and logged successfully.",
         "q73": "Reassigning `const y` throws before `console.log(y)` can run.",
         "q74": "JavaScript is dynamically typed.",
-        "q75": "Loose equality coerces types; `200` equals `\"200\"`, but `===` does not.",
-        "q76": "`isNaN(\"Hello\")` is true, but `isNaN(undefined)` is also true in JavaScript, so the second part of the statement is wrong.",
-        "q77": "An empty list is falsy in Python boolean context.",
-        "q78": "Sets are unordered and unindexed, not indexed.",
-        "q79": "`pop()` on a set removes an arbitrary element; for `{1,2,3}` the removed item is not guaranteed to be 3 (sets are unordered). The statement as written about list behavior is false for sets — exam answer is False.",
-        "q80": "Parentheses define a tuple, not a list.",
+        "q75": "Loose equality (`==`) coerces types; `200` equals `\"200\"`, but strict equality (`===`) compares value and type.",
+        "q76": "`isNaN(\"Hello\")` is true, but `isNaN(undefined)` is also true, so the second part of the statement is incorrect.",
+        "q77": "An empty list evaluates as falsy in a Python boolean context.",
+        "q78": "Sets are inherently unordered and explicitly unindexed.",
+        "q79": "Running `pop()` on a set removes an arbitrary element; it is not guaranteed to be 3.",
+        "q80": "Parentheses define a Python tuple, not a list (`[]`).",
     },
     "2025": {
         "q65": "Python 3 prints `{1, 2, 3, 5}` with spaces; option c's `{1,2,3,5}` does not match exactly.",
@@ -396,6 +414,47 @@ OPTION_FIXES: dict[str, dict[str, dict[str, str]]] = {
         "q35": {"a": "django-admin startproject"},
         "q63": {"a": "X*, Y*"},
         "q64": {"a": "X*, Y"},
+    },
+    "2021": {
+        "q59": {"d": "Error!"},
+        "q74": {"a": "True", "b": "False"},
+        "q75": {"a": "True", "b": "False"},
+        "q76": {"a": "True", "b": "False"},
+        "q77": {"a": "True", "b": "False"},
+        "q78": {"a": "True", "b": "False"},
+        "q79": {"a": "True", "b": "False"},
+        "q80": {"a": "True", "b": "False"},
+    },
+    "2024": {
+        "q38": {"c": "Both a and b."},
+        "q65": {"a": "myNumbers.map((value) => value * 4);"},
+        "q66": {"b": "myNumbers.filter((value) => value < 10);"},
+        "q74": {"d": "5.0"},
+        "q79": {
+            "a": 'document.getElementById("id1").innerHTML',
+            "c": 'document.getElementById("id1").nodeValue',
+        },
+        "q80": {"c": "6"},
+        "q86": {"d": "None of the above"},
+    },
+}
+
+QUESTION_TEXT_FIXES: dict[str, dict[str, str]] = {
+    "2021": {
+        "q15": "15. With which tag do you write the style rules directly within the document found within the head of the document?",
+        "q19": "19. If the function print() has been defined that prints the value passed in as the parameter to it, how many times is \"Hello\" printed?",
+        "q75": "75. var a = 200; var b = \"200\"; a == b will return true while a === b will return false?",
+        "q79": "79. In the following statement: myNumbers = {1, 2, 3}; x = myNumbers.pop(); The removed item will be 3.",
+    },
+    "2024": {
+        "q17": "17. What will be the value of X?",
+        "q60": "60. What is the output of the following JavaScript snippet?\nx = \"20\";\ny = \"10\";\ndocument.writeln(x+y, x-y);",
+        "q68": "68. In the following statement: myNumbers = [1, 2, 3]; x = myNumbers.pop();\nThe removed item will be 1",
+        "q73": "73. def f(**person):\nprint(\"Person's name is \" + person[\"name\"])\nf(name=\"Ahmed\", age=10)\nThe above statement will return:",
+        "q75": "75. In the following Python statements:\nif 1 < 2:\nprint(\"One is less than Two!\")\nprint(\"One is less than Two!\")",
+        "q76": "76. The output of the following statement in python is:\nx = \"My Lovely Bird!\"\nprint(x[:7])",
+        "q82": "82. By using this CSS selector div > p { color: red; }, how many p elements will be styled?",
+        "q83": "83. By using this CSS selector div ~ p { color: blue; }, the number of p elements that will be styled is",
     },
 }
 
@@ -461,6 +520,7 @@ def sync_year(year: str) -> int:
     answer_fixes = ANSWER_FIXES.get(year, {})
     expl_fixes = EXPLANATION_FIXES.get(year, {})
     option_fixes = OPTION_FIXES.get(year, {})
+    question_text_fixes = QUESTION_TEXT_FIXES.get(year, {})
 
     for block in data:
         apply_context(year, block)
@@ -481,7 +541,7 @@ def sync_year(year: str) -> int:
                 print(f"WARN missing parsed #{num} ({qid})")
                 continue
 
-            new_text = f"{num}. {parsed.stem}"
+            new_text = question_text_fixes.get(qid, f"{num}. {parsed.stem}")
             if question["questionText"] != new_text:
                 question["questionText"] = new_text
                 changes += 1

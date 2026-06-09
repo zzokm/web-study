@@ -20,7 +20,7 @@ def format_answer(question: dict) -> str:
     if answer_id in ("true", "false"):
         return "True" if answer_id == "true" else "False"
     if len(options) == 2 and set(options.values()) <= {"True", "False"}:
-        return options[answer_id]
+        return answer_id.upper()
     return answer_id.upper()
 
 

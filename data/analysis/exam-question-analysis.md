@@ -8,9 +8,9 @@ Generated: 2026-06-09
 | --- | ---: |
 | Exam finals | 2021, 2024, 2025 |
 | Total question instances | 283 |
-| Unique stems (deduped) | 259 |
+| Unique stems (deduped) | 256 |
 | Lectures mapped | 15 |
-| Repeated stems (same answer) | 20 |
+| Repeated stems (same answer) | 23 |
 
 ## Exams at a glance
 
@@ -47,18 +47,20 @@ Counts use `relatedTopics` lecture allocation — one question may count toward 
 
 ## Cross-exam repetition
 
-20 stems repeat across finals (or within a final) with the same correct answer. Drill these first.
+23 stems repeat across finals (or within a final) with the same correct answer. Drill these first.
 
 | Occurrences | Years | Lectures | Question |
 | ---: | --- | --- | --- |
 | 3 | 2021, 2024, 2025 | Django III | 31. What does {{ name }} mean in Django Templates? |
 | 3 | 2021, 2024, 2025 | Python Essentials | 78. In Python, A set is a collection which is both unordered and indexed. |
-| 3 | 2021, 2024, 2025 | Python Essentials | 79. In the following statement: myNumbers = {1, 2, 3} |
+| 3 | 2021, 2024, 2025 | Python Essentials | 79. In the following statement: myNumbers = {1, 2, 3}; x = myNumbers.pop(); The removed item will be… |
 | 3 | 2021 | JavaScript 1, JavaScript 2 & AJAX | 62. The first console.log statement (line 4) will output: |
 | 2 | 2021, 2024 | CSS | 9. In CSS, "color:red" can be called as |
 | 2 | 2021, 2024 | Internet Protocols | 43. "Expires: Tuesday, 17 Dec 2020 18:30 GMT" is a ______ header denoting ______ |
 | 2 | 2021, 2025 | Internet Protocols, Web Basics, HTTP, URLs, and Status Codes | 45. Using authorization, a response with status 200 means that |
 | 2 | 2021, 2025 | JavaScript 1 | 52. What is the output of the following JavaScript snippet? |
+| 2 | 2021, 2024 | JavaScript 1 | 53. What is the output of the following JavaScript snippet? |
+| 2 | 2021, 2024 | JavaScript 2 & AJAX | 55. To select numbers that are less than 10 from an array of numbers (named myNumbers), the followin… |
 | 2 | 2021, 2025 | JavaScript 2 & AJAX | 56. In the function: |
 | 2 | 2021, 2025 | Python Essentials | 59. x = { |
 | 2 | 2021, 2024 | Python Essentials | 60. def f(**person): |
@@ -69,6 +71,7 @@ Counts use `relatedTopics` lecture allocation — one question may count toward 
 | 2 | 2024, 2025 | Django IV | 10. When you have done changes in a model in Django, which command has to be executed in order to ma… |
 | 2 | 2024, 2025 | JavaScript 1 | 67. var colors = {1:"red", 2:"green", 3: "blue"} is one of the ways of defining an array in JavaScri… |
 | 2 | 2024, 2025 | Python Essentials | 69. In the following statement: myNumbers = [1, 2, 3]; x = myNumbers.pop(); |
+| 2 | 2024 | CSS, HTML Document Object Model | 82. By using this CSS selector div > p { color: red; }, how many p elements will be styled? |
 | 2 | 2025 | Python Essentials | 12. In Python, to append elements from another list to the current list, use the update() method. |
 | 2 | 2025 | Python Essentials | 28. The output of the following Python statements is ['a', 'b', 'C'] |
 
@@ -76,11 +79,13 @@ Counts use `relatedTopics` lecture allocation — one question may count toward 
 
 - **2021 + 2024 + 2025** — 31. What does {{ name }} mean in Django Templates?
 - **2021 + 2024 + 2025** — 78. In Python, A set is a collection which is both unordered and indexed.
-- **2021 + 2024 + 2025** — 79. In the following statement: myNumbers = {1, 2, 3}
+- **2021 + 2024 + 2025** — 79. In the following statement: myNumbers = {1, 2, 3}; x = myNumbers.pop(); The removed item will be 3.
 - **2021 + 2024** — 9. In CSS, "color:red" can be called as
 - **2021 + 2024** — 43. "Expires: Tuesday, 17 Dec 2020 18:30 GMT" is a ______ header denoting ______
 - **2021 + 2025** — 45. Using authorization, a response with status 200 means that
 - **2021 + 2025** — 52. What is the output of the following JavaScript snippet?
+- **2021 + 2024** — 53. What is the output of the following JavaScript snippet?
+- **2021 + 2024** — 55. To select numbers that are less than 10 from an array of numbers (named myNumbers), the following is a correct synta…
 - **2021 + 2025** — 56. In the function:
 - **2021 + 2025** — 59. x = {
 - **2021 + 2024** — 60. def f(**person):
@@ -107,9 +112,9 @@ Keyword hits across stems, topics, and explanations (categories may overlap).
 
 | Theme | Total | 2021 | 2024 | 2025 |
 | --- | ---: | ---: | ---: | ---: |
-| JavaScript | 145 | 51 | 37 | 29 |
+| JavaScript | 145 | 52 | 36 | 29 |
 | HTML & DOM | 113 | 27 | 41 | 24 |
-| Python | 87 | 18 | 23 | 32 |
+| Python | 88 | 18 | 24 | 32 |
 | HTTP & URLs | 71 | 18 | 19 | 21 |
 | CSS | 49 | 12 | 16 | 13 |
 | Django | 37 | 10 | 8 | 12 |

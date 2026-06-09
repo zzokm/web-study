@@ -626,7 +626,7 @@
         ],
         "correctAnswerId": "b",
         "expectedAnswer": null,
-        "explanation": "JavaScript is case-sensitive. `X` (uppercase) refers to the global variable `10`. `x` (lowercase) is a separate local variable `20`. The function specifically writes `X`, which is `10`.",
+        "explanation": "JavaScript is case-sensitive. `X` (uppercase) is the global variable `10`; `x` (lowercase) is a separate `let` inside `myfunc`, which is never called. `document.write(X)` outputs `10`.",
         "relatedTopics": [
           "fe-5",
           "fe-6"
@@ -1107,9 +1107,9 @@
             "codeLanguage": null
           }
         ],
-        "correctAnswerId": "b",
+        "correctAnswerId": "d",
         "expectedAnswer": null,
-        "explanation": "The `eval()` function evaluates JavaScript code represented as a string. It accesses the scope variables `x` and `y`, calculating `10 * 20`, which is `200`.",
+        "explanation": "The `eval()` function evaluates JavaScript code represented as a string. It accesses the scope variables `x` and `y`, calculating `10 * 20`, which is the number `200` (option d), not the string `\"200\"`.",
         "relatedTopics": [
           "fe-5",
           "fe-6"
@@ -1345,9 +1345,9 @@
             "codeLanguage": null
           }
         ],
-        "correctAnswerId": "d",
+        "correctAnswerId": "b",
         "expectedAnswer": null,
-        "explanation": "The asterisk `*` unpacking operator gathers all elements from the tuple into a list. `k` becomes `[1, 2, 3, 4]`. None of the provided options accurately reflect this output.",
+        "explanation": "The asterisk `*` unpacking operator gathers all elements from the tuple into a list. `k` becomes `[1, 2, 3, 4]`, matching option b.",
         "relatedTopics": [
           "be-2"
         ]
@@ -1382,7 +1382,7 @@
             "codeLanguage": null
           }
         ],
-        "correctAnswerId": "b",
+        "correctAnswerId": "c",
         "expectedAnswer": null,
         "explanation": "The unpacking syntax assigns the first element to `x` (1), the last element to `y` (4), and packs all remaining intermediate elements into a list `k`. Therefore, `k` is `[2, 3]`.",
         "relatedTopics": [
@@ -1409,7 +1409,7 @@
           {
             "id": "c",
             "type": "text",
-            "content": "Both a and b. Assuming the missing < was not intended",
+            "content": "Both a and b.",
             "codeLanguage": null
           },
           {
@@ -2016,7 +2016,7 @@
         ],
         "correctAnswerId": "c",
         "expectedAnswer": null,
-        "explanation": "Both `copy()` and `dict()` can shallow-copy a dictionary.",
+        "explanation": "Both `copy()` and `dict()` can shallow-copy a dictionary. Option a shows `Copy()` with a capital C; Python is case-sensitive, so that is a typo for `copy()`.",
         "relatedTopics": [
           "be-2"
         ]
@@ -2176,7 +2176,7 @@
       {
         "id": "q60",
         "type": "multiple_choice",
-        "questionText": "60. What is the output of the following JavaScript snippet?\nx = \"20\";\ny = \"10\";\ndocument.writeln(x+y, x-y);\nIn Addition strs are type casted into strs\nIn Subtraction strs are type casted into ints",
+        "questionText": "60. What is the output of the following JavaScript snippet?\nx = \"20\";\ny = \"10\";\ndocument.writeln(x+y, x-y);",
         "options": [
           {
             "id": "a",
@@ -2205,7 +2205,7 @@
         ],
         "correctAnswerId": "d",
         "expectedAnswer": null,
-        "explanation": "With string operands, `+` concatenates to `2010` and `-` coerces to numbers giving `10`.",
+        "explanation": "With string operands, `+` concatenates to `2010`. The `-` operator coerces the strings to numbers, giving `10`.",
         "relatedTopics": [
           "fe-5"
         ]
@@ -2368,7 +2368,7 @@
           {
             "id": "a",
             "type": "text",
-            "content": "myNumbers.map((value) => value * 4); The map method takes a function as a parameter",
+            "content": "myNumbers.map((value) => value * 4);",
             "codeLanguage": null
           },
           {
@@ -2392,7 +2392,7 @@
         ],
         "correctAnswerId": "a",
         "expectedAnswer": null,
-        "explanation": "The `map()` method transforms every element in an array and returns a new array, requiring a callback function. Option A supplies a valid arrow function callback for the transformation.",
+        "explanation": "The `map()` method transforms every element and requires a callback function. Option A supplies a valid arrow function.",
         "relatedTopics": [
           "fe-6"
         ]
@@ -2411,7 +2411,7 @@
           {
             "id": "b",
             "type": "text",
-            "content": "myNumbers.filter((value) => value < 10); The filter method takes a function as a parameter",
+            "content": "myNumbers.filter((value) => value < 10);",
             "codeLanguage": null
           },
           {
@@ -2429,7 +2429,7 @@
         ],
         "correctAnswerId": "b",
         "expectedAnswer": null,
-        "explanation": "The `filter()` method constructs a new array compiling strictly the elements that pass the test implemented by the callback function.",
+        "explanation": "The `filter()` method keeps elements that pass a callback test. Option B supplies a valid arrow function.",
         "relatedTopics": [
           "fe-6"
         ]
@@ -2462,7 +2462,7 @@
       {
         "id": "q68",
         "type": "multiple_choice",
-        "questionText": "68. In the following statement: myNumbers = [1, 2, 3]; x = myNumbers.pop(); Removes last element\nThe removed item will be 1",
+        "questionText": "68. In the following statement: myNumbers = [1, 2, 3]; x = myNumbers.pop();\nThe removed item will be 1",
         "options": [
           {
             "id": "a",
@@ -2587,7 +2587,7 @@
       {
         "id": "q73",
         "type": "multiple_choice",
-        "questionText": "73. def f(**person):\nprint(\"Person's name is \" + person[\"name\"]) kwargs are sent as a dictionary\nf(name=\"Ahmed\", age=10)\nThe above statement will return:",
+        "questionText": "73. def f(**person):\nprint(\"Person's name is \" + person[\"name\"])\nf(name=\"Ahmed\", age=10)\nThe above statement will return:",
         "options": [
           {
             "id": "a",
@@ -2647,7 +2647,7 @@
           {
             "id": "d",
             "type": "text",
-            "content": "5.0 Should be 5.0 since Python type casts results of division to float by default",
+            "content": "5.0",
             "codeLanguage": null
           }
         ],
@@ -2661,7 +2661,7 @@
       {
         "id": "q75",
         "type": "multiple_choice",
-        "questionText": "75. In the following Python statements:\nif 1 < 2:\nprint(\"One is less than Two!\") Notice the incorrect indentation between the 2 print functions\nprint(\"One is less than Two!\")\nOne is less than Two!",
+        "questionText": "75. In the following Python statements:\nif 1 < 2:\nprint(\"One is less than Two!\")\nprint(\"One is less than Two!\")",
         "options": [
           {
             "id": "a",
@@ -2690,7 +2690,7 @@
         ],
         "correctAnswerId": "d",
         "expectedAnswer": null,
-        "explanation": "Python mandates strict indentation for logic blocks. An `if` statement lacking an indented body directly beneath it will inherently trigger a fatal `IndentationError`.",
+        "explanation": "Python requires an indented block under `if`. The second `print` is not indented into the `if` body, so this raises an `IndentationError`.",
         "relatedTopics": [
           "be-2"
         ]
@@ -2698,7 +2698,7 @@
       {
         "id": "q76",
         "type": "multiple_choice",
-        "questionText": "76. The output of the following statement in python is:\nSlicing won't throw Error if out of bounds\nx = \"My Lovely Bird!\"\nprint(x[:7])",
+        "questionText": "76. The output of the following statement in python is:\nx = \"My Lovely Bird!\"\nprint(x[:7])",
         "options": [
           {
             "id": "a",
@@ -2829,7 +2829,7 @@
           {
             "id": "a",
             "type": "text",
-            "content": "document.getElementById(\"id1\").innerHTML which is equivalent to document.getElementById(\"id1\").firstChild.nodeValue;",
+            "content": "document.getElementById(\"id1\").innerHTML",
             "codeLanguage": null
           },
           {
@@ -2841,7 +2841,7 @@
           {
             "id": "c",
             "type": "text",
-            "content": "document.getElementById(\"id1\").nodeValue; Any element that accepts text inside it always has a text node inside, here this node is accessed using firstChild, then nodeValue accessed the contents of this node which is the text",
+            "content": "document.getElementById(\"id1\").nodeValue",
             "codeLanguage": null
           },
           {
@@ -2853,7 +2853,7 @@
         ],
         "correctAnswerId": "d",
         "expectedAnswer": null,
-        "explanation": "Accessing the text node uses `firstChild.nodeValue`; the listed shortcuts are incorrect.",
+        "explanation": "Text inside an element lives in a child text node. The correct approach is `document.getElementById(\"id1\").firstChild.nodeValue`. `innerHTML` is not equivalent; `.text` is not a standard element property; and `nodeValue` on the element itself is `null`.",
         "relatedTopics": [
           "fe-3"
         ]
@@ -2878,7 +2878,7 @@
           {
             "id": "c",
             "type": "text",
-            "content": "6 The answer is 6 since we have 6 p elements and we changed the contents of id1 in the script tag",
+            "content": "6",
             "codeLanguage": null
           },
           {
@@ -2890,7 +2890,7 @@
         ],
         "correctAnswerId": "c",
         "expectedAnswer": null,
-        "explanation": "The script writes the paragraph count (6) into the `h2` element.",
+        "explanation": "The script sets `h2` innerHTML to `my.length`, the count of `<p>` elements (6).",
         "relatedTopics": [
           "fe-3"
         ]
@@ -2935,7 +2935,7 @@
       {
         "id": "q82",
         "type": "multiple_choice",
-        "questionText": "82. By using this CSS selector div > p { color: red; }, how many p elements will be styled?\nDirect Children",
+        "questionText": "82. By using this CSS selector div > p { color: red; }, how many p elements will be styled?",
         "options": [
           {
             "id": "a",
@@ -2964,7 +2964,7 @@
         ],
         "correctAnswerId": "b",
         "expectedAnswer": null,
-        "explanation": "The child combinator `>` targets only direct children. Paragraph 1 and Paragraph 2 are direct children of the `<div>`. Paragraph 3 is a child of the `<section>`, making it a descendant but not a direct child of the `<div>`.",
+        "explanation": "The child combinator `>` selects only direct `<p>` children of `<div>`: Paragraph 1 and Paragraph 2. Paragraph 3 is inside `<section>`, not a direct child of `<div>`.",
         "relatedTopics": [
           "fe-4",
           "fe-3"
@@ -2973,7 +2973,7 @@
       {
         "id": "q83",
         "type": "multiple_choice",
-        "questionText": "83. By using this CSS selector div ~ p { color: blue; }, the number of p elements that will be styled is\nAny sibling",
+        "questionText": "83. By using this CSS selector div ~ p { color: blue; }, the number of p elements that will be styled is",
         "options": [
           {
             "id": "a",
@@ -3002,7 +3002,7 @@
         ],
         "correctAnswerId": "b",
         "expectedAnswer": null,
-        "explanation": "The general sibling combinator `~` flags all siblings that follow the specified element. Following the `<div>`, there are exactly two succeeding `<p>` elements (Paragraph 4 and Paragraph 5) resting at the identical hierarchical level.",
+        "explanation": "The general sibling combinator `~` selects `<p>` siblings that follow `<div>` at the same level: Paragraph 4 and Paragraph 5.",
         "relatedTopics": [
           "fe-4"
         ]
@@ -3122,13 +3122,13 @@
           {
             "id": "d",
             "type": "text",
-            "content": "None of the above No p element has a child",
+            "content": "None of the above",
             "codeLanguage": null
           }
         ],
         "correctAnswerId": "d",
         "expectedAnswer": null,
-        "explanation": "No `<p>` element is the first child of its parent, so none match `:first-child`.",
+        "explanation": "`:first-child` matches only when an element is the first child of its parent. Under `<body>`, `<h2>` is the first child, not any `<p>`, so none match.",
         "relatedTopics": [
           "fe-4"
         ]

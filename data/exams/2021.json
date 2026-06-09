@@ -509,7 +509,7 @@
         ],
         "correctAnswerId": "c",
         "expectedAnswer": null,
-        "explanation": "The deprecated `<center>` tag centered inline content. The CSS equivalent is the `text-align` property (e.g. `text-align: center`). The exam option misspelled this as `align`.",
+        "explanation": "The deprecated `<center>` tag centered inline content. The CSS equivalent is the `text-align` property (e.g., `text-align: center`).",
         "relatedTopics": [
           "fe-4"
         ]
@@ -554,7 +554,7 @@
       {
         "id": "q15",
         "type": "multiple_choice",
-        "questionText": "15. With, which tag do you write the style rules directly within the document found within the head of the document.",
+        "questionText": "15. With which tag do you write the style rules directly within the document found within the head of the document?",
         "options": [
           {
             "id": "a",
@@ -733,7 +733,7 @@
       {
         "id": "q19",
         "type": "multiple_choice",
-        "questionText": "19. If the function print() has been defined that prints the value passed in as the parameter to it, how many times is \"Hello\" printed?\nE. Infinity (or at least until you kill the program)",
+        "questionText": "19. If the function print() has been defined that prints the value passed in as the parameter to it, how many times is \"Hello\" printed?",
         "options": [
           {
             "id": "a",
@@ -757,6 +757,12 @@
             "id": "d",
             "type": "text",
             "content": "3",
+            "codeLanguage": null
+          },
+          {
+            "id": "e",
+            "type": "text",
+            "content": "Infinity (or at least until you kill the program)",
             "codeLanguage": null
           }
         ],
@@ -888,7 +894,7 @@
         ],
         "correctAnswerId": "d",
         "expectedAnswer": null,
-        "explanation": "The printed exam snippet is truncated, but the complete function (shown in context) increments `ct` and returns it, so the return value is always a number. It may be 0 when no element is >= 70, so A and B are false.",
+        "explanation": "The full function increments `ct` (a counter) and returns it, so the return value is always a number. It may be 0 when no element is >= 70, so A and B are false.",
         "relatedTopics": [
           "fe-5"
         ]
@@ -2372,7 +2378,7 @@
           {
             "id": "d",
             "type": "text",
-            "content": "Error! As you cannot have duplicate keys in a dictionary",
+            "content": "Error!",
             "codeLanguage": null
           }
         ],
@@ -2452,7 +2458,7 @@
         ],
         "correctAnswerId": "c",
         "expectedAnswer": null,
-        "explanation": "`100 / 20` evaluates to `5`.",
+        "explanation": "`100 / 20` evaluates to `5.0` in Python 3 (or `5` in Python 2). Option C is the intended answer here.",
         "relatedTopics": [
           "be-2"
         ]
@@ -2670,7 +2676,7 @@
         ],
         "correctAnswerId": "c",
         "expectedAnswer": null,
-        "explanation": "The first argument is a string, so `typeof` is `string` with one argument.",
+        "explanation": "The first argument is a string, so `typeof` is `string` with one argument passed.",
         "relatedTopics": [
           "fe-5"
         ]
@@ -2874,7 +2880,7 @@
         ],
         "correctAnswerId": "c",
         "expectedAnswer": null,
-        "explanation": "Without the errors, the code resolves as `const x = {name:\"A\"}; x.name = \"Neamat\"; console.log(x.name)`. The property was updated successfully to \"Neamat\".",
+        "explanation": "Without the errors, the code resolves as `const x = {name:\"Ali\"}; x.name = \"Neamat\"; console.log(x.name)`. The property was updated successfully to \"Neamat\".",
         "relatedTopics": [
           "fe-5",
           "fe-6"
@@ -2939,19 +2945,19 @@
         "questionText": "74. JavaScript is a statically typed language.",
         "options": [
           {
-            "id": "true",
+            "id": "a",
             "type": "text",
             "content": "True",
             "codeLanguage": null
           },
           {
-            "id": "false",
+            "id": "b",
             "type": "text",
             "content": "False",
             "codeLanguage": null
           }
         ],
-        "correctAnswerId": "false",
+        "correctAnswerId": "b",
         "expectedAnswer": null,
         "explanation": "JavaScript is dynamically typed.",
         "relatedTopics": [
@@ -2961,24 +2967,24 @@
       {
         "id": "q75",
         "type": "multiple_choice",
-        "questionText": "75. var a = 200;\n    var b = \"200\";\n    a == b will return true while a === b will return false?",
+        "questionText": "75. var a = 200; var b = \"200\"; a == b will return true while a === b will return false?",
         "options": [
           {
-            "id": "true",
+            "id": "a",
             "type": "text",
             "content": "True",
             "codeLanguage": null
           },
           {
-            "id": "false",
+            "id": "b",
             "type": "text",
             "content": "False",
             "codeLanguage": null
           }
         ],
-        "correctAnswerId": "true",
+        "correctAnswerId": "a",
         "expectedAnswer": null,
-        "explanation": "Loose equality coerces types; `200` equals `\"200\"`, but `===` does not.",
+        "explanation": "Loose equality (`==`) coerces types; `200` equals `\"200\"`, but strict equality (`===`) evaluates to false as it compares both value and type.",
         "relatedTopics": [
           "fe-5"
         ]
@@ -2989,21 +2995,21 @@
         "questionText": "76. isNaN(\"Hello\") returns true while isNaN(undefined) returns false?",
         "options": [
           {
-            "id": "true",
+            "id": "a",
             "type": "text",
             "content": "True",
             "codeLanguage": null
           },
           {
-            "id": "false",
+            "id": "b",
             "type": "text",
             "content": "False",
             "codeLanguage": null
           }
         ],
-        "correctAnswerId": "false",
+        "correctAnswerId": "b",
         "expectedAnswer": null,
-        "explanation": "`isNaN(\"Hello\")` is true, but `isNaN(undefined)` is also true in JavaScript, so the second part of the statement is wrong.",
+        "explanation": "`isNaN(\"Hello\")` is true, but `isNaN(undefined)` is also true in JavaScript, making the second part of the statement incorrect.",
         "relatedTopics": [
           "fe-5"
         ]
@@ -3014,21 +3020,21 @@
         "questionText": "77. In Python, the value of [] is False.",
         "options": [
           {
-            "id": "true",
+            "id": "a",
             "type": "text",
             "content": "True",
             "codeLanguage": null
           },
           {
-            "id": "false",
+            "id": "b",
             "type": "text",
             "content": "False",
             "codeLanguage": null
           }
         ],
-        "correctAnswerId": "true",
+        "correctAnswerId": "a",
         "expectedAnswer": null,
-        "explanation": "An empty list is falsy in Python boolean context.",
+        "explanation": "An empty list evaluates as functionally 'falsy' in a Python boolean context.",
         "relatedTopics": [
           "be-2"
         ]
@@ -3039,21 +3045,21 @@
         "questionText": "78. In Python, A set is a collection which is both unordered and indexed.",
         "options": [
           {
-            "id": "true",
+            "id": "a",
             "type": "text",
             "content": "True",
             "codeLanguage": null
           },
           {
-            "id": "false",
+            "id": "b",
             "type": "text",
             "content": "False",
             "codeLanguage": null
           }
         ],
-        "correctAnswerId": "false",
+        "correctAnswerId": "b",
         "expectedAnswer": null,
-        "explanation": "Sets are unordered and unindexed, not indexed.",
+        "explanation": "Sets are inherently unordered and explicitly *unindexed*.",
         "relatedTopics": [
           "be-2"
         ]
@@ -3061,24 +3067,24 @@
       {
         "id": "q79",
         "type": "multiple_choice",
-        "questionText": "79. In the following statement: myNumbers = {1, 2, 3}\n    x = myNumbers.pop()\n    The removed item will be 3.",
+        "questionText": "79. In the following statement: myNumbers = {1, 2, 3}; x = myNumbers.pop(); The removed item will be 3.",
         "options": [
           {
-            "id": "true",
+            "id": "a",
             "type": "text",
             "content": "True",
             "codeLanguage": null
           },
           {
-            "id": "false",
+            "id": "b",
             "type": "text",
             "content": "False",
             "codeLanguage": null
           }
         ],
-        "correctAnswerId": "false",
+        "correctAnswerId": "b",
         "expectedAnswer": null,
-        "explanation": "`pop()` on a set removes an arbitrary element; for `{1,2,3}` the removed item is not guaranteed to be 3 (sets are unordered). The statement as written about list behavior is false for sets — exam answer is False.",
+        "explanation": "Running `pop()` on a set removes a completely arbitrary element. For `{1, 2, 3}`, the removed item is not guaranteed to be 3 because sets are completely unordered.",
         "relatedTopics": [
           "be-2"
         ]
@@ -3089,21 +3095,21 @@
         "questionText": "80. x = (\"apple\", \"banana\", \"cherry\") is a definition of a list.",
         "options": [
           {
-            "id": "true",
+            "id": "a",
             "type": "text",
             "content": "True",
             "codeLanguage": null
           },
           {
-            "id": "false",
+            "id": "b",
             "type": "text",
             "content": "False",
             "codeLanguage": null
           }
         ],
-        "correctAnswerId": "false",
+        "correctAnswerId": "b",
         "expectedAnswer": null,
-        "explanation": "Parentheses define a tuple, not a list.",
+        "explanation": "Standard parentheses actively define a Python Tuple, not a list (which relies on square brackets `[]`).",
         "relatedTopics": [
           "be-2"
         ]
