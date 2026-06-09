@@ -446,7 +446,9 @@ OPTION_FIXES: dict[str, dict[str, dict[str, str]]] = {
 QUESTION_TEXT_FIXES: dict[str, dict[str, str]] = {
     "2021": {
         "q15": "15. With which tag do you write the style rules directly within the document found within the head of the document?",
+        "q18": "18. Which of the following lines of JavaScript code will change the HTML inside of an element with the attribute id=\"myElement\" to \"CS 105\"?",
         "q19": "19. If the function print() has been defined that prints the value passed in as the parameter to it, how many times is \"Hello\" printed?",
+        "q20": "20. If the initial value of x (set on Line #1) is now 5 instead of 20, how many times is \"Hello\" printed?",
         "q75": "75. var a = 200; var b = \"200\"; a == b will return true while a === b will return false?",
         "q79": "79. In the following statement: myNumbers = {1, 2, 3}; x = myNumbers.pop(); The removed item will be 3.",
     },

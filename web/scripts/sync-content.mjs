@@ -17,7 +17,7 @@ import {
   normalizeOption,
   parseBlockContext,
   parseQuestionText,
-  stripEmbeddedOptionsFromQuestionText,
+  normalizeExamQuestionText,
   parseWrittenQuestionText,
 } from "./parse-question-content.mjs";
 import { buildRepetitiveCatalog } from "./stem-match.mjs";
@@ -252,7 +252,7 @@ function flattenExamBlocks(raw, year, sourceFile) {
     for (const q of block.questions ?? []) {
       order += 1;
       const sourceQuestionId = `${block.id}:${q.id}`;
-      const questionText = stripEmbeddedOptionsFromQuestionText(q.questionText);
+      const questionText = normalizeExamQuestionText(q.questionText);
       const entry = {
         id: sourceQuestionId,
         topic,

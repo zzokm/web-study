@@ -163,6 +163,25 @@ function isEmbeddedOptionLine(line) {
   return /^[a-d]\.\s+\S/i.test(line.trim());
 }
 
+/**
+ * Remove shared block context pasted onto the wrong question during PDF parsing
+ * (e.g. 2021 Q18 carrying the while-loop snippet meant for Q19–Q20).
+ */
+const LEAKED_SHARED_CONTEXT_RE =
+  /\n+For the next (?:two|three|four|\d+) questions?, consider the following code:\n[\s\S]*$/i;
+
+export function stripLeakedSharedContextFromQuestionText(questionText) {
+  if (!questionText) return questionText;
+  return questionText.replace(LEAKED_SHARED_CONTEXT_RE, "").replace(/\n+$/, "");
+}
+
+/** Normalize exam questionText before segment parsing or catalog storage. */
+export function normalizeExamQuestionText(questionText) {
+  return stripLeakedSharedContextFromQuestionText(
+    stripEmbeddedOptionsFromQuestionText(questionText)
+  );
+}
+
 /** Remove trailing `a.`–`d.` option lines when they duplicate structured answer choices. */
 export function stripEmbeddedOptionsFromQuestionText(questionText) {
   if (!questionText?.includes("\n")) return questionText;
@@ -258,7 +277,7 @@ export function parseWrittenQuestionText(questionText) {
 export function parseQuestionText(questionText) {
   if (!questionText) return [];
 
-  const strippedText = stripEmbeddedOptionsFromQuestionText(questionText);
+  const strippedText = normalizeExamQuestionText(questionText);
 
   if (!strippedText.includes("\n")) {
     return [{ type: "text", content: strippedText }];

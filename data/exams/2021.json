@@ -680,7 +680,7 @@
       {
         "id": "q18",
         "type": "multiple_choice",
-        "questionText": "18. Which of the following lines of JavaScript code will change the HTML inside of an element with the attribute id=\"myElement\" to \"CS 105\"?\nFor the next two questions, consider the following code:\nvar x = 20;\nwhile (x < 10) {\n  print(\"Hello\");\n  x *= 2;\n}",
+        "questionText": "18. Which of the following lines of JavaScript code will change the HTML inside of an element with the attribute id=\"myElement\" to \"CS 105\"?",
         "options": [
           {
             "id": "a",
@@ -776,7 +776,7 @@
       {
         "id": "q20",
         "type": "multiple_choice",
-        "questionText": "20. If the initial value of x (set on Line #1) is now 5 instead of 20, how many times is \"Hello\" printed?\nFor the next two questions, consider the following code:\nfunction foo(x) {\n  var ct = 0;\n  for (var i = 0; i < x.length; i++) {\n    if (x[i] >= 70) {\n      ct++;\n    }\n  }\n  return ct;\n}",
+        "questionText": "20. If the initial value of x (set on Line #1) is now 5 instead of 20, how many times is \"Hello\" printed?",
         "options": [
           {
             "id": "a",

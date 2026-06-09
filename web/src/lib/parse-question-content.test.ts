@@ -1,7 +1,9 @@
 import { describe, expect, it } from "vitest";
 import {
+  normalizeExamQuestionText,
   parseQuestionText,
   stripEmbeddedOptionsFromQuestionText,
+  stripLeakedSharedContextFromQuestionText,
 } from "../../scripts/parse-question-content.mjs";
 
 const Q18 =
@@ -12,6 +14,17 @@ const Q20 =
 
 const Q22 =
   "22. In the following statement: myNumbers = [1,2,3]\nx = myNumbers.pop()\nThe removed item will be 3.\na. True\nb. False";
+
+const Q18_2021_LEAKED =
+  '18. Which of the following lines of JavaScript code will change the HTML inside of an element with the attribute id="myElement" to "CS 105"?\nFor the next two questions, consider the following code:\nvar x = 20;\nwhile (x < 10) {\n  print("Hello");\n  x *= 2;\n}';
+
+describe("stripLeakedSharedContextFromQuestionText", () => {
+  it("removes the next block's shared code snippet from the wrong question", () => {
+    expect(stripLeakedSharedContextFromQuestionText(Q18_2021_LEAKED)).toBe(
+      '18. Which of the following lines of JavaScript code will change the HTML inside of an element with the attribute id="myElement" to "CS 105"?'
+    );
+  });
+});
 
 describe("stripEmbeddedOptionsFromQuestionText", () => {
   it("removes trailing True/False option lines", () => {
@@ -58,5 +71,16 @@ describe("parseQuestionText", () => {
       "21. In the following statement:\nmyNumbers = [1,2,3]\nx = myNumbers.pop()\nThe removed item will be 1";
     const segments = parseQuestionText(codeQuestion);
     expect(segments.some((s) => s.type === "code")).toBe(true);
+  });
+
+  it("does not treat 2021 Q18 as a code block when shared context was leaked", () => {
+    const segments = parseQuestionText(normalizeExamQuestionText(Q18_2021_LEAKED));
+    expect(segments).toEqual([
+      {
+        type: "text",
+        content:
+          '18. Which of the following lines of JavaScript code will change the HTML inside of an element with the attribute id="myElement" to "CS 105"?',
+      },
+    ]);
   });
 });

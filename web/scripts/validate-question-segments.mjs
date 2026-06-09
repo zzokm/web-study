@@ -2,8 +2,8 @@ import { readFileSync } from "node:fs";
 import { join, dirname } from "node:path";
 import { fileURLToPath } from "node:url";
 import {
+  normalizeExamQuestionText,
   parseQuestionText,
-  stripEmbeddedOptionsFromQuestionText,
 } from "./parse-question-content.mjs";
 
 const root = join(dirname(fileURLToPath(import.meta.url)), "..", "..", "data", "exams");
@@ -23,9 +23,7 @@ for (const year of ["2021", "2024", "2025"]) {
   for (const block of blocks) {
     for (const q of block.questions ?? []) {
       if (!q.questionText?.includes("\n")) continue;
-      const segments = parseQuestionText(
-        stripEmbeddedOptionsFromQuestionText(q.questionText)
-      );
+      const segments = parseQuestionText(normalizeExamQuestionText(q.questionText));
       const code = segments.find((segment) => segment.type === "code");
       if (!code) continue;
       if (proseInCode(code.content)) {
