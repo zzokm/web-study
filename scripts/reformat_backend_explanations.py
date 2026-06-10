@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Normalize structure, dashes, and bullets in backend explanation JSON files."""
+"""Normalize backend explanations with topic-based sections (no Answer/Explanation labels)."""
 
 from __future__ import annotations
 
@@ -11,21 +11,22 @@ ROOT = Path(__file__).resolve().parents[1]
 SOURCES = [
     ROOT / "data" / "explanations" / "be2-python-explanations.json",
     ROOT / "data" / "explanations" / "backend-other-explanations.json",
+    ROOT / "data" / "explanations" / "frontend-explanations.json",
 ]
 
-TRAP_MARKERS = (
-    "exam trap:",
-    "common trap:",
-    "exam trick:",
-    "exam tip:",
+TRAP_PREFIXES = (
+    "Exam trap:",
+    "Common trap:",
+    "Exam trick:",
+    "Exam tip:",
+    "Common mistake:",
 )
 
 
 def normalize_dashes(text: str) -> str:
-    text = text.replace("\u2014", ": ")  # em dash
-    text = text.replace("\u2013", " to ")  # en dash
-    text = re.sub(r"\s+:\s+", ": ", text)
-    text = re.sub(r" to to ", " to ", text)
+    text = text.replace("\u2014", "; ")
+    text = text.replace("\u2013", " to ")
+    text = re.sub(r";\s+", "; ", text)
     return text
 
 
@@ -35,90 +36,126 @@ def normalize_bullets(text: str) -> str:
     return text
 
 
+def looks_like_code(inner: str) -> bool:
+    return bool(re.search(r'[{[\(=]|def |class |print|import|lambda|#', inner))
+
+
 def fix_inline_code_quotes(text: str) -> str:
-    """Prefer double quotes inside backtick spans to avoid display/parser issues."""
     def repl(match: re.Match[str]) -> str:
-        inner = match.group(1).replace("'", '"')
-        return f"`{inner}`"
+        inner = match.group(1)
+        if "**" in inner or not looks_like_code(inner):
+            return f"`{inner}`"
+        return f"`{inner.replace(chr(39), chr(34))}`"
 
     return re.sub(r"`([^`]+)`", repl, text)
 
 
+def capitalize_first(text: str) -> str:
+    text = text.strip()
+    return text[0].upper() + text[1:] if text else text
+
+
 def split_sentences(text: str) -> list[str]:
-    parts = re.split(r"(?<=[.!?])\s+", text.strip())
-    return [p for p in parts if p]
+    """Split on sentence boundaries without breaking quoted periods like (\"a. and b.\")."""
+    parts = re.split(r"(?<=[.!?])\s+(?=[A-Z*`\"(])", text.strip())
+    return [p.strip() for p in parts if p.strip()]
 
 
-def chunk_sentences(sentences: list[str], size: int = 2) -> list[str]:
-    chunks: list[str] = []
-    buf: list[str] = []
-    for sent in sentences:
-        buf.append(sent)
-        if len(buf) >= size:
-            chunks.append(" ".join(buf))
-            buf = []
-    if buf:
-        chunks.append(" ".join(buf))
-    return chunks
+def format_option_line(sent: str) -> str:
+    if sent.startswith("- "):
+        return sent
+    wrong = re.match(r"^Option ([A-D])\s+is\s+wrong\s+because\s+(.+)$", sent, re.I)
+    if wrong:
+        return f"- {wrong.group(1)}: {capitalize_first(wrong.group(2))}"
+    plain = re.match(r"^Option ([A-D])\s+(.+)$", sent, re.I)
+    if plain:
+        return f"- {plain.group(1)}: {capitalize_first(plain.group(2))}"
+    options_plural = re.match(r"^Options ([A-D].+)$", sent, re.I)
+    if options_plural:
+        return f"- {options_plural.group(1)}"
+    return f"- {sent}"
 
 
-def repair_broken_headers(text: str) -> str:
-    """Fix headers split as **Title\\n\\n** by earlier formatting passes."""
-    text = re.sub(r"\*\*([^*\n]+)\n+\*\*", r"**\1**", text)
-    return text
-
-
-def ensure_section_spacing(text: str) -> str:
-    text = repair_broken_headers(text)
-    text = re.sub(r"\n{3,}", "\n\n", text)
-    text = re.sub(r"(?<!\n\n)(\*\*[^*\n]+\*\*)", r"\n\n\1", text)
-    return text.strip()
-
-
-def extract_trap(text: str) -> tuple[str, str | None]:
+def peel_trap(text: str) -> tuple[str, str | None]:
     lower = text.lower()
-    for marker in TRAP_MARKERS:
-        idx = lower.find(marker)
+    for prefix in TRAP_PREFIXES:
+        idx = lower.find(prefix.lower())
         if idx != -1:
             main = text[:idx].strip().rstrip(".")
-            trap = text[idx + len(marker) :].strip()
+            trap = text[idx + len(prefix) :].strip()
             return main, trap
     return text, None
 
 
-def has_sections(text: str) -> bool:
-    return text.count("**") >= 2
+def peel_options(text: str) -> tuple[str, list[str]]:
+    sentences = split_sentences(text)
+    main: list[str] = []
+    options: list[str] = []
+    for sent in sentences:
+        if re.match(r"^Option[s]? [A-D]\b", sent, re.I):
+            options.append(sent)
+        elif re.match(r"^- [A-D]:", sent):
+            options.append(sent)
+        else:
+            main.append(sent)
+    return " ".join(main), options
 
 
-def structure_plain(text: str) -> str:
-    main, trap = extract_trap(text)
-    sentences = split_sentences(main)
+def is_code_trace(text: str) -> bool:
+    return bool(
+        re.search(
+            r"(?:print|append|pop|sort|lambda|unpack|slice|\[:|\[7:|step by step|trace the state)",
+            text,
+            re.I,
+        )
+    )
+
+
+def paragraph_chunks(text: str, max_sentences: int = 3) -> str:
+    sentences = split_sentences(text)
     if not sentences:
         return text
+    chunks: list[str] = []
+    for i in range(0, len(sentences), max_sentences):
+        chunks.append(" ".join(sentences[i : i + max_sentences]))
+    return "\n\n".join(chunks)
 
-    chunks = chunk_sentences(sentences, size=2)
-    sections = [f"**Answer**\n\n{chunks[0]}"]
-    if len(chunks) > 1:
-        sections.append(f"**Explanation**\n\n" + "\n\n".join(chunks[1:]))
+
+def build_output(main: str, options: list[str], trap: str | None) -> str:
+    parts: list[str] = []
+
+    if main.strip():
+        header = "**Step by step**" if is_code_trace(main) else "**How it works**"
+        parts.append(f"{header}\n\n{paragraph_chunks(main)}")
+
+    if options:
+        bullets = "\n".join(format_option_line(o) for o in options)
+        parts.append(f"**Why the others fail**\n\n{bullets}")
+
     if trap:
-        sections.append(f"**Exam tip**\n\n{trap}")
-    return "\n\n".join(sections)
+        parts.append(f"**Common mistake**\n\n{capitalize_first(trap)}")
+
+    body = "\n\n".join(parts)
+    body = re.sub(r"\n{3,}", "\n\n", body)
+    body = re.sub(r"(?<!\n\n)(\*\*[^*\n]+\*\*)", r"\n\n\1", body)
+    return body.strip()
 
 
 def reformat_explanation(text: str) -> str:
     text = normalize_dashes(text)
     text = normalize_bullets(text)
     text = fix_inline_code_quotes(text)
-    if has_sections(text):
-        return ensure_section_spacing(text)
-    return ensure_section_spacing(structure_plain(text))
+
+    main, trap = peel_trap(text)
+    main, options = peel_options(main)
+    return build_output(main, options, trap)
 
 
 def process_file(path: Path) -> int:
     data = json.loads(path.read_text(encoding="utf-8"))
     changes = 0
-    for year, items in data.items():
-        for qid, expl in items.items():
+    for items in data.values():
+        for qid, expl in list(items.items()):
             new = reformat_explanation(expl)
             if new != expl:
                 items[qid] = new

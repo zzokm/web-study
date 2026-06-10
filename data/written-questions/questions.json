@@ -65,7 +65,7 @@
           }
         ]
       },
-      "explanation": "Your snippet should render the sentence with strike-through on \"English\" and underline on \"Arabic\", include a button labeled \"Style\", and apply green 14px Arial styling to the paragraph when clicked. Any valid HTML/CSS/JS approach works as long as the outcome matches. See the model answer below.",
+      "explanation": "**How it works**\n\nHTML tags `<s>` and `<u>` apply strikethrough and underline to inline text. JavaScript inline styles use camelCase property names on `element.style`: `color`, `fontSize`, and `fontFamily` map to CSS `color`, `font-size`, and `font-family`.\n\n**Step by step**\n\n1. Build a `<p>` containing the sentence with `<s>English</s>` and `<u>Arabic</u>`, and give the paragraph an `id` for targeting.\n2. Add a `<button>` labeled \"Style\" with `onclick` calling a function such as `changeStyle()`.\n3. Inside the function, call `document.getElementById(...)`, then assign `p.style.color = \"green\"`, `p.style.fontSize = \"14px\"`, and `p.style.fontFamily = \"Arial\"`.\n\n**What to include**\n\nThe rubric expects the full sentence text, strikethrough on \"English\", underline on \"Arabic\", a \"Style\" button, and after click computed styles of green text, 14px size, and Arial font on the paragraph.\n\n**Common mistake**\n\nApplying styles on page load instead of on button click, or using `<del>`/CSS without wiring the click handler the rubric triggers.",
       "relatedTopics": [
         "fe-3"
       ]
@@ -95,7 +95,7 @@
           }
         ]
       },
-      "explanation": "This task tests basic DOM manipulation. You need an element to target by ID, a button with an `onclick` event listener, and a JavaScript function that uses `document.getElementById` and `.innerHTML` to update the text.",
+      "explanation": "**How it works**\n\nThe DOM exposes page elements as objects. `document.getElementById(\"status\")` returns the unique node with that `id`. Setting `.innerHTML` replaces the element's inner content, which updates visible text without reloading the page.\n\n**Step by step**\n\n1. Add `<div id=\"status\">Pending</div>` as the target element.\n2. Define `function completeTask() { document.getElementById(\"status\").innerHTML = \"Completed\"; }`.\n3. Add a button with `onclick=\"completeTask()\"` so the user triggers the update.\n\n**What to include**\n\nThe rubric checks for a `#status` div showing \"Pending\" and a labeled button (model answer uses \"Complete\"). Your function must change the div text when clicked.\n\n**Common mistake**\n\nUsing `getElementsByClassName` when the prompt requires an `id`, or forgetting to connect the button's click to `completeTask()`.",
       "relatedTopics": [
         "fe-3"
       ]
@@ -123,7 +123,7 @@
           }
         ]
       },
-      "explanation": "The `.filter()` method creates a shallow copy of a portion of a given array, filtered down to just the elements from the given array that pass the test implemented by the provided callback function.",
+      "explanation": "**How it works**\n\n`.filter()` walks an array and keeps only elements where the callback returns a truthy value. The `>` operator compares numbers; `score > 50` excludes 45 and 30 while keeping 80, 89, and 95. `.filter()` returns a new array and does not mutate `scores`.\n\n**Step by step**\n\n1. Declare `const scores = [45, 80, 89, 30, 95];`.\n2. Write `const passingScores = scores.filter(score => score > 50);` (a `function(score) { return score > 50; }` callback also works).\n3. Log with `console.log(passingScores);` to output `[80, 89, 95]`.\n\n**What to include**\n\nThe rubric looks for `.filter` and `console.log` in your code. The variable must be named `passingScores` and use a greater-than-50 test.\n\n**Common mistake**\n\nUsing `.map()` or a `for` loop instead of `.filter()`, or comparing with `>= 50` when the prompt says strictly greater than 50.",
       "relatedTopics": [
         "fe-5"
       ]
@@ -156,7 +156,7 @@
           }
         ]
       },
-      "explanation": "Using `async/await` is modern syntax for handling JavaScript Promises. The `try/catch` block ensures that if the Promise is rejected, the application can handle the error gracefully without crashing.",
+      "explanation": "**How it works**\n\nAn `async function` always returns a Promise. The `await` keyword pauses inside that function until `fetchData()` resolves, then assigns the result. If the Promise rejects, control jumps to `catch` instead of crashing the script.\n\n**Step by step**\n\n1. Declare `async function loadData() { ... }`.\n2. Wrap `const result = await fetchData();` and `console.log(result);` inside `try { ... }`.\n3. Add `catch (error) { console.log(error); }` to handle failures.\n\n**What to include**\n\nThe rubric checks for `async function loadData`, `await fetchData`, and a `catch` block. You do not need to call `loadData()` unless the prompt asks; defining it correctly is enough.\n\n**Common mistake**\n\nUsing `await` outside an `async function`, or omitting `try/catch` so rejected promises become unhandled errors.",
       "relatedTopics": [
         "fe-6"
       ]
@@ -184,7 +184,7 @@
           }
         ]
       },
-      "explanation": "Descendant selectors (like `.nav-menu a`) target specific elements within a parent class. The `:hover` pseudo-class allows you to apply styling specifically when the user interacts with the element using their cursor.",
+      "explanation": "**How it works**\n\nThe descendant selector `.nav-menu a` matches every `<a>` inside any element with class `nav-menu`, without requiring a direct child relationship. The `:hover` pseudo-class applies styles only while the pointer rests over the element.\n\n**Step by step**\n\n1. Write `.nav-menu a { text-decoration: none; }` to remove underlines from all nav links.\n2. Write `.nav-menu a:hover { color: red; }` for the hover state.\n\n**What to include**\n\nThe rubric requires `text-decoration: none` and an `a:hover` rule (typically chained after `.nav-menu`). Both rules belong in a `<style>` block or stylesheet.\n\n**Common mistake**\n\nUsing `.nav-menu:hover` (styles the container on hover) instead of `.nav-menu a:hover`, or setting `text-decoration: underline` by mistake.",
       "relatedTopics": [
         "fe-4"
       ]
@@ -212,7 +212,7 @@
           }
         ]
       },
-      "explanation": "JavaScript objects store data as key-value pairs. You can access an object's values dynamically using dot notation (`object.property`) or bracket notation (`object['property']`).",
+      "explanation": "**How it works**\n\nA JavaScript object stores named properties. Dot notation (`student.name`) reads the value bound to key `name`. The `+` operator concatenates strings and coerces the numeric `gpa` to a string when building the output sentence.\n\n**Step by step**\n\n1. Create `var student = { name: 'Ali', gpa: 3.8 };` (or `const`).\n2. Call `document.writeln(student.name + ' has a GPA of ' + student.gpa);`.\n\n**What to include**\n\nThe rubric checks for `document.writeln` and dynamic access via `student.name` (or bracket notation). The printed line must read \"Ali has a GPA of 3.8\" using property values, not hard-coded literals alone.\n\n**Common mistake**\n\nHard-coding the full string without reading from `student`, or using `console.log` when the prompt specifies `document.writeln()`.",
       "relatedTopics": [
         "fe-5"
       ]
@@ -241,7 +241,7 @@
           }
         ]
       },
-      "explanation": "Forms are structured using the `<form>` tag. Hiding characters requires setting the `<input>` type to `\"password\"`. A `<button>` with type `\"submit\"` is standard practice for triggering the form submission.",
+      "explanation": "**How it works**\n\nThe `<form>` element groups inputs for submission. `<input type=\"password\">` masks typed characters in the browser. `<button type=\"submit\">` triggers native form submission when clicked (default button type inside a form is often `submit` anyway).\n\n**Step by step**\n\n1. Open with `<form>` (optional `action`/`method` omitted for a simple snippet).\n2. Add a text `<input>` for username and `<input type=\"password\">` for password.\n3. Close with `<button type=\"submit\">Login</button>` and `</form>`.\n\n**What to include**\n\nThe rubric requires `type=\"password\"` on the password field and a submit button labeled \"Login\". Labels or `<br>` separators are optional but improve readability.\n\n**Common mistake**\n\nUsing `type=\"text\"` for the password field, or a plain `<button>` without `type=\"submit\"` when the prompt asks for a submit button.",
       "relatedTopics": [
         "fe-2"
       ]
@@ -269,7 +269,7 @@
           }
         ]
       },
-      "explanation": "AJAX (Asynchronous JavaScript and XML) allows web pages to be updated asynchronously. The `XMLHttpRequest` object requires opening a connection, setting a state change handler to verify HTTP 200 success, and finally sending the request.",
+      "explanation": "**How it works**\n\n`XMLHttpRequest` sends HTTP requests without reloading the page. `readyState === 4` means the request finished; `status === 200` means OK. `responseText` holds the body as a string, which you inject into the DOM via `.innerHTML`.\n\n**Step by step**\n\n1. Create `var xhttp = new XMLHttpRequest();`.\n2. Set `xhttp.onreadystatechange = function() { if (this.readyState == 4 && this.status == 200) { document.getElementById(\"result\").innerHTML = this.responseText; } };`.\n3. Call `xhttp.open(\"GET\", \"api/data\", true);` then `xhttp.send();`.\n\n**What to include**\n\nThe rubric looks for `new XMLHttpRequest()` and a success check including `this.status == 200`. The `#result` element must receive the response text on success.\n\n**Common mistake**\n\nCalling `send()` before `open()`, checking only `readyState` without verifying status 200, or updating the wrong element id.",
       "relatedTopics": [
         "fe-6"
       ]
@@ -297,7 +297,7 @@
           }
         ]
       },
-      "explanation": "ES6 arrow functions provide a more concise syntax. If the function body contains only a single return statement, the curly braces `{}` and the `return` keyword can be omitted for an implicit return.",
+      "explanation": "**How it works**\n\nES6 arrow functions use `(params) => expression` syntax. When the body is a single expression, JavaScript returns it implicitly, so `return` and `{}` are optional. Assigning to `const multiply` creates a block-scoped function reference.\n\n**Step by step**\n\n1. Write `const multiply = (a, b) => a * b;` inside a `<script>` tag.\n2. The `*` operator multiplies the two parameters, matching the original `function(a, b) { return a * b; }`.\n\n**What to include**\n\nThe rubric checks for `const multiply` and the `=>` arrow token. Parameter names `a` and `b` should match the original function.\n\n**Common mistake**\n\nWriting `function multiply(a, b)` instead of an arrow function, or adding `{}` without an explicit `return`, which yields `undefined`.",
       "relatedTopics": [
         "fe-5",
         "fe-6"
@@ -321,7 +321,7 @@
           }
         ]
       },
-      "explanation": "Modern HTML5 Web Storage provides `localStorage` for persisting data across browser sessions. The `setItem` method requires a key and a value.",
+      "explanation": "**How it works**\n\n`localStorage` is part of the Web Storage API and persists key-value pairs for the origin until cleared. Values are always strings. `setItem(key, value)` stores or overwrites an entry; it does not return a meaningful value for chaining.\n\n**Step by step**\n\n1. Inside `<script>`, write one statement: `localStorage.setItem('username', 'Guest');`.\n\n**What to include**\n\nThe rubric requires the exact API call `localStorage.setItem`. Key must be `'username'` and value `'Guest'` as specified.\n\n**Common mistake**\n\nUsing `sessionStorage` (cleared when the tab closes), assigning `localStorage.username = ...` (works but may not match rubric string checks), or storing a non-string without realizing JSON.stringify is needed for objects.",
       "relatedTopics": [
         "fe-6"
       ]
@@ -354,7 +354,7 @@
           }
         ]
       },
-      "explanation": "Flexbox is ideal for UI alignment. `justify-content` centers items along the main axis (horizontal by default), while `align-items` centers them along the cross axis (vertical).",
+      "explanation": "**How it works**\n\n`display: flex` turns an element into a flex container; its direct children become flex items. `justify-content` aligns items along the main axis (horizontal by default). `align-items` aligns items along the cross axis (vertical by default).\n\n**Step by step**\n\n1. Target `.container { display: flex; }`.\n2. Add `justify-content: center;` for horizontal centering.\n3. Add `align-items: center;` for vertical centering.\n\n**What to include**\n\nThe rubric checks for all three declarations: `display: flex`, `justify-content: center`, and `align-items: center` on `.container`.\n\n**Common mistake**\n\nSwapping `justify-content` and `align-items`, or using `text-align: center` which only affects inline text, not flex item placement.",
       "relatedTopics": [
         "fe-4"
       ]
@@ -382,7 +382,7 @@
           }
         ]
       },
-      "explanation": "You can modify HTML attributes directly via the DOM API. Accessing the `.src` property of an Image object allows you to swap graphics dynamically.",
+      "explanation": "**How it works**\n\nImage elements expose a `.src` property mirroring the HTML `src` attribute. Assigning a new URL triggers the browser to load that image. `getElementById('lightbulb')` assumes an `<img id=\"lightbulb\">` already exists on the page.\n\n**Step by step**\n\n1. Define `function turnOn() { ... }`.\n2. Inside, set `document.getElementById('lightbulb').src = 'pic_bulbon.gif';`.\n\n**What to include**\n\nThe rubric looks for `getElementById('lightbulb')` and `.src =` assignment. The function name must be `turnOn`.\n\n**Common mistake**\n\nUsing `setAttribute('src', ...)` is valid but may miss rubric substring checks; confusing `.src` with `.href` or targeting the wrong id.",
       "relatedTopics": [
         "fe-3"
       ]
@@ -410,7 +410,7 @@
           }
         ]
       },
-      "explanation": "CSS Grid is powerful for 2D layouts. The `repeat()` function paired with the fractional unit (`1fr`) easily distributes available space equally across columns.",
+      "explanation": "**How it works**\n\n`display: grid` creates a grid formatting context. `grid-template-columns` defines track sizes for columns. `repeat(3, 1fr)` builds three columns each taking one fraction of free space, so they stay equal width.\n\n**Step by step**\n\n1. Write `.dashboard { display: grid; grid-template-columns: repeat(3, 1fr); }`.\n\n**What to include**\n\nThe rubric requires `display: grid` and a `grid-template-columns:` declaration. `repeat(3, 1fr)` or three explicit `1fr` tracks both satisfy equal-width columns.\n\n**Common mistake**\n\nUsing `display: flex` instead of grid, writing `grid-template-rows` when columns were requested, or `repeat(3, 1px)` which does not distribute remaining space equally.",
       "relatedTopics": [
         "fe-4"
       ]
@@ -438,7 +438,7 @@
           }
         ]
       },
-      "explanation": "The `.map()` array method iterates over a collection and applies a transformation to each item, returning a brand new array with the extracted or modified values.",
+      "explanation": "**How it works**\n\n`.map()` transforms each array element and returns a new array of the same length. The callback receives each object; `server.host` reads the `host` property. Arrow syntax `server => server.host` implicitly returns that value.\n\n**Step by step**\n\n1. Start with `const servers = [{host: 'Alpha'}, {host: 'Beta'}];`.\n2. Write `const serverNames = servers.map(server => server.host);`.\n\n**What to include**\n\nThe rubric checks for `.map(` and `.host` property access. Result should be `['Alpha', 'Beta']` without mutating `servers`.\n\n**Common mistake**\n\nUsing `.filter()` instead of `.map()`, returning whole objects instead of host strings, or forgetting `const serverNames`.",
       "relatedTopics": [
         "fe-5"
       ]
@@ -466,7 +466,7 @@
           }
         ]
       },
-      "explanation": "ES6 introduces default parameter values natively in the function signature, allowing variables to fallback gracefully if no argument is passed.",
+      "explanation": "**How it works**\n\nES6 default parameters use `name = 'User'` in the parameter list. If the caller omits `name` or passes `undefined`, `'User'` is used. Arrow functions with expression bodies return `'Welcome ' + name` via implicit return.\n\n**Step by step**\n\n1. Write `const greet = (name = 'User') => 'Welcome ' + name;`.\n\n**What to include**\n\nThe rubric looks for `=>` arrow syntax and `name = 'User'` default syntax. Calling `greet()` should yield `'Welcome User'`.\n\n**Common mistake**\n\nDefaulting inside the function body with `if (name === undefined)` when ES6 signature syntax was requested, or using template literals without the required `'Welcome '` prefix pattern.",
       "relatedTopics": [
         "fe-6"
       ]
@@ -499,7 +499,7 @@
           }
         ]
       },
-      "explanation": "The modern way to manage UI states like dark mode is using the `.classList` API. The `.toggle()` method adds the class if it's missing, and removes it if it's present.",
+      "explanation": "**How it works**\n\nCSS classes separate presentation from behavior. `.classList.toggle('dark-mode')` on `document.body` adds the class if absent and removes it if present. Styles in `.dark-mode { background-color: black; color: white; }` apply to the whole page when the class is on `<body>`.\n\n**Step by step**\n\n1. Add a `<style>` block defining `.dark-mode` with black background and white text.\n2. Add `<button onclick=\"toggleTheme()\">Toggle Theme</button>`.\n3. Implement `function toggleTheme() { document.body.classList.toggle('dark-mode'); }`.\n\n**What to include**\n\nThe rubric checks for `.dark-mode` CSS, `classList.toggle`, and `document.body` as the target element.\n\n**Common mistake**\n\nToggling class on a `<div>` instead of `body`, using `className = 'dark-mode'` (which removes other classes) instead of `classList.toggle`, or omitting the CSS block.",
       "relatedTopics": [
         "fe-3",
         "fe-4"
@@ -533,7 +533,7 @@
           }
         ]
       },
-      "explanation": "Handling JSON APIs with raw AJAX requires manually checking the ready state and status codes before parsing the raw string payload using `JSON.parse()`.",
+      "explanation": "**How it works**\n\nAJAX responses arrive as text in `responseText`, even when the server sends JSON. `JSON.parse(string)` converts valid JSON text into a JavaScript object. You must wait for `readyState == 4` and `status == 200` before parsing.\n\n**Step by step**\n\n1. Create `var xhr = new XMLHttpRequest();` and set `onreadystatechange`.\n2. On success, run `var data = JSON.parse(this.responseText);` then `console.log(data);`.\n3. Call `xhr.open('GET', 'api/config', true);` and `xhr.send();`.\n\n**What to include**\n\nThe rubric requires `new XMLHttpRequest()`, `JSON.parse(`, and `open('GET'`. Logging the parsed object completes the third requirement.\n\n**Common mistake**\n\nUsing `responseJSON` (jQuery-only), parsing before the request completes, or forgetting `JSON.parse` and logging a string instead of an object.",
       "relatedTopics": [
         "fe-6"
       ]
@@ -566,7 +566,7 @@
           }
         ]
       },
-      "explanation": "Promises represent the eventual completion of an asynchronous operation. You define the work inside the Promise constructor, invoke `resolve` when finished, and handle the outcome using `.then()`.",
+      "explanation": "**How it works**\n\n`new Promise((resolve, reject) => { ... })` runs the executor immediately. `setTimeout(fn, 1000)` schedules `resolve('System Operational')` after one second. `.then(callback)` runs when the Promise fulfills, receiving the resolved value.\n\n**Step by step**\n\n1. Define `function checkStatus() { return new Promise((resolve, reject) => { setTimeout(() => { resolve('System Operational'); }, 1000); }); }`.\n2. Call `checkStatus().then(message => console.log(message));`.\n\n**What to include**\n\nThe rubric checks for `new Promise`, `setTimeout(`, and `.then(`. The resolved string must be logged after the delay.\n\n**Common mistake**\n\nCalling `resolve` synchronously without `setTimeout`, omitting `return` before `new Promise` so the function returns `undefined`, or using `async/await` when the prompt asks for `.then()`.",
       "relatedTopics": [
         "fe-6"
       ]
@@ -599,7 +599,7 @@
           }
         ]
       },
-      "explanation": "Client-side form validation is crucial. Catching the `submit` event allows you to run logic before a page reload happens. `event.preventDefault()` stops the browser's native submission process.",
+      "explanation": "**How it works**\n\nThe `submit` event fires when the user submits a form. `addEventListener('submit', handler)` runs before navigation. `event.preventDefault()` cancels default submission. Reading `input.value` gives the current field text; `.length` counts characters.\n\n**Step by step**\n\n1. Build `<form id=\"authForm\">` with `<input type=\"password\" id=\"pwd\">` and a submit button.\n2. Attach `document.getElementById('authForm').addEventListener('submit', function(event) { ... });`.\n3. If `document.getElementById('pwd').value.length < 8`, call `event.preventDefault()` and `alert(...)`.\n\n**What to include**\n\nThe rubric looks for `addEventListener('submit'`, `preventDefault()`, and `.length < 8`. An alert message satisfies the \"show an alert\" requirement.\n\n**Common mistake**\n\nListening to the button's `click` instead of the form's `submit`, or validating without `preventDefault()` so the form still posts.",
       "relatedTopics": [
         "fe-3"
       ]
@@ -627,7 +627,7 @@
           }
         ]
       },
-      "explanation": "The `.reduce()` method executes a reducer function on each element of the array, passing in the return value from the calculation on the preceding element. It's excellent for condensing arrays into single values.",
+      "explanation": "**How it works**\n\n`.reduce(callback, initialValue)` folds an array into one value. The callback receives `(accumulator, currentElement)`. Without an initial value, the first element becomes the accumulator, which can produce a leading hyphen if you always prepend `'-'`.\n\n**Step by step**\n\n1. Declare `const labels = ['Secure', 'Fast', 'Scalable'];`.\n2. Write `const tagline = labels.reduce((acc, curr) => acc + '-' + curr);` (or trim the leading hyphen with an initial value `''`).\n\n**What to include**\n\nThe rubric checks for `.reduce(` and a `'-'` separator in the concatenation. Assign the result to `tagline`.\n\n**Common mistake**\n\nUsing `.join('-')` when the prompt requires `.reduce()`, or passing wrong argument order so strings concatenate incorrectly.",
       "relatedTopics": [
         "fe-5"
       ]
@@ -660,7 +660,7 @@
           }
         ]
       },
-      "explanation": "Creating interactive tabs relies on manipulating the `.style.display` property of DOM elements. The logic involves resetting all related elements to a hidden state before revealing the specific target.",
+      "explanation": "**How it works**\n\nThe CSS `display` property controls layout: `'none'` removes an element from rendering; `'block'` shows it as a block box. Toggling tabs means hiding every panel first, then showing only the one whose `id` matches `targetId`.\n\n**Step by step**\n\n1. Add two buttons calling `switchTab('panel1')` and `switchTab('panel2')`, plus `<div id=\"panel1\">` and `<div id=\"panel2\">`.\n2. In `switchTab(targetId)`, set both panels' `.style.display = 'none'`.\n3. Set `document.getElementById(targetId).style.display = 'block'`.\n\n**What to include**\n\nThe rubric checks for `.style.display`, `'none'`, and `'block'`. Function name must be `switchTab` accepting the panel id.\n\n**Common mistake**\n\nShowing a panel without hiding the other first, or using `visibility: hidden` instead of `display: none` (element still occupies space).",
       "relatedTopics": [
         "fe-3"
       ]
@@ -693,7 +693,7 @@
           }
         ]
       },
-      "explanation": "ES6 classes provide a much cleaner syntax over traditional prototype-based inheritance. The `constructor` method is automatically called when a new instance of the class is created.",
+      "explanation": "**How it works**\n\nES6 `class` syntax defines constructor and methods on a prototype. `constructor(role)` runs on `new Admin('Superuser')` and sets `this.role`. Instance methods use `this` to read instance fields. `getAccess()` builds a string with `+` concatenation.\n\n**Step by step**\n\n1. Declare `class Admin { constructor(role) { this.role = role; } getAccess() { return 'Access level: ' + this.role; } }`.\n2. Create `const user = new Admin('Superuser');` and `console.log(user.getAccess());`.\n\n**What to include**\n\nThe rubric checks for `class Admin`, `constructor(`, and `new Admin`. Logged output should be `Access level: Superuser`.\n\n**Common mistake**\n\nForgetting `this.` inside methods, using a static method when an instance method was required, or returning a template without the exact `'Access level: '` prefix.",
       "relatedTopics": [
         "fe-6"
       ]
@@ -721,7 +721,7 @@
           }
         ]
       },
-      "explanation": "DOM traversal APIs like `.parentNode`, `.nextSibling`, or `.children` allow you to navigate the HTML tree programmatically relative to a known element, which is essential when IDs aren't present on every node.",
+      "explanation": "**How it works**\n\nEvery DOM node except the document root has a `.parentNode` pointing upward. `.classList.add('highlight')` appends a class token without removing existing classes. You can start from a known `id` and modify an ancestor you did not select directly.\n\n**Step by step**\n\n1. Store `const target = document.getElementById('node');`.\n2. Call `target.parentNode.classList.add('highlight');` to style the wrapping `.wrapper` div.\n\n**What to include**\n\nThe rubric requires `.parentNode` and `.classList.add`. The HTML provides `<div class='wrapper'><p id='node'>` so the parent should receive `highlight`.\n\n**Common mistake**\n\nUsing `.parentElement` is fine in modern browsers but rubric may expect `.parentNode`; adding class to `#node` instead of its parent fails the traversal requirement.",
       "relatedTopics": [
         "fe-3"
       ]
@@ -749,7 +749,7 @@
           }
         ]
       },
-      "explanation": "Event delegation is a performance optimization. Instead of attaching a listener to every child element, you attach one to the parent and leverage event bubbling (`event.target`) to determine exactly what was clicked.",
+      "explanation": "**How it works**\n\nEvents bubble from the clicked element up to ancestors. One listener on `#nav-list` catches clicks on any descendant. `event.target` is the innermost element clicked; comparing `event.target.nodeName === 'LI'` filters to list items only.\n\n**Step by step**\n\n1. Select `document.getElementById('nav-list')`.\n2. Call `.addEventListener('click', function(event) { ... })`.\n3. Inside, `if (event.target.nodeName === 'LI') { console.log(event.target.innerText); }`.\n\n**What to include**\n\nThe rubric looks for `getElementById('nav-list').addEventListener` and `event.target.nodeName`. Only one listener on the `<ul>` should handle all `<li>` clicks.\n\n**Common mistake**\n\nAttaching listeners to each `<li>` (not delegation), or checking `event.currentTarget` instead of `event.target` when you need the clicked item.",
       "relatedTopics": [
         "fe-3"
       ]
@@ -782,7 +782,7 @@
           }
         ]
       },
-      "explanation": "Manipulating UI badges dynamically involves a combination of updating textual nodes (`innerText` or `textContent`) and swapping CSS classes via the `classList` API to manage the visual state.",
+      "explanation": "**How it works**\n\nText updates use `.innerText` or `.textContent`. CSS classes `.err` and `.success` control color via `color: red` and `color: green`. `classList.remove('err')` and `classList.add('success')` swap visual state without inline styles.\n\n**Step by step**\n\n1. Define CSS `.err { color: red; }` and `.success { color: green; }`.\n2. Add `<span id=\"indicator\" class=\"err\">Disconnected</span>`.\n3. In `establishConnection()`, set text to `'Connected'`, then `badge.classList.remove('err'); badge.classList.add('success');`.\n\n**What to include**\n\nThe rubric checks `.innerText = 'Connected'`, `classList.remove('err')`, and `classList.add('success')`. Initial state must show \"Disconnected\" with class `err`.\n\n**Common mistake**\n\nAdding `success` without removing `err` (both classes may conflict), or changing color with inline styles only while omitting the required classList calls.",
       "relatedTopics": [
         "fe-3",
         "fe-4"
@@ -812,7 +812,7 @@
           }
         ]
       },
-      "explanation": "**Answer**\n\nDjango models subclass `models.Model`. Each class attribute using a `models.*Field` becomes a database column.\n\n**Explanation**\n\n`CharField` requires `max_length`; `IntegerField` stores integers. After defining the model, run `makemigrations` then `migrate`.\n\nExample: `class Product(models.Model): name = models.CharField(max_length=100); price = models.IntegerField()`.",
+      "explanation": "**How it works**\n\nDjango models subclass `models.Model`. Each class attribute using a `models.*Field` (e.g. `CharField`, `IntegerField`) becomes a database column. `CharField` requires `max_length`; `IntegerField` stores integers.\n\nAfter defining the model, run `python manage.py makemigrations` then `migrate`. Example: `class Product(models.Model): name = models.CharField(max_length=100); price = models.IntegerField()`.",
       "relatedTopics": [
         "be-8"
       ]
@@ -841,7 +841,7 @@
           }
         ]
       },
-      "explanation": "**Answer**\n\nA function-based view accepts `request` as its first argument and must return an `HttpResponse` (or subclass). Import `HttpResponse` from `django.http`.\n\n**Explanation**\n\nMinimal pattern: `def home_view(request): return HttpResponse(\"<h1>Welcome to Django</h1>\")`. Wire it in `urls.py` with `path(\"\", views.home_view)`.",
+      "explanation": "**How it works**\n\nA function-based view accepts `request` (`HttpRequest`) as its first argument and must return an `HttpResponse` (or subclass). Import `HttpResponse` from `django.http`. Minimal pattern: `def home_view(request): return HttpResponse(\"<h1>Welcome to Django</h1>\")`.\n\nWire it in `urls.py` with `path(\"\", views.home_view)`.",
       "relatedTopics": [
         "be-5"
       ]
@@ -870,7 +870,7 @@
           }
         ]
       },
-      "explanation": "**Answer**\n\nDjango templates separate logic tags `{% %}` from output `{{ }}`. Loop: `{% for user in users %}<li>{{ user }}</li>{% endfor %}`.\n\n**Explanation**\n\nEvery `{% for %}` needs `{% endfor %}`. The view passes `users` in the context dictionary.\n\nWrap `<li>` elements in `<ul>` as the prompt requires.",
+      "explanation": "**How it works**\n\nDjango templates separate logic tags `{% %}` from output `{{ }}`. Loop: `{% for user in users %}<li>{{ user }}</li>{% endfor %}`. Every `{% for %}` needs matching `{% endfor %}`.\n\nThe view passes `users` in the context dictionary to `render()`. Wrap `<li>` elements in `<ul>` as the prompt requires.",
       "relatedTopics": [
         "be-7"
       ]
@@ -899,7 +899,7 @@
           }
         ]
       },
-      "explanation": "**Answer**\n\nIn `urls.py`: `from django.urls import path` and `from . import views` (or your app).\n\n**Explanation**\n\n`urlpatterns = [path(\"contact/\", views.contact_view, name=\"contact\")]`. The `name` enables `{% url \"contact\" %}` and `reverse(\"contact\")`.\n\nRoute string includes trailing slash per Django convention.",
+      "explanation": "**How it works**\n\nIn `urls.py`: `from django.urls import path` and `from . import views` (or your app). `urlpatterns = [path(\"contact/\", views.contact_view, name=\"contact\")]`. The `name` enables `{% url \"contact\" %}` and `reverse(\"contact\")`.\n\nRoute string includes trailing slash per Django convention.",
       "relatedTopics": [
         "be-5"
       ]
@@ -923,7 +923,7 @@
           }
         ]
       },
-      "explanation": "**Answer**\n\nDictionary membership tests whether a key exists before access. Use `if name in grades:` then `return grades[name]`, or the idiomatic one-liner `return grades.get(name, \"Not Found\")`.\n\n**Explanation**\n\nThe `in` operator checks keys, not values. `.get(key, default)` returns the default when the key is missing instead of raising `KeyError`.\n\nEither approach satisfies the prompt; `.get` is shorter when you only need a fallback.",
+      "explanation": "**How it works**\n\nDictionary membership tests whether a key exists before access. Use `if name in grades:` then `return grades[name]`, or the idiomatic one-liner `return grades.get(name, \"Not Found\")`. The `in` operator checks keys via hash lookup, not values.\n\n`.get(key, default)` calls `dict.get()` and returns the default when the key is missing instead of raising `KeyError` from `__getitem__`. Either approach satisfies the prompt; `.get` is shorter when you only need a fallback.",
       "relatedTopics": [
         "be-2"
       ]
@@ -952,7 +952,7 @@
           }
         ]
       },
-      "explanation": "**Answer**\n\nDefine `class Car:` with `def __init__(self, make, year):` assigning `self.make` and `self.year`. Method `display(self)` returns a formatted string, typically `return f\"{self.year} {self.make}\"` for output like '2020 Toyota'.\n\n**Explanation**\n\n`self` is mandatory as the first parameter of instance methods.",
+      "explanation": "**How it works**\n\nDefine `class Car:` with `def __init__(self, make, year):` assigning `self.make` and `self.year`. Method `display(self)` returns a formatted string, typically `return f\"{self.year} {self.make}\"` for output like '2020 Toyota'. `self` is mandatory as the first parameter of instance methods and refers to the instance being constructed or called.\n\nInstantiation: `Car(\"Toyota\", 2020)` calls `__init__` automatically after `__new__`.",
       "relatedTopics": [
         "be-3"
       ]
@@ -981,7 +981,7 @@
           }
         ]
       },
-      "explanation": "**Answer**\n\nWrap risky operations in `try`/`except` so predictable failures do not crash the program. Division by zero raises `ZeroDivisionError`; catching that specific type avoids masking other bugs.\n\n**Explanation**\n\nStructure: attempt `result = a / b` and `print(result)` inside `try`, and `except ZeroDivisionError:` print the required message. Catching `Exception` broadly works but is weaker style.\n\nThe `else`/`finally` clauses are optional here.",
+      "explanation": "**Step by step**\n\nWrap risky operations in `try`/`except` so predictable failures do not crash the program. Division by zero raises `ZeroDivisionError`; catching that specific type avoids masking other bugs. Structure: attempt `result = a / b` and `print(result)` inside `try`, and `except ZeroDivisionError:` print the required message.\n\nCatching `Exception` broadly works but is weaker style. The `else`/`finally` clauses are optional here.",
       "relatedTopics": [
         "be-2"
       ]

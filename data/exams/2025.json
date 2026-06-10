@@ -32,7 +32,7 @@
         ],
         "correctAnswerId": "false",
         "expectedAnswer": null,
-        "explanation": "**Answer**\n\nPUT is intended to replace an entire resource. PATCH performs partial updates (changing only some fields).\n\n**Explanation**\n\nUsing PUT for partial updates is incorrect per REST conventions. Answer: False.\n\nRelated: POST creates; DELETE removes.",
+        "explanation": "**How it works**\n\nPUT is intended to replace an entire resource at a URL (idempotent full update). PATCH performs partial updates (changing only some fields in the request body). Using PUT for partial updates is incorrect per REST conventions.\n\nRelated: POST creates; DELETE removes. The statement is false.",
         "relatedTopics": [
           "fe-1",
           "be-4"
@@ -41,7 +41,7 @@
       {
         "id": "q2",
         "type": "multiple_choice",
-        "questionText": "2. To determine the type of an object, we can use the \"typeof\" function in JavaScript.\na. True\nb. False",
+        "questionText": "2. To determine the type of an object, we can use the \"typeof\" function in JavaScript.",
         "options": [
           {
             "id": "true",
@@ -58,7 +58,7 @@
         ],
         "correctAnswerId": "false",
         "expectedAnswer": null,
-        "explanation": "False. `typeof` is an operator, not a function (use `typeof x`, not `typeof(x)` as a function call). For objects, `typeof` usually returns `\"object\"` — it does not tell you the specific object type (e.g. array vs plain object). Use `instanceof` or helpers like `Array.isArray()` when you need the actual object type.",
+        "explanation": "**How it works**\n\n`typeof` is a unary operator in JavaScript, not a function. You write `typeof x` or `typeof(x)` where the parentheses only group the operand; there is no separate `typeof()` function to call. It returns a string such as `\"number\"`, `\"string\"`, or `\"boolean\"` for primitives. For most objects, including arrays, it returns `\"object\"`, so it cannot distinguish an array from a plain object.\n\n**Why the others fail**\n\n- True: treats `typeof` as a function name and assumes it reveals specific object types like array vs object, which it does not.\n\n**Common mistake**\n\nAnswering True because you have seen `typeof(x)` in code; the syntax looks like a function call but it is still the operator with grouped operand.",
         "relatedTopics": [
           "fe-5"
         ]
@@ -66,7 +66,7 @@
       {
         "id": "q3",
         "type": "multiple_choice",
-        "questionText": "3. CSS can be defined externally in a separate file by adding the <style> element inside the <head>.\na. True\nb. False",
+        "questionText": "3. CSS can be defined externally in a separate file by adding the <style> element inside the <head>.",
         "options": [
           {
             "id": "true",
@@ -83,7 +83,7 @@
         ],
         "correctAnswerId": "false",
         "expectedAnswer": null,
-        "explanation": "External CSS is linked using the `<link rel=\"stylesheet\" href=\"...\">` element. The `<style>` element is used exclusively for internal (embedded) CSS.",
+        "explanation": "**How it works**\n\nCSS can be applied three ways: external stylesheets, internal embedded rules, and inline styles. External CSS lives in a separate `.css` file and is linked into the HTML document with `<link rel=\"stylesheet\" href=\"style.css\">` inside `<head>`. The `<style>` element embeds CSS directly in the HTML file; that pattern is internal (embedded) CSS, not external.\n\n**Why the others fail**\n\n- True: confuses `<style>` in `<head>` with linking an external file; `<style>` holds rules in the document itself.\n\n**Common mistake**\n\nMixing up `<link>` (external file) and `<style>` (embedded rules) because both appear in `<head>`.",
         "relatedTopics": [
           "fe-4"
         ]
@@ -91,7 +91,7 @@
       {
         "id": "q4",
         "type": "multiple_choice",
-        "questionText": "4. var colors = (1:\"red\", 2:\"green\", 3:\"blue\") is one of the ways of defining an array in JavaScript.\na. True\nb. False",
+        "questionText": "4. var colors = (1:\"red\", 2:\"green\", 3:\"blue\") is one of the ways of defining an array in JavaScript.",
         "options": [
           {
             "id": "true",
@@ -108,7 +108,7 @@
         ],
         "correctAnswerId": "false",
         "expectedAnswer": null,
-        "explanation": "This syntax is entirely invalid in JavaScript. Arrays are defined using square brackets `[]` (e.g., `[\"red\", \"green\", \"blue\"]`), and objects are defined using curly braces `{}`.",
+        "explanation": "**How it works**\n\nJavaScript arrays are ordered lists created with square brackets and comma-separated values, for example `[\"red\", \"green\", \"blue\"]`. The syntax `(1:\"red\", 2:\"green\", 3:\"blue\")` uses parentheses and colon pairs, which is not valid JavaScript for either arrays or objects. Objects use curly braces `{ key: value }`, not parentheses with numeric labels like `(1:\"red\")`.\n\n**Why the others fail**\n\n- True: assumes parenthesis-colon syntax defines an array; JavaScript would throw a syntax error before running.\n\n**Common mistake**\n\nConfusing object literal `{}` syntax with array `[]` syntax, or copying notation from other languages.",
         "relatedTopics": [
           "fe-5"
         ]
@@ -133,7 +133,7 @@
         ],
         "correctAnswerId": "false",
         "expectedAnswer": null,
-        "explanation": "**Answer**\n\nIn Django MVT, Views handle request logic (query data, decide what to return). Templates are the presentation layer (HTML layout).\n\n**Explanation**\n\nThe statement swaps these roles, so it is False. Models are the data layer.",
+        "explanation": "**How it works**\n\nIn Django MVT, Views handle request logic (query data via ORM, decide what to return as `HttpResponse`). Templates are the presentation layer (HTML layout with `{{ }}`). The statement swaps these roles, so it is False.\n\nModels are the data layer (`models.py`).",
         "relatedTopics": [
           "be-5",
           "be-6"
@@ -142,7 +142,7 @@
       {
         "id": "q6",
         "type": "multiple_choice",
-        "questionText": "6. In Python, format function is used to format the datatypes of the output.\na. True\nb. False",
+        "questionText": "6. In Python, format function is used to format the datatypes of the output.",
         "options": [
           {
             "id": "true",
@@ -159,7 +159,7 @@
         ],
         "correctAnswerId": "false",
         "expectedAnswer": null,
-        "explanation": "**Answer**\n\nPython's string formatting controls how values appear in text, not the underlying type of the data. Methods like `\"{}\".format(x)` or f-strings insert `x` into a template; they do not convert a number's type in memory.\n\n**Explanation**\n\nTo change types you use constructors like `int()`, `str()`, or `float()`. The statement confuses presentation formatting with type conversion, so it is false.",
+        "explanation": "**How it works**\n\nPython's string formatting controls how values appear in text, not the underlying type of the data. Methods like `\"{}\".format(x)` or f-strings (`f\"{x}\"`) call `__format__()` for display; they do not convert a number's type in memory. To change types you use constructors like `int()`, `str()`, or `float()`.\n\nThe statement confuses presentation formatting with type conversion, so it is false.",
         "relatedTopics": [
           "be-2"
         ]
@@ -167,7 +167,7 @@
       {
         "id": "q7",
         "type": "multiple_choice",
-        "questionText": "7. In Python, A set is a collection which is both unordered and indexed.\na. True\nb. False",
+        "questionText": "7. In Python, A set is a collection which is both unordered and indexed.",
         "options": [
           {
             "id": "true",
@@ -184,7 +184,7 @@
         ],
         "correctAnswerId": "false",
         "expectedAnswer": null,
-        "explanation": "**Answer**\n\nA standard `set` has no indices and no keys: only membership tests (`x in s`) and iteration. Elements are unique and the collection is unordered (do not assume `s[0]` exists).\n\n**Explanation**\n\nThe statement claims sets are indexed, which is false. This is the same core fact tested in 2021 Q78 and 2024 Q72, phrased as a true/false stem.",
+        "explanation": "**How it works**\n\nA standard `set` has no indices and no keys ; only membership tests (`x in s`) and iteration. Elements are unique and the collection is unordered (do not assume `s[0]` exists because `set` lacks `__getitem__`). The statement claims sets are indexed, which is false.\n\nThis is the same core fact tested in 2021 Q78 and 2024 Q72, phrased as a true/false stem.",
         "relatedTopics": [
           "be-2"
         ]
@@ -209,7 +209,7 @@
         ],
         "correctAnswerId": "true",
         "expectedAnswer": null,
-        "explanation": "**Answer**\n\nRegister models in `admin.py` with `admin.site.register(Model)` so they appear in `/admin/`. This is standard Django admin setup.\n\n**Explanation**\n\nThe statement is True.",
+        "explanation": "**How it works**\n\nRegister models in `admin.py` with `admin.site.register(Model)` or `@admin.register(Model)` so they appear in `/admin/`. This is standard Django admin setup using `django.contrib.admin`. The statement is True.",
         "relatedTopics": [
           "be-8"
         ]
@@ -234,7 +234,7 @@
         ],
         "correctAnswerId": "false",
         "expectedAnswer": null,
-        "explanation": "**Answer**\n\nDjango's default manager is lowercase `objects`, not `Objects`. Correct call: `Post.objects.all()`.\n\n**Explanation**\n\nPython is case-sensitive; `Objects` would raise `AttributeError`. The statement is False.",
+        "explanation": "**How it works**\n\nDjango's default manager is lowercase `objects`, created automatically by `models.Model` metaclass, not `Objects`. Correct call: `Post.objects.all()` returning a QuerySet. Python is case-sensitive; `Objects` would raise `AttributeError`.\n\nThe statement is False.",
         "relatedTopics": [
           "be-8"
         ]
@@ -259,7 +259,7 @@
         ],
         "correctAnswerId": "false",
         "expectedAnswer": null,
-        "explanation": "**Answer**\n\n`super()` returns a proxy to the parent class so you can call parent methods (especially `__init__`) in inheritance chains. It does not grant unlimited attributes: attribute count is unrelated.\n\n**Explanation**\n\nThe statement is False.",
+        "explanation": "**How it works**\n\n`super()` returns a proxy to the parent class in the MRO so you can call parent methods (especially `__init__`) in inheritance chains. It does not grant unlimited attributes ; attribute count is unrelated to `super()`. The statement is False.",
         "relatedTopics": [
           "be-3"
         ]
@@ -284,7 +284,7 @@
         ],
         "correctAnswerId": "false",
         "expectedAnswer": null,
-        "explanation": "**Answer**\n\n`migrate` applies pending migrations to the database (creates/alters tables). It does not merely \"show\" changes.\n\n**Explanation**\n\nTo inspect migration status use `showmigrations`; to generate files use `makemigrations`. The statement is False.",
+        "explanation": "**How it works**\n\n`python manage.py migrate` applies pending migrations to the database (creates/alters tables via DDL). It does not merely \"show\" changes. To inspect migration status use `showmigrations`; to generate files use `makemigrations`.\n\nThe statement is False.",
         "relatedTopics": [
           "be-8"
         ]
@@ -292,7 +292,7 @@
       {
         "id": "q12",
         "type": "multiple_choice",
-        "questionText": "12. In Python, to append elements from another list to the current list, use the update() method.\na. True\nb. False",
+        "questionText": "12. In Python, to append elements from another list to the current list, use the update() method.",
         "options": [
           {
             "id": "true",
@@ -309,7 +309,7 @@
         ],
         "correctAnswerId": "false",
         "expectedAnswer": null,
-        "explanation": "**Answer**\n\nLists extend sequence by appending each element from another iterable. The list method for that is `extend()`, e.g.\n\n**Explanation**\n\n`list_a.extend(list_b)`. `update()` is for sets and dictionaries, not lists: calling `update()` on a list would fail because lists have no such method.\n\nThe statement is therefore false\n\n**Exam tip**\n\n`update` sounds like a generic \"add stuff\" verb, but Python assigns it only to mutable set/dict types.",
+        "explanation": "**Step by step**\n\nLists extend sequence by appending each element from another iterable. The list method for that is `extend()`, e.g. `list_a.extend(list_b)`, which calls `list.__iadd__`-style iteration over `list_b`.\n\n`update()` is for `set` and `dict`, not lists ; calling `update()` on a list would fail with `AttributeError` because `list` has no such method. The statement is therefore false\n\n**Common mistake**\n\n`update` sounds like a generic \"add stuff\" verb, but Python assigns it only to mutable set/dict types.",
         "relatedTopics": [
           "be-2"
         ]
@@ -317,7 +317,7 @@
       {
         "id": "q13",
         "type": "multiple_choice",
-        "questionText": "13. In Python, to add items from another set into the current set, use the extend() method.\na. True\nb. False",
+        "questionText": "13. In Python, to add items from another set into the current set, use the extend() method.",
         "options": [
           {
             "id": "true",
@@ -334,7 +334,7 @@
         ],
         "correctAnswerId": "false",
         "expectedAnswer": null,
-        "explanation": "**Answer**\n\n`extend()` is a list method that adds each element from an iterable. Sets use `update()` to merge in elements from another set or iterable; calling `extend()` on a set would fail with `AttributeError`.\n\n**Explanation**\n\nThe statement is false. Pair with 2025 Q12 (lists use `extend`, not `update`) and 2024 Q54 for the full set-vs-list method map.",
+        "explanation": "**How it works**\n\n`list.extend()` adds each element from an iterable to the end of a list. Sets use `set.update()` to merge in elements from another set or iterable; calling `extend()` on a set would fail with `AttributeError`. The statement is false.\n\nPair with 2025 Q12 (lists use `extend`, not `update`) and 2024 Q54 for the full set-vs-list method map.",
         "relatedTopics": [
           "be-2"
         ]
@@ -342,7 +342,7 @@
       {
         "id": "q14",
         "type": "multiple_choice",
-        "questionText": "14. Tags and texts that are not directly displayed on the HTML page are written in title section.\na. True\nb. False",
+        "questionText": "14. Tags and texts that are not directly displayed on the HTML page are written in title section.",
         "options": [
           {
             "id": "true",
@@ -359,7 +359,7 @@
         ],
         "correctAnswerId": "false",
         "expectedAnswer": null,
-        "explanation": "These tags are written in the `<head>` section, not the title section. The `<title>` is merely one element inside the head.",
+        "explanation": "**How it works**\n\nHTML documents split into `<head>` and `<body>`. The `<head>` holds metadata and resources not rendered as main page content: `<title>`, `<meta>`, `<link>` for CSS, and `<script>` references. The `<title>` element sets the browser tab label; it is one child inside `<head>`, not a separate \"title section\" where all invisible tags belong.\n\n**Why the others fail**\n\n- True: misnames `<head>` as \"title section\" and ignores that `<title>` is a single tag, while `<meta>`, `<link>`, and `<style>` also live in `<head>`.\n\n**Common mistake**\n\nEquating the `<title>` tag with the entire `<head>` region because both relate to document metadata.",
         "relatedTopics": [
           "fe-2"
         ]
@@ -384,7 +384,7 @@
         ],
         "correctAnswerId": "true",
         "expectedAnswer": null,
-        "explanation": "**Answer**\n\nWSGI apps are traditionally synchronous: a worker processes one request, then the next, sequentially within that worker. (Multiple workers can run in parallel processes, but each worker is sequential.) The statement is True in the exam's intended sense.",
+        "explanation": "**How it works**\n\nWSGI apps are traditionally synchronous ; a worker processes one request, then the next, sequentially within that worker thread/process. (Multiple workers can run in parallel processes, but each worker is sequential.) The statement is True in the exam's intended sense.",
         "relatedTopics": [
           "be-5"
         ]
@@ -409,7 +409,7 @@
         ],
         "correctAnswerId": "false",
         "expectedAnswer": null,
-        "explanation": "**Answer**\n\nAdmin model registration belongs in each app's `admin.py`, not `settings.py`. `settings.py` holds project configuration (INSTALLED_APPS, DATABASES).\n\n**Explanation**\n\nThe statement is False.",
+        "explanation": "**How it works**\n\nAdmin model registration belongs in each app's `admin.py`, not `settings.py`. `settings.py` holds project configuration (`INSTALLED_APPS`, `DATABASES`, `MIDDLEWARE`). The statement is False.",
         "relatedTopics": [
           "be-8"
         ]
@@ -417,7 +417,7 @@
       {
         "id": "q17",
         "type": "multiple_choice",
-        "questionText": "17. In DOM, ChildNodes property returns elements and ignores text and comments.\na. True\nb. False",
+        "questionText": "17. In DOM, ChildNodes property returns elements and ignores text and comments.",
         "options": [
           {
             "id": "true",
@@ -434,7 +434,7 @@
         ],
         "correctAnswerId": "false",
         "expectedAnswer": null,
-        "explanation": "`childNodes` returns all node types, including text nodes (like whitespace) and comment nodes. The `children` property is what returns only element nodes.",
+        "explanation": "**How it works**\n\nThe DOM property `childNodes` on a parent node returns a live `NodeList` of all child nodes: element nodes, text nodes (including whitespace between tags), and comment nodes. It does not filter to elements only. The separate `children` property returns an `HTMLCollection` containing only element nodes, which is what the statement incorrectly attributes to `childNodes`.\n\n**Why the others fail**\n\n- True: swaps the roles of `childNodes` (all node types) and `children` (elements only).\n\n**Common mistake**\n\nAssuming `childNodes` means \"child elements\" because the name sounds element-focused; text nodes count as children too.",
         "relatedTopics": [
           "fe-3"
         ]
@@ -442,7 +442,7 @@
       {
         "id": "q18",
         "type": "multiple_choice",
-        "questionText": "18. In python, a set is a collection which is unordered and unindexed.\na. True\nb. False",
+        "questionText": "18. In python, a set is a collection which is unordered and unindexed.",
         "options": [
           {
             "id": "true",
@@ -459,7 +459,7 @@
         ],
         "correctAnswerId": "true",
         "expectedAnswer": null,
-        "explanation": "**Answer**\n\nPython sets are mutable collections of unique items. They do not preserve insertion order as an indexing feature (historically; even with display order, indexing is still invalid) and you cannot access elements by position.\n\n**Explanation**\n\n\"Unordered and unindexed\" is the standard exam definition. The statement is true.\n\nDo not confuse with `dict`, which is keyed but also not positionally indexed.",
+        "explanation": "**How it works**\n\nPython sets are mutable collections of unique items. They do not preserve insertion order as an indexing feature (historically; even with display order, indexing is still invalid) and you cannot access elements by position. \"Unordered and unindexed\" is the standard exam definition.\n\nThe statement is true. Do not confuse with `dict`, which is keyed but also not positionally indexed.",
         "relatedTopics": [
           "be-2"
         ]
@@ -484,7 +484,7 @@
         ],
         "correctAnswerId": "false",
         "expectedAnswer": null,
-        "explanation": "**Answer**\n\nPython inheritance syntax is `class Child(Parent):`, not an `inherits` keyword (used in other languages like JavaScript/Java). The statement is False.",
+        "explanation": "**How it works**\n\nPython inheritance syntax is `class Child(Parent):`, passing the base class in parentheses, not an `inherits` keyword (used in other languages like JavaScript/Java). The statement is False.",
         "relatedTopics": [
           "be-3"
         ]
@@ -509,7 +509,7 @@
         ],
         "correctAnswerId": "false",
         "expectedAnswer": null,
-        "explanation": "**Answer**\n\n`super()` exists so child classes can call parent methods and initialize parent state. Without `super()`, you can still inherit, but cooperative multiple inheritance breaks.\n\n**Explanation**\n\nThe claim that super prevents inheritance is backwards: False.",
+        "explanation": "**How it works**\n\n`super()` exists so child classes can call parent methods and initialize parent state cooperatively in multiple inheritance. Without `super()`, you can still inherit, but cooperative MRO-based initialization breaks. The claim that super prevents inheritance is backwards ; False.",
         "relatedTopics": [
           "be-3"
         ]
@@ -534,7 +534,7 @@
         ],
         "correctAnswerId": "false",
         "expectedAnswer": null,
-        "explanation": "**Answer**\n\nWhen `pop()` is called with no index on a list, Python removes the last element. `[1, 2, 3]` ends with `3`, so the removed value is `3`, not `1`.\n\n**Explanation**\n\nThe statement is false. Use `pop(0)` to remove from the front.\n\nThis mirrors 2024 Q68/Q69 and tests the default `pop()` index.",
+        "explanation": "**Step by step**\n\nWhen `list.pop()` is called with no index on a list, Python removes the last element (index `-1`). `[1, 2, 3]` ends with `3`, so the removed value is `3`, not `1`. The statement is false.\n\nUse `pop(0)` to remove from the front. This mirrors 2024 Q68/Q69 and tests the default `pop()` index.\n\n**Common mistake**\n\nDo not confuse default `pop()` with `pop(0)` or with `set.pop()`.",
         "relatedTopics": [
           "be-2"
         ]
@@ -542,7 +542,7 @@
       {
         "id": "q22_23a",
         "type": "multiple_choice",
-        "questionText": "22. In the following statement: myNumbers = [1,2,3]\nx = myNumbers.pop()\nThe removed item will be 3.\na. True\nb. False",
+        "questionText": "22. In the following statement: myNumbers = [1,2,3]\nx = myNumbers.pop()\nThe removed item will be 3.",
         "options": [
           {
             "id": "true",
@@ -559,7 +559,7 @@
         ],
         "correctAnswerId": "true",
         "expectedAnswer": null,
-        "explanation": "**Answer**\n\nList `pop()` without an argument always targets the final index. For `[1, 2, 3]`, the last element is `3`, so `x` becomes `3` and the list becomes `[1, 2]`.\n\n**Explanation**\n\nThe statement is true. Remember: only `pop(0)` removes the first item.",
+        "explanation": "**Step by step**\n\nList `pop()` without an argument always targets the final index `-1`. For `[1, 2, 3]`, the last element is `3`, so `x` becomes `3` and the list becomes `[1, 2]`. The statement is true.\n\nRemember: only `pop(0)` removes the first item.",
         "relatedTopics": [
           "be-2"
         ]
@@ -567,7 +567,7 @@
       {
         "id": "q23b",
         "type": "multiple_choice",
-        "questionText": "23. x = (\"apple\", \"banana\", \"cherry\") is a definition of a list.\na. True\nb. False",
+        "questionText": "23. x = (\"apple\", \"banana\", \"cherry\") is a definition of a list.",
         "options": [
           {
             "id": "true",
@@ -584,7 +584,7 @@
         ],
         "correctAnswerId": "false",
         "expectedAnswer": null,
-        "explanation": "**Answer**\n\nA comma-separated sequence in parentheses is a tuple literal. `(\"apple\", \"banana\", \"cherry\")` creates a 3-item tuple.\n\n**Explanation**\n\nLists require square brackets `[]`. The statement claims this is a list definition, so it is false.\n\nDo not confuse tuples with lists just because both are sequences.",
+        "explanation": "**How it works**\n\nA comma-separated sequence in parentheses is a tuple literal. `(\"apple\", \"banana\", \"cherry\")` creates a 3-item `tuple`. Lists require square brackets `[]` and the `list()` constructor or `[...]` literal.\n\nThe statement claims this is a list definition, so it is false. Do not confuse tuples with lists just because both are sequences.",
         "relatedTopics": [
           "be-2"
         ]
@@ -592,7 +592,7 @@
       {
         "id": "q24",
         "type": "multiple_choice",
-        "questionText": "24. my-var is an incorrect variable name in Python.\na. True\nb. False",
+        "questionText": "24. my-var is an incorrect variable name in Python.",
         "options": [
           {
             "id": "true",
@@ -609,7 +609,7 @@
         ],
         "correctAnswerId": "true",
         "expectedAnswer": null,
-        "explanation": "**Answer**\n\nPython identifiers must be contiguous letters, digits, and underscores, and cannot start with a digit. `my-var` is parsed as `my` minus `var`, not one name: hyphens are the subtraction operator.\n\n**Explanation**\n\nValid alternatives: `my_var`, `myVar`. The statement that `my-var` is incorrect is true\n\n**Exam tip**\n\nunderscores are allowed; hyphens never are.",
+        "explanation": "**How it works**\n\nPython identifiers must be contiguous letters, digits, and underscores, and cannot start with a digit. `my-var` is parsed as `my` minus `var` because `-` is the subtraction operator, not part of a name. Valid alternatives: `my_var`, `myVar`.\n\nThe statement that `my-var` is incorrect is true\n\n**Common mistake**\n\nUnderscores are allowed; hyphens never are in identifiers.",
         "relatedTopics": [
           "be-2"
         ]
@@ -617,7 +617,7 @@
       {
         "id": "q25",
         "type": "multiple_choice",
-        "questionText": "25. The CSS property background-attachment is used to specify whether the image is attached to the document or not.\na. True\nb. False",
+        "questionText": "25. The CSS property background-attachment is used to specify whether the image is attached to the document or not.",
         "options": [
           {
             "id": "true",
@@ -634,7 +634,7 @@
         ],
         "correctAnswerId": "true",
         "expectedAnswer": null,
-        "explanation": "Yes, `background-attachment` sets whether a background image scrolls with the rest of the page, or if it is fixed (attached).",
+        "explanation": "**How it works**\n\nThe CSS property `background-attachment` controls how a background image moves when the user scrolls. Value `scroll` (default) scrolls the background with the element content. Value `fixed` keeps the background fixed relative to the viewport so it appears \"attached\" to the window while content moves over it. Value `local` scrolls with the element's content box. The property answers whether the image scrolls with the document or stays fixed.\n\n**Why the others fail**\n\n- False: rejects a correct definition; `background-attachment` directly specifies scroll vs fixed behavior for background images.\n\n**Common mistake**\n\nConfusing `background-attachment` with `background-image` (which image to show) or `background-size` (how large it is).",
         "relatedTopics": [
           "fe-4"
         ]
@@ -659,7 +659,7 @@
         ],
         "correctAnswerId": "false",
         "expectedAnswer": null,
-        "explanation": "**Answer**\n\nEvaluate the slice literally. `b[:8]` takes indices `0` to `7` (stop `8` is excluded).\n\n**Explanation**\n\nFor `\"Hello, My Friend\"`: `H e l l o , space M`: eight characters: yielding `\"Hello, M\"`. The claim in the statement is `\"Hello, My\"` (nine characters through the second `y`), which would require `b[:9]`.\n\nBecause the actual output does not match the statement, the answer is False\n\n**Exam tip**\n\ncommas and spaces count as characters when counting slice lengths.",
+        "explanation": "**Step by step**\n\nEvaluate the slice literally. `b[:8]` takes indices `0` to `7` (stop `8` is excluded). For `\"Hello, My Friend\"`: `H e l l o , space M` ; eight characters ; yielding `\"Hello, M\"`.\n\nThe claim in the statement is `\"Hello, My\"` (nine characters through the second `y`), which would require `b[:9]`. Because the actual output does not match the statement, the answer is False\n\n**Common mistake**\n\nCommas and spaces count as characters when counting slice lengths.",
         "relatedTopics": [
           "be-2"
         ]
@@ -667,7 +667,7 @@
       {
         "id": "q27",
         "type": "multiple_choice",
-        "questionText": "27. Strip() function is used to remove whitespaces from the beginning and end of a string in Python.\na. True\nb. False",
+        "questionText": "27. Strip() function is used to remove whitespaces from the beginning and end of a string in Python.",
         "options": [
           {
             "id": "true",
@@ -684,7 +684,7 @@
         ],
         "correctAnswerId": "true",
         "expectedAnswer": null,
-        "explanation": "**Answer**\n\n`str.strip()` with no arguments removes leading and trailing whitespace characters (spaces, tabs, newlines by default). It does not remove spaces in the middle of the string.\n\n**Explanation**\n\nRelated methods: `lstrip()` (left only), `rstrip()` (right only). You can pass a custom character set to strip other characters.\n\nThe statement matches default `strip()` behavior, so it is true.",
+        "explanation": "**How it works**\n\n`str.strip()` with no arguments removes leading and trailing whitespace characters (spaces, tabs, newlines by default) via `str.strip(chars=None)`. It does not remove spaces in the middle of the string. Related methods: `lstrip()` (left only), `rstrip()` (right only).\n\nYou can pass a custom character set to strip other characters. The statement matches default `strip()` behavior, so it is true.",
         "relatedTopics": [
           "be-2"
         ]
@@ -709,7 +709,7 @@
         ],
         "correctAnswerId": "false",
         "expectedAnswer": null,
-        "explanation": "**Answer**\n\nDefault `list.sort()` compares elements using Python's ordering rules, which for strings means Unicode code points. Uppercase letters precede lowercase (`\"C\"` before `\"a\"` and `\"b\"`).\n\n**Explanation**\n\nSorted result: `[\"C\", \"a\", \"b\"]`, not `[\"a\", \"b\", \"C\"]`. The statement is false.\n\nCase-sensitive sorting is the default; case-insensitive sorting requires a `key` function (see Q32).",
+        "explanation": "**Step by step**\n\nDefault `list.sort()` compares elements using Python's ordering rules (`<` on elements), which for strings means Unicode code points. Uppercase letters precede lowercase (`'C'` before `'a'` and `'b'`). Sorted result: `[\"C\", \"a\", \"b\"]`, not `[\"a\", \"b\", \"C\"]`.\n\nThe statement is false. Case-sensitive sorting is the default; case-insensitive sorting requires a `key` function (see Q32).\n\n**Common mistake**\n\n`sort()` mutates in place and uses element comparison, not `sorted()`'s return value.",
         "relatedTopics": [
           "be-2"
         ]
@@ -734,7 +734,7 @@
         ],
         "correctAnswerId": "false",
         "expectedAnswer": null,
-        "explanation": "**Answer**\n\n`django-admin startproject` creates the project package, `manage.py`, and settings: but not an app-level `templates/` folder by default. Templates are usually added inside apps or configured via `TEMPLATES` DIRS.\n\n**Explanation**\n\nThe statement is False.",
+        "explanation": "**How it works**\n\n`django-admin startproject` creates the project package, `manage.py`, and `settings.py` ; but not an app-level `templates/` folder by default. Templates are usually added inside apps or configured via `TEMPLATES['DIRS']`. The statement is False.",
         "relatedTopics": [
           "be-5",
           "be-7"
@@ -760,7 +760,7 @@
         ],
         "correctAnswerId": "false",
         "expectedAnswer": null,
-        "explanation": "**Answer**\n\nDjango admin exists, but the command is `python manage.py createsuperuser` (not `mange.py createuser`). The typos in the statement are intentional traps.\n\n**Explanation**\n\nFalse.",
+        "explanation": "**How it works**\n\nDjango admin exists, but the command is `python manage.py createsuperuser` (not `mange.py createuser`). The typos in the statement are intentional traps. `createsuperuser` prompts for username/password for `/admin/` access. False.",
         "relatedTopics": [
           "be-8"
         ]
@@ -768,7 +768,7 @@
       {
         "id": "q31",
         "type": "multiple_choice",
-        "questionText": "31. AJAX is used for refreshing the page content by sending a request to the server and updating the whole HTML page from the response.\na. True\nb. False",
+        "questionText": "31. AJAX is used for refreshing the page content by sending a request to the server and updating the whole HTML page from the response.",
         "options": [
           {
             "id": "true",
@@ -785,7 +785,7 @@
         ],
         "correctAnswerId": "false",
         "expectedAnswer": null,
-        "explanation": "The primary purpose of AJAX is asynchronous updating, allowing *parts* of a web page to be updated without needing to reload the *whole* HTML page.",
+        "explanation": "**How it works**\n\nAJAX (Asynchronous JavaScript and XML) sends HTTP requests in the background without a full page reload. JavaScript receives the response (often JSON or HTML fragments) and updates part of the DOM, such as a table row or div. The whole HTML page is not replaced; only selected sections change. That partial update is the core benefit over traditional form submissions that reload the entire document.\n\n**Why the others fail**\n\n- True: describes a full page refresh, which is classic non-AJAX navigation, not asynchronous partial updates.\n\n**Common mistake**\n\nHearing \"request to the server\" and assuming every server response replaces the entire page; AJAX specifically avoids that.",
         "relatedTopics": [
           "fe-6"
         ]
@@ -810,7 +810,7 @@
         ],
         "correctAnswerId": "false",
         "expectedAnswer": null,
-        "explanation": "**Answer**\n\n`sort(key=str.lower)` compares elements case-insensitively but does not rewrite the stored strings. Ordering follows lowercased keys `a, b, c`, while original casing remains, producing `[\"A\", \"b\", \"C\"]`.\n\n**Explanation**\n\nThe statement claims `[\"a\", \"b\", \"c\"]`, which would require lowercasing the values themselves\n\n**Exam tip**\n\n`key=` affects comparison only, not the elements returned.",
+        "explanation": "**Step by step**\n\n`sort(key=str.lower)` compares elements case-insensitively using `str.lower()` as the sort key but does not rewrite the stored strings. Ordering follows lowercased keys `a, b, c`, while original casing remains, producing `[\"A\", \"b\", \"C\"]`. The statement claims `[\"a\", \"b\", \"c\"]`, which would require lowercasing the values themselves\n\n**Common mistake**\n\n`key=` affects comparison only, not the elements returned.",
         "relatedTopics": [
           "be-2"
         ]
@@ -818,7 +818,7 @@
       {
         "id": "q33",
         "type": "multiple_choice",
-        "questionText": "33. <br> tag is used to force the browser to display the next text or element on a new line.\na. True\nb. False",
+        "questionText": "33. <br> tag is used to force the browser to display the next text or element on a new line.",
         "options": [
           {
             "id": "true",
@@ -835,7 +835,7 @@
         ],
         "correctAnswerId": "true",
         "expectedAnswer": null,
-        "explanation": "The `<br>` tag inserts a single line break.",
+        "explanation": "**How it works**\n\nThe void element `<br>` (line break) tells the browser to start the next content on a new line within the same block flow. Unlike block elements such as `<p>`, it does not wrap content in a paragraph box; it only inserts a single break in inline flow. It is commonly used inside addresses or poems where a new line is needed without extra vertical spacing from a new paragraph.\n\n**Why the others fail**\n\n- False: denies the standard purpose of `<br>`; it exists precisely to force a line break before following text or inline elements.\n\n**Common mistake**\n\nUsing multiple `<br>` tags for layout spacing instead of CSS margin; the tag still correctly inserts one line break per use.",
         "relatedTopics": [
           "fe-2"
         ]
@@ -843,7 +843,7 @@
       {
         "id": "q34",
         "type": "multiple_choice",
-        "questionText": "34. y= (\"apple\",) is a tuple.\na. True\nb. False",
+        "questionText": "34. y= (\"apple\",) is a tuple.",
         "options": [
           {
             "id": "true",
@@ -860,7 +860,7 @@
         ],
         "correctAnswerId": "true",
         "expectedAnswer": null,
-        "explanation": "**Answer**\n\nA single value in parentheses is just grouping: `(\"apple\")` equals the string `\"apple\"`. A one-element tuple requires a trailing comma: `(\"apple\",)`.\n\n**Explanation**\n\nTherefore `y = (\"apple\",)` creates a tuple, and the statement is true. This is a classic Python syntax quirk tested repeatedly in exams.",
+        "explanation": "**How it works**\n\nA single value in parentheses is just grouping: `(\"apple\")` equals the string `\"apple\"` because the comma is what creates a tuple. A one-element tuple requires a trailing comma: `(\"apple\",)`. Therefore `y = (\"apple\",)` creates a tuple, and the statement is true.\n\nThis is a classic Python syntax quirk tested repeatedly in exams.",
         "relatedTopics": [
           "be-2"
         ]
@@ -912,7 +912,7 @@
         ],
         "correctAnswerId": "a",
         "expectedAnswer": null,
-        "explanation": "**Answer**\n\nThe `Content-Type` response header declares the media type (MIME type) of the body, e.g. `text/html`, `application/json`, `image/png`.\n\n**Explanation**\n\nIt does not describe image dimensions or font size.",
+        "explanation": "**How it works**\n\nThe `Content-Type` response header declares the media type (MIME type) of the body, e.g. `text/html`, `application/json`, `image/png`. It does not describe image dimensions or font size ; those are unrelated to HTTP headers.",
         "relatedTopics": [
           "fe-1",
           "be-4"
@@ -950,7 +950,7 @@
         ],
         "correctAnswerId": "b",
         "expectedAnswer": null,
-        "explanation": "**Answer**\n\nHTTP 200 after authorization means success: the user is authorized and the server returned the resource. Contrast 401 (authentication required) and 403 (authenticated but forbidden).",
+        "explanation": "**How it works**\n\nHTTP 200 after authorization means success ; the user is authorized and the server returned the resource in the response body. Contrast 401 (authentication required) and 403 (authenticated but forbidden).",
         "relatedTopics": [
           "fe-1",
           "be-4"
@@ -988,7 +988,7 @@
         ],
         "correctAnswerId": "a",
         "expectedAnswer": null,
-        "explanation": "**Answer**\n\nHTTP 403 Forbidden means the server understood the request and the user is authenticated (or identity is known), but access to this resource is denied. The server is reachable: option A is correct.\n\n**Explanation**\n\nDo not confuse with 401 Unauthorized (credentials missing/invalid). 401 says \"who are you?\"; 403 says \"I know you, but you may not access this.\"",
+        "explanation": "**How it works**\n\nHTTP 403 Forbidden means the server understood the request and the user is authenticated (or identity is known), but access to this resource is denied by authorization policy. The server is reachable ; option A is correct. Do not confuse with 401 Unauthorized (credentials missing/invalid). 401 says \"who are you?\"; 403 says \"I know you, but you may not access this.\"",
         "relatedTopics": [
           "fe-1",
           "be-4"
@@ -1026,7 +1026,7 @@
         ],
         "correctAnswerId": "b",
         "expectedAnswer": null,
-        "explanation": "The rest parameter syntax `...` allows a function to accept an indefinite number of arguments as an array.",
+        "explanation": "**How it works**\n\nIn a function parameter list, `...myNumbers` declares a rest parameter. When you call `multiply(2, 3, 4)`, JavaScript collects all arguments after any fixed parameters into a real Array bound to `myNumbers`. The `for...of` loop then iterates that array. Rest is the opposite of spread: rest packs many values into one array inside a function definition.\n\n**Why the others fail**\n\n- A: rest does not \"wait\" for more arguments; it gathers arguments already passed at call time.\n- C: describes spread (unpacking an array into arguments), which appears in calls like `Math.max(...nums)`, not in parameter lists.\n- D: option B correctly states that rest converts the argument list into an array.\n\n**Common mistake**\n\nConfusing rest (`...` in parameters) with spread (`...` in array literals or function calls).",
         "relatedTopics": [
           "fe-6"
         ]
@@ -1063,7 +1063,7 @@
         ],
         "correctAnswerId": "c",
         "expectedAnswer": null,
-        "explanation": "JavaScript is case-sensitive (e.g., `myVar` is different from `myvar`). Semicolons are technically optional due to automatic semicolon insertion.",
+        "explanation": "**How it works**\n\nJavaScript treats identifiers as case-sensitive: `myVar`, `MyVar`, and `myvar` are three different names. Keywords like `let` and `function` must be spelled exactly. Whitespace between tokens is ignored, so `a+b` and `a + b` are equivalent. Semicolons end statements but Automatic Semicolon Insertion (ASI) often supplies them when omitted, so they are not strictly mandatory on every line.\n\n**Why the others fail**\n\n- A: JavaScript is case-sensitive; `Variable` and `variable` are not interchangeable.\n- B: ASI allows many scripts to run without explicit semicolons on every statement.\n- D: spaces, tabs, and line breaks are allowed and commonly used for readability.\n\n**Common mistake**\n\nBelieving semicolons are always required because other languages mandate them; JavaScript often inserts them automatically.",
         "relatedTopics": [
           "fe-5"
         ]
@@ -1100,7 +1100,7 @@
         ],
         "correctAnswerId": "b",
         "expectedAnswer": null,
-        "explanation": "`'use strict';` switches the JavaScript engine to strict mode, throwing errors for bad practices (like using undeclared variables).",
+        "explanation": "**How it works**\n\nThe directive `'use strict';` at the top of a script or function enables strict mode. The engine applies stricter rules: undeclared assignments throw `ReferenceError`, deleting non-configurable properties fails, and duplicate parameter names in functions are errors. It catches silent bad practices from early JavaScript rather than preventing all errors or allowing legacy syntax freely.\n\n**Why the others fail**\n\n- A: strict mode surfaces more errors; it does not eliminate all possible bugs in your code.\n- C: strict mode restricts old sloppy patterns, not expands them.\n- D: strict mode adds restrictions (e.g. on `with`), it does not remove debugging limits.\n\n**Common mistake**\n\nThinking `'use strict'` magically fixes bad code; it only makes certain mistakes throw instead of failing silently.",
         "relatedTopics": [
           "fe-6"
         ]
@@ -1137,7 +1137,7 @@
         ],
         "correctAnswerId": "b",
         "expectedAnswer": null,
-        "explanation": "In strict mode, assigning a value to an undeclared variable throws a ReferenceError.",
+        "explanation": "**Step by step**\n\nAssume strict mode is active (`'use strict';`). Line `x=10` assigns to `x` without `var`, `let`, or `const`. In sloppy mode this would create a global property; in strict mode it throws `ReferenceError: x is not defined`. `console.log(x)` never runs because execution stops at the assignment.\n\n**Why the others fail**\n\n- A: `10` would print only if the assignment succeeded, which strict mode forbids.\n- C: `undefined` would require `x` to be declared but uninitialized; here `x` was never declared.\n- D: `NaN` is unrelated; no numeric operation produces it here.\n\n**Common mistake**\n\nExpecting sloppy-mode behavior where undeclared variables become globals; strict mode blocks that.",
         "relatedTopics": [
           "fe-6"
         ]
@@ -1174,7 +1174,7 @@
         ],
         "correctAnswerId": "b",
         "expectedAnswer": null,
-        "explanation": "`var` binds to the nearest enclosing function wrapper, whereas `let` and `const` bind to the nearest enclosing block (`{ ... }`).",
+        "explanation": "**How it works**\n\n`var` is function-scoped: a `var` declaration inside a function is visible throughout that entire function, even before its line (hoisting). `let` and `const` are block-scoped: they exist only inside the nearest enclosing `{ }` block, such as `if`, `for`, or a standalone block. `const` also forbids reassigning the binding, but scope rules match `let`.\n\n**Why the others fail**\n\n- A: reverses scope rules; `var` is not block-scoped in standard JavaScript.\n- C: `const` is block-scoped like `let`, not function-scoped.\n- D: `var` does not follow block scope the way `let` and `const` do.\n\n**Common mistake**\n\nAssuming `var` inside an `if` block is limited to that block; it leaks to the whole function.",
         "relatedTopics": [
           "fe-6"
         ]
@@ -1211,7 +1211,7 @@
         ],
         "correctAnswerId": "b",
         "expectedAnswer": null,
-        "explanation": "Prototypes are the mechanism by which JavaScript objects inherit features from one another.",
+        "explanation": "**How it works**\n\nEvery JavaScript object has an internal prototype link. The `prototype` property on constructor functions (e.g. `Array.prototype`) holds shared methods and properties that instances inherit through the chain. When you read `obj.method()`, the engine looks on `obj`, then its prototype, then further up the chain. This prototype-based inheritance lets objects share behavior without copying methods onto each instance.\n\n**Why the others fail**\n\n- A: new own properties are added with assignment or `Object.defineProperty`, not via the `prototype` property on constructors.\n- C: object type is tested with `typeof`, `instanceof`, or helpers; `prototype` does not store a type label.\n- D: `delete` removes properties; `prototype` defines shared inherited members.\n\n**Common mistake**\n\nConfusing an object's own properties with methods living on `Constructor.prototype`.",
         "relatedTopics": [
           "fe-5"
         ]
@@ -1248,7 +1248,7 @@
         ],
         "correctAnswerId": "a",
         "expectedAnswer": null,
-        "explanation": "The `get` syntax binds an object property to a function that will be called when that property is looked up.",
+        "explanation": "**How it works**\n\nObject literal getters use the `get` keyword followed by the property name and a parameterless function: `get name() { return this._name; }`. Accessing `obj.name` runs that function without call parentheses. Setters use `get`'s pair: `set name(value) { ... }`. This is standard ES5+ syntax for computed property access on plain objects and classes.\n\n**Why the others fail**\n\n- B: `getter` is not a valid JavaScript keyword; the correct keyword is `get`.\n- C: `get: function()` mixes invalid object literal syntax; `get` is not a normal property key with a colon here.\n- D: `name.get { ... }` reverses the order; the keyword `get` must precede the property name.\n\n**Common mistake**\n\nTrying to call a getter like `obj.name()`; getters are invoked as property reads, not function calls.",
         "relatedTopics": [
           "fe-6"
         ]
@@ -1285,7 +1285,7 @@
         ],
         "correctAnswerId": "a",
         "expectedAnswer": null,
-        "explanation": "`delete obj.a` removes property `a` from the object. `console.log(obj)` then shows only `{ b: 2 }`. `delete` does not set the value to `null` or `undefined` — the key is gone.",
+        "explanation": "**Step by step**\n\n`const obj = {a: 1, b: 2}` creates an object with keys `a` and `b`. `delete obj.a` removes property `a` from the object entirely using the `delete` operator. The key is gone, not set to `null` or `undefined`. `console.log(obj)` prints the remaining object, which displays as `{ b: 2 }` in the console.\n\n**Why the others fail**\n\n- B: `delete` removes the key; it does not leave `a: null`.\n- C: missing properties read as `undefined`, but `delete` removes the key rather than assigning `undefined`.\n- D: deleting an own property on a plain object succeeds; no error is thrown.\n\n**Common mistake**\n\nThinking `delete` sets a value to `undefined`; it removes the property from the object.",
         "relatedTopics": [
           "fe-5",
           "fe-6"
@@ -1323,7 +1323,7 @@
         ],
         "correctAnswerId": "b",
         "expectedAnswer": null,
-        "explanation": "The `constructor` method is a special method of a class for creating and initializing an object instance of that class.",
+        "explanation": "**How it works**\n\nIn ES6 `class` syntax, the `constructor` method runs automatically when you call `new ClassName()`. It initializes instance state with `this.property = value`. Other methods on the class define behavior shared via the prototype. Static methods use the `static` keyword and belong to the class itself, not instances.\n\n**Why the others fail**\n\n- A: static properties and methods use the `static` keyword, not the constructor.\n- C: inheritance from another class uses `extends` and `super`, not the constructor's primary role.\n- D: classes are not executed like functions; `new` creates instances via the constructor.\n\n**Common mistake**\n\nPutting all logic in the constructor instead of separate methods; the constructor should mainly set up instance fields.",
         "relatedTopics": [
           "fe-6"
         ]
@@ -1360,7 +1360,7 @@
         ],
         "correctAnswerId": "c",
         "expectedAnswer": null,
-        "explanation": "The `super` keyword is used to access properties on an object literal or class's [[Prototype]], or invoke the superclass's constructor.",
+        "explanation": "**How it works**\n\nIn a subclass, `super()` calls the parent class constructor and must run before using `this` in the child constructor. `super.methodName()` invokes a method from the parent prototype. The keyword bridges child and parent in class inheritance; it does not by itself override methods (that is done by defining a method with the same name in the child).\n\n**Why the others fail**\n\n- A: `new` creates objects; `super` references the parent class context inside a child.\n- B: static methods are declared with `static`, not with `super` alone.\n- D: overriding replaces parent behavior in the child; `super` calls parent implementations when you still want them.\n\n**Common mistake**\n\nForgetting `super()` in a child constructor before accessing `this`, which throws a ReferenceError.",
         "relatedTopics": [
           "fe-6"
         ]
@@ -1397,7 +1397,7 @@
         ],
         "correctAnswerId": "b",
         "expectedAnswer": null,
-        "explanation": "There are primarily three variable declaration keywords in JavaScript: `var`, `let`, and `const`.",
+        "explanation": "**How it works**\n\nJavaScript provides three declaration keywords for variables: `var` (function-scoped, hoisted), `let` (block-scoped, temporal dead zone until declaration), and `const` (block-scoped, must be initialized, binding cannot be reassigned). Assigning without a keyword creates globals in non-strict sloppy mode but is not a fourth official declaration form taught as standard.\n\n**Why the others fail**\n\n- A: three distinct keywords exist, not one.\n- C: only three standard declaration keywords are defined; not infinitely many.\n- D: option B correctly lists the three keywords.\n\n**Common mistake**\n\nCounting implicit globals or `function` declarations as variable declaration keywords alongside `var`, `let`, and `const`.",
         "relatedTopics": [
           "fe-5",
           "fe-6"
@@ -1435,7 +1435,7 @@
         ],
         "correctAnswerId": "c",
         "expectedAnswer": null,
-        "explanation": "`document.querySelectorAll()` returns a static (not live) NodeList representing a list of the document's elements that match the specified group of selectors.",
+        "explanation": "**How it works**\n\n`document.querySelectorAll(selector)` runs the selector engine against the document and returns a static `NodeList` of all matching elements. \"Static\" means the list does not auto-update when the DOM changes later (unlike the live `HTMLCollection` from `getElementsByClassName`). It is array-like (length and index access) but not a true JavaScript Array unless you convert it.\n\n**Why the others fail**\n\n- A: it is a NodeList, not a native Array; methods like `push` are not available without conversion.\n- B: `querySelector` returns a single element; `querySelectorAll` always returns a collection (possibly empty).\n- D: the method always returns a NodeList object, never `undefined`.\n\n**Common mistake**\n\nAssuming the return value is an Array and calling `map` directly without `Array.from` or spread.",
         "relatedTopics": [
           "fe-3"
         ]
@@ -1472,7 +1472,7 @@
         ],
         "correctAnswerId": "b",
         "expectedAnswer": null,
-        "explanation": "The `href` property of the `Location` interface returns a string containing the entire URL of the current document.",
+        "explanation": "**How it works**\n\nThe `window.location` object (also available as `document.location`) represents the current URL. Its `href` property is a string containing the full URL including protocol, host, path, query, and hash, for example `https://example.com/page?id=1#top`. Assigning to `location.href` navigates the browser to a new URL.\n\n**Why the others fail**\n\n- A: browser name comes from `navigator.userAgent`, not `location.href`.\n- C: visit history is accessed via `window.history`, not the href string.\n- D: cookies are managed through `document.cookie` or the Cookie API, not `location.href`.\n\n**Common mistake**\n\nConfusing `location.href` (full URL string) with `location.pathname` (path portion only).",
         "relatedTopics": [
           "fe-3"
         ]
@@ -1509,7 +1509,7 @@
         ],
         "correctAnswerId": "b",
         "expectedAnswer": null,
-        "explanation": "This method loads the previous URL in the history list, functionally identical to the user clicking their browser's \"Back\" button.",
+        "explanation": "**How it works**\n\nThe History API's `window.history.back()` method moves the session history back one entry, equivalent to the user clicking the browser Back button. It loads the previous URL in the same tab if one exists. It does not reload the current page, clear history, or navigate forward.\n\n**Why the others fail**\n\n- A: reloading uses `location.reload()`, not `history.back()`.\n- C: there is no standard method to wipe all browser history from a page script.\n- D: option B correctly describes navigating to the previous history entry.\n\n**Common mistake**\n\nExpecting `back()` to always work when no previous entry exists; it may do nothing or leave the page unchanged.",
         "relatedTopics": [
           "fe-3"
         ]
@@ -1546,7 +1546,7 @@
         ],
         "correctAnswerId": "c",
         "expectedAnswer": null,
-        "explanation": "The `Element.remove()` method removes the element from the DOM tree it belongs to.",
+        "explanation": "**How it works**\n\nModern DOM elements expose `element.remove()`, which removes the node from its parent in the tree. The node and its descendants are detached; if no other references exist, they become eligible for garbage collection. Older pattern: `parent.removeChild(element)` achieves the same result with two steps.\n\n**Why the others fail**\n\n- A: `delete()` is not a method on DOM Element nodes.\n- B: `destroy()` is not part of the standard DOM API.\n- D: `clear()` applies to some objects like arrays or form reset, not removing a node from the DOM.\n\n**Common mistake**\n\nTrying to hide an element with `display: none` when the question asks for removal from the DOM tree.",
         "relatedTopics": [
           "fe-3"
         ]
@@ -1598,7 +1598,7 @@
         ],
         "correctAnswerId": "c",
         "expectedAnswer": null,
-        "explanation": "The `firstChild` of `<h2 id=\"id1\">` is the text node containing \"Welcome to my page\". For a text node, `nodeName` returns `#text`.",
+        "explanation": "**Step by step**\n\n`document.getElementById(\"id1\")` returns the `<h2 id=\"id1\">` element. Its `firstChild` is the first child node in document order. The text \"Welcome to my page\" sits directly inside the `<h2>` as a text node, not wrapped in another element, so `firstChild` is that text node. For text nodes, the read-only `nodeName` property returns the string `#text`.\n\n**Why the others fail**\n\n- A: `1` might confuse `nodeType` (3 for text) with `nodeName`.\n- B: `2` is not the nodeName for any standard node type in this context.\n- D: `#text` is the correct nodeName for a text node.\n\n**Common mistake**\n\nAssuming `firstChild` is always an element; text before or inside tags is a text node child.",
         "relatedTopics": [
           "fe-3"
         ]
@@ -1635,7 +1635,7 @@
         ],
         "correctAnswerId": "a",
         "expectedAnswer": null,
-        "explanation": "The selector targets `<p>` tags with the class `center`. Looking at the HTML, only `<p class=\"center\">Paragraph 5</p>` matches. The `<h1>` also has class center, but is not a `<p>` tag. Thus, 1 element.",
+        "explanation": "**Step by step**\n\nThe selector `p.center` is a type-and-class selector: it matches `<p>` elements that also have `class=\"center\"`. Scan the HTML: `<p class=\"center\">Paragraph 5</p>` qualifies. The `<h1 class=\"center\">` shares the class but is not a `<p>`, so it is excluded. All other `<p>` tags lack the `center` class. Exactly one element matches.\n\n**Why the others fail**\n\n- B: two would require another `<p class=\"center\">`; only one exists.\n- C: three overcounts; no other `<p>` has class `center`.\n- D: one matching element exists, so \"None of the previous\" is wrong.\n\n**Common mistake**\n\nCounting every element with class `center` and ignoring the leading `p` type requirement.",
         "relatedTopics": [
           "fe-4"
         ]
@@ -1672,7 +1672,7 @@
         ],
         "correctAnswerId": "d",
         "expectedAnswer": null,
-        "explanation": "This selector targets `<p>` tags that are the very first child of their parent. The matches are: `<p>Paragraph 1</p>` (first child of `<div>`) and `<p>Paragraph 3</p>` (first child of `<section>`). That is 2 elements. 2 is not an option in the list (a=5, b=6, c=1), so 'None of the previous'.",
+        "explanation": "**Step by step**\n\n`:first-child` matches an element only if it is the first child of its parent. Inside `<div>`, the first child is `<p>Paragraph 1</p>` (matches). Inside `<section>`, the first child is `<p>Paragraph 3</p>` (matches). Paragraphs under `<body>` are not first children because `<h2>` or `<div>` precede them. Total matches: 2. Options list 5, 6, or 1; none equals 2, so \"None of the previous\".\n\n**Why the others fail**\n\n- A: 5 might count all `<p>` tags, ignoring the `:first-child` condition.\n- B: 6 counts every paragraph in the document, not first-child matches.\n- C: 1 misses the second match inside `<section>`.\n\n**Common mistake**\n\nConfusing \"first paragraph in the document\" with CSS `:first-child`, which depends on sibling order under each parent.",
         "relatedTopics": [
           "fe-4"
         ]
@@ -1709,7 +1709,7 @@
         ],
         "correctAnswerId": "d",
         "expectedAnswer": null,
-        "explanation": "The `+` is the adjacent sibling combinator. It selects the `<p>` immediately following the `<div>`. The only one is `<p class=\"center\">Paragraph 5</p>`. Since the answer is 1, and the options are 3, 2, 4, it is None of the previous.",
+        "explanation": "**Step by step**\n\nThe adjacent sibling combinator `+` selects the first `<p>` immediately following a `<div>` at the same parent level. The closing `</div>` is followed by `<p class=\"center\">Paragraph 5</p>` under `<body>`. Paragraphs inside the `<div>` are descendants, not siblings after the div. Only one `<p>` matches. Options offer 3, 2, or 4; not 1, so \"None of the previous\".\n\n**Why the others fail**\n\n- A: 3 might include paragraphs nested inside the div.\n- B: 2 overcounts sibling pairs; only one `<p>` directly follows the div.\n- C: 4 counts too many elements ignoring the adjacent sibling rule.\n\n**Common mistake**\n\nSelecting all `<p>` after a `<div>` anywhere in the tree instead of only the immediate next sibling.",
         "relatedTopics": [
           "fe-4"
         ]
@@ -1746,7 +1746,7 @@
         ],
         "correctAnswerId": "d",
         "expectedAnswer": null,
-        "explanation": "There are no empty `<p></p>` tags in the given HTML. All of them contain text. So 0 elements are styled. None of the options matches.",
+        "explanation": "**Step by step**\n\nThe `:empty` pseudo-class matches elements with no children and no text content (whitespace-only text may prevent a match in strict parsing). Every `<p>` in the HTML contains visible text such as \"Welcome\" or \"Paragraph 1\". None are truly empty `<p></p>`. Zero elements match. Options 3, 2, and 7 are all non-zero, so \"None of the previous\".\n\n**Why the others fail**\n\n- A: 3 might count paragraphs without noticing they all have text nodes inside.\n- B: 2 still assumes some empty tags exist; none do.\n- C: 7 counts all paragraphs, but `:empty` requires zero content.\n\n**Common mistake**\n\nThinking `:empty` means \"no element children\" while ignoring text nodes, which still make the element non-empty.",
         "relatedTopics": [
           "fe-4"
         ]
@@ -1783,7 +1783,7 @@
         ],
         "correctAnswerId": "d",
         "expectedAnswer": null,
-        "explanation": "Counting the `<p>` elements in the HTML page: Welcome, Paragraph 1, Paragraph 2, Paragraph 3, Paragraph 4, Paragraph 5, and Paragraph 6 gives 7 tags. Since 7 is not listed in options a, b, or c, the answer is None of the previous.",
+        "explanation": "**Step by step**\n\n`document.getElementsByTagName('p')` returns a live `HTMLCollection` of every `<p>` in the document. Count them: \"Welcome\", \"Paragraph 1\", \"Paragraph 2\", \"Paragraph 3\", \"Paragraph 4\", \"Paragraph 5\", \"Paragraph 6\"; seven total. The `.length` property is therefore 7. Listed options are 5, 6, and 4; none is 7, so \"None of the previous\".\n\n**Why the others fail**\n\n- A: 5 might count only some nested paragraphs.\n- B: 6 misses one paragraph in the full document count.\n- C: 4 counts too few; several `<p>` tags exist outside the div.\n\n**Common mistake**\n\nCounting only paragraphs inside the `<div>` and ignoring the standalone `<p>` elements before and after it.",
         "relatedTopics": [
           "fe-3"
         ]
@@ -1835,7 +1835,7 @@
         ],
         "correctAnswerId": "b",
         "expectedAnswer": null,
-        "explanation": "The `.children` property always returns an `HTMLCollection` (a collection of elements), even if it only contains one element (in this case, the `<ol>`).",
+        "explanation": "**How it works**\n\n`document.body.children` returns an `HTMLCollection` of element nodes that are direct children of `<body>`. In the given HTML, `<body>` has one direct child: the `<ol>` list. Even a single match is still returned as a collection object with `.length` and indexed access, not as a lone element reference.\n\n**Why the others fail**\n\n- A: the API always returns a collection interface, not a single element node directly.\n- C: `null` would mean no children or invalid reference; the `<ol>` exists as a child.\n- D: a valid answer (collection of elements) is listed in option B.\n\n**Common mistake**\n\nExpecting `children` to return an Array; it is an `HTMLCollection`, array-like but not an Array.",
         "relatedTopics": [
           "fe-3"
         ]
@@ -1872,7 +1872,7 @@
         ],
         "correctAnswerId": "a",
         "expectedAnswer": null,
-        "explanation": "The `.children` property is strictly for element nodes. (Conversely, `.childNodes` would return element nodes AND text nodes like whitespace).",
+        "explanation": "**How it works**\n\nGiven `x = document.body.children`, `x[0]` is the `<ol>` element. Property `y = x[0].children` returns an `HTMLCollection` of element children of `<ol>`: the four `<li>` items. The `children` property intentionally excludes text nodes and comments; only element nodes appear. Whitespace between `<li>` tags does not show up in `children`.\n\n**Why the others fail**\n\n- B: text nodes would appear in `childNodes`, not in `children`.\n- C: `null` would apply only if the `<ol>` had no element children; it has four `<li>` elements.\n- D: option A correctly describes element-only content.\n\n**Common mistake**\n\nUsing `childNodes` and `children` interchangeably; only `childNodes` includes text nodes.",
         "relatedTopics": [
           "fe-3"
         ]
@@ -1909,7 +1909,7 @@
         ],
         "correctAnswerId": "b",
         "expectedAnswer": null,
-        "explanation": "`y[0]` is `<li id=\"1\">`. Its `.children` (`z`) contains the `<p>` tag. `z[0]` is `<p>List 1</p>`. The `.firstChild` of that `<p>` tag is a text node with the content. Its `.nodeValue` accesses the string content, which is \"List 1\".",
+        "explanation": "**Step by step**\n\nFrom prior lines, `y[0]` is the first `<li id=\"1\">`. Then `z = y[0].children` holds the `<p>` inside that list item. `z[0]` is `<p>List 1</p>`. The `firstChild` of the `<p>` is the text node containing the characters `List 1`. Property `nodeValue` on a text node returns that string content, so `M` is `\"List 1\"`.\n\n**Why the others fail**\n\n- A: \"Text node\" names the node type, but the question asks for the value stored in `M`, which is the string.\n- C: `null` would occur on an element's `nodeValue`; text nodes hold the string data.\n- D: the computed value matches option B exactly.\n\n**Common mistake**\n\nReturning the node type label instead of `nodeValue`, which gives the actual text content.",
         "relatedTopics": [
           "fe-3"
         ]
@@ -1961,7 +1961,7 @@
         ],
         "correctAnswerId": "c",
         "expectedAnswer": null,
-        "explanation": "**Answer**\n\nProject scaffolding uses the `django-admin` utility before `manage.py` exists: `django-admin startproject my_tennis_club`. That creates the outer project folder, inner config package, and `manage.py`.\n\n**Explanation**\n\nOptions like `django start` or `py manage.py start-django` are invented distractors. After creation, run commands via `python manage.py` inside the project directory.",
+        "explanation": "**How it works**\n\nProject scaffolding uses the `django-admin` utility before `manage.py` exists: `django-admin startproject my_tennis_club`. That creates the outer project folder, inner config package, and `manage.py`. Options like `django start` or `py manage.py start-django` are invented distractors.\n\nAfter creation, run commands via `python manage.py` inside the project directory.",
         "relatedTopics": [
           "be-5"
         ]
@@ -1998,7 +1998,7 @@
         ],
         "correctAnswerId": "a",
         "expectedAnswer": null,
-        "explanation": "**Answer**\n\nModels are defined in `appname/models.py`. The standard import path is `from members.models import Member` when the app is named `members` and the class is `Member`.\n\n**Explanation**\n\nJavaScript-style `import Member from members` or `import members.Member` are invalid Python syntax. Django expects normal Python package imports following `INSTALLED_APPS` structure.",
+        "explanation": "**How it works**\n\nModels are defined in `appname/models.py`. The standard import path is `from members.models import Member` when the app is named `members` and the class is `Member`. JavaScript-style `import Member from members` or `import members.Member` are invalid Python syntax.\n\nDjango expects normal Python package imports following `INSTALLED_APPS` structure.",
         "relatedTopics": [
           "be-8"
         ]
@@ -2035,7 +2035,7 @@
         ],
         "correctAnswerId": "d",
         "expectedAnswer": null,
-        "explanation": "**Answer**\n\nIdentical trap to 2024 Q10: applying schema changes requires `python manage.py migrate`, which is absent from the list. `makemigrations` only writes migration files.\n\n**Explanation**\n\nFake commands `runmigrations`/`executemigrations` are distractors. Correct answer: D (None of the previous).\n\nRead carefully: \"take effect in the database\" means apply, not generate.",
+        "explanation": "**How it works**\n\nIdentical trap to 2024 Q10: applying schema changes requires `python manage.py migrate`, which is absent from the list. `makemigrations` only writes migration files to `migrations/`. Fake commands `runmigrations`/`executemigrations` are distractors.\n\nCorrect answer: D (None of the previous). Read carefully: \"take effect in the database\" means apply, not generate.",
         "relatedTopics": [
           "be-8"
         ]
@@ -2072,7 +2072,7 @@
         ],
         "correctAnswerId": "c",
         "expectedAnswer": null,
-        "explanation": "**Answer**\n\nCurly braces with comma-separated values define a set literal. Duplicate values `1` and `3` collapse to one copy each, leaving `{1, 2, 3, 5}`.\n\n**Explanation**\n\n`print(Y)` shows that unique set. Option A keeps duplicates, which sets cannot store.\n\nOption B uses invalid `tuple(...)` call syntax. Python may print spaces after commas (`{1, 2, 3, 5}`), but option C matches the unique elements and brace notation.",
+        "explanation": "**Step by step**\n\nCurly braces with comma-separated values define a set literal. Duplicate values `1` and `3` collapse to one copy each via hash uniqueness, leaving `{1, 2, 3, 5}`. `print(Y)` shows that unique set via `set.__repr__()`.\n\nPython may print spaces after commas (`{1, 2, 3, 5}`), but option C matches the unique elements and brace notation.\n\n**Why the others fail**\n\n- A: keeps duplicates, which sets cannot store.\n- B: uses invalid `tuple(...)` call syntax.",
         "relatedTopics": [
           "be-2"
         ]
@@ -2109,7 +2109,7 @@
         ],
         "correctAnswerId": "c",
         "expectedAnswer": null,
-        "explanation": "**Answer**\n\nSame semantics as 2024 Q59: `{{ name }}` outputs the context variable's value during template rendering. Not literal braces, not the word \"name\" as static text.",
+        "explanation": "**How it works**\n\nSame semantics as 2024 Q59: `{{ name }}` outputs the context variable's value during template rendering via Django's template engine. Not literal braces, not the word \"name\" as static text.",
         "relatedTopics": [
           "be-7"
         ]
@@ -2146,7 +2146,7 @@
         ],
         "correctAnswerId": "c",
         "expectedAnswer": null,
-        "explanation": "**Answer**\n\n`car.keys()` returns a live view of the dictionary's keys. Assigning `car[\"color\"] = \"red\"` after creating `y` still updates what `y` sees, so `len(y)` is `4`.\n\n**Explanation**\n\nThis is identical in spirit to 2024 Q53: the view tracks mutations. A snapshot would have frozen the count at `3`.",
+        "explanation": "**How it works**\n\n`car.keys()` returns a live `dict_keys` view of the dictionary's keys. Assigning `car[\"color\"] = \"red\"` after creating `y` still updates what `y` sees, so `len(y)` is `4`. This is identical in spirit to 2024 Q53: the view tracks mutations via the underlying dict.\n\nA snapshot (`list(car.keys())`) would have frozen the count at `3`.",
         "relatedTopics": [
           "be-2"
         ]
@@ -2183,7 +2183,7 @@
         ],
         "correctAnswerId": "c",
         "expectedAnswer": null,
-        "explanation": "The rest parameter `...args` gathers arguments into a JavaScript Array. In JavaScript, arrays are technically objects, so `typeof(args)` evaluates to 'object'.",
+        "explanation": "**Step by step**\n\nFunction `test(...args)` declares `args` as a rest parameter. Calling `test(12)` packs `[12]` into `args`, a real Array instance. The code runs `typeof(args)`. In JavaScript, arrays are objects at the type level, so `typeof` returns `\"object\"` for arrays. It never returns `\"array\"` because that is not a `typeof` result.\n\n**Why the others fail**\n\n- A: `NaN` appears from invalid math, not from `typeof` on an array.\n- B: `number` would apply to the primitive `12`, but `typeof` receives the array `args`, not the single number.\n- D: `array` is not a possible `typeof` string despite arrays being array-like objects.\n\n**Common mistake**\n\nChoosing \"array\" because `args` is an Array; `typeof []` is always `\"object\"`.",
         "relatedTopics": [
           "fe-5",
           "fe-6"
@@ -2221,7 +2221,7 @@
         ],
         "correctAnswerId": "c",
         "expectedAnswer": null,
-        "explanation": "The `concat()` method is used to merge two or more arrays without altering the existing ones.",
+        "explanation": "**How it works**\n\n`Array.prototype.concat()` merges two or more arrays (or values) into a new array without mutating the originals. Example: `[1, 2].concat([3, 4])` yields `[1, 2, 3, 4]`. It is the standard non-destructive way to combine arrays before spread syntax `[...a, ...b]` became common.\n\n**Why the others fail**\n\n- A: `merge()` is not a built-in JavaScript array method.\n- B: `join()` converts array elements to a single string with a separator, not merge arrays.\n- D: `append()` is not a native Array method (some libraries add similar names).\n\n**Common mistake**\n\nConfusing `concat` (new array) with `push` (mutates the first array by adding elements).",
         "relatedTopics": [
           "fe-5",
           "fe-6"
@@ -2259,7 +2259,7 @@
         ],
         "correctAnswerId": "d",
         "expectedAnswer": null,
-        "explanation": "**Answer**\n\nThe assignment `(*k,) = newtuple` unpacks the entire 4-tuple into starred target `k`, which becomes the list `[1, 2, 3, 4]`. Option A (`2,3,4`) omits the leading `1` and lacks list syntax.\n\n**Explanation**\n\nOption B (`[2,3,4]`) is the middle slice from a different unpacking pattern. Option C (`1,2,3`) truncates the tuple.\n\nNone match `[1, 2, 3, 4]`, so the correct choice is \"None of the previous.\"",
+        "explanation": "**Step by step**\n\nThe assignment `(*k,) = newtuple` unpacks the entire 4-tuple into starred target `k`, which becomes the list `[1, 2, 3, 4]`. None match `[1, 2, 3, 4]`, so the correct choice is \"None of the previous.\"\n\n**Why the others fail**\n\n- A: (`2,3,4`) omits the leading `1` and lacks list syntax.\n- B: (`[2,3,4]`) is the middle slice from a different unpacking pattern.\n- C: (`1,2,3`) truncates the tuple.",
         "relatedTopics": [
           "be-2"
         ]
@@ -2296,7 +2296,7 @@
         ],
         "correctAnswerId": "c",
         "expectedAnswer": null,
-        "explanation": "**Answer**\n\nUnpacking `(x, *k, y, z, m) = (1, 2, 3)` needs at least five scalar targets plus whatever `*k` collects: more positions than the three available values. Python raises `ValueError: not enough values to unpack` before `print(k)` runs, so the answer is \"Python Error.\" Star unpacking cannot invent missing elements.\n\n**Explanation**\n\nContrast 2024 Q37, where four values satisfy `(x, *k, y)`.",
+        "explanation": "**Step by step**\n\nUnpacking `(x, *k, y, z, m) = (1, 2, 3)` needs at least five scalar targets plus whatever `*k` collects ; more positions than the three available values. Python raises `ValueError: not enough values to unpack` before `print(k)` runs, so the answer is \"Python Error.\" Star unpacking cannot invent missing elements. Contrast 2024 Q37, where four values satisfy `(x, *k, y)`.\n\n**Common mistake**\n\nThe `*` target absorbs leftovers but fixed names still require matching values.",
         "relatedTopics": [
           "be-2"
         ]
@@ -2333,7 +2333,7 @@
         ],
         "correctAnswerId": "b",
         "expectedAnswer": null,
-        "explanation": "The property-value pair uses a semicolon instead of a colon. It should be `font-weight: bold;`.",
+        "explanation": "**How it works**\n\nEach CSS declaration inside `{ }` must be `property: value;` with a colon separating name and value. The snippet `font-weight; bold;` uses a semicolon where the colon should be, so the parser sees an invalid declaration. The selector `.class` is fine; the error is purely in the declaration syntax.\n\n**Why the others fail**\n\n- A: `.class` is a valid class selector; the class name is present.\n- C: `bold` would be a valid value if written as `font-weight: bold;`; the problem is structure, not the word bold.\n- D: the malformed `font-weight; bold;` is a syntax error, so \"No error\" is wrong.\n\n**Common mistake**\n\nMissing the colon and writing `property; value;` as if semicolons separate property from value.",
         "relatedTopics": [
           "fe-4"
         ]
@@ -2370,7 +2370,7 @@
         ],
         "correctAnswerId": "c",
         "expectedAnswer": null,
-        "explanation": "CSS resolution depends heavily on specificity. If another rule with a higher specificity (e.g., `#id p` or an inline style) targets the same element, it will override `.container p`.",
+        "explanation": "**How it works**\n\nSelector `.container p` matches any `<p>` descendant inside an element with class `container`. If the paragraph still does not appear green, a competing rule likely wins the cascade. More specific selectors (e.g. `#sidebar p`, `p.special`, inline `style=\"color: red;\"`) or the same specificity appearing later in the sheet override `.container p`. Direct-child requirement is not needed; descendant selectors match nested paragraphs.\n\n**Why the others fail**\n\n- A: the scenario assumes the div has class `container`; missing class would mean the rule never matched, not \"might not apply\" given the setup.\n- B: `.container p` matches descendants at any depth, not only direct children.\n- D: a broken link would affect all rules, not explain one paragraph failing while the selector is otherwise valid.\n\n**Common mistake**\n\nBlaming descendant vs direct-child rules when specificity or source order is the real override cause.",
         "relatedTopics": [
           "fe-4"
         ]
@@ -2407,7 +2407,7 @@
         ],
         "correctAnswerId": "b",
         "expectedAnswer": null,
-        "explanation": "Margin controls the space *outside* an element (between it and its neighbors). Padding controls the space *inside* (between the border and the content). Therefore, 10px.",
+        "explanation": "**How it works**\n\nThe CSS box model separates outer and inner spacing. `margin` is outside the border, creating space between this element's border box and neighboring elements. `padding` is inside the border, between the border and the content. Neighbors \"see\" only margin at the boundary, not padding, which stays inside the element.\n\n**Why the others fail**\n\n- A: 20px is the padding inside the element, not gap to neighbors.\n- C: 30px incorrectly adds margin and padding together for external spacing.\n- D: 40px double-counts both values; only margin separates adjacent elements.\n\n**Common mistake**\n\nAdding margin and padding when asked for space between neighboring elements; only margin counts outward.",
         "relatedTopics": [
           "fe-4"
         ]
@@ -2444,7 +2444,7 @@
         ],
         "correctAnswerId": "d",
         "expectedAnswer": null,
-        "explanation": "**Answer**\n\n`set((\"a\", \"b\", \"c\"))` builds a set of strings. In Python 3, `print` renders it with curly braces, e.g.\n\n**Explanation**\n\n`{\"a\", \"b\", \"c\"}` (order may vary because sets are unordered). Options A to C use invalid or Python 2-style representations (`list[...]`, `set([\"a\", ...])` without quotes, unquoted identifiers).\n\nNone match the actual output format, so answer D is correct.",
+        "explanation": "**Step by step**\n\n`set((\"a\", \"b\", \"c\"))` calls the `set()` constructor on a tuple, building a set of strings. In Python 3, `print()` renders it with curly braces via `set.__repr__()`, e.g. `{\"a\", \"b\", \"c\"}` (order may vary because sets are unordered).\n\nNone match the actual output format, so answer D is correct.\n\n**Why the others fail**\n\n- A to C use invalid or Python 2-style representations (`list[...]`, `set([\"a\", ...])` without quotes, unquoted identifiers).",
         "relatedTopics": [
           "be-2"
         ]
@@ -2481,7 +2481,7 @@
         ],
         "correctAnswerId": "d",
         "expectedAnswer": null,
-        "explanation": "**Answer**\n\nDuplicates in `{1,1,2,3,3,5}` are removed, leaving the unique set `{1, 2, 3, 5}`. Python 3 prints sets as `{1, 2, 3, 5}`, not `set([1, 2, 3, 5])` (Python 2 repr) and not a dict/t tuple.\n\n**Explanation**\n\nOptions A to C show legacy or wrong types. Because no option matches real Python 3 output, choose \"None of the answers.\"",
+        "explanation": "**Step by step**\n\nDuplicates in `{1,1,2,3,3,5}` are removed at construction, leaving the unique set `{1, 2, 3, 5}`. Python 3 prints sets as `{1, 2, 3, 5}`, not `set([1, 2, 3, 5])` (Python 2 repr) and not a dict/tuple. Because no option matches real Python 3 output, choose \"None of the answers.\"\n\n**Why the others fail**\n\n- A to C show legacy or wrong types.",
         "relatedTopics": [
           "be-2"
         ]
@@ -2518,7 +2518,7 @@
         ],
         "correctAnswerId": "c",
         "expectedAnswer": null,
-        "explanation": "**Answer**\n\nDictionary literals cannot contain duplicate keys. The second `\"mobile\"` entry overwrites the first during creation, so the stored value is `987654321`.\n\n**Explanation**\n\n`print(x)` displays `{\"name\": \"Ahmed\", \"id\": \"1\", \"mobile\": 987654321}`. Option D is wrong: duplicate keys in a literal are legal syntax; they silently overwrite.\n\nOptions A and B retain the first `mobile` value, which Python never stores.",
+        "explanation": "**Step by step**\n\nDictionary literals cannot contain duplicate keys. The second `\"mobile\"` entry overwrites the first during creation via `dict.__setitem__`, so the stored value is `987654321`. `print(x)` displays `{\"name\": \"Ahmed\", \"id\": \"1\", \"mobile\": 987654321}`.\n\n**Why the others fail**\n\n- D: is wrong ; duplicate keys in a literal are legal syntax; they silently overwrite.\n- A and B retain the first `mobile` value, which Python never stores.",
         "relatedTopics": [
           "be-2"
         ]
@@ -2555,7 +2555,7 @@
         ],
         "correctAnswerId": "d",
         "expectedAnswer": null,
-        "explanation": "`eval()` executes the string as JavaScript. The string is a `console.log()` command printing a literal string. The value of `x` is never actually evaluated inside that inner string.",
+        "explanation": "**Step by step**\n\n`writeMe` holds the string `'console.log('document.writeln(x);')'`. `eval(writeMe)` executes that string as code, which calls `console.log` with one argument: the literal string `'document.writeln(x);'`. The quotes prevent `x` from being evaluated inside that inner string. Output is that literal text in the console, not the number 13.\n\n**Why the others fail**\n\n- A: printing `13` would require code that references variable `x`, not a quoted string literal.\n- B: nothing writes to the document body; only `console.log` runs.\n- C: `document.writeln` is never invoked; its name appears only as characters inside the logged string.\n\n**Common mistake**\n\nAssuming nested text `document.writeln(x)` inside the string will run; quotes make it literal text passed to `console.log`.",
         "relatedTopics": [
           "fe-5"
         ]
@@ -2592,7 +2592,7 @@
         ],
         "correctAnswerId": "d",
         "expectedAnswer": null,
-        "explanation": "`.flat(2)` yields `[1, 2, 3, 4, 5, 6, 7, 8]`, and `console.log` prints array brackets and spaces. Option c omits brackets, so it does not match the actual console output.",
+        "explanation": "**Step by step**\n\n`myArr` is `[1, 2, [3, [4, 5, 6, 7], 8]]`. Method `.flat(2)` flattens nested arrays up to two levels deep, producing `[1, 2, 3, 4, 5, 6, 7, 8]`. `console.log(newArr)` prints that array with brackets and spaces: `[1, 2, 3, 4, 5, 6, 7, 8]`. Option C lists comma-separated values without brackets, so it does not match actual console output format.\n\n**Why the others fail**\n\n- A: leaves nested structure incorrectly grouped after flattening.\n- B: still contains nested brackets inconsistent with `flat(2)` result.\n- C: correct flattened values but wrong output formatting (no array brackets).\n\n**Common mistake**\n\nPicking the flattened value list and ignoring that `console.log` displays an Array with square brackets.",
         "relatedTopics": [
           "fe-6"
         ]
@@ -2629,7 +2629,7 @@
         ],
         "correctAnswerId": "d",
         "expectedAnswer": null,
-        "explanation": "`f()` starts the async function, then `console.log('first!')` runs immediately. After about one second the awaited promise resolves and `done!` is logged. Because both strings appear, the answer is \"Something else.\"",
+        "explanation": "**Step by step**\n\nCalling `f()` starts the async function but does not block the rest of the script. The Promise inside `f` schedules `resolve('done!')` after 1000 ms. Immediately after `f()` returns a Promise, synchronous `console.log('first!')` runs and prints `first!`. About one second later, `await` completes and logs `done!`. Console shows both strings in that order, so neither single-line option A nor B alone is complete.\n\n**Why the others fail**\n\n- A: only `first!` ignores the later `done!` log after the timeout.\n- B: only `done!` ignores the synchronous `first!` that prints first.\n- C: no error occurs; async/await and Promise resolve correctly.\n\n**Common mistake**\n\nThinking `await` blocks the entire script thread; it only pauses inside the async function, not subsequent top-level code.",
         "relatedTopics": [
           "fe-6"
         ]

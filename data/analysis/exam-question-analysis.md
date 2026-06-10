@@ -1,6 +1,6 @@
 # Web Technology — Exam Question Analysis
 
-Generated: 2026-06-09
+Generated: 2026-06-10
 
 ## Dataset overview
 
@@ -112,13 +112,13 @@ Keyword hits across stems, topics, and explanations (categories may overlap).
 
 | Theme | Total | 2021 | 2024 | 2025 |
 | --- | ---: | ---: | ---: | ---: |
-| JavaScript | 143 | 50 | 36 | 29 |
-| HTML & DOM | 115 | 27 | 42 | 25 |
-| Python | 87 | 18 | 23 | 32 |
-| HTTP & URLs | 69 | 18 | 17 | 21 |
-| CSS | 49 | 12 | 16 | 13 |
-| Django | 37 | 10 | 8 | 12 |
-| Networking | 6 | 3 | 2 | 1 |
+| JavaScript | 152 | 53 | 40 | 34 |
+| HTML & DOM | 150 | 34 | 57 | 36 |
+| Python | 117 | 25 | 37 | 39 |
+| HTTP & URLs | 82 | 22 | 22 | 25 |
+| CSS | 57 | 15 | 18 | 16 |
+| Django | 42 | 11 | 9 | 14 |
+| Networking | 13 | 6 | 2 | 3 |
 
 ## Lecture focus by exam year
 

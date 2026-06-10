@@ -44,7 +44,7 @@
         ],
         "correctAnswerId": "c",
         "expectedAnswer": null,
-        "explanation": "**Answer**\n\nDjango uses the MVT (Model-View-Template) pattern. Models handle data and database access, Views contain request-handling logic, Templates render HTML.\n\n**Explanation**\n\nThis is Django's documented architecture, distinct from classic MVC or MVVM.",
+        "explanation": "**How it works**\n\nDjango uses the MVT (Model-View-Template) pattern. Models handle data and database access via the ORM (`models.Model`, QuerySets), Views contain request-handling logic (`HttpRequest` in, `HttpResponse` out), Templates render HTML with `{{ }}` and `{% %}`. This is Django's documented architecture, distinct from classic MVC or MVVM.",
         "relatedTopics": [
           "be-5"
         ]
@@ -81,7 +81,7 @@
         ],
         "correctAnswerId": "b",
         "expectedAnswer": null,
-        "explanation": "**Answer**\n\nThe Django admin site displays models registered in the app's `admin.py` via `admin.site.register(MyModel)` or a `@admin.register` decorator. `settings.py` configures the project; `views.py` handles public URLs: neither registers admin models.",
+        "explanation": "**How it works**\n\nThe Django admin site displays models registered in the app's `admin.py` via `admin.site.register(MyModel)` or a `@admin.register(MyModel)` decorator. `settings.py` configures the project (`INSTALLED_APPS`, `DATABASES`); `views.py` handles public URLs ; neither registers admin models.",
         "relatedTopics": [
           "be-8"
         ]
@@ -118,7 +118,7 @@
         ],
         "correctAnswerId": "a",
         "expectedAnswer": null,
-        "explanation": "JavaScript is a lightweight, interpreted scripting language primarily known for adding interactivity to web pages. It is entirely distinct from Java.",
+        "explanation": "**How it works**\n\nJavaScript is a client-side scripting language that runs in the browser. It adds interactivity to web pages: event handlers, DOM updates, form validation, and async requests. It is not related to Java (different language, different design) and it is not a markup language ; HTML handles document structure.\n\n**Why the others fail**\n\n- B: JavaScript is not an advanced version of Java; the names are historical coincidence.\n- C: Markup languages describe structure (HTML); JavaScript is a programming language.\n- D: Only A is true, so \"all of the above\" cannot hold.",
         "relatedTopics": [
           "fe-5"
         ]
@@ -155,7 +155,7 @@
         ],
         "correctAnswerId": "c",
         "expectedAnswer": null,
-        "explanation": "**Answer**\n\nDjango template logic uses tags wrapped in `{% %}`. A for loop starts with `{% for x in y %}` and ends with `{% endfor %}`.\n\n**Explanation**\n\nParentheses `(for x in y)` are invalid. `<% %>` belongs to other template engines, not Django.",
+        "explanation": "**How it works**\n\nDjango template logic uses tags wrapped in `{% %}`. A for loop starts with `{% for x in y %}` and ends with `{% endfor %}`. Parentheses `(for x in y)` are invalid template syntax.\n\n`<% %>` belongs to other template engines (e.g. ERB), not Django.",
         "relatedTopics": [
           "be-7"
         ]
@@ -192,7 +192,7 @@
         ],
         "correctAnswerId": "c",
         "expectedAnswer": null,
-        "explanation": "**Answer**\n\nThe canonical command is `django-admin startproject my_tennis_club`, which scaffolds the project directory and inner config package. `django start` and `manage.py start-django` are not real commands.\n\n**Explanation**\n\nAfter creation, use `manage.py` inside the project for runserver, migrate, etc.",
+        "explanation": "**How it works**\n\nThe canonical command is `django-admin startproject my_tennis_club`, which scaffolds the project directory and inner config package with `settings.py`. `django start` and `manage.py start-django` are not real commands. After creation, use `python manage.py` inside the project for `runserver`, `migrate`, etc.",
         "relatedTopics": [
           "be-5"
         ]
@@ -229,7 +229,7 @@
         ],
         "correctAnswerId": "a",
         "expectedAnswer": null,
-        "explanation": "**Answer**\n\nDjango models live in `appname/models.py`. Standard import: `from members.models import Member`.\n\n**Explanation**\n\nJavaScript-style `import Member from members` and dotted `import members.Member` are not valid Python import syntax for this case.",
+        "explanation": "**How it works**\n\nDjango models live in `appname/models.py`. Standard import: `from members.models import Member`. JavaScript-style `import Member from members` and dotted `import members.Member` are not valid Python import syntax for this case.\n\nDjango expects normal Python package imports following `INSTALLED_APPS` structure.",
         "relatedTopics": [
           "be-8"
         ]
@@ -266,7 +266,7 @@
         ],
         "correctAnswerId": "a",
         "expectedAnswer": null,
-        "explanation": "External JavaScript files are linked using the HTML `<script>` tag with the `src` (source) attribute pointing to the file path.",
+        "explanation": "**How it works**\n\nExternal JavaScript files are loaded with a `<script>` tag and the `src` attribute pointing to the file path, e.g. `<script src=\"jsfile.js\"></script>`. The browser downloads and executes that file. Place scripts before `</body>` or use `defer` so the DOM is ready.\n\n**Why the others fail**\n\n- B: `href` belongs to `<link>` and `<a>`, not `<script>`.\n- C: `<import>` is not standard HTML for loading JS files.\n- D: `link` is not a valid `<script>` attribute.",
         "relatedTopics": [
           "fe-5"
         ]
@@ -303,7 +303,7 @@
         ],
         "correctAnswerId": "c",
         "expectedAnswer": null,
-        "explanation": "While 'a' represents the raw method name, 'c' explicitly shows the method signature with the required parameter, which is typically the expected answer in academic contexts. Technically, it is a method of the `document` object.",
+        "explanation": "**How it works**\n\n`document.getElementById(id)` returns the element whose `id` attribute matches the string you pass. The `id` must be unique in the document. This is the classic DOM lookup before changing content via properties like `innerHTML`.\n\n**Why the others fail**\n\n- A: `getElementById()` names the method but omits the required `id` parameter the question asks for.\n- B: `getElement(id)` does not exist on `document`.\n- D: `elementById(id)` is not a valid DOM API.",
         "relatedTopics": [
           "fe-3"
         ]
@@ -340,7 +340,7 @@
         ],
         "correctAnswerId": "d",
         "expectedAnswer": null,
-        "explanation": "The `innerHTML` property sets or returns the HTML content inside an element.",
+        "explanation": "**How it works**\n\n`innerHTML` gets or sets the HTML markup inside an element. Assigning `element.innerHTML = \"<b>Hi</b>\"` replaces the element's children and parses HTML tags. Use `textContent` when you only need plain text without parsing tags.\n\n**Why the others fail**\n\n- A: `innerText` returns visible text and respects layout; it is not the standard property for setting raw HTML content.\n- B: `innerContent` is not a DOM property.\n- C: `element Text` is not valid JavaScript syntax.",
         "relatedTopics": [
           "fe-3"
         ]
@@ -377,7 +377,7 @@
         ],
         "correctAnswerId": "d",
         "expectedAnswer": null,
-        "explanation": "**Answer**\n\nTo apply model changes to the database you run `python manage.py migrate`. That command is not listed.\n\n**Explanation**\n\n`makemigrations` (option C) only creates migration files: it does not alter the database. `runmigrations` and `executemigrations` are fake commands.\n\nTherefore D (None of the previous) is correct\n\n**Exam tip**\n\nstudents pick C because it is the only real Django command shown, but it is the wrong step for \"take effect in the database.\"",
+        "explanation": "**How it works**\n\nTo apply model changes to the database you run `python manage.py migrate`, which executes migration operations via the ORM. That command is not listed. `makemigrations` (option C) only creates migration files ; it does not alter the database schema.\n\n`runmigrations` and `executemigrations` are fake commands. Therefore D (None of the previous) is correct\n\n**Common mistake**\n\nStudents pick C because it is the only real Django command shown, but it is the wrong step for \"take effect in the database.\"",
         "relatedTopics": [
           "be-8"
         ]
@@ -414,7 +414,7 @@
         ],
         "correctAnswerId": "c",
         "expectedAnswer": null,
-        "explanation": "`console.log()` is the standard JavaScript method used to print information to the web browser's developer console for debugging.",
+        "explanation": "**How it works**\n\nThe `console` object is the browser developer-tools logging API. `console.log()` accepts any number of arguments, converts them to strings, and prints them to the console without blocking the page. It is the standard debug output method.\n\n**Why the others fail**\n\n- A: `console.write()` does not exist.\n- B: `console.output()` does not exist.\n- D: `console.writeHTML()` does not exist.",
         "relatedTopics": [
           "fe-5"
         ]
@@ -451,7 +451,7 @@
         ],
         "correctAnswerId": "b",
         "expectedAnswer": null,
-        "explanation": "`window.alert()` (or simply `alert()`) instructs the browser to display a dialog box with an optional message, and waits until the user dismisses it.",
+        "explanation": "**How it works**\n\n`window.alert(message)` (or simply `alert(message)`) opens a modal dialog with the message and pauses script execution until the user clicks OK. It is synchronous and blocks further JS on that thread until dismissed.\n\n**Why the others fail**\n\n- A: `window.alertHTML()` is not a real API.\n- C: `window.alertBox()` is not a real API.\n- D: `window.alertContent()` is not a real API.",
         "relatedTopics": [
           "fe-5"
         ]
@@ -488,7 +488,7 @@
         ],
         "correctAnswerId": "a",
         "expectedAnswer": null,
-        "explanation": "The `nodeName` property is strictly read-only (it returns the tag name like 'DIV' or '#text'). The `nodeValue` property is read-write for Text, Comment, and CDATA nodes.",
+        "explanation": "**How it works**\n\nIn the DOM, `nodeName` is read-only: for elements it returns the tag name in uppercase (e.g. `DIV`); for text nodes it returns `#text`. `nodeValue` is read-write on text, comment, and CDATA nodes (the actual character data), but is `null` on element nodes.\n\n**Why the others fail**\n\n- B: `nodeValue` can be changed on text nodes, so it is not strictly read-only in all cases.\n- C: Both are not read-only because `nodeValue` is writable on text nodes.\n- D: At least `nodeName` is read-only, so \"none\" is wrong.",
         "relatedTopics": [
           "fe-3"
         ]
@@ -525,7 +525,7 @@
         ],
         "correctAnswerId": "d",
         "expectedAnswer": null,
-        "explanation": "When declaring a constant using the `const` keyword, you must initialize it with a value at the time of declaration.",
+        "explanation": "**How it works**\n\n`const` declares a block-scoped constant binding. You must provide an initializer: `const constant_name = value;`. Without a value, JavaScript throws a `SyntaxError` at parse time because `const` cannot be left uninitialized.\n\n**Why the others fail**\n\n- A: `const constant_name;` omits the required initializer.\n- B: Reverses keyword and identifier order.\n- C: Uses invalid `constant name` syntax instead of `const`.",
         "relatedTopics": [
           "fe-5",
           "fe-6"
@@ -563,7 +563,7 @@
         ],
         "correctAnswerId": "d",
         "expectedAnswer": null,
-        "explanation": "Attempting to reassign a new value to a constant variable declared with `const` throws a `TypeError: Assignment to constant variable.`",
+        "explanation": "**Step by step**\n\n`const VALUE = 10` creates a constant binding. The next line `VALUE = 20` attempts reassignment. The `const` keyword locks the binding to its initial value; reassigning throws `TypeError: Assignment to constant variable.` Execution stops at that line.\n\n**Why the others fail**\n\n- A: `10` would mean reassignment succeeded, which `const` forbids.\n- B: `20` is the attempted new value, not the outcome.\n- C: `ValueError` is Python terminology; JavaScript uses `TypeError` for illegal assignment to constants.\n\n**Common mistake**\n\nConfusing JavaScript `TypeError` with Python's `ValueError` on exam questions.",
         "relatedTopics": [
           "fe-5",
           "fe-6"
@@ -589,7 +589,7 @@
         ],
         "correctAnswerId": "a",
         "expectedAnswer": null,
-        "explanation": "Yes. In JavaScript, functions are first-class citizens, meaning they can be assigned to variables, passed as arguments, and returned from other functions.",
+        "explanation": "**How it works**\n\nJavaScript treats functions as first-class values. You can assign a function to a variable (`const fn = function() {}`), pass it as an argument (`arr.map(fn)`), and return it from another function. Function expressions and arrow functions are common patterns for storing functions in variables.",
         "relatedTopics": [
           "fe-5"
         ]
@@ -626,7 +626,7 @@
         ],
         "correctAnswerId": "b",
         "expectedAnswer": null,
-        "explanation": "JavaScript is case-sensitive. `X` (uppercase) is the global variable `10`; `x` (lowercase) is a separate `let` inside `myfunc`, which is never called. `document.write(X)` outputs `10`.",
+        "explanation": "**Step by step**\n\n`var X = 10` creates a global variable `X` (uppercase). Inside `myfunc`, `let x = 20` declares a separate block-scoped variable with a different name ; JavaScript is case-sensitive, so `X` and `x` are unrelated. `myfunc()` is never called, so the inner `x` never affects anything. `document.write(X)` prints `10`.\n\n**Why the others fail**\n\n- A: `20` would require the global `X` to change, but only lowercase `x` inside an uncalled function is set.\n- C: `ValueError` is not a JavaScript error type.\n- D: No `TypeError` occurs; reading global `X` is valid.\n\n**Common mistake**\n\nIgnoring case sensitivity and assuming `X` and `x` refer to the same variable.",
         "relatedTopics": [
           "fe-5",
           "fe-6"
@@ -664,7 +664,7 @@
         ],
         "correctAnswerId": "a",
         "expectedAnswer": null,
-        "explanation": "`10 + 20` is `30`, then `30 + \"5\"` concatenates to `\"305\"`.",
+        "explanation": "**Step by step**\n\nThe `+` operator evaluates left to right. `10 + 20` uses numeric addition and yields `30`. Then `30 + \"5\"` sees a string on the right, so JavaScript coerces `30` to `\"30\"` and concatenates, producing `\"305\"`. `innerHTML` displays that string.\n\n**Why the others fail**\n\n- B: `35` would require all operands to be numbers (`10+20+5`), but `\"5\"` is a string.\n- C: No error is thrown; mixed-type `+` triggers coercion, not failure.\n- D: `ValueError` is not a JavaScript error type.",
         "relatedTopics": [
           "fe-5"
         ]
@@ -701,7 +701,7 @@
         ],
         "correctAnswerId": "d",
         "expectedAnswer": null,
-        "explanation": "JavaScript only has one numerical type: `number`. It does not differentiate between integers and floats in the `typeof` evaluation.",
+        "explanation": "**Step by step**\n\n`typeof` returns a string naming the operand's type. `var x = 1234` stores a numeric literal, so `typeof(x)` is `\"number\"`. JavaScript has no separate `int`, `float`, or `long` types in `typeof` results ; integers and decimals are both `number`.\n\n**Why the others fail**\n\n- A: `int` is not a `typeof` result in JavaScript.\n- B: `float` is not a `typeof` result in JavaScript.\n- C: `long` is not a `typeof` result in JavaScript.",
         "relatedTopics": [
           "fe-5"
         ]
@@ -738,7 +738,7 @@
         ],
         "correctAnswerId": "c",
         "expectedAnswer": null,
-        "explanation": "Bracket notation with a string literal — `objectName[\"propertyName\"]` — reads a property in JavaScript. Dot notation (`objectName.propertyName`) works too but is not listed. Option A (`objectName:propertyName`) is object-creation syntax, not access. Option B (`objectName[propertyName]`) only works when `propertyName` is a variable holding the key; without that context, C is correct.",
+        "explanation": "**How it works**\n\nBracket notation with a string literal reads an object property: `objectName[\"propertyName\"]`. Dot notation (`objectName.propertyName`) also works when the key is a valid identifier. Bracket form is required when the key has spaces, special characters, or comes from a variable.\n\n**Why the others fail**\n\n- A: `objectName:propertyName` is object literal syntax, not property access.\n- B: `objectName[propertyName]` treats `propertyName` as a variable name, not a string literal key.\n- D: Valid bracket notation exists in option C.",
         "relatedTopics": [
           "fe-5"
         ]
@@ -775,7 +775,7 @@
         ],
         "correctAnswerId": "d",
         "expectedAnswer": null,
-        "explanation": "The `reduce` function starts with an initial value of 2. It iterates through the array: 2+1=3, 3+2=5, 5+3=8, 8+4=12. Since 12 is not listed in options A, B, or C, the correct choice is D.",
+        "explanation": "**Step by step**\n\n`reduce(callback, initialValue)` folds the array into one value. With initial value `2`: `2+1=3`, `3+2=5`, `5+3=8`, `8+4=12`. The final accumulator is `12`, which is not among options A (`10`), B (`7`), or C (`9`).\n\n**Why the others fail**\n\n- A: `10` would be the sum of array elements only, ignoring the initial value `2`.\n- B: `7` does not match any correct reduction path.\n- C: `9` might come from summing without the initial `2` correctly.\n\n**Common mistake**\n\nForgetting the second argument to `reduce` becomes the starting accumulator.",
         "relatedTopics": [
           "fe-6"
         ]
@@ -812,7 +812,7 @@
         ],
         "correctAnswerId": "c",
         "expectedAnswer": null,
-        "explanation": "`reduce` with subtraction gives `170 - 50 - 25 = 95`.",
+        "explanation": "**Step by step**\n\nWhen `reduce` is called without an initial value, the first array element becomes the accumulator. Here `total` starts at `170`. Step 1: `170 - 50 = 120`. Step 2: `120 - 25 = 95`. `document.write(x)` outputs `95`.\n\n**Why the others fail**\n\n- A: `100` might come from incorrect subtraction order.\n- B: `245` could result from adding instead of subtracting.\n- D: `95` is a listed option, so \"none\" is wrong.",
         "relatedTopics": [
           "fe-6"
         ]
@@ -849,7 +849,7 @@
         ],
         "correctAnswerId": "d",
         "expectedAnswer": null,
-        "explanation": "**Answer**\n\nThe `Expires` header is sent in an HTTP response and gives a date/time after which the cached response should be considered stale: time-based caching. It is not a request header and not about content-type.\n\n**Explanation**\n\nPair: response + time-based caching.",
+        "explanation": "**How it works**\n\nThe `Expires` header is sent in an HTTP response and gives a date/time after which the cached response should be considered stale ; time-based caching for browsers and proxies. It is not a request header and not about content-type (that is `Content-Type`). Pair: response + time-based caching.",
         "relatedTopics": [
           "fe-1",
           "be-4"
@@ -887,7 +887,7 @@
         ],
         "correctAnswerId": "b",
         "expectedAnswer": null,
-        "explanation": "`forEach` calls `myFunction` for each element. Each call adds the value to `result` (`result += value`), so the total is 10 + 20 + 30 = 60. The output is `Result: 60`.",
+        "explanation": "**Step by step**\n\n`forEach` invokes `myFunction` once per element. Each call runs `result += value`, mutating the outer `result`. Iteration: `0+10=10`, `10+20=30`, `30+30=60`. `document.write(\"Result: \", result)` prints `Result: 60`.\n\n**Why the others fail**\n\n- A: `102030` would mean string concatenation, but `result` starts as number `0` so `+=` stays numeric.\n- C: `10,20,30` would print the array, not the accumulated sum.\n- D: `ValueError` is not a JavaScript error type.",
         "relatedTopics": [
           "fe-6"
         ]
@@ -924,7 +924,7 @@
         ],
         "correctAnswerId": "c",
         "expectedAnswer": null,
-        "explanation": "The `map` function creates a new array by executing the provided function on each element. It squares each value, returning `[100, 400, 900]`. When an array is coerced to a string for `document.write`, it joins elements with commas, yielding `Result: 100,400,900`.",
+        "explanation": "**Step by step**\n\n`map` applies `myFunction` to each element and returns a new array. Squaring: `10*10=100`, `20*20=400`, `30*30=900`, so `result` is `[100, 400, 900]`. `document.write` coerces the array to a string via `Array.prototype.toString()`, joining with commas: `Result: 100,400,900`.\n\n**Why the others fail**\n\n- A: Shows original values, not squared results.\n- B: Shows unevaluated expressions as text, not computed numbers.\n- D: `100400900` would require string concatenation without comma separators.",
         "relatedTopics": [
           "fe-6"
         ]
@@ -961,7 +961,7 @@
         ],
         "correctAnswerId": "c",
         "expectedAnswer": null,
-        "explanation": "The correct global object method is `JSON.stringify()`. (Option C specifies `stringify()`, which is the core method name).",
+        "explanation": "**How it works**\n\nSerialization converts a JavaScript value to a JSON-formatted string using `JSON.stringify(object)`. The inverse is `JSON.parse(string)`. `stringify()` walks the object, converts keys and values to JSON syntax, and returns a portable string for storage or HTTP transmission.\n\n**Why the others fail**\n\n- A: `parse()` deserializes JSON strings back into objects, the opposite direction.\n- B: `convert()` is not a standard JSON API.\n- D: A valid method name is listed in option C.",
         "relatedTopics": [
           "fe-6"
         ]
@@ -998,7 +998,7 @@
         ],
         "correctAnswerId": "c",
         "expectedAnswer": null,
-        "explanation": "**Answer**\n\nAfter a header line ending with a colon (`if`, `for`, `while`, `def`, `else`, etc.), Python expects an indented block on the following lines. There are no `{}` block delimiters.\n\n**Explanation**\n\nConsistent leading whitespace (usually four spaces) groups statements into one block; dedenting ends the block. Option A (`Block`) and B (`Loop`) name concepts, not Python's block syntax.\n\nGetting indentation wrong raises `IndentationError` before the program runs.",
+        "explanation": "**How it works**\n\nAfter a header line ending with a colon (`if`, `for`, `while`, `def`, `else`, etc.), Python expects an indented block on the following lines. There are no `{}` block delimiters. Consistent leading whitespace (usually four spaces) groups statements into one block; dedenting ends the block.\n\nGetting indentation wrong raises `IndentationError` before the program runs because the parser cannot attach a body to the compound statement.\n\n**Why the others fail**\n\n- A: (`Block`) and B (`Loop`) name concepts, not Python's block syntax.",
         "relatedTopics": [
           "be-2"
         ]
@@ -1035,7 +1035,7 @@
         ],
         "correctAnswerId": "c",
         "expectedAnswer": null,
-        "explanation": "The `find()` method returns the value of the *first* element in the provided array that satisfies the testing function. The first value greater than 10 is 20.",
+        "explanation": "**Step by step**\n\n`find(callback)` returns the first element where the callback returns a truthy value. Testing `value > 10`: `10 > 10` is false, `20 > 10` is true, so `find` stops and returns `20`. It returns a single value, not an array or list of all matches.\n\n**Why the others fail**\n\n- A: `20,30` suggests multiple values, but `find` returns only the first match.\n- B: `[20,30]` is array syntax; `find` returns a scalar element.\n- D: `20` is listed, so \"none\" is incorrect.",
         "relatedTopics": [
           "fe-6"
         ]
@@ -1072,7 +1072,7 @@
         ],
         "correctAnswerId": "b",
         "expectedAnswer": null,
-        "explanation": "`cars.company` is `undefined` after delete; `cars[\"color\"]` is `\"white\"`.",
+        "explanation": "**Step by step**\n\n`delete cars.company` removes the `company` property from the object. Reading `cars.company` afterward yields `undefined` (missing property). Variable `x` holds `\"color\"`, so `cars[x]` is bracket access equivalent to `cars.color`, which is `\"white\"`. Two `document.write` calls print `undefined` then `white` with a space between.\n\n**Why the others fail**\n\n- A: `Honda` would mean `delete` failed, but `delete` on object properties succeeds.\n- C: `color` is the key name, not the value stored at that key.\n- D: No `TypeError`; `delete` and property access are valid here.",
         "relatedTopics": [
           "fe-6"
         ]
@@ -1109,7 +1109,7 @@
         ],
         "correctAnswerId": "d",
         "expectedAnswer": null,
-        "explanation": "`eval(\"x * y\")` returns the number `200`, not the string `\"200\"`.",
+        "explanation": "**Step by step**\n\n`eval(text)` executes the string `text` as JavaScript code in the current scope. Here `text` is `\"x * y\"`, and `x=10`, `y=20` are in scope, so `eval` computes `10 * 20 = 200` as a number. `innerHTML` displays `200` without quotes.\n\n**Why the others fail**\n\n- A: `x * y` would be the output only if `eval` were not called or the string were printed literally.\n- B: `\"200\"` is a string type; `eval` returns numeric `200`.\n- C: `ValueError` is not a JavaScript error type.",
         "relatedTopics": [
           "fe-5",
           "fe-6"
@@ -1147,7 +1147,7 @@
         ],
         "correctAnswerId": "b",
         "expectedAnswer": null,
-        "explanation": "`filter()` returns an array; `typeof` an array is `\"object\"`.",
+        "explanation": "**Step by step**\n\n`filter` returns a new array of elements passing the test: `[20, 30]` for `value > 10`. In JavaScript, arrays are objects. `typeof []` and `typeof y` both return `\"object\"` ; there is no `typeof` result of `\"array\"`.\n\n**Why the others fail**\n\n- A: `array` is not a `typeof` return value despite arrays being array-like.\n- C: `number` would apply to a numeric value, not an array.\n- D: `object` is a valid `typeof` result.",
         "relatedTopics": [
           "fe-6"
         ]
@@ -1184,7 +1184,7 @@
         ],
         "correctAnswerId": "a",
         "expectedAnswer": null,
-        "explanation": "`lastIndexOf(10)` is 2, `indexOf(30)` is 3, sum is 5.",
+        "explanation": "**Step by step**\n\n`lastIndexOf(10)` searches backward and finds `10` at index `2` (the second `10` in `[10, 20, 10, 30]`). `indexOf(30)` finds `30` at index `3`. The code adds them: `2 + 3 = 5`.\n\n**Why the others fail**\n\n- B: `3` might use only `indexOf(30)` or confuse first/last index.\n- C: `2` is only `lastIndexOf(10)`, not the sum.\n- D: `5` is listed as option A.",
         "relatedTopics": [
           "fe-6"
         ]
@@ -1221,7 +1221,7 @@
         ],
         "correctAnswerId": "b",
         "expectedAnswer": null,
-        "explanation": "In JavaScript, `typeof NaN` evaluates to `\"number\"` because `NaN` is a numeric value.",
+        "explanation": "**Step by step**\n\n`NaN` means \"Not a Number\" but is still classified as the `number` type in JavaScript's type system. `typeof NaN` returns `\"number\"` because `NaN` is a special numeric value representing an invalid math result (e.g. `0/0`).\n\n**Why the others fail**\n\n- A: `NaN` is the value itself, not what `typeof` returns.\n- C: `object` applies to arrays and `null` (historical quirk), not `NaN`.\n- D: A valid answer exists in option B.\n\n**Common mistake**\n\nAssuming `NaN` must have its own `typeof` label because of its name.",
         "relatedTopics": [
           "fe-6"
         ]
@@ -1258,7 +1258,7 @@
         ],
         "correctAnswerId": "a",
         "expectedAnswer": null,
-        "explanation": "`concat` merges the array with the new elements, creating `[1, 2, 3, 6, 7, 8]`. When `document.write` coerces this array to a string for display, it outputs the elements separated by commas: `1,2,3,6,7,8`.",
+        "explanation": "**Step by step**\n\n`concat` returns a new array merging the original and arguments: `[1, 2, 3, 6, 7, 8]`. `document.write(result)` calls `toString()` on the array, which joins elements with commas (no spaces), producing `1,2,3,6,7,8`.\n\n**Why the others fail**\n\n- B: Brackets appear in `console.log` output but `document.write` on an array does not add outer brackets.\n- C: `array` is not the string coercion of a numeric array.\n- D: A matching output format exists in option A.",
         "relatedTopics": [
           "fe-6"
         ]
@@ -1310,7 +1310,7 @@
         ],
         "correctAnswerId": "d",
         "expectedAnswer": null,
-        "explanation": "The semicolon after the `for` loop leaves an empty body; `document.write(a)` runs once and prints `5`.",
+        "explanation": "**Step by step**\n\nThe semicolon immediately after `for (a=0; a<5; a++);` ends the `for` statement with an empty body. The loop still runs all iterations, incrementing `a` from 0 to 5 (stops when `a<5` is false). After the loop, `document.write(a)` runs once and prints `5`.\n\n**Why the others fail**\n\n- A: `01234` would require `document.write` inside the loop body.\n- B: `0` would mean the loop never incremented `a`.\n- C: No syntax error; the empty body is legal.\n\n**Common mistake**\n\nMissing the semicolon that separates an empty `for` body from the next statement.",
         "relatedTopics": [
           "fe-5"
         ]
@@ -1347,7 +1347,7 @@
         ],
         "correctAnswerId": "b",
         "expectedAnswer": null,
-        "explanation": "**Answer**\n\nThe assignment `(*k,) = (1, 2, 3, 4)` uses starred unpacking on the left. Because there is only one target (`k`) with a star, it receives every element of the tuple as a list: `[1, 2, 3, 4]`.\n\n**Explanation**\n\nThe trailing comma in `(*k,)` is required: without it, parentheses would be grouping, not a valid one-target unpack pattern. `print(k)` therefore shows `[1, 2, 3, 4]`.\n\nOptions A and C list partial values without brackets; they describe different unpack shapes.",
+        "explanation": "**Step by step**\n\nThe assignment `(*k,) = (1, 2, 3, 4)` uses starred unpacking (`*` target) on the left. Because there is only one target (`k`) with a star, it receives every element of the tuple as a `list`: `[1, 2, 3, 4]`. The trailing comma in `(*k,)` is required ; without it, parentheses would be grouping, not a valid one-target unpack pattern.\n\n`print(k)` therefore shows `[1, 2, 3, 4]` because starred targets always collect into a list.\n\n**Why the others fail**\n\n- A and C list partial values without brackets; they describe different unpack shapes.",
         "relatedTopics": [
           "be-2"
         ]
@@ -1384,7 +1384,7 @@
         ],
         "correctAnswerId": "c",
         "expectedAnswer": null,
-        "explanation": "**Answer**\n\nTuple unpacking assigns by position. In `(x, *k, y) = (1, 2, 3, 4)`, `x` takes the first value `1`, `y` takes the last value `4`, and the starred name `k` absorbs the middle values as a list.\n\n**Explanation**\n\nTherefore `k == [2, 3]`. Starred targets always collect a list (possibly empty) of leftover items.\n\nOption A shows bare values without list brackets. Option B incorrectly includes the final `4` in `k`.",
+        "explanation": "**Step by step**\n\nTuple unpacking assigns by position. In `(x, *k, y) = (1, 2, 3, 4)`, `x` takes the first value `1`, `y` takes the last value `4`, and the starred name `k` absorbs the middle values as a list. Therefore `k == [2, 3]`.\n\nStarred targets always collect a list (possibly empty) of leftover items between fixed endpoints.\n\n**Why the others fail**\n\n- A: shows bare values without list brackets.\n- B: incorrectly includes the final `4` in `k`.",
         "relatedTopics": [
           "be-2"
         ]
@@ -1421,7 +1421,7 @@
         ],
         "correctAnswerId": "c",
         "expectedAnswer": null,
-        "explanation": "CSS allows color definition using predefined color names (like \"red\") or hexadecimal codes (like \"#ff0000\"). Both syntaxes are valid.",
+        "explanation": "**How it works**\n\nInline CSS on a `<p>` tag uses `style=\"color: ...\"`. CSS accepts named colors like `red` and hex codes like `#ff0000` (full red). Both option A and B produce red paragraph text, so \"Both a and b\" is correct.\n\n**Why the others fail**\n\n- A and B: Each alone is valid, but the question asks which statement is correct and both work.\n- D: At least two valid syntaxes exist.",
         "relatedTopics": [
           "fe-4"
         ]
@@ -1458,7 +1458,7 @@
         ],
         "correctAnswerId": "b",
         "expectedAnswer": null,
-        "explanation": "The `<mark>` tag is the standard HTML5 element used to represent text that has been highlighted or marked for reference purposes.",
+        "explanation": "**How it works**\n\nHTML5 introduced `<mark>` to highlight text for reference or search results. Browsers typically render it with a yellow background. `<highlight>` and `<m>` are not standard HTML elements.\n\n**Why the others fail**\n\n- A: `<highlight>` is not a defined HTML tag.\n- C: `<m>` is not the highlight element.\n- D: A valid standard tag exists.",
         "relatedTopics": [
           "fe-2"
         ]
@@ -1495,7 +1495,7 @@
         ],
         "correctAnswerId": "b",
         "expectedAnswer": null,
-        "explanation": "H₂O needs `<sub>` for the 2; option B is `<p>H<sub>2</sub>O</p>`.",
+        "explanation": "**How it works**\n\nChemical formulas use `<sub>` for subscript (below the baseline) and `<sup>` for superscript (above). In H₂O, the `2` sits below the H, so `<p>H<sub>2</sub>O</p>` is correct. `<sup>` would place the 2 above the line, as in exponents.\n\n**Why the others fail**\n\n- A: `<sup>` raises the 2, suitable for x² not H₂O.\n- C: `<ins>` marks inserted text, not subscript.\n- D: `<below>` is not a valid HTML tag.",
         "relatedTopics": [
           "fe-2"
         ]
@@ -1532,7 +1532,7 @@
         ],
         "correctAnswerId": "a",
         "expectedAnswer": null,
-        "explanation": "Use `<del>` for deleted text and `<ins>` for inserted text; `<cut>` is not valid HTML.",
+        "explanation": "**How it works**\n\n`<del>` renders deleted/struck-through text; `<ins>` renders inserted/underlined text. Together they show document revisions. `<cut>` is not valid HTML. `<mark>` highlights text but does not produce underline styling like `<ins>`.\n\n**Why the others fail**\n\n- B: `<cut>` is not a standard HTML element.\n- C: `<mark>` highlights; it does not match the semantic insert/underline pairing with `<del>`.\n- D: Option A is valid.",
         "relatedTopics": [
           "fe-2",
           "fe-3"
@@ -1570,7 +1570,7 @@
         ],
         "correctAnswerId": "b",
         "expectedAnswer": null,
-        "explanation": "The `<img>` tag uses the `src` attribute to specify the image path.",
+        "explanation": "**How it works**\n\nThe `<img>` element embeds images. The `src` (source) attribute holds the URL or file path to the image resource. `alt` provides alternative text; `width` and `height` set dimensions.\n\n**Why the others fail**\n\n- A: `href` is for hyperlinks (`<a>`, `<link>`), not images.\n- C: `link` is not an `<img>` attribute.\n- D: Only `src` applies to images among the listed choices.",
         "relatedTopics": [
           "fe-2"
         ]
@@ -1595,7 +1595,7 @@
         ],
         "correctAnswerId": "a",
         "expectedAnswer": null,
-        "explanation": "Yes. Unlike the `id` attribute, which must be unique per document, `class` attributes are specifically designed to be reused across multiple elements.",
+        "explanation": "**How it works**\n\nThe `class` attribute is designed for reuse: many elements can share the same class name, and one element can have multiple classes. CSS selectors like `.myClass` target all matching elements. The `id` attribute must be unique per document.",
         "relatedTopics": [
           "fe-4"
         ]
@@ -1632,7 +1632,7 @@
         ],
         "correctAnswerId": "b",
         "expectedAnswer": null,
-        "explanation": "The `background-position` CSS property sets the initial position for a background image.",
+        "explanation": "**How it works**\n\n`background-position` sets where a background image is placed within the element's padding box (e.g. `top left`, `center`, or `50% 50%`). `background-image` only specifies which image to load, not its placement. `padding` controls inner spacing, not background image coordinates.\n\n**Why the others fail**\n\n- A: `background-image` declares the image URL, not its position.\n- C: `padding` adds space inside the border, unrelated to background placement.\n- D: Only one property directly controls background image positioning.",
         "relatedTopics": [
           "fe-4"
         ]
@@ -1669,7 +1669,7 @@
         ],
         "correctAnswerId": "b",
         "expectedAnswer": null,
-        "explanation": "The CSS syntax for selecting an element `E` that possesses a specific class name is `E.classname`.",
+        "explanation": "**How it works**\n\nThe type-and-class selector `E.class` matches elements of type `E` that also have the given class. Example: `p.warning` selects `<p class=\"warning\">` but not `<div class=\"warning\">`. The dot links the class name to the element type.\n\n**Why the others fail**\n\n- A: `E-F` is a sibling combinator, not a class selector.\n- C: `E#class` uses `#` for IDs, not classes.\n- D: `Class(E)` is not valid CSS syntax.",
         "relatedTopics": [
           "fe-4"
         ]
@@ -1706,7 +1706,7 @@
         ],
         "correctAnswerId": "a",
         "expectedAnswer": null,
-        "explanation": "The `$=` operator in a CSS attribute selector strictly matches elements whose attribute value ends with the specified string.",
+        "explanation": "**How it works**\n\nCSS attribute selectors use operators inside brackets. `$=` means \"ends with\": `E[attr$=value]` matches when the attribute value ends with `value`. `=` is exact match; `*=` means contains anywhere.\n\n**Why the others fail**\n\n- B: `[attr=value]` requires an exact full match, not a suffix.\n- C: `[attr*=value]` matches if `value` appears anywhere, not specifically at the end.\n- D: A valid suffix selector exists.",
         "relatedTopics": [
           "fe-4"
         ]
@@ -1743,7 +1743,7 @@
         ],
         "correctAnswerId": "b",
         "expectedAnswer": null,
-        "explanation": "The `:empty` pseudo-class represents any element that has no children (including text nodes).",
+        "explanation": "**How it works**\n\nThe `:empty` pseudo-class matches elements with no children and no text nodes (whitespace text can prevent a match in strict browsers). `:nochild` and `:no-child` are not defined in the CSS specification.\n\n**Why the others fail**\n\n- A: `:nochild` is not a real pseudo-class.\n- C: `:no-child` is not a real pseudo-class.\n- D: `:empty` is the standard answer.",
         "relatedTopics": [
           "fe-4"
         ]
@@ -1780,7 +1780,7 @@
         ],
         "correctAnswerId": "a",
         "expectedAnswer": null,
-        "explanation": "**Answer**\n\nNegative indices count from the end: index `-1` is `\"!\"`, `-2` is `\"d\"`, `-3` is `\"l\"`, `-4` is `\"r\"`, `-5` is `\"o\"`. Slice `b[-5:-2]` starts at `\"o\"` and stops before index `-2` (`\"d\"`), so the slice characters are `\"o\"`, `\"r\"`, `\"l\"` → `orl`.\n\n**Explanation**\n\nSlices exclude the stop index. Option B (`or`) would use stop `-3`.\n\nOption C (`Wor`) uses positive-index thinking and is out of range for this negative slice.",
+        "explanation": "**Step by step**\n\nNegative indices count from the end: index `-1` is `'!'`, `-2` is `'d'`, `-3` is `'l'`, `-4` is `'r'`, `-5` is `'o'`. Slice `b[-5:-2]` uses `str.__getitem__` with a slice object: start at `'o'` and stop before index `-2` (`'d'`), so the slice characters are `'o'`, `'r'`, `'l'` → `orl`. Slices exclude the stop index.\n\n**Why the others fail**\n\n- B: (`or`) would use stop `-3`.\n- C: (`Wor`) uses positive-index thinking and is out of range for this negative slice.",
         "relatedTopics": [
           "be-2"
         ]
@@ -1817,7 +1817,7 @@
         ],
         "correctAnswerId": "c",
         "expectedAnswer": null,
-        "explanation": "**Answer**\n\n`tuple.index(value)` returns the zero-based index of the first matching element, not the value itself and not the count of occurrences. The first `3` in `(1, 2, 3, 3, 4, 5)` sits at index `2`, so `print(x)` outputs `2`.\n\n**Explanation**\n\nOption A (`3`) confuses index with value. Option B (`4`) might come from counting duplicates or using 1-based indexing.",
+        "explanation": "**Step by step**\n\n`tuple.index(value)` scans the sequence and returns the zero-based index of the first matching element via `==` comparison, not the value itself and not the count of occurrences. The first `3` in `(1, 2, 3, 3, 4, 5)` sits at index `2`, so `print(x)` outputs `2`.\n\n**Why the others fail**\n\n- A: (`3`) confuses index with value.\n- B: (`4`) might come from counting duplicates or using 1-based indexing.",
         "relatedTopics": [
           "be-2"
         ]
@@ -1842,7 +1842,7 @@
         ],
         "correctAnswerId": "b",
         "expectedAnswer": null,
-        "explanation": "**Answer**\n\nASGI (Asynchronous Server Gateway Interface) supports async views and concurrent request handling within an event loop. WSGI is synchronous: each worker typically handles one request at a time in sequence.\n\n**Explanation**\n\nThe statement claims ASGI is sequential, which is false.",
+        "explanation": "**How it works**\n\nASGI (Asynchronous Server Gateway Interface) supports async views and concurrent request handling within an event loop via `async def` views. WSGI is synchronous ; each worker typically handles one request at a time in sequence. The statement claims ASGI is sequential, which is false.",
         "relatedTopics": [
           "be-1",
           "be-5"
@@ -1868,7 +1868,7 @@
         ],
         "correctAnswerId": "a",
         "expectedAnswer": null,
-        "explanation": "Yes, HTML5 introduced the native `<audio>` element for embedding sound content.",
+        "explanation": "**How it works**\n\nHTML5 provides the `<audio>` element for embedding sound with optional `controls`, `autoplay`, and `<source>` children for multiple formats. Before HTML5, audio required plugins like Flash.",
         "relatedTopics": [
           "fe-2"
         ]
@@ -1905,7 +1905,7 @@
         ],
         "correctAnswerId": "b",
         "expectedAnswer": null,
-        "explanation": "**Answer**\n\nSets store unique elements only. `fruits` begins with three distinct strings.\n\n**Explanation**\n\n`fruits.add(\"apple\")` attempts to insert a duplicate; sets ignore duplicates, so membership and length stay unchanged. `len(fruits)` remains `3`.\n\nOption A assumes duplicates increase length. Sets are unordered, but length always reflects unique members.",
+        "explanation": "**How it works**\n\nSets store unique elements only. `fruits` begins with three distinct strings. `fruits.add(\"apple\")` calls `set.add()`, which checks membership with hash lookup; duplicates are ignored and length stays unchanged.\n\n`len(fruits)` remains `3`. Sets are unordered, but length always reflects unique members.\n\n**Why the others fail**\n\n- A: assumes duplicates increase length.",
         "relatedTopics": [
           "be-2"
         ]
@@ -1942,7 +1942,7 @@
         ],
         "correctAnswerId": "c",
         "expectedAnswer": null,
-        "explanation": "**Answer**\n\n`dict.keys()` returns a dynamic view object, not a static snapshot. Variable `y` stays linked to the dictionary's keys, so when `car[\"color\"] = \"red\"` adds a fourth key, `len(y)` becomes `4` even though `y` was created when there were only three keys.\n\n**Explanation**\n\nIf `keys()` returned a copy, the length would remain `3`. This live-view behavior is a common exam trap.",
+        "explanation": "**How it works**\n\n`dict.keys()` returns a dynamic `dict_keys` view object, not a static snapshot list. Variable `y` stays linked to the dictionary's keys, so when `car[\"color\"] = \"red\"` adds a fourth key via `__setitem__`, `len(y)` becomes `4` even though `y` was created when there were only three keys. If `keys()` returned a copy, the length would remain `3`.\n\nThis live-view behavior is a common exam trap.",
         "relatedTopics": [
           "be-2"
         ]
@@ -1979,7 +1979,7 @@
         ],
         "correctAnswerId": "c",
         "expectedAnswer": null,
-        "explanation": "**Answer**\n\nAdding *multiple items from another collection* uses different methods per type. Sets merge elements with `update(other_set)` (or `|=`); duplicates are ignored automatically.\n\n**Explanation**\n\nLists append each element from an iterable with `extend(other_list)`. `append()` only adds one object as a single element: `lst.append(other_list)` would nest the whole list, not merge items.\n\nOption A swaps in `append()` for the list side; B and D pair `extend()` with sets, which lists do not support.",
+        "explanation": "**Step by step**\n\nAdding *multiple items from another collection* uses different methods per type. Sets merge elements with `set.update(other_set)` (or the `|=` operator); duplicates are ignored automatically via hash uniqueness. Lists append each element from an iterable with `list.extend(other_list)`.\n\n`list.append()` only adds one object as a single element ; `lst.append(other_list)` would nest the whole list, not merge items.\n\n**Why the others fail**\n\n- A: swaps in `append()` for the list side; B and D pair `extend()` with sets, which lists do not support.",
         "relatedTopics": [
           "be-2"
         ]
@@ -2016,7 +2016,7 @@
         ],
         "correctAnswerId": "c",
         "expectedAnswer": null,
-        "explanation": "**Answer**\n\nBoth `my_dict.copy()` and `dict(my_dict)` create a new shallow copy of the dictionary: new outer dict, but nested objects are shared if present. Either works for a flat dict copy, so option C (\"a.\n\n**Explanation**\n\nand b.\") is correct. `makecopy()` is not a real dict method\n\n**Exam tip**\n\nshallow copy is enough for the question; `copy.deepcopy()` is only needed for nested mutable values inside values.",
+        "explanation": "**How it works**\n\nBoth `dict.copy()` and `dict(my_dict)` create a new shallow copy of the dictionary ; new outer dict, but nested objects are shared if present. Either works for a flat dict copy, so option C (\"a. and b.\") is correct. `makecopy()` is not a real dict method\n\n**Common mistake**\n\nShallow copy is enough for the question; `copy.deepcopy()` is only needed for nested mutable values inside values.",
         "relatedTopics": [
           "be-2"
         ]
@@ -2053,7 +2053,7 @@
         ],
         "correctAnswerId": "b",
         "expectedAnswer": null,
-        "explanation": "In CSS terminology, the combination of a property (`color`) and its value (`red`) separated by a colon is formally known as a Declaration.",
+        "explanation": "**How it works**\n\nA CSS rule has a selector and a declaration block `{ }`. Inside the block, each `property: value` pair is a declaration. In `color:red`, `color` is the property and `red` is the value; together they form one declaration. A full rule combines selector plus one or more declarations.\n\n**Why the others fail**\n\n- A: The selector targets elements (e.g. `p`, `.class`); it appears before `{`.\n- C: A rule includes the selector and the whole `{ ... }` block, not just one pair.\n- D: `red` is the value, not the combined property-value unit.",
         "relatedTopics": [
           "fe-4"
         ]
@@ -2078,7 +2078,7 @@
         ],
         "correctAnswerId": "b",
         "expectedAnswer": null,
-        "explanation": "False. Inline styles (using the `style` attribute directly on an HTML element) have the highest specificity and priority, overriding external stylesheets.",
+        "explanation": "**How it works**\n\nIn the CSS cascade, inline styles (`style=\"...\"` on an element) beat external stylesheets and internal `<style>` blocks when specificity is otherwise equal. External CSS does not have the highest priority ; `!important` and more specific selectors can also override, but inline generally wins over external.",
         "relatedTopics": [
           "fe-4"
         ]
@@ -2130,7 +2130,7 @@
         ],
         "correctAnswerId": "b",
         "expectedAnswer": null,
-        "explanation": "**Answer**\n\nThe `User-Agent` request header identifies the client software (browser, version, OS). `Referer` (sic in HTTP spec) sends the previous page URL.\n\n**Explanation**\n\n`Cookie` sends stored cookies. Servers use User-Agent for analytics and compatibility decisions.",
+        "explanation": "**How it works**\n\nThe `User-Agent` request header identifies the client software (browser, version, OS). `Referer` (sic in HTTP spec) sends the previous page URL. `Cookie` sends stored cookies from prior `Set-Cookie` responses.\n\nServers use `User-Agent` for analytics and compatibility decisions.",
         "relatedTopics": [
           "fe-1",
           "be-4"
@@ -2168,7 +2168,7 @@
         ],
         "correctAnswerId": "c",
         "expectedAnswer": null,
-        "explanation": "**Answer**\n\n`{{ name }}` in a Django template renders the value of the context variable `name` at that position. It is variable interpolation, not literal text.\n\n**Explanation**\n\nThe view must pass `name` in the context dict. Spacing inside `{{ name }}` is conventional; `{{name}}` also works but option C describes the semantics correctly.",
+        "explanation": "**How it works**\n\n`{{ name }}` in a Django template renders the value of the context variable `name` at that position via template variable resolution. It is variable interpolation, not literal text. The view must pass `name` in the context dict to `render()` or a `TemplateResponse`.\n\nSpacing inside `{{ name }}` is conventional; `{{name}}` also works but option C describes the semantics correctly.",
         "relatedTopics": [
           "be-7"
         ]
@@ -2205,7 +2205,7 @@
         ],
         "correctAnswerId": "d",
         "expectedAnswer": null,
-        "explanation": "With string operands, `+` concatenates to `2010`. The `-` operator coerces the strings to numbers, giving `10`.",
+        "explanation": "**Step by step**\n\nBoth `x` and `y` are strings (`\"20\"`, `\"10\"`). For `+`, if either operand is a string, JavaScript concatenates: `\"20\" + \"10\"` → `\"2010\"`. For `-`, both operands coerce to numbers: `20 - 10 = 10`. `document.writeln` prints both results: `2010, 10`.\n\n**Why the others fail**\n\n- A: `30` would require numeric `+`, but strings trigger concatenation.\n- B: `NAN` would mean subtraction failed, but `-` coerces strings to numbers.\n- C: Correct on `+` but wrong on `-`.\n\n**Common mistake**\n\nAssuming `+` always adds numbers when values look numeric but are stored as strings.",
         "relatedTopics": [
           "fe-5"
         ]
@@ -2242,7 +2242,7 @@
         ],
         "correctAnswerId": "c",
         "expectedAnswer": null,
-        "explanation": "The proper standard structure for a hyperlink utilizes the `<a>` (anchor) tag, assigning the URL destination to the `href` attribute, and wrapping the clickable text before the `</a>` closing tag.",
+        "explanation": "**How it works**\n\nHyperlinks use `<a href=\"URL\">visible text</a>`. The `href` attribute holds the destination URL; text between the tags is what users click. Option C has valid `href` syntax and a proper closing `>` before the link text.\n\n**Why the others fail**\n\n- A: Missing `href`; plain text inside `<a>` does not define a destination.\n- B: Malformed tag (missing `>` after the attribute value).\n- D: `link` is not the anchor attribute; `href` is required.",
         "relatedTopics": [
           "fe-2"
         ]
@@ -2279,7 +2279,7 @@
         ],
         "correctAnswerId": "a",
         "expectedAnswer": null,
-        "explanation": "`<div>` is a structural container for grouping sections, not for styling, headings, or titles by itself.",
+        "explanation": "**How it works**\n\n`<div>` is a block-level generic container for grouping content into sections or layout regions. It carries no inherent semantic meaning (unlike `<header>`, `<article>`). Styling comes from CSS classes or IDs applied to the div, not from the tag itself.\n\n**Why the others fail**\n\n- B: Styles are applied via CSS, not created by the `<div>` tag alone.\n- C: Headings use `<h1>` to `<h6>`, not `<div>`.\n- D: Page titles use `<title>` in `<head>`, not `<div>`.",
         "relatedTopics": [
           "fe-2"
         ]
@@ -2316,7 +2316,7 @@
         ],
         "correctAnswerId": "d",
         "expectedAnswer": null,
-        "explanation": "Inline CSS is the correct modern approach: use the `style` attribute with `property: value` pairs. Options c and d are both allowable HTML/CSS; a trailing semicolon after the last declaration is optional, but including one is preferred (as on lecture slide 14, Inline CSS).",
+        "explanation": "**How it works**\n\nModern inline CSS uses the `style` attribute with `property: value;` declarations. `background-color: green;` on `<body>` sets the page background. The deprecated `color` and `bg-color` attributes on `<body>` are not valid HTML5.\n\n**Why the others fail**\n\n- A: `color` on `<body>` is not the standard background approach.\n- B: `bg-color` is not a valid HTML attribute.\n- C: Missing the trailing semicolon after the last declaration, which course materials prefer even though CSS often tolerates omission.",
         "relatedTopics": [
           "fe-4",
           "fe-2"
@@ -2354,7 +2354,7 @@
         ],
         "correctAnswerId": "c",
         "expectedAnswer": null,
-        "explanation": "Valid arrow syntax; `f(4, 5)` returns `14`.",
+        "explanation": "**Step by step**\n\nArrow function `(a, b) => a + b + 5` is valid ES6 syntax. Calling `f(4, 5)` evaluates `4 + 5 + 5 = 14`. The function adds both parameters plus the literal `5` baked into the expression.\n\n**Why the others fail**\n\n- A: `f(3,4)` returns `12`, not `7`; even the stated `7` omits the `+5`.\n- B: `9` is only `4+5` without the extra `5`.\n- D: The syntax is valid modern JavaScript.",
         "relatedTopics": [
           "fe-5",
           "fe-6"
@@ -2392,7 +2392,7 @@
         ],
         "correctAnswerId": "a",
         "expectedAnswer": null,
-        "explanation": "The `map()` method transforms every element and requires a callback function. Option A supplies a valid arrow function.",
+        "explanation": "**How it works**\n\n`map` transforms each array element and returns a new array. The callback `(value) => value * 4` multiplies every number by 4. `filter` only keeps elements matching a test and would not multiply. The callback must be a function, not a bare expression like `value * 4`.\n\n**Why the others fail**\n\n- B: `filter` selects elements; it does not transform values by multiplication.\n- C: `map` requires a function argument, not `value * 4` alone.\n- D: Same issue as C, using `filter` with invalid callback syntax.",
         "relatedTopics": [
           "fe-6"
         ]
@@ -2429,7 +2429,7 @@
         ],
         "correctAnswerId": "b",
         "expectedAnswer": null,
-        "explanation": "The `filter()` method keeps elements that pass a callback test. Option B supplies a valid arrow function.",
+        "explanation": "**How it works**\n\n`filter` keeps elements where the callback returns true. `(value) => value < 10` retains only numbers less than 10. `map` would return a boolean array (`true`/`false` per element), not filter elements out.\n\n**Why the others fail**\n\n- A: `map` with `value < 10` produces booleans for every element, not a filtered subset.\n- C: `map` needs a function, not a bare comparison.\n- D: `filter` needs a function callback, not `value < 10` as a direct argument.",
         "relatedTopics": [
           "fe-6"
         ]
@@ -2454,7 +2454,7 @@
         ],
         "correctAnswerId": "b",
         "expectedAnswer": null,
-        "explanation": "This syntax is invalid. Arrays are defined using square brackets `[]` (e.g., `[\"red\", \"green\", \"blue\"]`).",
+        "explanation": "**How it works**\n\nCurly braces `{ }` with key-value pairs define a plain object, not an array. Arrays use square brackets `[]` with ordered values, e.g. `[\"red\", \"green\", \"blue\"]`. The syntax `{1:\"red\", 2:\"green\"}` creates an object with string keys `\"1\"` and `\"2\"`.",
         "relatedTopics": [
           "fe-5"
         ]
@@ -2479,7 +2479,7 @@
         ],
         "correctAnswerId": "b",
         "expectedAnswer": null,
-        "explanation": "**Answer**\n\nFor a Python list, `pop()` with no index removes and returns the last element. `[1, 2, 3]` ends with `3`, not `1`.\n\n**Explanation**\n\nThe statement says the removed item will be `1`, which is false. To remove the first element you must call `pop(0)`\n\n**Exam tip**\n\ndo not confuse list `pop()` with `set.pop()`, which removes an arbitrary element.",
+        "explanation": "**Step by step**\n\nFor a Python list, `list.pop()` with no index defaults to index `-1` and removes and returns the last element. `[1, 2, 3]` ends with `3`, not `1`. The statement says the removed item will be `1`, which is false.\n\nTo remove the first element you must call `pop(0)` explicitly.\n\n**Common mistake**\n\nDo not confuse list `pop()` with `set.pop()`, which removes an arbitrary element.",
         "relatedTopics": [
           "be-2"
         ]
@@ -2504,7 +2504,7 @@
         ],
         "correctAnswerId": "a",
         "expectedAnswer": null,
-        "explanation": "**Answer**\n\nFor a Python list, `pop()` with no argument removes the final element. In `[1, 2, 3]`, the last item is `3`, so `x = myNumbers.pop()` sets `x` to `3` and leaves `[1, 2]`.\n\n**Explanation**\n\nThe statement is therefore true. This pairs with question 68, which tests the same method but with a wrong claimed value.",
+        "explanation": "**Step by step**\n\nFor a Python list, `pop()` with no argument removes the final element at index `-1`. In `[1, 2, 3]`, the last item is `3`, so `x = myNumbers.pop()` sets `x` to `3` and leaves `[1, 2]`. The statement is therefore true.\n\nThis pairs with question 68, which tests the same method but with a wrong claimed value.",
         "relatedTopics": [
           "be-2"
         ]
@@ -2529,7 +2529,7 @@
         ],
         "correctAnswerId": "a",
         "expectedAnswer": null,
-        "explanation": "**Answer**\n\nEmpty built-in containers are falsy in boolean context. `bool([])` is `False`, as are `bool({})`, `bool(set())`, and `bool(\"\")`.\n\n**Explanation**\n\nAny list with at least one element is truthy, even `[0]` or `[False]`. The statement is true.\n\nThis pairs with set/index questions: `[]` is a valid list you can call methods on: falsy does not mean \"invalid\" or \"error\".",
+        "explanation": "**How it works**\n\nEmpty built-in containers are falsy in boolean context via `__len__() == 0`. `bool([])` is `False`, as are `bool({})`, `bool(set())`, and `bool(\"\")`. Any list with at least one element is truthy, even `[0]` or `[False]`, because length is nonzero.\n\nThe statement is true. This pairs with set/index questions: `[]` is a valid list you can call methods on ; falsy does not mean \"invalid\" or \"error\".",
         "relatedTopics": [
           "be-2"
         ]
@@ -2554,7 +2554,7 @@
         ],
         "correctAnswerId": "a",
         "expectedAnswer": null,
-        "explanation": "**Answer**\n\nPython provides the built-in `set()` constructor. You can build sets from iterables (`set([1, 2, 3])`), strings (`set(\"abc\")`), or empty sets (`set()`).\n\n**Explanation**\n\nCurly-brace literals like `{1, 2, 3}` are another syntax, not the only way. The statement is true.\n\nNote: `{}` alone creates an empty dict, not a set: use `set()` for an empty set.",
+        "explanation": "**How it works**\n\nPython provides the built-in `set()` constructor. You can build sets from iterables (`set([1, 2, 3])`), strings (`set(\"abc\")`), or empty sets (`set()`). Curly-brace literals like `{1, 2, 3}` are another syntax, not the only way.\n\nThe statement is true. Note: `{}` alone creates an empty dict, not a set ; use `set()` for an empty set because `{}` is parsed as dict literal syntax.",
         "relatedTopics": [
           "be-2"
         ]
@@ -2579,7 +2579,7 @@
         ],
         "correctAnswerId": "b",
         "expectedAnswer": null,
-        "explanation": "**Answer**\n\nSets store unique elements without positional indexing. You cannot do `s[0]` or iterate by index; use a `for` loop or convert to `list(s)` if order matters.\n\n**Explanation**\n\nSets are unordered (iteration order is not a reliable indexing scheme). The statement incorrectly adds \"indexed\", so it is false.\n\nContrast 2025 Q18/Q7, which state the correct \"unordered and unindexed\" definition.",
+        "explanation": "**How it works**\n\nSets store unique elements without positional indexing. You cannot do `s[0]` or iterate by index because `set` lacks `__getitem__`; use a `for` loop or convert to `list(s)` if order matters. Sets are unordered (iteration order is not a reliable indexing scheme).\n\nThe statement incorrectly adds \"indexed\", so it is false. Contrast 2025 Q18/Q7, which state the correct \"unordered and unindexed\" definition.",
         "relatedTopics": [
           "be-2"
         ]
@@ -2616,7 +2616,7 @@
         ],
         "correctAnswerId": "a",
         "expectedAnswer": null,
-        "explanation": "**Answer**\n\nThe `\n\n**person` syntax gathers keyword arguments into a dictionary inside the function. `f(name=\"Ahmed\", age=10)` makes `person` equivalent to `{\"name\": \"Ahmed\", \"age\": 10}`.\n\n**Explanation**\n\nOnly `person[\"name\"]` is used in the `print`, so output is `Person\"s name is Ahmed`. Extra keys like `age` are valid and do not cause an error.\n\nOptions C and D incorrectly suggest keyword arguments break the definition.",
+        "explanation": "**Step by step**\n\nThe `**person` syntax gathers keyword arguments into a dictionary inside the function via argument packing. `f(name=\"Ahmed\", age=10)` makes `person` equivalent to `{\"name\": \"Ahmed\", \"age\": 10}`. Only `person[\"name\"]` is used in the `print`, so output is `Person's name is Ahmed`.\n\nExtra keys like `age` are valid and do not cause an error because `**kwargs` accepts any keyword names.\n\n**Why the others fail**\n\n- C and D incorrectly suggest keyword arguments break the definition.",
         "relatedTopics": [
           "be-2"
         ]
@@ -2653,7 +2653,7 @@
         ],
         "correctAnswerId": "d",
         "expectedAnswer": null,
-        "explanation": "**Answer**\n\n`lambda x: x / 20` divides using `/`, which in Python 3 always produces a float. `100 / 20` evaluates to `5.0`, and `print` displays `5.0`.\n\n**Explanation**\n\nOption C (`5`) is the integer-looking value but is not what `/` returns. Option B shows source code, not evaluated output.\n\nUse `//` for floor division if you need integer `5`.",
+        "explanation": "**Step by step**\n\n`lambda x: x / 20` divides using `/`, which in Python 3 always produces a float via true division. `100 / 20` evaluates to `5.0`, and `print()` displays `5.0`. Use `//` for floor division if you need integer `5`.\n\n**Why the others fail**\n\n- C: (`5`) is the integer-looking value but is not what `/` returns.\n- B: shows source code, not evaluated output.",
         "relatedTopics": [
           "be-2"
         ]
@@ -2690,7 +2690,7 @@
         ],
         "correctAnswerId": "d",
         "expectedAnswer": null,
-        "explanation": "**Answer**\n\nPython uses indentation to define blocks. After `if 1 < 2:`, the next line must be indented to belong to the `if` body.\n\n**Explanation**\n\nHere the first `print` is not indented relative to the `if`, so Python raises `IndentationError` at parse time: no output is produced. Options A to C describe runtime output that cannot occur because the file fails before execution.\n\nCompare with 2021 Q58, where indentation is valid and the second `print` sits outside the `if`.",
+        "explanation": "**Step by step**\n\nPython uses indentation to define blocks after compound statements. After `if 1 < 2:`, the next line must be indented to belong to the `if` body. Here the first `print` is not indented relative to the `if`, so the parser raises `IndentationError` at parse time ; no output is produced.\n\nCompare with 2021 Q58, where indentation is valid and the second `print` sits outside the `if`.\n\n**Why the others fail**\n\n- A to C describe runtime output that cannot occur because the file fails before execution.",
         "relatedTopics": [
           "be-2"
         ]
@@ -2727,7 +2727,7 @@
         ],
         "correctAnswerId": "a",
         "expectedAnswer": null,
-        "explanation": "**Answer**\n\nSlice `x[:7]` includes indices `0` through `6` (the stop `7` is excluded). String `\"My Lovely Bird!\"` indices: `0:M, 1:y, 2:space, 3:L, 4:o, 5:v, 6:e`.\n\n**Explanation**\n\nResult: `\"My Love\"` (seven characters). Option B (`My Lovel`) would include index `7` (`l` from `Lovely`).\n\nOption C (`ly Bird!`) is the suffix starting at index `7`, not the prefix.",
+        "explanation": "**Step by step**\n\nSlice `x[:7]` includes indices `0` through `6` (the stop `7` is excluded). String `\"My Lovely Bird!\"` indices: `0:M, 1:y, 2:space, 3:L, 4:o, 5:v, 6:e`. Result: `\"My Love\"` (seven characters).\n\n**Why the others fail**\n\n- B: (`My Lovel`) would include index `7` (`l` from `Lovely`).\n- C: (`ly Bird!`) is the suffix starting at index `7`, not the prefix.",
         "relatedTopics": [
           "be-2"
         ]
@@ -2764,7 +2764,7 @@
         ],
         "correctAnswerId": "c",
         "expectedAnswer": null,
-        "explanation": "**Answer**\n\nSlice `x[7:]` starts at index `7` and runs to the end. Index `7` is the first `l` in `Lovely`, so the slice is `\"ly Bird!\"` (from that `l` through the exclamation mark).\n\n**Explanation**\n\nOption D (`y Bird!`) would start one index too late. Option A (`My Love`) is the `[:7]` prefix, not the suffix tested here.",
+        "explanation": "**Step by step**\n\nSlice `x[7:]` starts at index `7` and runs to the end (implicit stop). Index `7` is the first `l` in `Lovely`, so the slice is `\"ly Bird!\"` (from that `l` through the exclamation mark).\n\n**Why the others fail**\n\n- D: (`y Bird!`) would start one index too late.\n- A: (`My Love`) is the `[:7]` prefix, not the suffix tested here.",
         "relatedTopics": [
           "be-2"
         ]
@@ -2801,7 +2801,7 @@
         ],
         "correctAnswerId": "b",
         "expectedAnswer": null,
-        "explanation": "With depth 1, `flat()` yields `[1, 2, 3, [4, 5, 6], 7, 8]`. `document.writeln` coerces the array to a string; nested arrays join with commas, producing `1,2,3,4,5,6,7,8`.",
+        "explanation": "**Step by step**\n\n`flat()` with default depth `1` flattens one nesting level: `[1, 2, 3, [4, 5, 6], 7, 8]`. The inner `[4, 5, 6]` remains nested in the array, but `document.writeln(newArr)` stringifies the array. Nested arrays call `toString()` which joins with commas, so the displayed text becomes `1,2,3,4,5,6,7,8`.\n\n**Why the others fail**\n\n- A: Shows bracket notation around the inner group, which `toString()` does not produce.\n- C: That is the unflattened original structure.\n- D: A matching string output exists.\n\n**Common mistake**\n\nAssuming `flat()` without depth fully flattens ; the exam answer matches string output, not the true one-level-flat array structure.",
         "relatedTopics": [
           "fe-6"
         ]
@@ -2853,7 +2853,7 @@
         ],
         "correctAnswerId": "d",
         "expectedAnswer": null,
-        "explanation": "Text inside an element lives in a child text node. The correct approach is `document.getElementById(\"id1\").firstChild.nodeValue`. `innerHTML` is not equivalent; `.text` is not a standard element property; and `nodeValue` on the element itself is `null`.",
+        "explanation": "**How it works**\n\nText inside `<h2>Hello World</h2>` lives in a child text node, not on the element node itself. Reading it requires `element.firstChild.nodeValue` or `element.textContent`. `innerHTML` returns or sets markup, not the raw text-node API the question targets. `.text` is not a standard property on elements, and `element.nodeValue` is `null` for element nodes.\n\n**Why the others fail**\n\n- A: `innerHTML` can return `\"Hello World\"` in practice but is not the text-node `nodeValue` approach asked about.\n- B: `.text` is not part of the standard Element interface.\n- C: `nodeValue` on the `<h2>` element itself is `null`; it applies to text nodes.",
         "relatedTopics": [
           "fe-3"
         ]
@@ -2890,7 +2890,7 @@
         ],
         "correctAnswerId": "c",
         "expectedAnswer": null,
-        "explanation": "The script sets `h2` innerHTML to `my.length`, the count of `<p>` elements (6).",
+        "explanation": "**Step by step**\n\n`getElementsByTagName(\"p\")` returns an HTMLCollection of all `<p>` elements. Counting the page: Welcome, Paragraph 1, Paragraph 2, Paragraph 3, Paragraph 4, Paragraph 5 ; six total. The script sets `h2` innerHTML to `my.length`, replacing \"Hello World\" with `6`.\n\n**Why the others fail**\n\n- A: Original text before the script runs.\n- B: Suggests concatenation, but assignment replaces content entirely.\n- D: `6` is a listed option.",
         "relatedTopics": [
           "fe-3"
         ]
@@ -2927,7 +2927,7 @@
         ],
         "correctAnswerId": "c",
         "expectedAnswer": null,
-        "explanation": "Six `<p>` elements exist in the page, so the collection length is 6.",
+        "explanation": "**Step by step**\n\nVariable `my` holds the live collection from `getElementsByTagName(\"p\")`. Six `<p>` tags exist on the page (one before the div, two direct children of div, one inside section, two after div). `my.length` is therefore `6`.\n\n**Why the others fail**\n\n- A: `4` might count only paragraphs inside the div.\n- B: `5` misses one paragraph.\n- D: `3` counts only nested paragraphs.",
         "relatedTopics": [
           "fe-3"
         ]
@@ -2964,7 +2964,7 @@
         ],
         "correctAnswerId": "b",
         "expectedAnswer": null,
-        "explanation": "The child combinator `>` selects only direct `<p>` children of `<div>`: Paragraph 1 and Paragraph 2. Paragraph 3 is inside `<section>`, not a direct child of `<div>`.",
+        "explanation": "**Step by step**\n\nThe child combinator `div > p` selects `<p>` elements that are direct children of `<div>`. Paragraph 1 and Paragraph 2 qualify. Paragraph 3 is inside `<section>`, which is between `<div>` and that `<p>`, so it is not a direct child. Two elements match.\n\n**Why the others fail**\n\n- A: `3` incorrectly includes Paragraph 3 nested inside `<section>`.\n- C: `5` might count all paragraphs ignoring the combinator.\n- D: `6` is the total paragraph count, not direct children of div.",
         "relatedTopics": [
           "fe-4",
           "fe-3"
@@ -3002,7 +3002,7 @@
         ],
         "correctAnswerId": "b",
         "expectedAnswer": null,
-        "explanation": "The general sibling combinator `~` selects `<p>` siblings that follow `<div>` at the same level: Paragraph 4 and Paragraph 5.",
+        "explanation": "**Step by step**\n\nThe general sibling combinator `div ~ p` selects `<p>` elements that share the same parent as `<div>` and appear after it. Paragraph 4 and Paragraph 5 follow the closing `</div>` under `<body>`. Paragraphs inside the div are descendants, not following siblings.\n\n**Why the others fail**\n\n- A: `3` might include nested paragraphs.\n- C: `5` counts too many elements.\n- D: `6` is all paragraphs, not sibling-selected ones.",
         "relatedTopics": [
           "fe-4"
         ]
@@ -3039,7 +3039,7 @@
         ],
         "correctAnswerId": "b",
         "expectedAnswer": null,
-        "explanation": "The `nodeType` property returns an integer. For an element node (like the `<h2>` targeted here), `nodeType` is `1`.",
+        "explanation": "**Step by step**\n\n`nodeType` returns an integer constant identifying the node kind. Element nodes (like `<h2>`) have `nodeType === 1`. Text nodes use `3`. The question expects the numeric value `1`, not the descriptive label \"Element node\".\n\n**Why the others fail**\n\n- A: Correct conceptually but the API returns a number, not a string label.\n- C: Text nodes have `nodeType` 3, not elements.\n- D: `3` is the text-node code, not the element code.",
         "relatedTopics": [
           "fe-3"
         ]
@@ -3091,7 +3091,7 @@
         ],
         "correctAnswerId": "a",
         "expectedAnswer": null,
-        "explanation": "Square brackets `[]` encapsulate CSS attribute selectors, identifying components by the presence or explicit value of HTML attributes.",
+        "explanation": "**How it works**\n\nSquare brackets in a CSS selector define an attribute selector. `a[target=_blank]` matches `<a>` elements whose `target` attribute equals `_blank`. This is distinct from type selectors (`a`), class selectors (`.class`), and pseudo-elements (`::before`).\n\n**Why the others fail**\n\n- B: \"Anchor selector\" is not formal CSS terminology.\n- C: Pseudo-elements use `::` and style generated content, not HTML attributes.\n- D: A valid term exists.",
         "relatedTopics": [
           "fe-4"
         ]
@@ -3128,7 +3128,7 @@
         ],
         "correctAnswerId": "d",
         "expectedAnswer": null,
-        "explanation": "`:first-child` matches only when an element is the first child of its parent. Under `<body>`, `<h2>` is the first child, not any `<p>`, so none match.",
+        "explanation": "**Step by step**\n\n`:first-child` matches an element only if it is the first child of its parent. Under `<body>`, the first child is `<h2>`, not any `<p>`. Each `<p>` has preceding siblings (`<h2>` or other elements), so no `<p>` is a first child of `<body>`. Zero elements styled.\n\n**Why the others fail**\n\n- A: `1` might assume the first `<p>` visually counts.\n- B and C: Overcount by ignoring the `<h2>` that blocks first-child status for paragraphs under body.\n- D: Zero is not listed, so \"None of the above\" is correct.\n\n**Common mistake**\n\nConfusing \"first paragraph in the document\" with the `:first-child` pseudo-class.",
         "relatedTopics": [
           "fe-4"
         ]
@@ -3165,7 +3165,7 @@
         ],
         "correctAnswerId": "d",
         "expectedAnswer": null,
-        "explanation": "Using just the plain element selector (`a`) targets all anchor tags ubiquitously across the document.",
+        "explanation": "**How it works**\n\nA type selector `a { background-color: yellow; }` applies the rule to every anchor element. Attribute selectors like `a[target]` only match anchors that have a `target` attribute, missing links without it. `a.all` would require `class=\"all\"`.\n\n**Why the others fail**\n\n- A: Only targets anchors with any `target` attribute, not all links.\n- B: `a.all` is a class selector requiring `class=\"all\"`.\n- C: Invalid comma syntax inside one attribute selector; still would not select all anchors.",
         "relatedTopics": [
           "fe-4"
         ]
@@ -3202,7 +3202,7 @@
         ],
         "correctAnswerId": "a",
         "expectedAnswer": null,
-        "explanation": "The `:hover` pseudo-class specifically manages state changes triggered by a user placing their pointing device over an element.",
+        "explanation": "**How it works**\n\n`:hover` is a pseudo-class that applies styles while the pointer is over an element. `a:hover { background-color: yellow; }` changes anchor background on mouseover. `::hover` is invalid (pseudo-elements use `::`, but hover is a class). `:link` styles unvisited links statically; `:active` applies during click.\n\n**Why the others fail**\n\n- B: `::hover` is not valid CSS syntax.\n- C: `:link` targets unvisited state, not mouse hover.\n- D: `:active` applies during activation (click), not hover.",
         "relatedTopics": [
           "fe-4"
         ]
@@ -3239,7 +3239,7 @@
         ],
         "correctAnswerId": "c",
         "expectedAnswer": null,
-        "explanation": "In HTML syntax rules, `href` acts as the property name (the attribute), whereas strings enclosed in quotes like `\"_blank\"` operate as assigned values.",
+        "explanation": "**How it works**\n\nIn HTML, `href` and `target` are attribute names (properties on the tag). Values assigned to them, such as `\"_blank\"`, are attribute values. In `target=\"_blank\"`, `target` is the attribute and `_blank` is its value.\n\n**Why the others fail**\n\n- A: Reverses attribute and value roles.\n- B: `href` is not a value; it is the attribute name for the URL.\n- D: `_blank` is not a text node; it is a string value in markup.",
         "relatedTopics": [
           "fe-2",
           "fe-4"
@@ -3277,7 +3277,7 @@
         ],
         "correctAnswerId": "a",
         "expectedAnswer": null,
-        "explanation": "An Absolute URL includes the entire operational path (protocol and domain). A Relative URL merely provides the path correlating to the currently loaded page's domain/directory.",
+        "explanation": "**How it works**\n\nAn absolute URL includes the full address with protocol and domain, e.g. `https://w3schools.com`. A relative URL gives a path relative to the current document, e.g. `Page2.html` resolves against the current site's base URL. Browsers combine relative paths with the current location.\n\n**Why the others fail**\n\n- B: Reverses absolute and relative definitions.\n- C: `https://w3schools.com` is not relative.\n- D: Clear absolute/relative pairing exists in option A.",
         "relatedTopics": [
           "fe-2",
           "fe-1"
