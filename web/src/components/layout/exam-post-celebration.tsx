@@ -3,6 +3,10 @@
 import dynamic from "next/dynamic";
 import { useState } from "react";
 import { GitHubIcon } from "@/components/icons/github-icon";
+import {
+  EXAM_CONFETTI_ENABLED,
+  EXAM_POST_CELEBRATION_ENABLED,
+} from "@/lib/exam-features";
 import { getExamPhase } from "@/lib/exam-start";
 import {
   FEEDBACK_FORM_URL,
@@ -22,11 +26,11 @@ const ExamConfetti = dynamic(
 export function ExamPostCelebration() {
   const [visible] = useState(() => getExamPhase() === "after");
 
-  if (!visible) return null;
+  if (!EXAM_POST_CELEBRATION_ENABLED || !visible) return null;
 
   return (
     <>
-      <ExamConfetti />
+      {EXAM_CONFETTI_ENABLED ? <ExamConfetti /> : null}
       <div
         className={cn(
           "mx-auto mb-4 w-full max-w-4xl rounded-xl border border-emerald-500/35 bg-emerald-500/10 px-4 py-3",

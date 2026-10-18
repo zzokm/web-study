@@ -17,6 +17,7 @@ import {
   ServerIcon,
   SquarePenIcon,
 } from "lucide-react";
+import { EXAM_COUNTDOWN_ENABLED } from "@/lib/exam-features";
 import { ExamCountdown } from "@/components/layout/exam-countdown";
 import { SidebarFeedbackPill } from "@/components/layout/sidebar-feedback-pill";
 import { HeaderReportIssuePill } from "@/components/layout/header-report-issue-pill";
@@ -103,7 +104,7 @@ function AppShellInner({ children }: { children: React.ReactNode }) {
         </SidebarHeader>
         <SidebarContent className="sidebar-scroll pt-0">
           <div className="flex flex-col justify-end px-2 pt-3">
-            <ExamCountdown className="mx-0" />
+            {EXAM_COUNTDOWN_ENABLED ? <ExamCountdown className="mx-0" /> : null}
             <SidebarFeedbackPill />
           </div>
           {navSections.map((section, index) => (
